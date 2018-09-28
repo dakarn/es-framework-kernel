@@ -10,8 +10,14 @@ namespace System\Logger;
 
 class AbstractLogger
 {
+	/**
+	 * @var null
+	 */
 	private $strategy = null;
 
+	/**
+	 * @return LoggerStorageInterface
+	 */
 	protected function getStrategy(): LoggerStorageInterface
 	{
 		if ($this->strategy === null) {
@@ -21,6 +27,10 @@ class AbstractLogger
 		return $this->strategy;
 	}
 
+	/**
+	 * @param string $level
+	 * @param string $message
+	 */
 	public function log(string $level, string $message = '')
 	{
 		if (!method_exists($this, $level)) {

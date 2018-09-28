@@ -10,6 +10,10 @@ namespace Exception;
 
 class ObjectException extends \Exception
 {
+	/**
+	 * @param array $argumnets
+	 * @return ObjectException
+	 */
 	public static function notFound(array $argumnets = []): self
 	{
 		return new self('This class or interface or trait "' . $argumnets[0] . '" not found!');

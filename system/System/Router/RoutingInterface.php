@@ -10,5 +10,20 @@ namespace System\Router;
 
 interface RoutingInterface
 {
+	/**
+	 * @param array $routers
+	 * @param string $path
+	 * @return Router
+	 */
+	public static function findRoute(array $routers, string $path): Router;
 
+	/**
+	 * @param Router $router
+	 */
+	public static function setFoundRouter(Router $router): void;
+
+	/**
+	 * @return Router
+	 */
+	public static function getFoundRouter(): Router;
 }

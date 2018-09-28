@@ -10,5 +10,12 @@ namespace Exception;
 
 class RequestException extends \Exception
 {
-
+	/**
+	 * @param array $argumnets
+	 * @return RequestException
+	 */
+	public static function failed(array $argumnets = []): self
+	{
+		return new self('');
+	}
 }

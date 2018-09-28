@@ -8,21 +8,43 @@
 
 namespace System\Validators;
 
-use Helper\CSRFToken;
+use Http\Cookie;
+use Helper\CSRFTokenManager;
 use Helper\FlashText;
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 
 abstract class AbstractValidator implements AbstractValidatorInterface
 {
+	/**
+	 * @var string
+	 */
+	private const POST = 'POST';
+
+	/**
+	 * @var string
+	 */
+	private const GET = 'GET';
+
+    /**
+     * @var array
+     */
+	private const DEFAULT_ERROR = [
+	    'csrfToken' => 'Отпарвлена невлидная форма'
+    ];
+
+	/**
+	 * @var array
+	 */
 	protected $stackErrors = [];
 
+	/**
+	 * @var bool
+	 */
 	public $isUseFlashErrors = false;
 
-	private $post = 'POST';
-
-	private $get  = 'GET';
-
-
+	/**
+	 * @return array
+	 */
 	public function getErrorsApi(): array
 	{
 		$errors = [
@@ -38,6 +60,9 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $errors;
 	}
 
+	/**
+	 * @return AbstractValidator
+	 */
 	public function setFlashErrors(): self
 	{
 		if (!$this->isUseFlashErrors) {
@@ -51,35 +76,55 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getErrors(): array
 	{
 		return $this->stackErrors;
 	}
 
+	/**
+	 * @param string $field
+	 * @return string
+	 */
 	public function getError(string $field): string
 	{
 		return $this->stackErrors[$field] ?? '';
 	}
 
-	public function isCSRFToken(): bool
+	public function validateCSRFToken()
 	{
-		return CSRFToken::create()
+		$isValid =  CSRFTokenManager::create()
 			->setValidationData(
-				Request::create()->getCookie()->get('CSRFToken'),
-				Request::create()->takePost('CSRFToken'))
+				Cookie::create()->get('CSRFToken'),
+				ServerRequest::create()->takePost('CSRFToken'))
 			->isValid();
+
+		if (!$isValid) {
+            $this->stackErrors['token'] = self::DEFAULT_ERROR['csrfToken'];
+        }
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isPost(): bool
 	{
-		return Request::create()->getMethod() === $this->post;
+		return ServerRequest::create()->getMethod() === self::POST;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isGet(): bool
 	{
-		return Request::create()->getMethod() === $this->get;
+		return ServerRequest::create()->getMethod() === self::GET;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isValid(): bool
 	{
 		$this->validate();
@@ -88,5 +133,8 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return empty($this->stackErrors);
 	}
 
+	/**
+	 * @return mixed
+	 */
 	abstract public function validate();
 }

@@ -10,5 +10,9 @@ namespace System\Logger;
 
 interface LoggerAwareInterface
 {
+	/**
+	 * @param LoggerInterface $logger
+	 * @return mixed
+	 */
 	public static function setLogger(LoggerInterface $logger);
 }

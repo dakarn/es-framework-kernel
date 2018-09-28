@@ -11,79 +11,160 @@ namespace Http\Response;
 use Exception\ResponseException;
 use Exception\RoutingException;
 use Helper\Cookie;
+use System\Render;
 use System\Router\Routing;
 
-class Response
+class Response implements ResponseInterface
 {
-	private $responseType;
+	/**
+	 * @var FormatResponseInterface
+	 */
+	private $formatterType;
 
 	/**
-	 * @var ResponseInterface
+	 * @var string
 	 */
-	private $response;
+	private $data = '';
 
-	private $data;
-
-	private $param;
-
+	/**
+	 * @var array
+	 */
 	private $headers = [];
 
-	private $template;
+	/**
+	 * @var string
+	 */
+	private $template = '';
 
+	/**
+	 * @var array
+	 */
 	private $cookies = [];
 
+	/**
+	 * @var array
+	 */
 	private $status = [];
 
+	/**
+	 * Response constructor.
+	 */
 	public function __construct()
 	{
 	}
 
-	public function getData()
+	/**
+	 * @return Response
+	 */
+	public function setAccessOrigin(): Response
+	{
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBody(): string
 	{
 		return $this->data;
 	}
 
-	public function setData($data = null, string $responseType = 'simple', array $param = []): Response
+	public function getStatusCode(): string
+    {
+        return $this->status[0];
+    }
+
+
+    /**
+	 * @param FormatResponseInterface $formatted
+	 * @return Response
+	 */
+	public function withBody(FormatResponseInterface $formatted): Response
 	{
-		$this->param        = $param;
-		$this->data         = $this->data . $data;
-		$this->responseType = $responseType;
+		$this->formatterType = $formatted;
+		$this->data          = $formatted->getFormattedText();
+
 		return $this;
 	}
 
-	public function render(): Response
+	/**
+	 * @return Response
+	 */
+	public function output(): Response
 	{
-		$this->selectResponse();
-
-		echo $this->response->render($this->data, $this->param);
+		echo $this->data;
 		return $this;
 	}
 
+    /**
+     * @return string
+     */
+	public function returnOutput(): string
+	{
+		return $this->data;
+	}
+
+	/**
+	 * @param string $name
+	 * @param string $value
+	 * @return Response
+	 */
 	public function withHeader(string $name, string $value): Response
 	{
 		$this->headers[$name] = $value;
 		return $this;
 	}
 
+    /**
+     * @param string $files
+     * @return Response
+     */
+	public function withFiles(string $files): Response
+    {
+        return $this;
+    }
+
+    /**
+	 * @param string $name
+	 * @param string $value
+	 * @return Response
+	 */
 	public function withCookie(string $name, string $value): Response
 	{
 		$this->cookies[$name] = $value;
 		return $this;
 	}
 
+	/**
+	 * @param string $template
+	 * @return Response
+	 */
 	public function withTemplate(string $template): Response
 	{
 		$this->template = $template;
 		return $this;
 	}
 
+	/**
+	 * @param string $code
+	 * @param string $text
+	 * @return Response
+	 */
 	public function withStatus(string $code, string $text): Response
 	{
 		$this->status[$code] = $text;
 		return $this;
 	}
 
-	public function sendHeaders()
+	public function getReasonPhrase(): string
+    {
+        return '';
+    }
+
+    /**
+	 * @return bool
+	 */
+	public function sendHeaders(): bool
 	{
 		foreach ($this->headers as $headerKey => $header) {
 			header($headerKey . ': ' . $header, false);
@@ -92,14 +173,25 @@ class Response
 		foreach ($this->cookies as $cookieKey => $cookie) {
 			Cookie::create()->set($cookieKey, $cookie);
 		}
+
+		return true;
 	}
 
+	/**
+	 * @param string $url
+	 */
 	public function redirect(string $url): void
 	{
 		header('Location: ' . $url);
 		exit;
 	}
 
+	/**
+	 * @param string $routerName
+	 * @param array $arguments
+	 * @param int $status
+	 * @throws RoutingException
+	 */
 	public function redirectToRoute(string $routerName, array $arguments, int $status): void
 	{
 		$router = Routing::getRouterList()->get($routerName);
@@ -111,26 +203,5 @@ class Response
 		}
 
 		throw RoutingException::notFound([$routerName]);
-	}
-
-	private function selectResponse(): void
-	{
-		switch ($this->responseType) {
-			case 'simple':
-				$this->response = new SimpleResponse();
-				break;
-			case 'json':
-				$this->response = new JsonResponse();
-				break;
-			case 'api':
-				$this->response = new ApiResponse();
-				break;
-			case 'xml':
-				$this->response = new XMLResponse();
-				break;
-			default:
-				throw ResponseException::invalidResponse();
-				break;
-		}
 	}
 }

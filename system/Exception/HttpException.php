@@ -10,5 +10,30 @@ namespace Exception;
 
 class HttpException extends \Exception
 {
+	/**
+	 * @param array $arguments
+	 * @return HttpException
+	 */
+	public static function notFound(array $arguments = []): self
+	{
+		return new self('');
+	}
 
+	/**
+	 * @param array $arguments
+	 * @return HttpException
+	 */
+	public static function internalError(array $arguments = []): self
+	{
+		return new self('');
+	}
+
+	/**
+	 * @param array $arguments
+	 * @return HttpException
+	 */
+	public static function badRequest(array $arguments = []): self
+	{
+		return new self('');
+	}
 }

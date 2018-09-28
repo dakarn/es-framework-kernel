@@ -8,17 +8,12 @@
 
 namespace System\Kernel;
 
-use System\Logger\LoggerStorage;
+use System\Registry;
 
 class ShutdownScript
 {
 	public static function run()
 	{
-		self::releaseLog();
-	}
-
-	private static function releaseLog()
-	{
-		LoggerStorage::create()->releaseLog();
+		Registry::get(Registry::APP)->terminate();
 	}
 }

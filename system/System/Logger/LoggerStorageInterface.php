@@ -10,9 +10,20 @@ namespace System\Logger;
 
 interface LoggerStorageInterface
 {
+	/**
+	 * @param string $level
+	 * @param string $message
+	 * @return LoggerStorageInterface
+	 */
 	public function addLog(string $level, string $message): LoggerStorageInterface;
 
+	/**
+	 * @return array
+	 */
 	public function getLog(): array;
 
+	/**
+	 *
+	 */
 	public function releaseLog(): void;
 }

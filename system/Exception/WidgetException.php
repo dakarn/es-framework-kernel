@@ -10,6 +10,10 @@ namespace Exception;
 
 class WidgetException extends \Exception
 {
+	/**
+	 * @param array $arguments
+	 * @return WidgetException
+	 */
 	public static function notFound(array $arguments = []): self
 	{
 		return new self('This widget "' . $arguments[0]  . '" not found!');

@@ -10,6 +10,10 @@ namespace Exception;
 
 class TemplateException extends \Exception
 {
+	/**
+	 * @param array $arguments
+	 * @return TemplateException
+	 */
 	public static function notFound(array $arguments = []): self
 	{
 		return new self('');

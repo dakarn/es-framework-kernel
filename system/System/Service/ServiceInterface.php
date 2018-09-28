@@ -10,5 +10,8 @@ namespace System\Service;
 
 interface ServiceInterface
 {
+	/**
+	 * @param array $arguments
+	 */
 	public function setArguments(array $arguments);
 }

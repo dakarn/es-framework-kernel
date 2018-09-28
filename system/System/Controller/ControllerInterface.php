@@ -8,17 +8,35 @@
 
 namespace System\Controller;
 
+use Http\Request\ServerRequest;
 use System\EventListener\EventManager;
 use Http\Response\Response;
 use System\Router\RouteData;
 
 interface ControllerInterface
 {
+	/**
+	 * @param RouteData $route
+	 * @return mixed
+	 */
 	public function __before(RouteData $route);
 
+	/**
+	 * @param RouteData $route
+	 * @return mixed
+	 */
 	public function __after(RouteData $route);
 
-	public function __construct(EventManager $eventManager, Response $response);
+	/**
+	 * ControllerInterface constructor.
+	 * @param EventManager $eventManager
+	 * @param Response $response
+	 * @param ServerRequest $request
+	 */
+	public function __construct(EventManager $eventManager, Response $response, ServerRequest $request);
 
+	/**
+	 *
+	 */
 	public function __destruct();
 }

@@ -9,126 +9,86 @@
 namespace System\Kernel\TypesApp;
 
 use App\AppKernel;
-use Exception\ControllerException;
-use Exception\ResponseException;
-use Middleware\RequestHandler;
-use Middleware\StorageMiddleware;
+use Exception\ExceptionListener\ExceptionListener;
+use Http\Request\ServerRequest;
+use Http\Middleware\StorageMiddleware;
 use Providers\StorageProviders;
-use System\Controller\ControllerInterface;
+use Http\Response\Response;
+use System\Database\DB;
 use System\EventListener\EventTypes;
-use Http\Request\Request;
 use System\Logger\LoggerStorage;
 use System\Logger\LogLevel;
-use System\Logger\Logger;
-use System\Logger\LoggerAware;
-use System\Render;
-use Http\Response\Response;
-use System\Router\RouteData;
-use System\Controller\AbstractController;
-use System\Router\Router;
-use System\Kernel\GETParam;
-use System\Router\Routing;
 
 final class WebApp extends AbstractApplication
 {
 	/**
 	 * @var Response
 	 */
-	public $response;
+	private $response;
+
+    /**
+     * @var ServerRequest
+     */
+	private $request;
 
 	/**
-	 * @var Response | Render
+	 * @param AppKernel $appKernel
+	 * @return AbstractApplication
 	 */
-	private $resultAction;
-
 	public function setAppKernel(AppKernel $appKernel): AbstractApplication
 	{
 		parent::setAppKernel($appKernel);
 		StorageProviders::add($appKernel->getProviders());
+		StorageMiddleware::add($appKernel->getMiddlewares());
 
 		return $this;
 	}
 
-	public function run(): void
+	/**
+	 * @return WebApp
+	 */
+	public function handle(): WebApp
 	{
-		$this->response = Request::create()->resultHandle();
+		$this->request = ServerRequest::fromGlobal()->handle();
 
-		$this->runController(Routing::getFoundRouter());
-		$this->outputResponse($this->resultAction);
+		return $this;
 	}
 
-	public function runController(Router $router)
+	/**
+	 * @return void
+	 */
+	public function run(): void
 	{
-		/** @var AbstractController $controller */
-
-		$className = 'App\\' . str_replace(':', '\\', $router->getController());
-		$action    = $router->getAction() . self::PREFIX_ACTION;
+	    $this->runInternal();
 
 		try {
-			$routeData  = $this->setRouteData($action, $router);
-
-			$this->eventManager->runEvent(EventTypes::BEFORE_CONTROLLER, [
-				'controller' => $routeData->getControllerName(),
-				'action'     => $routeData->getActionName(),
-			]);
-
-			$controller = new $className($this->eventManager, $this->response);
-
-			if (!$controller->__before($routeData)) {
-				return;
-			}
-
-			$this->runAction($controller, $action);
-
-			$controller->__after($routeData);
-			$this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
+			$this->handle();
 		} catch(\Throwable $e) {
-
-			LoggerAware::setlogger(new Logger())->log(LogLevel::ERROR, $e->getMessage());
-			LoggerStorage::create()->releaseLog();
-			$this->eventManager->runEvent(EventTypes::APP_THROW_EXCEPTION, ['exception' => $e]);
-
+			$this->log(LogLevel::ERROR, $e->getTraceAsString());
+			new ExceptionListener($e);
 			$this->outputException($e);
 		}
 	}
 
-	public function runAction(ControllerInterface $controller, string $action)
+	/**
+	 * @return void
+	 */
+	public function outputResponse(): void
 	{
-		if (!method_exists($controller, $action)) {
-			throw ControllerException::notFoundController([$action]);
-		}
+		$this->response = $this->request->resultHandle();
 
-		$this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
-		$this->resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
-		$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
-	}
-
-	public function outputResponse($resultAction): void
-	{
 		$this->response->sendHeaders();
+		$this->response->output();
 
-		if ($resultAction instanceof Render) {
-			$this->response->setData($resultAction->render())->render();
-		} else {
-			$this->response->render();
-		}
+		$this->eventManager->runEvent(EventTypes::AFTER_OUTPUT_RESPONSE);
 	}
 
-	public function runMiddleware()
+	/**
+	 * @return void
+	 */
+	public function terminate(): void
 	{
-		/*if (!empty($router->getMiddleware())) {
-			foreach ($router->getMiddleware() as $middleware) {
-				StorageMiddleware::addOne(['class' => $middleware]);
-			}
-		}*/
-	}
-
-	private function setRouteData(string $action, Router $router): RouteData
-	{
-		$routeData  = (new RouteData())
-			->setData('action', $action)
-			->setData('controller', substr($router->getController(), strrpos($router->getController(), ':') + 1));
-
-		return $routeData;
+		DB::disconnect();
+		LoggerStorage::create()->releaseLog();
 	}
 }

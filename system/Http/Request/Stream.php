@@ -25,21 +25,33 @@ class Stream implements StreamInterface
 
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function eof(): bool
 	{
 		return true;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getSize(): int
 	{
 		return 0;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isSeekable(): bool
 	{
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isReadable(): bool
 	{
 		return true;
@@ -50,6 +62,9 @@ class Stream implements StreamInterface
 
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getContent(): string
 	{
 		return '';
@@ -60,6 +75,9 @@ class Stream implements StreamInterface
 
 	}
 
+	/**
+	 * @return string
+	 */
 	public function read(): string
 	{
 		return '';
@@ -70,8 +88,11 @@ class Stream implements StreamInterface
 
 	}
 
-	public function getMetadata()
+	/**
+	 * @return string
+	 */
+	public function getMetadata(): string
 	{
-
+        return '';
 	}
 }

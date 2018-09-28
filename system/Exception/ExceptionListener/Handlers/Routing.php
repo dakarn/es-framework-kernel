@@ -8,9 +8,9 @@
 
 namespace Exception\ExceptionListener\Handlers;
 
-use Exception\ExceptionListener\ExceptionListenerInterface;
+use Exception\ExceptionListener\ExceptionHandlerInterface;
 
-class Routing implements ExceptionListenerInterface
+class Routing implements ExceptionHandlerInterface
 {
 	public function run(\Throwable $e)
 	{

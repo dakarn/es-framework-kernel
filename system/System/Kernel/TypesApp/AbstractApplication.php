@@ -12,17 +12,27 @@ use App\AppKernel;
 use System\EventListener\EventManager;
 use Http\Response\Response;
 use System\Database\DB;
-use System\Config;
+use Configs\Config;
 use System\Database\DatabaseConfigure;
+use System\Logger\Logger;
+use System\Logger\LoggerAware;
+use System\Registry;
+use System\Router\Routing;
 
-abstract class AbstractApplication
+abstract class AbstractApplication implements ApplicationInterface
 {
+	/**
+	 * @var array
+	 */
 	const ENV_TYPE = [
 		'DEV'  => 'DEV',
 		'TEST' => 'TEST',
 		'PROD' => 'PROD',
 	];
 
+	/**
+	 * @var array
+	 */
 	const APP_TYPE = [
 		'Web'     => 'Web',
 		'Console' => 'Console',
@@ -30,10 +40,19 @@ abstract class AbstractApplication
 		'Api'     => 'Api',
 	];
 
+	/**
+	 * @var string
+	 */
 	const PREFIX_ACTION = 'Action';
 
+    /**
+     * @var string
+     */
 	protected $env;
 
+    /**
+     * @var bool
+     */
 	protected $wasRun = false;
 
 	/**
@@ -46,13 +65,30 @@ abstract class AbstractApplication
 	 */
 	protected $appKernel;
 
+    /**
+     * @var string
+     */
 	protected $applicationType = '';
 
+    /**
+     * AbstractApplication constructor.
+     */
 	public function __construct()
 	{
-		DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
+		Registry::set(Registry::APP, $this);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function outputResponse(): void
+	{
+	}
+
+    /**
+     * @param $env
+     * @return AbstractApplication
+     */
 	public function setEnvironment($env): self
 	{
 		if (!isset(self::ENV_TYPE[$env])) {
@@ -67,44 +103,79 @@ abstract class AbstractApplication
 		return $this;
 	}
 
+    /**
+     * @param string $applicationType
+     * @return AbstractApplication
+     */
 	public function setApplicationType(string $applicationType): self
 	{
 		$this->applicationType = $applicationType;
 		return $this;
 	}
 
+    /**
+     * @return bool
+     */
 	public function isWebApp(): bool
 	{
 		return $this->getApplicationType() === self::APP_TYPE['Web'];
 	}
 
+	/**
+     * @return bool
+     */
+	public function isAPIApp(): bool
+	{
+		return $this->getApplicationType() === self::APP_TYPE['API'];
+	}
+
+    /**
+     * @return bool
+     */
 	public function isConsoleApp(): bool
 	{
 		return $this->getApplicationType() === self::APP_TYPE['Console'];
 	}
 
+    /**
+     * @return string
+     */
 	public function getApplicationType(): string
 	{
 		return $this->applicationType;
 	}
 
+    /**
+     * @param EventManager $eventManager
+     * @return AbstractApplication
+     */
 	public function setAppEvent(EventManager $eventManager): self
 	{
 		$this->eventManager = $eventManager;
 		return $this;
 	}
 
+    /**
+     * @return EventManager
+     */
 	public function getEventApp(): EventManager
 	{
 		return $this->eventManager;
 	}
 
+    /**
+     * @param AppKernel $appKernel
+     * @return AbstractApplication
+     */
 	public function setAppKernel(AppKernel $appKernel): self
 	{
 		$this->appKernel = $appKernel;
 		return $this;
 	}
 
+    /**
+     * @return void
+     */
 	public function isRepeatRun()
 	{
 		if ($this->wasRun) {
@@ -114,21 +185,50 @@ abstract class AbstractApplication
 		$this->wasRun = true;
 	}
 
+    /**
+     * @return string
+     */
 	public function getEnvironment(): string
 	{
 		return $this->env;
 	}
 
-	public function outputException(\Throwable $e)
+	/**
+	 * @param \Throwable $e
+	 * @throws \Throwable
+	 * @return void
+	 */
+	public function outputException(\Throwable $e): void
 	{
 		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
 			throw $e;
 		} else {
-			if($this->isWebApp()) {
+			if($this->isWebApp() && !Routing::isDefaultRouter()) {
 				(new Response())->redirect(URL);
 			}
 		}
 	}
+
+	/**
+	 * @param string $level
+	 * @param string $message
+	 * @return void
+	 */
+	protected function log(string $level, string  $message): void
+	{
+		LoggerAware::setlogger(new Logger())->log($level, $message);
+	}
+
+    /**
+     * @return void
+     */
+	protected function runInternal(): void
+    {
+        Config::setEnvForConfig($this);
+        DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
+    }
+
+    abstract public function terminate();
 
 	abstract public function run();
 }

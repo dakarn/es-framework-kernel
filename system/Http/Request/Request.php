@@ -8,197 +8,266 @@
 
 namespace Http\Request;
 
-use App\AppKernel;
-use Traits\SingletonTrait;
-use Helper\Cookie;
-use Helper\Session;
-use Middleware\StorageMiddleware;
-use Exception\ResponseException;
-use Middleware\RequestHandler;
-use Http\Response\Response;
-
 class Request implements RequestInterface
 {
-	use SingletonTrait;
+    /**
+     * @var string
+     */
+    const
+        POST    = 'POST',
+        DELETE  = 'DELETE',
+        PUT     = 'PUT',
+        OPTIONS = 'OPTIONS',
+        GET     = 'GET',
+        PATCH   = 'PATCH',
+        CONNECT = 'CONNECT';
 
-	private $headers   = [];
-	private $method    = '';
-	private $host      = '';
-	private $path      = '';
-	private $scheme    = '';
-	private $cookies   = [];
-	private $referer   = '';
-	private $userAgent = '';
-	private $proxy     = '';
+    /**
+     * @var array
+     */
+	protected $headers = [];
+
+    /**
+     * @var string
+     */
+	protected $method = '';
+
+    /**
+     * @var UriInterface
+     */
+    protected $uri;
+
+    /**
+     * @var string
+     */
+    protected $path = '';
+
+    /**
+     * @var string
+     */
+    protected $scheme = '';
+
+    /**
+     * @var array
+     */
+    protected $cookies = [];
+
+    /**
+     * @var string
+     */
+    protected $referer = '';
+
+    /**
+     * @var string
+     */
+    protected $userAgent = '';
+
+    /**
+     * @var string
+     */
+    protected $proxy = '';
+
+    /**
+     * @var string
+     */
+    protected $body = '';
 
 	/**
-	 * @var  Response
+	 * @return Request
 	 */
-	private $rresponse;
-
-	public function handle(AppKernel $appKernel)
+	public static function create(): Request
 	{
-		StorageMiddleware::add($appKernel->getMiddlewares());
-
-		if (!isset(StorageMiddleware::get()[0])) {
-			throw ResponseException::invalidResponse();
-		}
-
-		$runHandler = new RequestHandler();
-		$this->rresponse = $runHandler->handle(Request::create(), $runHandler);
+		return new static;
 	}
 
-	public function resultHandle(): Response
-	{
-		return $this->rresponse;
-	}
-
-	public function getHeaders(): array
-	{
-		return !empty($this->headers) ? $this->headers: $_SERVER;
-	}
-
-	public function getHeader(string $item): string
-	{
-		return $_SERVER[$item] ?? '';
-	}
-
-	public function getUserIp(): string
-	{
-		return $_SERVER['REMOTE_ADDR'];
-	}
-
-	public function getHost(): string
-	{
-		return $this->getProperty('host', 'HTTP_HOST');
-	}
-
-	public function getReferer(): string
-	{
-		return $this->getProperty('referer', 'HTTP_REFERER');
-	}
-
-	public function getUserAgent(): string
-	{
-		return $this->getProperty('userAgent', 'HTTP_USER_AGENT');
-	}
-
+	/**
+	 * @return string
+	 */
 	public function getMethod(): string
 	{
-		return $this->getProperty('method', 'REQUEST_METHOD');
+		return $this->method;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getHost(): string
+	{
+		return $this->uri;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getPath(): string
 	{
 		return $this->path;
 	}
 
-	public function getPProxy(): string
+	/**
+	 * @return string
+	 */
+	public function getReferer(): string
+	{
+		return $this->referer;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getHeaders(): array
+	{
+		return $this->headers;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getProxyServer(): string
 	{
 		return $this->proxy;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getUserAgent(): string
+	{
+		return $this->userAgent;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBody(): string
+	{
+		return $this->body;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCookies(): array
+	{
+		return $this->cookies;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getScheme(): string
 	{
 		return $this->scheme;
 	}
 
-	public function takePost($key): string
-	{
-		return $_POST[$key] ?? '';
-	}
-
-	public function takeAny($key): string
-	{
-		return $this->takePost($key) ?: ($this->takeGet($key) ?: '');
-	}
-
-	public function takeGet($key): string
-	{
-		return $_GET[$key] ?? '';
-	}
-
-	public function isAjax(): bool
-	{
-		return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-	}
-
-	public function getQueryString(): string
-	{
-		return $_SERVER['QUERY_STRING'];
-	}
-
-	public function getRequestUri(): string
-	{
-		return $_SERVER['REQUEST_URI'];
-	}
-
-	public function getCookie(): Cookie
-	{
-		return Cookie::create();
-	}
-
-	public function getSession(): Session
-	{
-		return Session::create();
-	}
-
-	public function setMethod(string $method): self
+    /**
+     * @param string $method
+     * @return Request
+     */
+	public function withMethod(string $method): self
 	{
 		$this->method = $method;
 		return $this;
 	}
 
-	public function setHost(string $host): self
+    /**
+     * @param UriInterface $uri
+     * @return Request
+     */
+	public function withUri(UriInterface $uri): self
 	{
-		$this->host = $host;
+		$this->uri = $uri->getUri();
 		return $this;
 	}
 
-	public function setPath(string $path): self
+    /**
+     * @param string $path
+     * @return Request
+     */
+	public function withPath(string $path): self
 	{
 		$this->path = $path;
 		return $this;
 	}
 
-	public function setHeader(string $name, string $value): self
+    /**
+     * @param string $name
+     * @param string $value
+     * @return Request
+     */
+	public function withHeader(string $name, string $value): self
 	{
 		$this->headers[$name] = $value;
 		return $this;
 	}
 
-	public function setReferer(string $referer): self
+    /**
+     * @param string $referer
+     * @return Request
+     */
+	public function withReferer(string $referer): self
 	{
 		$this->referer = $referer;
 		return $this;
 	}
 
-	public function setUserAgent(string $userAgent): self
+    /**
+     * @param string $userAgent
+     * @return Request
+     */
+	public function withUserAgent(string $userAgent): self
 	{
 		$this->userAgent = $userAgent;
 		return $this;
 	}
 
-	public function setProxy(string $proxy): self
+    /**
+     * @param string $body
+     * @return Request
+     */
+	public function withBody(string $body): self
+	{
+		$this->body = $body;
+		return $this;
+	}
+
+    /**
+     * @param array $fields
+     * @return Request
+     */
+	public function withPostFields(array $fields): self
+	{
+		$this->body = $fields;
+		return $this;
+	}
+
+    /**
+     * @param string $proxy
+     * @return Request
+     */
+	public function withProxyServer(string $proxy): self
 	{
 		$this->proxy = $proxy;
 		return $this;
 	}
 
-	public function setScheme(string $scheme): self
+    /**
+     * @param string $scheme
+     * @return Request
+     */
+	public function withScheme(string $scheme): self
 	{
 		$this->scheme = $scheme;
 		return $this;
 	}
 
-	public function setCookie(array $cookies): self
+    /**
+     * @param array $cookies
+     * @return Request
+     */
+	public function withCookie(array $cookies): self
 	{
-		$this->cookies = $cookies;
+		$this->cookies[$cookies['name']] = $cookies['value'];
 		return $this;
-	}
-
-	private function getProperty(string $property, string $default = '')
-	{
-		return !empty($this->{$property}) ? $this->headers: ($_SERVER[$default] ?? '');
 	}
 }

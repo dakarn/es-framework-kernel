@@ -22,7 +22,8 @@ if (!defined('IS_WEB')) {
 	define('IS_WEB', false);
 }
 
-define('CONFIG_APP_PATH', PATH_APP . 'Config/');
+define('CONFIG_PATH', PATH_SYSTEM . 'Configs/ConfigFiles/');
 define('APP_EVENT', PATH_APP . 'AppEvent.php');
 define('APP_KERNEL', PATH_APP . 'AppKernel.php');
 define('IS_CLI', PHP_SAPI === 'cli');
+define('IS_API', false);

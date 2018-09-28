@@ -1,45 +1,60 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 27.03.2018
- * Time: 23:17
- */
 
 namespace Helper;
 
-use Traits\SingletonTrait;
-
 class CSRFToken
 {
-	use SingletonTrait;
+    /**
+    * @var string
+    */
+    private $token = '';
 
-	private $isValid = false;
+    /**
+    * @var string
+    */
+    private $algo = 'md5';
 
-	private $token;
+    /**
+     * CSRFToken constructor.
+     */
+     public function __construct()
+     {
+     }
 
-	public function setValidationData(string $tokenFromCookie, string $tokenFromPost): CSRFToken
-	{
-		$this->isValid = $tokenFromCookie === $tokenFromPost;
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
 
-	public function makeToken()
-	{
-		$this->token = Util::generateCSRFToken();
+    /**
+     * @return string
+     */
+    public function getAlgo(): string
+    {
+        return $this->algo;
+    }
 
-		Request::create()
-			->getCookie()
-			->set('CSRFToken', $this->token);
-	}
+    /**
+     * @param string $token
+     * @return CSRFToken
+     */
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+        return $this;
+    }
 
-	public function getToken(): string
-	{
-		return $this->token;
-	}
+    /**
+     * @param string $algo
+     * @return CSRFToken
+     */
+    public function setAlgo(string $algo): self
+    {
+        $this->algo = $algo;
+        return $this;
+    }
 
-	public function isValid(): bool
-	{
-		return $this->isValid;
-	}
 }

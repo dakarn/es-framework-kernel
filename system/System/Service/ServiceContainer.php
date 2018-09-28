@@ -20,10 +20,25 @@ class ServiceContainer implements ServiceContainerInterface
 	 */
 	private $instanceService = [];
 
+	/**
+	 * @var array
+	 */
 	private $services = [];
 
+	/**
+	 * @var array
+	 */
 	private $servicesConfig = [];
 
+	/**
+	 * @var ServiceInterface
+	 */
+	private $class;
+
+	/**
+	 * @param array $serviceConfig
+	 * @return ServiceContainerInterface
+	 */
 	public function setServiceConfig(array $serviceConfig): ServiceContainerInterface
 	{
 		if (empty($serviceConfig)) {
@@ -34,7 +49,11 @@ class ServiceContainer implements ServiceContainerInterface
 		return $this;
 	}
 
-	public function addService(string $service): ServiceContainerInterface
+	/**
+	 * @param string $service
+	 * @return ServiceContainerInterface
+	 */
+	public function add(string $service): ServiceContainerInterface
 	{
 		if (!isset($this->services[$service])) {
 			$this->services[$service] = $this->servicesConfig[$service];
@@ -43,7 +62,12 @@ class ServiceContainer implements ServiceContainerInterface
 		return $this;
 	}
 
-	public function getService(string $service): ServiceInterface
+	/**
+	 * @param string $service
+	 * @return ServiceInterface
+	 * @throws ServiceException
+	 */
+	public function get(string $service): ServiceInterface
 	{
 		if (isset($this->services[$service])) {
 
@@ -56,12 +80,15 @@ class ServiceContainer implements ServiceContainerInterface
 		throw ServiceException::notFound([$service]);
 	}
 
-	private function createInstance(string $service, $serviceClass)
+	/**
+	 * @param string $service
+	 * @param $serviceClass string
+	 */
+	private function createInstance(string $service, string $serviceClass)
 	{
-		/** @var ServiceInterface $class */
-		$class = new $serviceClass();
-		$this->instanceService[$service] = $class;
-		$class->setArguments($this->services[$service]['arguments']);
+		$this->class = new $serviceClass();
+		$this->instanceService[$service] = $this->class;
+		$this->class->setArguments($this->services[$service]['arguments']);
 	}
 
 

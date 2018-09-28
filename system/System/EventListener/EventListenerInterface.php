@@ -10,7 +10,14 @@ namespace System\EventListener;
 
 interface EventListenerInterface
 {
+	/**
+	 * EventListenerInterface constructor.
+	 * @param array $arguments
+	 */
 	public function __construct(array $arguments = []);
 
+	/**
+	 * @return mixed
+	 */
 	public function execute();
 }

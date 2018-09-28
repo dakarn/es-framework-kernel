@@ -17,6 +17,13 @@ class Config
 
 	private static $bufferConfigFiles = [];
 
+	/**
+	 * @param string $config
+	 * @param string $param
+	 * @param string $default
+	 * @return mixed|string
+	 * @throws FileException
+	 */
 	public static function get(string $config, string $param = '', string $default = '')
 	{
 		if (isset(self::$bufferConfigFiles[$config])) {
@@ -44,6 +51,10 @@ class Config
 		throw FileException::notFound([$config]);
 	}
 
+	/**
+	 * @return array
+	 * @throws FileException
+	 */
 	public static function getRouters(): array
 	{
 		if (isset(self::$bufferConfigFiles['routers'])) {

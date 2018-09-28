@@ -14,8 +14,16 @@ class LoggerStorage implements LoggerStorageInterface
 {
 	use SingletonTrait;
 
+	/**
+	 * @var array
+	 */
 	private $log = [];
 
+	/**
+	 * @param string $level
+	 * @param string $message
+	 * @return LoggerStorageInterface
+	 */
 	public function addLog(string $level, string $message): LoggerStorageInterface
 	{
 		$this->log[] = [
@@ -27,11 +35,17 @@ class LoggerStorage implements LoggerStorageInterface
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getLog(): array
 	{
 		return $this->log;
 	}
 
+	/**
+	 *
+	 */
 	public function releaseLog(): void
 	{
 		foreach ($this->log as $log) {

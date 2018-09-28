@@ -10,8 +10,12 @@ namespace Exception;
 
 class FileException extends \Exception
 {
-	public static function notFound(array $argumnets = []): self
+	/**
+	 * @param array $arguments
+	 * @return FileException
+	 */
+	public static function notFound(array $arguments = []): self
 	{
-		return new self('This file "' . $argumnets[0] . '" not found!');
+		return new self('This file "' . $arguments[0] . '" not found!');
 	}
 }

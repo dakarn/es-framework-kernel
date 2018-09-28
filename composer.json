@@ -13,7 +13,7 @@
       "Authentication\\": "system/Authentication",
       "Authorization\\": "system/Authorization",
       "Providers\\": "system/Providers",
-      "Queue\\": "system/Queue",
+      "QueueManager\\": "system/QueueManager",
       "System\\": "system/System",
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",

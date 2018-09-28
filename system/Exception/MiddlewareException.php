@@ -10,18 +10,21 @@ namespace Exception;
 
 class MiddlewareException extends \Exception
 {
+	/**
+	 * @param array $arguments
+	 * @return MiddlewareException
+	 */
 	public static function notFound(array $arguments = []): self
 	{
-		return new self('');
+		return new self('A middleware with this name was not found in system!');
 	}
 
+	/**
+	 * @param array $arguments
+	 * @return MiddlewareException
+	 */
 	public static function needMinOne(array $arguments = []): self
 	{
-		return new self('');
-	}
-
-	public static function failedResult(array $arguments = []): self
-	{
-		return new self('Current middleware returned a failed result!');
+		return new self('The WebApp must have at least one system middleware!');
 	}
 }

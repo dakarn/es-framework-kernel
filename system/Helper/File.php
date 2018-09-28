@@ -10,19 +10,32 @@ namespace Helper;
 
 final class File
 {
+	/**
+	 * @var string
+	 */
 	private $file;
 
+	/**
+	 * File constructor.
+	 * @param string $file
+	 */
 	public function __construct(string $file)
 	{
 		$this->file = $file;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getFilesize(): int
 	{
 		return filesize($this->file);
 	}
 
-	public function getContent()
+	/**
+	 * @return bool|string
+	 */
+	public function getContent(): string
 	{
 		return file_get_contents($this->file);
 	}

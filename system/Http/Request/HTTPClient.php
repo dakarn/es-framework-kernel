@@ -8,39 +8,92 @@
 
 namespace Http\Request;
 
-use Traits\SingletonTrait;
+use Http\Response\Response;
+use Http\Response\Text;
 
-final class HTTPClient
+final class HttpClient implements HttpClientInterface
 {
-	use SingletonTrait;
+    /**
+     * @var resource
+     */
+    private $curl;
 
-	private $headers = [];
+    /**
+     * @var RequestBuilderInterface
+     */
+	private $requestBuilder;
 
-	private $paramCurl = [];
-
+	/**
+	 * @var string
+	 */
 	private $result;
 
-	/** @var  Request */
+	/**
+	 * @var Request
+	 */
 	private $request;
 
-	public function doRequest(Request $request)
+    /**
+     * @param RequestInterface $request
+     * @return HttpClient
+     */
+	public function sendRequest(RequestInterface $request): HttpClient
 	{
 		$this->request = $request;
 
-		$this->buildQuery();
+		$this->buildQuery(new RequestBuilder($request));
 		$this->execute();
+
+		return $this;
 	}
 
-	private function buildQuery()
+    /**
+     * @return Response
+     */
+    public function getResponse(): Response
+    {
+        return (new Response())->withBody(new Text($this->result));
+    }
+
+    /**
+     * @return bool
+     */
+	public function isOK(): bool
+    {
+        return $this->result !== false ? true : false;
+    }
+
+	/**
+	 * @return string
+	 */
+    public function getStatusCode(): string
+    {
+    	return '';
+    }
+
+    /**
+     * @return bool
+     */
+	public function isNotFound(): bool
+    {
+        return $this->result === false ? true : false;
+    }
+
+	/**
+	 * @param RequestBuilderInterface $builder
+	 */
+	private function buildQuery(RequestBuilderInterface $builder): void
 	{
-		$this->headers          = $this->request->getHeaders();
-		$this->paramCurl['url'] = $this->request->getHost();
+	    $this->requestBuilder = $builder;
 	}
 
-	private function execute()
+	/**
+	 * @varv oid
+	 */
+	private function execute(): void
 	{
-		$ch = curl_init($this->paramCurl['url']);
-		$this->result = curl_exec($ch);
-		curl_close($ch);
+		$this->curl   = $this->requestBuilder->getBuilderData();
+		$this->result = curl_exec($this->curl);
+		curl_close($this->curl);
 	}
 }
