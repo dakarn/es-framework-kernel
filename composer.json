@@ -21,5 +21,6 @@
     "files": [
       "system/System/DefineSetup.php"
     ]
-  }
+  },
+  "minimum-stability": "dev"
 }
