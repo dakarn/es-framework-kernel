@@ -1,0 +1,25 @@
+{
+  "name": "elastic-kernel",
+  "description": "es-framework",
+  "version": "1.0",
+  "type": "kernel",
+  "autoload": {
+    "psr-4": {
+      "ElasticSearch\\": "system/ElasticSearch",
+      "Exception\\": "system/Exception",
+      "Helper\\": "system/Helper",
+      "Http\\": "system/Http",
+      "Middleware\\": "system/Middleware",
+      "MicroServices\\": "system/MicroServices",
+      "Providers\\": "system/Providers",
+      "Queue\\": "system/Queue",
+      "System\\": "system/System",
+      "Traits\\": "system/Traits",
+      "Widget\\": "system/Widget",
+      "App\\": "app"
+    },
+    "files": [
+      "system/System/DefineSetup.php"
+    ]
+  }
+}
