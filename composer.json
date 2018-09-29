@@ -14,9 +14,13 @@
       "Authorization\\": "system/Authorization",
       "Providers\\": "system/Providers",
       "QueueManager\\": "system/QueueManager",
+      "UserManager\\": "system/UserManager",
+      "RedisQueue\\": "system/RedisQueue",
+      "FFMpeg\\": "system/FFMpeg",
       "System\\": "system/System",
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",
+      "Config\\": "system/Configs",
       "App\\": "app"
     },
     "files": [
