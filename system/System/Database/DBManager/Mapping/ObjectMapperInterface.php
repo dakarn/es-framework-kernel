@@ -15,11 +15,11 @@ interface ObjectMapperInterface
 	 * @param string $objectInput
 	 * @return mixed
 	 */
-    public function toObject(array $arrayData, string $objectInput);
+    public function arrayToObject(array $arrayData, string $objectInput);
 
     /**
      * @param $object object
      * @return array
      */
-    public function toArray($object): array;
+    public function objectToArray($object): array;
 }

@@ -16,12 +16,12 @@ class Config implements ConfigInterface
     /**
      * @var string
      */
-	const EXTENSION_CONFIG = '.php';
+	public const EXTENSION_CONFIG = '.php';
 
     /**
      * @var string
      */
-	const DIR_ROUTERS = 'routers/';
+	public const DIR_ROUTERS = 'routers/';
 
     /**
      * @var string
@@ -63,15 +63,17 @@ class Config implements ConfigInterface
 
 	/**
 	 * @return array
+	 * @throws FileException
 	 */
 	public static function getExceptionHandlers(): array
 	{
 		return self::get('exception-handlers');
 	}
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 * @throws FileException
+	 */
 	public static function getRouters(): array
 	{
 		if (isset(self::$bufferConfigFiles['routers'])) {

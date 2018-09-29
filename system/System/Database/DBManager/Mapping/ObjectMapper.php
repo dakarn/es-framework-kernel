@@ -9,7 +9,6 @@
 namespace System\Database\DBManager\Mapping;
 
 use Exception\ObjectException;
-use Psr\Log\InvalidArgumentException;
 use Traits\SingletonTrait;
 
 class ObjectMapper implements ObjectMapperInterface
@@ -26,22 +25,22 @@ class ObjectMapper implements ObjectMapperInterface
      */
     const GETTER = 'get';
 
-    /**
-     * @param object $object
-     * @return array
-     */
-    public function toArray($object): array
+	/**
+	 * @param object $object
+	 * @return array
+	 */
+    public function objectToArray($object): array
     {
-        if (!is_object($object)) {
-            throw new InvalidArgumentException('');
+        if (!\is_object($object)) {
+            throw new \InvalidArgumentException('');
         }
 
         $response = [];
-        $methods  = get_class_methods($object);
+        $methods  = \get_class_methods($object);
 
         foreach ($methods as $indexMethod => $getMethodName) {
             if (substr($getMethodName, 0, 3) === self::GETTER) {
-                $property            = lcfirst(substr($getMethodName, 3));
+                $property            = \lcfirst(substr($getMethodName, 3));
                 $response[$property] = $object->$getMethodName();
             }
         }
@@ -55,13 +54,13 @@ class ObjectMapper implements ObjectMapperInterface
 	 * @return mixed
 	 * @throws ObjectException
 	 */
-    public function toObject(array $arrayData, string $objectInput)
+    public function arrayToObject(array $arrayData, string $objectInput)
     {
-        if (!is_array($arrayData) || empty($arrayData)) {
-            throw new InvalidArgumentException('');
+        if (!\is_array($arrayData) || empty($arrayData)) {
+            throw new \InvalidArgumentException('');
         }
 
-	    if (!class_exists($objectInput)) {
+	    if (!\class_exists($objectInput)) {
 		    throw ObjectException::notFound([$objectInput]);
 	    }
 
@@ -69,9 +68,9 @@ class ObjectMapper implements ObjectMapperInterface
 
         foreach ($arrayData as $property => $itemValue) {
 
-            $setMethodName = self::SETTER . ucfirst($property);
+            $setMethodName = self::SETTER . \ucfirst($property);
 
-            if (method_exists($objectInput, $setMethodName)) {
+            if (\method_exists($objectInput, $setMethodName)) {
                 $objectOutput->$setMethodName($itemValue);
             }
         }

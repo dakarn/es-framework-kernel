@@ -2,6 +2,10 @@
 
 namespace System\Database;
 
+use System\Database\Connector\MSSQL;
+use System\Database\Connector\MySQL;
+use System\Database\Connector\Oracle;
+use System\Database\Connector\PgSQL;
 use System\EventListener\EventTypes;
 use System\Registry;
 
@@ -16,6 +20,26 @@ class DB
 	 * @var DatabaseConfigure
 	 */
 	private static $configure;
+
+	/**
+	 * @var MySQL
+	 */
+	private static $mysql;
+
+	/**
+	 * @var PgSQL
+	 */
+	private static $pgsql;
+
+	/**
+	 * @var Oracle
+	 */
+	private static $oracle;
+
+	/**
+	 * @var MSSQL
+	 */
+	private static $mssql;
 
     /**
      * DB constructor.
@@ -39,9 +63,30 @@ class DB
 		self::$configure = $configure;
 	}
 
-    /**
-     * @return \mysqli
-     */
+	public static function createMySQL()
+	{
+	    self::$mysql = (new MySQL())->getConnector();
+	}
+
+	public static function createPgSQL()
+	{
+	    self::$pgsql = (new PgSQL())->getConnector();
+	}
+
+	public static function createOracle()
+	{
+	    self::$oracle = new Oracle();
+	}
+
+	public static function createMSSQL()
+	{
+	    self::$mssql = new MSSQL();
+	}
+
+	/**
+	 * @return \mysqli
+	 * @throws \Exception\KernelException
+	 */
 	public static function create(): \mysqli
 	{
 		if (!self::$connect instanceof \mysqli) {
@@ -68,7 +113,7 @@ class DB
 	public static function disconnect(): bool
 	{
 		if (self::$connect instanceof \mysqli) {
-			mysqli_close(self::$connect);
+			\mysqli_close(self::$connect);
 			return true;
 		}
 
