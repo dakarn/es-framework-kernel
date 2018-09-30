@@ -219,13 +219,13 @@ abstract class AbstractApplication implements ApplicationInterface
 		LoggerAware::setlogger(new Logger())->log($level, $message);
 	}
 
-    /**
-     * @return void
-     */
+	/**
+	 * @throws \Exception\FileException
+	 */
 	protected function runInternal(): void
     {
         Config::setEnvForConfig($this);
-        DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
+        DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')['read']));
     }
 
     abstract public function terminate();
