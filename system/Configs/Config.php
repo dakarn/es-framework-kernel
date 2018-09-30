@@ -84,7 +84,7 @@ class Config implements ConfigInterface
 		$item    = [];
 
 		foreach ($routers as $router) {
-			$item = array_merge($item, include_once(CONFIG_PATH . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG));
+			$item = \array_merge($item, include_once(CONFIG_PATH . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG));
 		}
 
 		self::$bufferConfigFiles['routers'] = $item;
@@ -96,7 +96,7 @@ class Config implements ConfigInterface
 	 */
 	public static function setEnvForConfig(AbstractApplication $application): void
     {
-        self::$currEnv = strtolower($application->getEnvironment());
+        self::$currEnv = \strtolower($application->getEnvironment());
     }
 
     /**
@@ -109,9 +109,9 @@ class Config implements ConfigInterface
         $pathConfigEnv = CONFIG_PATH . self::$currEnv . '/' . $config . self::EXTENSION_CONFIG;
         $pathConfig    = CONFIG_PATH . $config . self::EXTENSION_CONFIG;
 
-        if (is_file($pathConfigEnv)) {
+        if (\is_file($pathConfigEnv)) {
             return $pathConfigEnv;
-        } else if (is_file($pathConfig)) {
+        } else if (\is_file($pathConfig)) {
             return $pathConfig;
         }
 

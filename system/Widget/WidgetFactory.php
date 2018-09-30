@@ -9,10 +9,16 @@
 namespace Widget;
 
 use Exception\WidgetException;
-use System\Config;
+use Configs\Config;
 
 class WidgetFactory
 {
+	/**
+	 * @param string $widgetName
+	 * @return WidgetInterface
+	 * @throws WidgetException
+	 * @throws \Exception\FileException
+	 */
 	public static function run(string $widgetName): WidgetInterface
 	{
 		$classWidget = Config::get('widgets', $widgetName);
