@@ -20,7 +20,7 @@
       "System\\": "system/System",
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",
-      "Config\\": "system/Configs"
+      "Configs\\": "system/Configs"
     },
     "files": [
       "system/System/DefineSetup.php"
