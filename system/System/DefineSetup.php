@@ -10,7 +10,6 @@ $rootDIR = \dirname(\dirname(\dirname(\dirname(__DIR__))));
 
 define('PATH_APP', $rootDIR . '/app/');
 define('TEMPLATE', PATH_APP . 'Templates');
-define('PATH_LOADER', __DIR__ . '/vendor/autoload.php');
 define('PATH_SYSTEM', $rootDIR . '/vendor/es-framework-kernel/system/');
 
 if (isset($_SERVER['HTTP_HOST'])) {
