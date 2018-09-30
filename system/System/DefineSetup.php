@@ -6,7 +6,7 @@
  * Time: 2:17
  */
 
-define('PATH_APP', __DIR__ . '/../../app/');
+define('PATH_APP', \dirname(\dirname(__DIR__)) . '/app/');
 define('TEMPLATE', PATH_APP . 'Templates');
 define('PATH_LOADER', __DIR__ . '/vendor/autoload.php');
 
