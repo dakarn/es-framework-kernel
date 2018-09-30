@@ -37,9 +37,9 @@ class CSRFTokenManager
 	 */
 	private $isUseToken = false;
 
-    /**
-     * @return void
-     */
+	/**
+	 * @throws \Exception\FileException
+	 */
 	public function start(): void
     {
         if (!$this->token instanceof CSRFToken) {
@@ -72,7 +72,7 @@ class CSRFTokenManager
 	}
 
 	/**
-	 * @return void
+	 * @throws \Exception\FileException
 	 */
 	public function makeToken(): void
 	{
@@ -86,9 +86,9 @@ class CSRFTokenManager
 		Cookie::create()->set(self::TOKEN_NAME, $this->token->getToken());
 	}
 
-    /**
-     * @return void
-     */
+	/**
+	 * @throws \Exception\FileException
+	 */
 	public function refreshToken(): void
     {
 	    $this->start();

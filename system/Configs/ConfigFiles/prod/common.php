@@ -82,7 +82,22 @@ return [
 		]
 	],
 	'redis' => [
-		'host' => '127.0.0.1',
+		[
+			'host' => '127.0.0.1',
+			'port' => 6379
+		],
+	],
+	'redisSession' => [
+		[
+			'host' => '127.0.0.1',
+			'port' => 6379
+		],[
+			'host' => '127.0.0.1',
+			'port' => 6380
+		],[
+			'host' => '127.0.0.1',
+			'port' => 6381
+		],
 	],
 	'flashText' => [
 		'cssStart'  => '<div class="alert alert-%s">',
