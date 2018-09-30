@@ -6,11 +6,11 @@
  * Time: 2:17
  */
 
-$rootDIR = \dirname(\dirname(\dirname(\dirname(__DIR__))));
+$rootDIR = \dirname(\dirname(__DIR__));
 
-define('PATH_APP', $rootDIR . '/app/');
+define('PATH_APP', \dirname($rootDIR) . '/es-framework-web/' . '/app/');
 define('TEMPLATE', PATH_APP . 'Templates');
-define('PATH_SYSTEM', $rootDIR . '/vendor/es-framework-kernel/system/');
+define('PATH_SYSTEM', $rootDIR . '/system/');
 
 if (isset($_SERVER['HTTP_HOST'])) {
 	define('IS_DOMAIN', true);

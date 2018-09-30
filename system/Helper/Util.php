@@ -64,21 +64,6 @@ class Util
 		return $response;
 	}
 
-	/**
-	 * @return void
-	 */
-	public static function selectLoaderClass(): void
-	{
-		switch (true) {
-			case PSR_4:
-				include_once PATH_LOADER;
-				break;
-			default:
-				include_once PATH_SYSTEM . 'autoload.php';
-				break;
-		}
-	}
-
 	public static function log(string $level, string  $message)
 	{
 		LoggerAware::setlogger(new Logger())->log($level, $message);

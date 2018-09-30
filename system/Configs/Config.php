@@ -79,7 +79,7 @@ class Config implements ConfigInterface
 		if (isset(self::$bufferConfigFiles['routers'])) {
 			return self::$bufferConfigFiles['routers'];
 		}
-
+		
 		$routers = self::get('common', 'routerFiles');
 		$item    = [];
 
