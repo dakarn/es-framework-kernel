@@ -7,6 +7,7 @@
  */
 
 define('TEMPLATE', PATH_APP . 'Templates');
+define('PATH_LOADER', __DIR__ . '/vendor/autoload.php');
 
 if (isset($_SERVER['HTTP_HOST'])) {
 	define('IS_DOMAIN', true);

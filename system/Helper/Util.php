@@ -28,6 +28,7 @@ class Util
 	/**
 	 * @param int $length
 	 * @return string
+	 * @throws \Exception
 	 */
 	public static function generateCSRFToken(int $length = 30): string
 	{
@@ -37,6 +38,7 @@ class Util
 	/**
 	 * @param int $length
 	 * @return string
+	 * @throws \Exception
 	 */
 	public static function generateCookieToken(int $length = 20): string
 	{
@@ -46,6 +48,7 @@ class Util
 	/**
 	 * @param int $length
 	 * @return string
+	 * @throws \Exception
 	 */
 	private static function generateRandom(int $length): string
 	{
@@ -68,7 +71,7 @@ class Util
 	{
 		switch (true) {
 			case PSR_4:
-				include_once PATH_SYSTEM . '/../vendor/autoload.php';
+				include_once PATH_LOADER;
 				break;
 			default:
 				include_once PATH_SYSTEM . 'autoload.php';
