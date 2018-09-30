@@ -4,11 +4,25 @@ use App\MiddlewareApp\MiddlewareCheckAuth;
 
 return [
 	[
-		'name'       => 'search',
-		'path'       => 'search-word',
-		'controller' => 'Controller:IndexController',
-		'action'     => 'searchWord',
-		'allow'      => ['POST', 'GET'],
+		'name'       => 'authUser',
+		'path'       => 'auth',
+		'controller' => 'Controller:UserController',
+		'action'     => 'auth',
+		'allow'      => ['GET'],
+	],
+	[
+		'name'       => 'logout',
+		'path'       => 'logout',
+		'controller' => 'Controller:UserController',
+		'action'     => 'logout',
+		'allow'      => ['GET'],
+	],
+	[
+		'name'       => 'registerUser',
+		'path'       => 'register',
+		'controller' => 'Controller:UserController',
+		'action'     => 'register',
+		'allow'      => ['GET'],
 	],
 	[
 		'name'       => 'addIndex',
