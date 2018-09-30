@@ -9,6 +9,7 @@
 define('PATH_APP', \dirname(\dirname(\dirname(\dirname(__DIR__)))) . '/app/');
 define('TEMPLATE', PATH_APP . 'Templates');
 define('PATH_LOADER', __DIR__ . '/vendor/autoload.php');
+define('PATH_SYSTEM', \dirname(\dirname(\dirname(\dirname(__DIR__)))) . '/vendor/es-framework-kernel/system/');
 
 if (isset($_SERVER['HTTP_HOST'])) {
 	define('IS_DOMAIN', true);
