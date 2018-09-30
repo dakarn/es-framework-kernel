@@ -3,12 +3,14 @@
  * Created by PhpStorm.
  * User: v.konovalov
  * Date: 28.05.2018
- * Time: 14:17
+ * Time: 14:31
  */
 
-namespace FFMpeg;
+namespace FFMpeg\Format;
 
-class WEBMFormat implements FileFormatInterface
+use FFMpeg\FileFormatInterface;
+
+class FLVFormat implements FileFormatInterface
 {
     private $data = [];
 

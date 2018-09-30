@@ -11,6 +11,14 @@ use System\Registry;
 
 class DB
 {
+	const MYSQL = 'MySQL';
+
+	const PGSQL = 'PgSQL';
+
+	const ORACLE = 'Oracle';
+
+	const MSSQL = 'MSSQL';
+
     /**
      * @var \mysqli
      */

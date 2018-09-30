@@ -6,9 +6,11 @@
  * Time: 14:17
  */
 
-namespace FFMpeg;
+namespace FFMpeg\Format;
 
-class AVIFormat implements FileFormatInterface
+use FFMpeg\FileFormatInterface;
+
+class WEBMFormat implements FileFormatInterface
 {
     private $data = [];
 
@@ -19,6 +21,6 @@ class AVIFormat implements FileFormatInterface
 
     public function save()
     {
-        exec(FFMpeg::PATH_TO_FFMPEG . ' -i ' . $this->data['inputFile'] . ' ' . $this->data['outputFile']);
+
     }
 }
