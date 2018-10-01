@@ -12,16 +12,34 @@ use System\Database\Connector\DBConnector;
 
 class PgSQLAdapter
 {
+	/**
+	 * @var resource
+	 */
 	private $connector;
 
+	/**
+	 * PgSQLAdapter constructor.
+	 * @param DBConnector $connector
+	 */
 	public function __construct(DBConnector $connector)
 	{
-		$this->connector = $connector;
+		$this->connector = $connector->getConnector();
 	}
 
-	public function query()
+	/**
+	 * @param string $sql
+	 * @return array
+	 */
+	public function query(string $sql): array
 	{
+		$query = \pg_query($this->connector, $sql);
+		$data  = [];
 
+		while ($row = \pg_fetch_assoc($query)) {
+			$data[] = $row;
+		}
+
+		return $data;
 	}
 
 	public function getAffected()
@@ -29,18 +47,45 @@ class PgSQLAdapter
 
 	}
 
-	public function insert()
+	public function getLastInsertId()
+	{
+	}
+
+	public function insert(string $sql)
 	{
 
 	}
 
-	public function update()
+	public function update(string $sql)
 	{
 
 	}
 
-	public function delete()
+	public function delete(string $sql)
 	{
 
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function close(): bool
+	{
+		return \pg_close($this->connector);
+	}
+
+	public function startTransaction()
+	{
+		\pg_query('BEGIN');
+	}
+
+	public function commitTransaction()
+	{
+		\pg_query('COMMIT');
+	}
+
+	public function rollbackTransaction()
+	{
+		\pg_query('ROLLBACK');
 	}
 }
