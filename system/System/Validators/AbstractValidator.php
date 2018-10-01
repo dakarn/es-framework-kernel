@@ -29,7 +29,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
      * @var array
      */
 	private const DEFAULT_ERROR = [
-	    'csrfToken' => 'Отпарвлена невлидная форма'
+	    'csrfToken' => 'Отправлена невлидная форма'
     ];
 
 	private $useIfPost = false;
@@ -69,6 +69,15 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		}
 
 		return $errors;
+	}
+
+	/**
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function getValueField(string $key)
+	{
+		return $_POST[$key] ?? '';
 	}
 
 	/**
@@ -146,6 +155,20 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		$this->setFlashErrors();
 
 		return empty($this->stackErrors);
+	}
+
+	/**
+	 * @param $name
+	 * @param $arguments
+	 * @return string
+	 */
+	public function __call($name, $arguments)
+	{
+		if(\substr($name, 0, 3) === \strtolower(self::GET)) {
+			return $_POST[\lcfirst(\substr($name, 3))] ?? '';
+		}
+
+		return '';
 	}
 
 	/**
