@@ -8,7 +8,10 @@
 
 namespace System\Database\Connector;
 
-class Oracle
+class Oracle implements DBConnector
 {
+	public function getConnector()
+	{
 
+	}
 }

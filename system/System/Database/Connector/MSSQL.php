@@ -8,7 +8,10 @@
 
 namespace System\Database\Connector;
 
-class MSSQL
+class MSSQL implements DBConnector
 {
+	public function getConnector()
+	{
 
+	}
 }

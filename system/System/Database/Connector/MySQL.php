@@ -8,9 +8,9 @@
 
 namespace System\Database\Connector;
 
-class MySQL
+class MySQL implements DBConnector
 {
-	public function getConnector(): \mysqli
+	public function getConnector()
 	{
 		$connect = new \mysqli(
 			self::$configure->getHost(),
