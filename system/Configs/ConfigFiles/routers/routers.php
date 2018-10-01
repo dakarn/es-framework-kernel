@@ -8,7 +8,7 @@ return [
 		'path'       => 'auth',
 		'controller' => 'Controller:UserController',
 		'action'     => 'auth',
-		'allow'      => ['GET'],
+		'allow'      => ['GET', 'POST'],
 	],
 	[
 		'name'       => 'logout',
