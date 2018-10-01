@@ -9,6 +9,7 @@
 namespace System\Kernel\TypesApp;
 
 use App\AppKernel;
+use System\Database\DbConfig;
 use System\EventListener\EventManager;
 use Http\Response\Response;
 use System\Database\DB;
@@ -225,7 +226,12 @@ abstract class AbstractApplication implements ApplicationInterface
 	protected function runInternal(): void
     {
         Config::setEnvForConfig($this);
-        DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')['read']));
+
+        DbConfig::create()
+            ->setConfigure(DB::MYSQL, new DatabaseConfigure(Config::get('common', 'mysql')))
+            ->setConfigure(DB::MSSQL, new DatabaseConfigure(Config::get('common', 'mssql')))
+            ->setConfigure(DB::PGSQL, new DatabaseConfigure(Config::get('common', 'pgsql')))
+            ->setConfigure(DB::ORACLE, new DatabaseConfigure(Config::get('common', 'oracle')));
     }
 
     abstract public function terminate();

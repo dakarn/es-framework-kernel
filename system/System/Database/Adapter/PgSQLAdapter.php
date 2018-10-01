@@ -53,17 +53,17 @@ class PgSQLAdapter
 
 	public function insert(string $sql)
 	{
-
+		\pg_query($sql);
 	}
 
 	public function update(string $sql)
 	{
-
+		\pg_query($sql);
 	}
 
 	public function delete(string $sql)
 	{
-
+		\pg_query($sql);
 	}
 
 	/**
