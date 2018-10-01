@@ -21,7 +21,7 @@ return [
 		'read' => [
 			'host'     => '127.0.0.1',
 			'user'     => 'root',
-			'database' => 'teacher',
+			'database' => 'es-framework',
 			'password' => '234679',
 			'charset'  => 'utf8'
 		],
