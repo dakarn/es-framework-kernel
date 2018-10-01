@@ -14,7 +14,7 @@ use Http\Response\Response;
 use System\EventListener\EventManager;
 use System\Kernel\GETParam;
 use System\EventListener\EventTypes;
-use App\WebApp;
+use System\Kernel\TypesApp\AbstractApplication;
 use System\Render;
 use System\Router\RouteData;
 use System\Router\Router;
@@ -70,6 +70,7 @@ class LauncherController implements LauncherControllerInterface
 
 	/**
 	 * @return Response|Render
+	 * @throws ControllerException
 	 */
     public function execute()
     {
@@ -81,12 +82,12 @@ class LauncherController implements LauncherControllerInterface
 
 	/**
 	 * LauncherController constructor.
-	 * @param WebApp $webApp
+	 * @param AbstractApplication $webApp
 	 * @param Router $router
 	 * @param ServerRequest $request
 	 * @param Response $response
 	 */
-    public function __construct(WebApp $webApp, Router $router, ServerRequest $request, Response $response)
+    public function __construct(AbstractApplication $webApp, Router $router, ServerRequest $request, Response $response)
     {
         $this->request      = $request;
         $this->eventManager = $webApp->getEventApp();
