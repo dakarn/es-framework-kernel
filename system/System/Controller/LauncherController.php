@@ -9,13 +9,12 @@
 namespace System\Controller;
 
 use Exception\ControllerException;
-use Http\Request\RequestInterface;
 use Http\Request\ServerRequest;
 use Http\Response\Response;
 use System\EventListener\EventManager;
 use System\Kernel\GETParam;
 use System\EventListener\EventTypes;
-use System\Kernel\TypesApp\WebApp;
+use App\WebApp;
 use System\Render;
 use System\Router\RouteData;
 use System\Router\Router;

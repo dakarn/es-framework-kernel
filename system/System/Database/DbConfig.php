@@ -26,8 +26,8 @@ class DbConfig
 	 */
 	public function setConfigure(string $dbType, DatabaseConfigure $databaseConfigure): self
 	{
-		$this->dbConfigs[$dbType]['read']  = $databaseConfigure['read'];
-		$this->dbConfigs[$dbType]['write'] = $databaseConfigure['write'];
+		$this->dbConfigs[$dbType]['read']  = $databaseConfigure;
+		$this->dbConfigs[$dbType]['write'] = $databaseConfigure;
 
 		return $this;
 	}
