@@ -6,7 +6,7 @@ return [
 		'api',
 		'default',
 	],
-	'useCSRFToken' => false,
+	'useCSRFToken' => true,
 	'service' => [
 		'autoLoad' => true,
 	],
@@ -18,14 +18,86 @@ return [
 	],
 	'User' => 'User',
 	'mysql' => [
-        'host'     => '127.0.0.1',
-        'user'     => 'root',
-        'database' => 'es-framework',
-        'password' => '234679',
-        'charset'  => 'utf8',
+		'read' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		],
+		'write' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		]
+	],
+	'pgsql' => [
+		'read' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		],
+		'write' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		]
+	],
+	'oracle' => [
+		'read' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		],
+		'write' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		]
+	],
+	'mssql' => [
+		'read' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		],
+		'write' => [
+			'host'     => '127.0.0.1',
+			'user'     => 'root',
+			'database' => 'teacher',
+			'password' => '234679',
+			'charset'  => 'utf8'
+		]
 	],
 	'redis' => [
-		'host' => '127.0.0.1',
+		[
+			'host' => '127.0.0.1',
+			'port' => 6379
+		],
+	],
+	'redisSession' => [
+		[
+			'host' => '127.0.0.1',
+			'port' => 6379
+		],[
+			'host' => '127.0.0.1',
+			'port' => 6380
+		],[
+			'host' => '127.0.0.1',
+			'port' => 6381
+		],
 	],
 	'flashText' => [
 		'cssStart'  => '<div class="alert alert-%s">',
