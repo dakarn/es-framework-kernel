@@ -8,7 +8,7 @@
 
 $rootDIR = \dirname(\dirname(__DIR__));
 
-define('PATH_APP', \dirname($rootDIR) . '/es-framework-web/' . '/app/');
+define('PATH_APP', \dirname($rootDIR) . 'app/');
 define('TEMPLATE', PATH_APP . 'Templates');
 define('PATH_SYSTEM', $rootDIR . '/system/');
 
