@@ -225,7 +225,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	 */
 	protected function runInternal(): void
     {
-        Config::setEnvForConfig($this);
+        Config::setEnvForConfig($this->env);
 
         DbConfig::create()
             ->setConfigure(DB::MYSQL, new DatabaseConfigure(Config::get('common', 'mysql')))

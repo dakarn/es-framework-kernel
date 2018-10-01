@@ -92,11 +92,11 @@ class Config implements ConfigInterface
 	}
 
 	/**
-	 * @param AbstractApplication $application
+	 * @param string $env
 	 */
-	public static function setEnvForConfig(AbstractApplication $application): void
+	public static function setEnvForConfig(string $env): void
     {
-        self::$currEnv = \strtolower($application->getEnvironment());
+        self::$currEnv = \strtolower($env);
     }
 
     /**

@@ -8,8 +8,6 @@
 
 namespace Configs;
 
-use System\Kernel\TypesApp\AbstractApplication;
-
 interface ConfigInterface
 {
 	/**
@@ -31,7 +29,7 @@ interface ConfigInterface
 	public static function getRouters(): array;
 
 	/**
-	 * @param AbstractApplication $application
+	 * @param string $env
 	 */
-	public static function setEnvForConfig(AbstractApplication $application): void;
+	public static function setEnvForConfig(string $env): void;
 }
