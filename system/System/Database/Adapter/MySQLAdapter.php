@@ -53,9 +53,13 @@ class MySQLAdapter
 		return $this->connector->insert_id;
 	}
 
+	/**
+	 * @param string $sql
+	 * @return bool|\mysqli_result
+	 */
 	public function insert(string $sql)
 	{
-		$this->connector->query($sql);
+		return $this->connector->query($sql);
 	}
 
 	public function update(string $sql)

@@ -22,7 +22,7 @@ return [
 		'path'       => 'register',
 		'controller' => 'Controller:UserController',
 		'action'     => 'register',
-		'allow'      => ['GET'],
+		'allow'      => ['GET', 'POST'],
 	],
 	[
 		'name'       => 'addIndex',
