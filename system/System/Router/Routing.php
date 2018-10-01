@@ -48,7 +48,7 @@ class Routing implements RoutingInterface
 		}
 
 		if (!self::$isFound) {
-			return new Router(end($routers));
+			return new Router(\end($routers));
 		}
 
 		return new Router([]);
@@ -83,7 +83,7 @@ class Routing implements RoutingInterface
 	}
 
 	/**
-	 *
+	 * @throws \Exception\FileException
 	 */
 	public static function fillRouterList(): void
 	{
@@ -100,6 +100,8 @@ class Routing implements RoutingInterface
 
 	/**
 	 * @return RouterList
+	 * @throws \Exception\FileException
+	 * @throws \Exception\KernelException
 	 */
 	public static function getRouterList(): RouterList
 	{
@@ -121,11 +123,11 @@ class Routing implements RoutingInterface
 		$nameParams = [];
 
 		foreach ($router->getParam() as $key => $p) {
-			$regexPath    = str_replace('{' . $key . '}', '('.$p.')', $regexPath);
+			$regexPath    = \str_replace('{' . $key . '}', '('.$p.')', $regexPath);
 			$nameParams[] = $key;
 		}
 
-		if (preg_match('|^' . $regexPath . '$|', $path, $result)) {
+		if (\preg_match('|^' . $regexPath . '$|', $path, $result)) {
 			GETParam::setParamForController($nameParams, $result);
 			self::$isFound = true;
 			return true;
@@ -146,7 +148,7 @@ class Routing implements RoutingInterface
 
 		foreach ($params as $index => $param) {
 			$params[$index] = $params1[$index];
-			$path1          = str_replace('{' . $index . '}', $params[$index], $path1);
+			$path1          = \str_replace('{' . $index . '}', $params[$index], $path1);
 		}
 
 		return $path1;
@@ -158,8 +160,8 @@ class Routing implements RoutingInterface
 	 */
 	private static function cutSlash(string $path): string
 	{
-		if (substr($path, -1) == '/') {
-			$path = substr($path, 0 , -1);
+		if (\substr($path, -1) == '/') {
+			$path = \substr($path, 0 , -1);
 		}
 
 		return $path;
