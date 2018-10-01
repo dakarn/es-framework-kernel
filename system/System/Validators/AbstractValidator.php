@@ -32,6 +32,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	    'csrfToken' => 'Отпарвлена невлидная форма'
     ];
 
+	private $useIfPost = false;
 	/**
 	 * @var array
 	 */
@@ -41,6 +42,16 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 * @var bool
 	 */
 	public $isUseFlashErrors = false;
+
+	/**
+	 * @return AbstractValidator
+	 */
+	public function setUseIfPost(): self
+	{
+		$this->useIfPost = true;
+
+		return $this;
+	}
 
 	/**
 	 * @return array
@@ -127,6 +138,10 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 */
 	public function isValid(): bool
 	{
+		if ($this->useIfPost && !$this->isPost()) {
+			return false;
+		}
+
 		$this->validate();
 		$this->setFlashErrors();
 
