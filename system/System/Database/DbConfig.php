@@ -14,13 +14,34 @@ class DbConfig
 {
 	use SingletonTrait;
 
+	/**
+	 * @var DatabaseConfigure
+	 */
 	private $dbConfigs = [];
 
+	/**
+	 * @param string $dbType
+	 * @param DatabaseConfigure $databaseConfigure
+	 * @return DbConfig
+	 */
 	public function setConfigure(string $dbType, DatabaseConfigure $databaseConfigure): self
 	{
 		$this->dbConfigs[$dbType]['read']  = $databaseConfigure['read'];
 		$this->dbConfigs[$dbType]['write'] = $databaseConfigure['write'];
 
 		return $this;
+	}
+
+	/**
+	 * @param string $dbType
+	 * @return DatabaseConfigure[]
+	 */
+	public function getConfigure(string $dbType): array
+	{
+		if (empty($this->dbConfigs[$dbType])) {
+			throw new \DomainException('Such DbConfig not exist.');
+		}
+
+		return $this->dbConfigs[$dbType];
 	}
 }

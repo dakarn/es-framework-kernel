@@ -19,6 +19,10 @@ class DB
 
 	const MSSQL = 'MSSQL';
 
+	const READ = 'read';
+
+	const WRITE = 'write';
+
     /**
      * @var \mysqli
      */
