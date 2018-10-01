@@ -8,11 +8,11 @@
 
 namespace System\Database\Adapter;
 
-use System\Database\Connector\DBConnector;
+use System\Database\Connector\DBConnectorInterface;
 
 interface DBAdapterInterface
 {
-	public function __construct(DBConnector $connector);
+	public function __construct(DBConnectorInterface $connector);
 
 	/**
 	 * @param string $sql

@@ -2,6 +2,10 @@
 
 namespace System\Database;
 
+use System\Database\Adapter\MSSQLAdapter;
+use System\Database\Adapter\MySQLAdapter;
+use System\Database\Adapter\OracleAdapter;
+use System\Database\Adapter\PgSQLAdapter;
 use System\Database\Connector\MSSQL;
 use System\Database\Connector\MySQL;
 use System\Database\Connector\Oracle;
@@ -67,32 +71,40 @@ class DB
 	{
 	}
 
-    /**
-     * @param DatabaseConfigure $configure
-     */
-	public static function setConfigure(DatabaseConfigure $configure)
-	{
-		self::$configure = $configure;
-	}
-
 	public static function createMySQL()
 	{
-	    self::$mysql = (new MySQL())->getConnector();
+		if (!self::$mysql instanceof MySQLAdapter) {
+			self::$mysql = new MySQLAdapter(new MySQL());
+		}
+
+	    return self::$mysql;
 	}
 
 	public static function createPgSQL()
 	{
-	    self::$pgsql = (new PgSQL())->getConnector();
+		if (!self::$pgsql instanceof PgSQLAdapter) {
+			self::$pgsql = new PgSQLAdapter(new PgSQL());
+		}
+
+		return self::$pgsql;
 	}
 
 	public static function createOracle()
 	{
-	    self::$oracle = new Oracle();
+		if (!self::$oracle instanceof OracleAdapter) {
+			self::$oracle = new OracleAdapter(new Oracle());
+		}
+
+		return self::$oracle;
 	}
 
 	public static function createMSSQL()
 	{
-	    self::$mssql = new MSSQL();
+		if (!self::$mssql instanceof MSSQL) {
+			self::$mssql = new MSSQLAdapter(new MSSQL());
+		}
+
+		return self::$mssql;
 	}
 
 	/**

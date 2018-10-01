@@ -9,7 +9,7 @@
 namespace System\Database\Connector;
 
 
-interface DBConnector
+interface DBConnectorInterface
 {
 	public function getConnector();
 }

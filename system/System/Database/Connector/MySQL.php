@@ -8,18 +8,23 @@
 
 namespace System\Database\Connector;
 
-class MySQL implements DBConnector
+use System\Database\DB;
+use System\Database\DbConfig;
+
+class MySQL implements DBConnectorInterface
 {
 	public function getConnector()
 	{
+		$conf = DbConfig::create()->getConfigure(DB::MYSQL)['read'];
+
 		$connect = new \mysqli(
-			self::$configure->getHost(),
-			self::$configure->getUser(),
-			self::$configure->getPassword(),
-			self::$configure->getDatabase()
+			$conf->getHost(),
+			$conf->getUser(),
+			$conf->getPassword(),
+			$conf->getDatabase()
 		);
 
-		$connect->set_charset(self::$configure->getCharset());
+		$connect->set_charset($conf->getCharset());
 
 		return $connect;
 	}

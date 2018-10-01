@@ -8,7 +8,7 @@
 
 namespace System\Database\Adapter;
 
-use System\Database\Connector\DBConnector;
+use System\Database\Connector\DBConnectorInterface;
 
 class PgSQLAdapter
 {
@@ -19,9 +19,9 @@ class PgSQLAdapter
 
 	/**
 	 * PgSQLAdapter constructor.
-	 * @param DBConnector $connector
+	 * @param DBConnectorInterface $connector
 	 */
-	public function __construct(DBConnector $connector)
+	public function __construct(DBConnectorInterface $connector)
 	{
 		$this->connector = $connector->getConnector();
 	}

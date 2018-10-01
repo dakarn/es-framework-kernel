@@ -9,7 +9,7 @@
 namespace System\Database\Adapter;
 
 
-use System\Database\Connector\DBConnector;
+use System\Database\Connector\DBConnectorInterface;
 
 class MySQLAdapter
 {
@@ -20,9 +20,9 @@ class MySQLAdapter
 
 	/**
 	 * MySQLAdapter constructor.
-	 * @param DBConnector $connector
+	 * @param DBConnectorInterface $connector
 	 */
-	public function __construct(DBConnector $connector)
+	public function __construct(DBConnectorInterface $connector)
 	{
 		$this->connector = $connector->getConnector();
 	}

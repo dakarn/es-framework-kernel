@@ -8,7 +8,7 @@
 
 namespace System\Database\Connector;
 
-class PgSQL
+class PgSQL implements DBConnectorInterface
 {
 	/**
 	 * @return resource
