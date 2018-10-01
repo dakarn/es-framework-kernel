@@ -71,7 +71,7 @@ class DB
 	{
 	}
 
-	public static function MySQLAdapter()
+	public static function MySQLAdapter(): MySQLAdapter
 	{
 		if (!self::$mysql instanceof MySQLAdapter) {
 			self::$mysql = new MySQLAdapter(new MySQL());
@@ -80,7 +80,7 @@ class DB
 	    return self::$mysql;
 	}
 
-	public static function PgSQLadapter()
+	public static function PgSQLadapter(): PgSQLAdapter
 	{
 		if (!self::$pgsql instanceof PgSQLAdapter) {
 			self::$pgsql = new PgSQLAdapter(new PgSQL());
@@ -89,7 +89,7 @@ class DB
 		return self::$pgsql;
 	}
 
-	public static function OracleAdapter()
+	public static function OracleAdapter(): OracleAdapter
 	{
 		if (!self::$oracle instanceof OracleAdapter) {
 			self::$oracle = new OracleAdapter(new Oracle());
@@ -98,7 +98,7 @@ class DB
 		return self::$oracle;
 	}
 
-	public static function MSSQLAdapter()
+	public static function MSSQLAdapter(): MSSQLAdapter
 	{
 		if (!self::$mssql instanceof MSSQL) {
 			self::$mssql = new MSSQLAdapter(new MSSQL());

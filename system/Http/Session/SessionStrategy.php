@@ -10,5 +10,11 @@ namespace Http\Session;
 
 interface SessionStrategy
 {
+	public function get(string $key);
 
+	public function has(string $key): bool;
+
+	public function delete(string $key): bool;
+
+	public function set(string $key, $value);
 }

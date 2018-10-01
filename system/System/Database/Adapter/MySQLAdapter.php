@@ -8,7 +8,6 @@
 
 namespace System\Database\Adapter;
 
-
 use System\Database\Connector\DBConnectorInterface;
 
 class MySQLAdapter
@@ -31,7 +30,18 @@ class MySQLAdapter
 	 * @param string $sql
 	 * @return array
 	 */
-	public function query(string $sql): array
+	public function fetchRow(string $sql): array
+	{
+		$query = $this->connector->query($sql);
+
+		return $query->fetch_assoc() ?? [];
+	}
+
+	/**
+	 * @param string $sql
+	 * @return array
+	 */
+	public function fetch(string $sql): array
 	{
 		$query = $this->connector->query($sql);
 		$data  = [];
