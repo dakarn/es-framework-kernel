@@ -19,6 +19,10 @@ class DBAdapter implements DBAdapterInterface
 		return [];
 	}
 
+	/**
+	 * @param string $sql
+	 * @return array
+	 */
 	public function fetchRow(string $sql): array
 	{
 		return [];
