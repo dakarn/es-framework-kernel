@@ -2,11 +2,7 @@
 
 return [
 	'routerFiles' => [
-		'app' => [
-			'routers',
-			'api',
-			'default',
-		]
+		'customRoutersApp' => 'routersFiles'
 	],
 	'useCSRFToken' => true,
 	'service' => [

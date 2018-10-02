@@ -20,7 +20,13 @@ class Config implements ConfigInterface
     /**
      * @var string
      */
-	public const DIR_ROUTERS = 'Configs/routers/';
+	public const DIR_ROUTERS = 'routers/';
+
+	/**
+	 * @var string
+	 */
+	public const DIR_CONFIGS_APP = 'Configs/';
+
 
     /**
      * @var string
@@ -79,11 +85,12 @@ class Config implements ConfigInterface
 			return self::$bufferConfigFiles['routers'];
 		}
 		
-		$routers = self::get('common', 'routerFiles')['app'];
-		$item    = [];
+		$routersCustom = self::get('common', 'routerFiles')['customRoutersApp'];
+		$routers       = self::getConfigFromApp($routersCustom . self::EXTENSION_CONFIG);
+		$item          = [];
 
 		foreach ($routers as $router) {
-			$path = PATH_APP . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG;
+			$path = PATH_APP . self::DIR_CONFIGS_APP . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG;
 
 			if (!\is_file($path)) {
 				continue;
@@ -102,6 +109,17 @@ class Config implements ConfigInterface
 	public static function setEnvForConfig(string $env): void
     {
         self::$currEnv = \strtolower($env);
+    }
+
+	/**
+	 * @param string $config
+	 * @return mixed
+	 */
+    private static function getConfigFromApp(string $config)
+    {
+	    $configData = include_once(PATH_APP . self::DIR_CONFIGS_APP . self::DIR_ROUTERS . $config);
+
+	    return $configData;
     }
 
     /**
