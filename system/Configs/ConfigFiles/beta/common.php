@@ -5,6 +5,7 @@ return [
 		'routers',
 		'api',
 		'default',
+
 	],
 	'useCSRFToken' => true,
 	'service' => [

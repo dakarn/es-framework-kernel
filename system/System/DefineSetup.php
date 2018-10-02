@@ -6,11 +6,7 @@
  * Time: 2:17
  */
 
-$rootDIR = \dirname(\dirname(__DIR__));
-
-define('PATH_APP','C:/apache/es-framework-dev/es-framework-web/app/');
-define('TEMPLATE', PATH_APP . 'Templates');
-define('PATH_SYSTEM', $rootDIR . '/system/');
+define('PATH_SYSTEM', \dirname(\dirname(__DIR__)) . '/system/');
 
 if (isset($_SERVER['HTTP_HOST'])) {
 	define('IS_DOMAIN', true);
@@ -27,7 +23,5 @@ if (!defined('IS_WEB')) {
 }
 
 define('CONFIG_PATH', PATH_SYSTEM . 'Configs/ConfigFiles/');
-define('APP_EVENT', PATH_APP . 'AppEvent.php');
-define('APP_KERNEL', PATH_APP . 'AppKernel.php');
 define('IS_CLI', PHP_SAPI === 'cli');
 define('IS_API', false);

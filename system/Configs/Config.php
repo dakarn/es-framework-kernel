@@ -9,7 +9,6 @@
 namespace Configs;
 
 use Exception\FileException;
-use System\Kernel\TypesApp\AbstractApplication;
 
 class Config implements ConfigInterface
 {
