@@ -8,17 +8,19 @@
 
 namespace System\Database\Adapter;
 
-use System\Database\Connector\DBConnectorInterface;
-
 interface DBAdapterInterface
 {
-	public function __construct(DBConnectorInterface $connector);
+	/**
+	 * @param string $sql
+	 * @return array
+	 */
+	public function fetch(string $sql): array;
 
 	/**
 	 * @param string $sql
 	 * @return array
 	 */
-	public function query(string $sql): array;
+	public function fetchRow(string $sql): array;
 
 	public function getAffected();
 

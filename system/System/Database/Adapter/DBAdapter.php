@@ -8,7 +8,59 @@
 
 namespace System\Database\Adapter;
 
-class DBAdapter
+class DBAdapter implements DBAdapterInterface
 {
+	/**
+	 * @param string $sql
+	 * @return array
+	 */
+	public function fetch(string $sql): array
+	{
+		return [];
+	}
 
+	public function fetchRow(string $sql): array
+	{
+		return [];
+	}
+
+	public function getAffected()
+	{
+
+	}
+
+	public function getLastInsertId()
+	{
+
+	}
+
+	public function insert()
+	{
+
+	}
+
+	public function update()
+	{
+
+	}
+
+	public function delete()
+	{
+
+	}
+
+	public function startTransaction()
+	{
+
+	}
+
+	public function commitTransaction()
+	{
+
+	}
+
+	public function rollbackTransaction()
+	{
+
+	}
 }
