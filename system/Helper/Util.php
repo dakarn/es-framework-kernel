@@ -46,6 +46,14 @@ class Util
 	}
 
 	/**
+	 *
+	 */
+	public static function toDbTime(): string
+	{
+		return \date('Y-m-d H:i:s', time());
+	}
+
+	/**
 	 * @param int $length
 	 * @return string
 	 * @throws \Exception

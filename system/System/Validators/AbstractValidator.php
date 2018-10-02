@@ -8,6 +8,7 @@
 
 namespace System\Validators;
 
+use Configs\Config;
 use Http\Cookie;
 use Helper\CSRFTokenManager;
 use Helper\FlashText;
@@ -169,6 +170,15 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		}
 
 		return '';
+	}
+
+	/**
+	 * @return array
+	 * @throws \Exception\FileException
+	 */
+	protected function getFormMessage(): array
+	{
+		return Config::get('form-result/form-message', \basename(static::class));
 	}
 
 	/**
