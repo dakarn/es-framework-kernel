@@ -20,7 +20,7 @@ class Config implements ConfigInterface
     /**
      * @var string
      */
-	public const DIR_ROUTERS = 'routers/';
+	public const DIR_ROUTERS = 'Configs/routers/';
 
     /**
      * @var string
@@ -79,11 +79,17 @@ class Config implements ConfigInterface
 			return self::$bufferConfigFiles['routers'];
 		}
 		
-		$routers = self::get('common', 'routerFiles');
+		$routers = self::get('common', 'routerFiles')['app'];
 		$item    = [];
 
 		foreach ($routers as $router) {
-			$item = \array_merge($item, include_once(CONFIG_PATH . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG));
+			$path = PATH_APP . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG;
+
+			if (!\is_file($path)) {
+				continue;
+			}
+
+			$item = \array_merge($item, include_once($path));
 		}
 
 		self::$bufferConfigFiles['routers'] = $item;

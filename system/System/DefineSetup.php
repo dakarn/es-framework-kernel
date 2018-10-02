@@ -8,6 +8,10 @@
 
 define('PATH_SYSTEM', \dirname(\dirname(__DIR__)) . '/system/');
 
+if (!defined('PATH_APP')) {
+	define('PATH_APP', '');
+}
+
 if (isset($_SERVER['HTTP_HOST'])) {
 	define('IS_DOMAIN', true);
 
