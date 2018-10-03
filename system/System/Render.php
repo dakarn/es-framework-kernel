@@ -25,10 +25,11 @@ class Render
 	 * Render constructor.
 	 * @param $template
 	 * @param array $params
+	 * @throws \Exception\FileException
 	 */
 	public function __construct($template, array $params = [])
 	{
-		if (!file_exists(self::PATH . $template)) {
+		if (!\file_exists(self::PATH . $template)) {
 			$this->template = self::PATH . Config::get('common','errors')['404'];
 		} else {
 			$this->params   = $params;
@@ -41,9 +42,9 @@ class Render
 	 */
 	public function render(): string
     {
-        extract($this->params);
-        ob_start();
+        \extract($this->params);
+        \ob_start();
         include $this->template;
-        return ob_get_clean();
+        return \ob_get_clean();
 	}
 }

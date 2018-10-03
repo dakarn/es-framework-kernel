@@ -9,7 +9,6 @@
       "Exception\\": "system/Exception",
       "Helper\\": "system/Helper",
       "Http\\": "system/Http",
-      "Middleware\\": "system/Middleware",
       "Authentication\\": "system/Authentication",
       "Authorization\\": "system/Authorization",
       "Providers\\": "system/Providers",

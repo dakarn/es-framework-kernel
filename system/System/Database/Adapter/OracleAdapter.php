@@ -11,7 +11,7 @@ namespace System\Database\Adapter;
 
 use System\Database\Connector\DBConnectorInterface;
 
-class OracleAdapter
+class OracleAdapter implements AdapteeInterface
 {
 	private $connector;
 

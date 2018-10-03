@@ -10,7 +10,7 @@ namespace System\Database\Adapter;
 
 use System\Database\Connector\DBConnectorInterface;
 
-class MSSQLAdapter
+class MSSQLAdapter implements AdapteeInterface
 {
 	private $connector;
 

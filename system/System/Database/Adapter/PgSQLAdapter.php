@@ -10,7 +10,7 @@ namespace System\Database\Adapter;
 
 use System\Database\Connector\DBConnectorInterface;
 
-class PgSQLAdapter
+class PgSQLAdapter implements AdapteeInterface
 {
 	/**
 	 * @var resource
@@ -30,7 +30,7 @@ class PgSQLAdapter
 	 * @param string $sql
 	 * @return array
 	 */
-	public function query(string $sql): array
+	public function fetch(string $sql): array
 	{
 		$query = \pg_query($this->connector, $sql);
 		$data  = [];
@@ -42,6 +42,18 @@ class PgSQLAdapter
 		return $data;
 	}
 
+	/**
+	 * @param string $sql
+	 * @return array
+	 */
+	public function fetchRow(string $sql): array
+	{
+		$query = \pg_query($this->connector, $sql);
+
+		return \pg_fetch_assoc($query);
+
+	}
+
 	public function getAffected()
 	{
 
@@ -51,14 +63,24 @@ class PgSQLAdapter
 	{
 	}
 
-	public function insert(string $sql)
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function insert(string $sql): bool
 	{
-		\pg_query($sql);
+		$result = pg_affected_rows(\pg_query($sql));
+
+		return $result === 0 ? false : true;
 	}
 
-	public function update(string $sql)
+	/**
+	 * @param string $sql
+	 * @return int
+	 */
+	public function update(string $sql): int
 	{
-		\pg_query($sql);
+		return pg_affected_rows(\pg_query($sql));
 	}
 
 	public function delete(string $sql)

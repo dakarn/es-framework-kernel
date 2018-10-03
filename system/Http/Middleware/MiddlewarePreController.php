@@ -17,6 +17,7 @@ class MiddlewarePreController
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
+	 * @throws \Exception\FileException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{

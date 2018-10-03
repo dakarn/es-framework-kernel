@@ -8,20 +8,28 @@ return [
 	'service' => [
 		'autoLoad' => true,
 	],
-	'defaultTemplate' => 'default.html',
 	'errors' => [
 		'404' => 'errors/404.html',
 		'503' => 'errors/503.html',
-		'502' => 'errors/502.html'
+		'502' => 'errors/502.html',
+		'500' => 'errors/500.html',
 	],
 	'User' => 'User',
 	'mysql' => [
 		'read' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'es-framework',
-			'password' => '234679',
-			'charset'  => 'utf8'
+			[
+				'host'     => '127.0.0.1',
+				'user'     => 'root',
+				'database' => 'es-framework',
+				'password' => '234679',
+				'charset'  => 'utf8'
+			],[
+				'host'     => '127.0.0.1',
+				'user'     => 'root',
+				'database' => 'es-framework',
+				'password' => '234679',
+				'charset'  => 'utf8'
+			]
 		],
 		'write' => [
 			'host'     => '127.0.0.1',
@@ -33,11 +41,13 @@ return [
 	],
 	'pgsql' => [
 		'read' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
+			[
+				'host'     => '127.0.0.1',
+				'user'     => 'root',
+				'database' => 'teacher',
+				'password' => '234679',
+				'charset'  => 'utf8'
+			]
 		],
 		'write' => [
 			'host'     => '127.0.0.1',
@@ -49,11 +59,13 @@ return [
 	],
 	'oracle' => [
 		'read' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
+			[
+				'host'     => '127.0.0.1',
+				'user'     => 'root',
+				'database' => 'teacher',
+				'password' => '234679',
+				'charset'  => 'utf8'
+			]
 		],
 		'write' => [
 			'host'     => '127.0.0.1',
@@ -65,11 +77,13 @@ return [
 	],
 	'mssql' => [
 		'read' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
+			[
+				'host'     => '127.0.0.1',
+				'user'     => 'root',
+				'database' => 'teacher',
+				'password' => '234679',
+				'charset'  => 'utf8'
+			]
 		],
 		'write' => [
 			'host'     => '127.0.0.1',

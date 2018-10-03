@@ -202,11 +202,9 @@ abstract class AbstractApplication implements ApplicationInterface
 	public function outputException(\Throwable $e): void
 	{
 		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
-			throw $e;
+			$this->customOutputError($e);
 		} else {
-			if($this->isWebApp() && !Routing::isDefaultRouter()) {
-				(new Response())->redirect(URL);
-			}
+			$this->customOutputError($e);
 		}
 	}
 
@@ -219,13 +217,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	 */
 	public function outputError($errno, $errstr, $errfile, $errline): void
 	{
-		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
-			throw new \Exception('in ' . $errfile . ' on line ' . $errline);
-		} else {
-			if($this->isWebApp() && !Routing::isDefaultRouter()) {
-				(new Response())->redirect(URL);
-			}
-		}
+		throw new \Exception('in ' . $errfile . ' on line ' . $errline);
 	}
 
 	/**
@@ -255,4 +247,6 @@ abstract class AbstractApplication implements ApplicationInterface
     abstract public function terminate();
 
 	abstract public function run();
+
+	abstract public function customOutputError(\Throwable $e);
 }

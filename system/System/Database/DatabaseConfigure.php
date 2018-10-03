@@ -41,11 +41,11 @@ class DatabaseConfigure
      */
 	public function __construct(array $config)
 	{
-		$this->host     = $config['read']['host'];
-		$this->database = $config['read']['database'];
-		$this->user     = $config['read']['user'];
-		$this->password = $config['read']['password'];
-		$this->charset  = $config['read']['charset'];
+		$this->host     = $config['read'][0]['host'];
+		$this->database = $config['read'][0]['database'];
+		$this->user     = $config['read'][0]['user'];
+		$this->password = $config['read'][0]['password'];
+		$this->charset  = $config['read'][0]['charset'];
 	}
 
     /**

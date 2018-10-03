@@ -48,10 +48,10 @@ class Routing implements RoutingInterface
 		}
 
 		if (!self::$isFound) {
-			return new Router(\end($routers));
+			return new Router();
 		}
 
-		return new Router([]);
+		return new Router();
 	}
 
 	/**
@@ -60,18 +60,6 @@ class Routing implements RoutingInterface
 	public static function setFoundRouter(Router $router): void
 	{
 		self::$foundRouter = $router;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public static function isDefaultRouter(): bool
-	{
-		if (self::$foundRouter->getName() === self::DEFAULT_ROUTE_NAME) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

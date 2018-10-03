@@ -10,7 +10,7 @@ namespace System\Database\Adapter;
 
 use System\Database\Connector\DBConnectorInterface;
 
-class MySQLAdapter
+class MySQLAdapter implements AdapteeInterface
 {
 	/**
 	 * @var \mysqli
@@ -65,16 +65,22 @@ class MySQLAdapter
 
 	/**
 	 * @param string $sql
-	 * @return bool|\mysqli_result
+	 * @return bool
 	 */
-	public function insert(string $sql)
+	public function insert(string $sql): bool
 	{
 		return $this->connector->query($sql);
 	}
 
-	public function update(string $sql)
+	/**
+	 * @param string $sql
+	 * @return int
+	 */
+	public function update(string $sql): int
 	{
 		$this->connector->query($sql);
+
+		return $this->connector->affected_rows;
 	}
 
 	public function delete(string $sql)

@@ -191,6 +191,8 @@ class Response implements ResponseInterface
 	 * @param array $arguments
 	 * @param int $status
 	 * @throws RoutingException
+	 * @throws \Exception\FileException
+	 * @throws \Exception\KernelException
 	 */
 	public function redirectToRoute(string $routerName, array $arguments, int $status): void
 	{
@@ -202,6 +204,6 @@ class Response implements ResponseInterface
 			exit;
 		}
 
-		throw RoutingException::notFound([$routerName]);
+		//throw RoutingException::notFound([$routerName]);
 	}
 }

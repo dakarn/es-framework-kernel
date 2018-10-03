@@ -2,6 +2,8 @@
 
 namespace System\Database;
 
+use System\Database\Adapter\DBAdapter;
+use System\Database\Adapter\DBAdapterInterface;
 use System\Database\Adapter\MSSQLAdapter;
 use System\Database\Adapter\MySQLAdapter;
 use System\Database\Adapter\OracleAdapter;
@@ -57,6 +59,8 @@ class DB
 	 */
 	private static $mssql;
 
+	private static $adapters = [];
+
     /**
      * DB constructor.
      */
@@ -71,22 +75,28 @@ class DB
 	{
 	}
 
-	public static function MySQLAdapter(): MySQLAdapter
+	/**
+	 * @return DBAdapterInterface
+	 */
+	public static function MySQLAdapter(): DBAdapterInterface
 	{
-		if (!self::$mysql instanceof MySQLAdapter) {
-			self::$mysql = new MySQLAdapter(new MySQL());
+		if (!isset(self::$adapters[self::MYSQL])) {
+			self::$adapters[self::MYSQL] = new DBAdapter(new MySQLAdapter(new MySQL()));
 		}
 
-	    return self::$mysql;
+	    return self::$adapters[self::MYSQL];
 	}
 
-	public static function PgSQLadapter(): PgSQLAdapter
+	/**
+	 * @return DBAdapterInterface
+	 */
+	public static function PgSQLAdapter(): DBAdapterInterface
 	{
-		if (!self::$pgsql instanceof PgSQLAdapter) {
-			self::$pgsql = new PgSQLAdapter(new PgSQL());
+		if (!isset(self::$adapters[self::PGSQL])) {
+			self::$adapters[self::PGSQL] = new DBAdapter(new PgSQLAdapter(new PgSQL()));
 		}
 
-		return self::$pgsql;
+		return self::$adapters[self::MYSQL];
 	}
 
 	public static function OracleAdapter(): OracleAdapter

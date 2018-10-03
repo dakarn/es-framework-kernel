@@ -14,6 +14,7 @@ class API implements FormatResponseInterface
 	 * @var string
 	 */
 	const SUCCESS = 'success';
+	const FAIL    = 'fail';
 
 	/**
 	 * @var array
@@ -48,8 +49,8 @@ class API implements FormatResponseInterface
 	{
 		$this->data   = $data;
 		$this->params = $params;
-
-		if (empty($this->params['type'])) {
+		
+		if (!isset($this->params['type'])) {
 			throw new \DomainException('Arguments invalid for class API Formatted. Unable use index of array "type"!');
 		}
 	}
@@ -61,11 +62,11 @@ class API implements FormatResponseInterface
 	{
 		if ($this->params['type'] === self::SUCCESS) {
 			$this->success();
-		} else {
+		} else if ($this->params['type'] === self::FAIL) {
 			$this->failed();
 		}
 
-		return json_encode($this->data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+		return \json_encode($this->data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 	}
 
 	/**

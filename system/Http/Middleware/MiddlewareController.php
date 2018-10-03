@@ -17,11 +17,13 @@ use System\Router\Routing;
 
 class MiddlewareController implements MiddlewareInterface
 {
-    /**
-     * @param ServerRequest $request
-     * @param RequestHandler $handler
-     * @return \Http\Response\Response
-     */
+	/**
+	 * @param ServerRequest $request
+	 * @param RequestHandler $handler
+	 * @return \Http\Response\Response|mixed
+	 * @throws \Exception\ControllerException
+	 * @throws \Exception\KernelException
+	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
         $launcher = new LauncherController(
