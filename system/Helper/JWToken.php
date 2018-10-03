@@ -10,6 +10,15 @@ namespace Helper;
 
 class JWToken
 {
+	private const HEADER = [
+		'alg' => 'HS256',
+		'typ' => 'JWT',
+	];
+
+	private $payload = [
+
+	];
+
 	private static $token = '';
 
 	public static function getToken(): string
@@ -20,6 +29,11 @@ class JWToken
 	public static function verifyToken()
 	{
 
+	}
+
+	public static function isValid(): bool
+	{
+		return true;
 	}
 
 	public static function generateToken()

@@ -20,7 +20,7 @@ interface LoggerStorageInterface
 	/**
 	 * @return array
 	 */
-	public function getLog(): array;
+	public function getLogs(): array;
 
 	/**
 	 *

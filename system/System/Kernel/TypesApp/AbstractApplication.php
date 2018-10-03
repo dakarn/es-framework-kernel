@@ -11,14 +11,12 @@ namespace System\Kernel\TypesApp;
 use App\AppKernel;
 use System\Database\DbConfig;
 use System\EventListener\EventManager;
-use Http\Response\Response;
 use System\Database\DB;
 use Configs\Config;
 use System\Database\DatabaseConfigure;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Registry;
-use System\Router\Routing;
 
 abstract class AbstractApplication implements ApplicationInterface
 {
@@ -39,6 +37,7 @@ abstract class AbstractApplication implements ApplicationInterface
 		'Console' => 'Console',
 		'Queue'   => 'Queue',
 		'Api'     => 'Api',
+		'Auth'    => 'Auth',
 	];
 
 	/**

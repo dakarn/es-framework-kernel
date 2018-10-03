@@ -10,14 +10,14 @@ namespace System\Logger;
 
 use Traits\SingletonTrait;
 
-class LoggerStorage implements LoggerStorageInterface
+class LoggerErrorLog implements LoggerStorageInterface
 {
 	use SingletonTrait;
 
 	/**
 	 * @var array
 	 */
-	private $log = [];
+	private $logs = [];
 
 	/**
 	 * @param string $level
@@ -26,7 +26,7 @@ class LoggerStorage implements LoggerStorageInterface
 	 */
 	public function addLog(string $level, string $message): LoggerStorageInterface
 	{
-		$this->log[] = [
+		$this->logs[] = [
 			'time'    => date('d.m.y H:i:s', time()),
 			'level'   => $level,
 			'message' => $message
@@ -38,9 +38,9 @@ class LoggerStorage implements LoggerStorageInterface
 	/**
 	 * @return array
 	 */
-	public function getLog(): array
+	public function getLogs(): array
 	{
-		return $this->log;
+		return $this->logs;
 	}
 
 	/**
@@ -48,7 +48,7 @@ class LoggerStorage implements LoggerStorageInterface
 	 */
 	public function releaseLog(): void
 	{
-		foreach ($this->log as $log) {
+		foreach ($this->logs as $log) {
 			error_log('Log' . $log['level'] . ' - ' . $log['time'] . ' - ' . $log['message']);
 		}
 	}

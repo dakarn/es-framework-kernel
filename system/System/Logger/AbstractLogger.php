@@ -21,7 +21,7 @@ class AbstractLogger
 	protected function getStrategy(): LoggerStorageInterface
 	{
 		if ($this->strategy === null) {
-			$this->strategy = LoggerStorage::create();
+			$this->strategy = LoggerElasticSearch::create();
 		}
 
 		return $this->strategy;

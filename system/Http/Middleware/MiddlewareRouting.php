@@ -10,7 +10,10 @@ namespace Http\Middleware;
 
 use Exception\RoutingException;
 use Http\Request\ServerRequest;
+use Http\Response\API;
 use Http\Response\Text;
+use System\Kernel\TypesApp\AbstractApplication;
+use System\Registry;
 use System\Render;
 use System\Router\Routing;
 use System\Kernel\GETParam;
@@ -23,19 +26,34 @@ class MiddlewareRouting implements MiddlewareInterface
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response|mixed
 	 * @throws \Exception\FileException
+	 * @throws \Exception\KernelException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
 		$router = Routing::findRoute(Config::getRouters(), GETParam::getPath());
 
 		if (!$router->isFilled()) {
+
+			/** @var AbstractApplication $app */
+			$app = Registry::get(Registry::APP);
+
+			if ($app->getApplicationType() === AbstractApplication::APP_TYPE['Web']) {
+				$outputData = new Text((new Render(Config::get('common', 'errors')['404']))->render());
+			} else {
+				$outputData = new API([
+					'success' => false,
+					'error'   => '404 Not Found'
+				], [
+					'type' => ''
+				]);
+			}
+
 			$handler
 				->getResponse()
-				->withBody(new Text((new Render(Config::get('common','errors')['404']))->render()))
+				->withBody($outputData)
 				->output();
 
 			exit;
-
 		}
 
 		Routing::setFoundRouter($router);

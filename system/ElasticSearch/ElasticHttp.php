@@ -8,9 +8,8 @@
 
 namespace ElasticSearch;
 
-use ElasticSearch\ElasticResult;
 use Exception\HttpException;
-use System\Config;
+use Configs\Config;
 
 class ElasticHttp
 {
@@ -83,6 +82,12 @@ class ElasticHttp
 		$this->isGet    = false;
 	}
 
+	/**
+	 * @param array $query
+	 * @return ElasticResult
+	 * @throws HttpException
+	 * @throws \Exception\FileException
+	 */
 	public function query(array $query): ElasticResult
 	{
 		$result = $this->doRequest($query);
@@ -94,6 +99,11 @@ class ElasticHttp
 		return (new ElasticResult($result));
 	}
 
+	/**
+	 * @param array $query
+	 * @return string
+	 * @throws \Exception\FileException
+	 */
 	private function doRequest(array $query): string
 	{
 		$config      = Config::get('elasticsearch');
@@ -105,7 +115,7 @@ class ElasticHttp
 		$ch = curl_init($this->url);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5 );
 
-		if (is_array($query['body'])) {
+		if (!empty($query['body']) && is_array($query['body'])) {
 			$query['body'] = json_encode($query['body'],  JSON_UNESCAPED_UNICODE);
 		}
 

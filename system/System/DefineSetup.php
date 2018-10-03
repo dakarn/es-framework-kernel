@@ -12,6 +12,10 @@ if (!defined('PATH_APP')) {
 	define('PATH_APP', '');
 }
 
+if (!defined('TEMPLATE')) {
+	define('TEMPLATE', '');
+}
+
 if (isset($_SERVER['HTTP_HOST'])) {
 	define('IS_DOMAIN', true);
 
@@ -27,5 +31,3 @@ if (!defined('IS_WEB')) {
 }
 
 define('CONFIG_PATH', PATH_SYSTEM . 'Configs/ConfigFiles/');
-define('IS_CLI', PHP_SAPI === 'cli');
-define('IS_API', false);

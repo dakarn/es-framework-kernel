@@ -134,6 +134,16 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	public function getRecords(int $size, int $from): ElasticResult
+	{
+		$this->elasticHttp->setGET();
+		$this->path = '_search/';
+
+		return $this->elasticHttp
+			->setPretty(true)
+			->query($this->buildQueryArray());
+	}
+
 	public function get(string $id): ElasticResult
 	{
 		$this->elasticHttp->setGET();

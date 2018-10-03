@@ -90,6 +90,11 @@ class ElasticSearch
 		return $this->getStrategy()->get($id);
 	}
 
+	public function getRecords(int $size, int $from): ElasticResult
+	{
+		return $this->getStrategy()->getRecords($size, $from);
+	}
+
 	public function execute(): ElasticResult
 	{
 		return $this->getStrategy()->execute();
