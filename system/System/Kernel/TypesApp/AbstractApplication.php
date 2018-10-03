@@ -9,11 +9,11 @@
 namespace System\Kernel\TypesApp;
 
 use App\AppKernel;
-use System\Database\DbConfig;
+use System\Database\DbConfigLogic\DbConfig;
 use System\EventListener\EventManager;
 use System\Database\DB;
 use Configs\Config;
-use System\Database\DatabaseConfigure;
+use System\Database\DbConfigLogic\DatabaseConfigure;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Registry;

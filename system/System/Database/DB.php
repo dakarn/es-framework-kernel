@@ -29,26 +29,6 @@ class DB
 
 	const WRITE = 'write';
 
-    /**
-     * @var \mysqli
-     */
-	private static $connect;
-
-	/**
-	 * @var DatabaseConfigure
-	 */
-	private static $configure;
-
-	/**
-	 * @var MySQL
-	 */
-	private static $mysql;
-
-	/**
-	 * @var PgSQL
-	 */
-	private static $pgsql;
-
 	/**
 	 * @var Oracle
 	 */
@@ -59,6 +39,9 @@ class DB
 	 */
 	private static $mssql;
 
+	/**
+	 * @var DBAdapterInterface[]
+	 */
 	private static $adapters = [];
 
     /**
@@ -77,6 +60,7 @@ class DB
 
 	/**
 	 * @return DBAdapterInterface
+	 * @throws \Exception
 	 */
 	public static function MySQLAdapter(): DBAdapterInterface
 	{
@@ -116,43 +100,4 @@ class DB
 
 		return self::$mssql;
 	}
-
-	/**
-	 * @return \mysqli
-	 * @throws \Exception\KernelException
-	 */
-	public static function create(): \mysqli
-	{
-		if (!self::$connect instanceof \mysqli) {
-            $event = Registry::get(Registry::APP_EVENT);
-		    $event->runEvent(EventTypes::BEFORE_DB_CONNECT);
-
-			self::$connect = new \mysqli(
-				self::$configure->getHost(),
-				self::$configure->getUser(),
-				self::$configure->getPassword(),
-				self::$configure->getDatabase()
-			);
-
-			self::$connect->set_charset(self::$configure->getCharset());
-            $event->runEvent(EventTypes::AFTER_DB_CONNECT);
-		}
-
-		return self::$connect;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public static function disconnect(): bool
-	{
-		if (self::$connect instanceof \mysqli) {
-			\mysqli_close(self::$connect);
-			return true;
-		}
-
-		return false;
-	}
-
-
 }

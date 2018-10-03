@@ -6,7 +6,7 @@
  * Time: 15:10
  */
 
-namespace System\Database\DBManager\Mapping;
+namespace System\Database\ORM\Mapping;
 
 interface ObjectMapperInterface
 {

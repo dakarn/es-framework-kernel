@@ -15,15 +15,27 @@ class MySQLAdapter implements AdapteeInterface
 	/**
 	 * @var \mysqli
 	 */
-	private $connector;
+	private $reader;
+
+	/**
+	 * @var \mysqli
+	 */
+	private $writer;
+
+	/**
+	 * @var int
+	 */
+	private $affected = 0;
 
 	/**
 	 * MySQLAdapter constructor.
 	 * @param DBConnectorInterface $connector
+	 * @throws \Exception
 	 */
 	public function __construct(DBConnectorInterface $connector)
 	{
-		$this->connector = $connector->getConnector();
+		$this->writer    = $connector->getWriter();
+		$this->reader   = $connector->getReader();
 	}
 
 	/**
@@ -32,7 +44,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetchRow(string $sql): array
 	{
-		$query = $this->connector->query($sql);
+		$query = $this->reader->query($sql);
 
 		return $query->fetch_assoc() ?? [];
 	}
@@ -43,7 +55,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetch(string $sql): array
 	{
-		$query = $this->connector->query($sql);
+		$query = $this->reader->query($sql);
 		$data  = [];
 
 		while ($row = $query->fetch_assoc()) {
@@ -53,14 +65,17 @@ class MySQLAdapter implements AdapteeInterface
 		return $data;
 	}
 
-	public function getAffected()
+	/**
+	 * @return int
+	 */
+	public function getAffected(): int
 	{
-
+		return $this->affected;
 	}
 
 	public function getLastInsertId()
 	{
-		return $this->connector->insert_id;
+		return $this->writer->insert_id;
 	}
 
 	/**
@@ -69,7 +84,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function insert(string $sql): bool
 	{
-		return $this->connector->query($sql);
+		return $this->writer->query($sql);
 	}
 
 	/**
@@ -78,14 +93,14 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function update(string $sql): int
 	{
-		$this->connector->query($sql);
+		$this->writer->query($sql);
 
-		return $this->connector->affected_rows;
+		return $this->writer->affected_rows;
 	}
 
 	public function delete(string $sql)
 	{
-		$this->connector->query($sql);
+		$this->writer->query($sql);
 	}
 
 	/**
@@ -93,21 +108,21 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function close(): bool
 	{
-		return $this->connector->close();
+		return $this->writer->close() && $this->reader->close();
 	}
 
 	public function startTransaction()
 	{
-		$this->connector->begin_transaction();
+		$this->writer->begin_transaction();
 	}
 
 	public function commitTransaction()
 	{
-		$this->connector->commit();
+		$this->writer->commit();
 	}
 
 	public function rollbackTransaction()
 	{
-		$this->connector->rollback();
+		$this->writer->rollback();
 	}
 }

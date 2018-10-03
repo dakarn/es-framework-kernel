@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 30.09.2018
- * Time: 18:20
- */
 
-namespace System\Database;
+namespace System\Database\DbConfigLogic;
 
 use Traits\SingletonTrait;
 
@@ -26,15 +20,15 @@ class DbConfig
 	 */
 	public function setConfigure(string $dbType, DatabaseConfigure $databaseConfigure): self
 	{
-		$this->dbConfigs[$dbType]['read']  = $databaseConfigure;
-		$this->dbConfigs[$dbType]['write'] = $databaseConfigure;
+		$this->dbConfigs[$dbType]['read']  = $databaseConfigure->getReaders();
+		$this->dbConfigs[$dbType]['write'] = $databaseConfigure->getWriter();
 
 		return $this;
 	}
 
 	/**
 	 * @param string $dbType
-	 * @return DatabaseConfigure[]
+	 * @return array
 	 */
 	public function getConfigure(string $dbType): array
 	{

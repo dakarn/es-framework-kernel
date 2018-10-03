@@ -6,7 +6,7 @@
  * Time: 20:07
  */
 
-namespace System\Database\DBManager\Mapping;
+namespace System\Database\ORM\Mapping;
 
 use Exception\ObjectException;
 use Traits\SingletonTrait;

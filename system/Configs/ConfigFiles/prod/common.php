@@ -18,13 +18,13 @@ return [
 	'mysql' => [
 		'read' => [
 			[
-				'host'     => '127.0.0.1',
+				'host'     => '127.0.0.1:3307',
 				'user'     => 'root',
 				'database' => 'es-framework',
 				'password' => '234679',
 				'charset'  => 'utf8'
 			],[
-				'host'     => '127.0.0.1',
+				'host'     => '127.0.0.1:3309',
 				'user'     => 'root',
 				'database' => 'es-framework',
 				'password' => '234679',
@@ -102,13 +102,16 @@ return [
 	'redisSession' => [
 		[
 			'host' => '127.0.0.1',
-			'port' => 6379
+			'port' => 6379,
+			'main' => true,
 		],[
 			'host' => '127.0.0.1',
-			'port' => 6380
+			'port' => 6380,
+			'main' => false,
 		],[
 			'host' => '127.0.0.1',
-			'port' => 6381
+			'port' => 6381,
+			'main' => false
 		],
 	],
 	'flashText' => [

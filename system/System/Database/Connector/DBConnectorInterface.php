@@ -11,5 +11,12 @@ namespace System\Database\Connector;
 
 interface DBConnectorInterface
 {
-	public function getConnector();
+	public function getWriter();
+
+	/**
+	 * @param int $num
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	public function getReader(int $num = 0);
 }
