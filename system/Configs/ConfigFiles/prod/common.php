@@ -63,7 +63,7 @@ return [
 				'host'     => '127.0.0.1',
 				'user'     => 'root',
 				'database' => 'teacher',
-				'password' => '234679',
+				'password' => '23467',
 				'charset'  => 'utf8'
 			]
 		],
