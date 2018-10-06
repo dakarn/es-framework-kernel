@@ -12,7 +12,6 @@ use System\Database\DB;
 use System\Database\DbConfigLogic\DbConfig;
 use System\Database\DbConfigLogic\DefaultInstanceConf;
 use System\Database\DbConfigLogic\ReaderConf;
-use System\Database\DbConfigLogic\WriterConf;
 
 class MySQL implements DBConnectorInterface
 {
