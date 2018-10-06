@@ -9,6 +9,7 @@
 namespace System\Validators;
 
 use Configs\Config;
+use Helper\Util;
 use Http\Cookie;
 use Helper\CSRFTokenManager;
 use Helper\FlashText;
@@ -33,7 +34,11 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	    'csrfToken' => 'Отправлена невлидная форма'
     ];
 
+	/**
+	 * @var bool
+	 */
 	private $useIfPost = false;
+
 	/**
 	 * @var array
 	 */
@@ -93,6 +98,17 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		foreach ($this->stackErrors as $errorText) {
 			FlashText::add('danger', $errorText);
 		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string $text
+	 * @return AbstractValidator
+	 */
+	public function setFlashError(string $text): self
+	{
+		FlashText::add('danger', $text);
 
 		return $this;
 	}
@@ -173,12 +189,30 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	}
 
 	/**
-	 * @return array
+	 * @param string $keyError
+	 * @return AbstractValidator
 	 * @throws \Exception\FileException
 	 */
-	protected function getFormMessage(): array
+	public function setExtraError(string $keyError): AbstractValidator
 	{
-		return Config::get('form-result/form-message', \basename(static::class));
+		$error = Util::getFormMessage(\basename(static::class))[$keyError];
+
+		$this->stackErrors[$keyError] = $error;
+		$this->setFlashError($error);
+		return $this;
+	}
+
+	/**
+	 * @param array $errors
+	 * @return AbstractValidator
+	 */
+	public function setExtraErrorArray(array $errors): AbstractValidator
+	{
+		foreach ($errors as $errorText) {
+			FlashText::add('danger', $errorText);
+		}
+
+		return $this;
 	}
 
 	/**

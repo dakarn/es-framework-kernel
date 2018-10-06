@@ -8,7 +8,6 @@
 
 namespace System\Kernel\TypesApp;
 
-use App\AppKernel;
 use System\Database\DbConfigLogic\DbConfig;
 use System\EventListener\EventManager;
 use System\Database\DB;
@@ -60,11 +59,6 @@ abstract class AbstractApplication implements ApplicationInterface
 	 */
 	protected $eventManager;
 
-	/**
-	 * @var AppKernel
-	 */
-	protected $appKernel;
-
     /**
      * @var string
      */
@@ -76,6 +70,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	public function __construct()
 	{
 		Registry::set(Registry::APP, $this);
+		$this->setupClass();
 	}
 
 	/**
@@ -122,11 +117,19 @@ abstract class AbstractApplication implements ApplicationInterface
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isAuthApp(): bool
+	{
+		return $this->getApplicationType() === self::APP_TYPE['Auth'];
+	}
+
+	/**
      * @return bool
      */
 	public function isAPIApp(): bool
 	{
-		return $this->getApplicationType() === self::APP_TYPE['API'];
+		return $this->getApplicationType() === self::APP_TYPE['Api'];
 	}
 
     /**
@@ -146,31 +149,11 @@ abstract class AbstractApplication implements ApplicationInterface
 	}
 
     /**
-     * @param EventManager $eventManager
-     * @return AbstractApplication
-     */
-	public function setAppEvent(EventManager $eventManager): self
-	{
-		$this->eventManager = $eventManager;
-		return $this;
-	}
-
-    /**
      * @return EventManager
      */
 	public function getEventApp(): EventManager
 	{
 		return $this->eventManager;
-	}
-
-    /**
-     * @param AppKernel $appKernel
-     * @return AbstractApplication
-     */
-	public function setAppKernel(AppKernel $appKernel): self
-	{
-		$this->appKernel = $appKernel;
-		return $this;
 	}
 
     /**
@@ -236,16 +219,20 @@ abstract class AbstractApplication implements ApplicationInterface
     {
         Config::setEnvForConfig($this->env);
 
+	    $dbConfig = Config::get('db');
+
         DbConfig::create()
-            ->setConfigure(DB::MYSQL, new DatabaseConfigure(Config::get('common', 'mysql')))
-            ->setConfigure(DB::MSSQL, new DatabaseConfigure(Config::get('common', 'mssql')))
-            ->setConfigure(DB::PGSQL, new DatabaseConfigure(Config::get('common', 'pgsql')))
-            ->setConfigure(DB::ORACLE, new DatabaseConfigure(Config::get('common', 'oracle')));
+            ->setConfigure(DB::MYSQL, new DatabaseConfigure($dbConfig['mysql']))
+            ->setConfigure(DB::MSSQL, new DatabaseConfigure($dbConfig['mssql']))
+            ->setConfigure(DB::PGSQL, new DatabaseConfigure($dbConfig['pgsql']))
+            ->setConfigure(DB::ORACLE, new DatabaseConfigure($dbConfig['oracle']));
     }
 
     abstract public function terminate();
 
 	abstract public function run();
+
+	abstract public function setupClass();
 
 	abstract public function customOutputError(\Throwable $e);
 }

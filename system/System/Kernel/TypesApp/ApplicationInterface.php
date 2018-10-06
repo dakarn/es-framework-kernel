@@ -33,6 +33,11 @@ interface ApplicationInterface
 	/**
 	 * @return bool
 	 */
+	public function isAuthApp(): bool;
+
+	/**
+	 * @return bool
+	 */
 	public function isAPIApp(): bool;
 
 	/**
@@ -46,21 +51,9 @@ interface ApplicationInterface
 	public function getApplicationType(): string;
 
 	/**
-	 * @param EventManager $eventManager
-	 * @return AbstractApplication
-	 */
-	public function setAppEvent(EventManager $eventManager): AbstractApplication;
-
-	/**
 	 * @return EventManager
 	 */
 	public function getEventApp(): EventManager;
-
-	/**
-	 * @param AppKernel $appKernel
-	 * @return AbstractApplication
-	 */
-	public function setAppKernel(AppKernel $appKernel): AbstractApplication;
 
 	/**
 	 * @return string

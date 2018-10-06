@@ -10,10 +10,11 @@ namespace Http\Request;
 
 use Exception\MiddlewareException;
 use Http\Cookie;
-use Http\Session;
+use Http\Session\SessionRedis;
 use Http\Middleware\StorageMiddleware;
 use Http\Response\Response;
 use Http\Middleware\RequestHandler;
+use Http\Session\Strategy\RedisStrategy;
 
 class ServerRequest
 {
@@ -242,12 +243,12 @@ class ServerRequest
         return Cookie::create();
     }
 
-    /**
-     * @return Session
-     */
-    public function getSession(): Session
+	/**
+	 * @return RedisStrategy
+	 */
+    public function getSession(): RedisStrategy
     {
-        return Session::create();
+        return SessionRedis::create();
     }
 
 	/**

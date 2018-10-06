@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 03.10.2018
- * Time: 21:11
+ * Date: 06.10.2018
+ * Time: 14:11
  */
 
 namespace System\Database\DbConfigLogic;
 
-class Reader
+class DefaultInstanceConf
 {
 	/**
 	 * @var string
@@ -58,11 +58,17 @@ class Reader
 		$this->charset  = $config['charset'];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getWriter(): array
 	{
 		return $this->writer;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getReaders(): array
 	{
 		return $this->readers;

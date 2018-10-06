@@ -8,6 +8,7 @@
 
 namespace Helper;
 
+use Configs\Config;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 
@@ -16,6 +17,11 @@ class Util
 	const DICTIONARY       = 'qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM';
 
 	const DICTIONARY_DIGIT = '1234567890';
+
+	/**
+	 * @var array
+	 */
+	private static $formMessage = [];
 
 	/**
 	 * @return string
@@ -46,7 +52,38 @@ class Util
 	}
 
 	/**
-	 *
+	 * @param $value
+	 * @return string
+	 */
+	public static function base64encode($value): string
+	{
+		return \strtr(\base64_encode($value), ['+' => '-', '/' => '_', '=' => '']);
+	}
+
+	/**
+	 * @param $value
+	 * @return string
+	 */
+	public static function base64decode($value): string
+	{
+		return \base64_decode(\strtr($value, ['-' => '+' , '_' => '/']));
+	}
+
+	/**
+	 * @param string $key
+	 * @return array
+	 * @throws \Exception\FileException
+	 */
+	public static function getFormMessage(string $key): array
+	{
+		if (empty(self::$formMessage)) {
+			self::$formMessage = Config::get('form-result/form-message');
+		}
+
+		return self::$formMessage[$key] ?? [];
+	}
+	/**
+	 * @return string
 	 */
 	public static function toDbTime(): string
 	{
@@ -72,6 +109,10 @@ class Util
 		return $response;
 	}
 
+	/**
+	 * @param string $level
+	 * @param string $message
+	 */
 	public static function log(string $level, string  $message)
 	{
 		LoggerAware::setlogger(new Logger())->log($level, $message);

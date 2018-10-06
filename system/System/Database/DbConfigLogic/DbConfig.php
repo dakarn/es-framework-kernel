@@ -20,6 +20,11 @@ class DbConfig
 	 */
 	public function setConfigure(string $dbType, DatabaseConfigure $databaseConfigure): self
 	{
+		if ($databaseConfigure->isOneInstance()) {
+			$this->dbConfigs[$dbType][0]  = $databaseConfigure->getDefaultInstance();
+			return $this;
+		}
+
 		$this->dbConfigs[$dbType]['read']  = $databaseConfigure->getReaders();
 		$this->dbConfigs[$dbType]['write'] = $databaseConfigure->getWriter();
 

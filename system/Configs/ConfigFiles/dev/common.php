@@ -15,84 +15,6 @@ return [
 		'500' => 'errors/500.html',
 	],
 	'User' => 'User',
-	'mysql' => [
-		'read' => [
-			[
-				'host'     => '127.0.0.1:3307',
-				'user'     => 'root',
-				'database' => 'es-framework',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			],[
-				'host'     => '127.0.0.1:3309',
-				'user'     => 'root',
-				'database' => 'es-framework',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'es-framework',
-			'password' => '234679',
-			'charset'  => 'utf8'
-		]
-	],
-	'pgsql' => [
-		'read' => [
-			[
-				'host'     => '127.0.0.1',
-				'user'     => 'root',
-				'database' => 'teacher',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
-		]
-	],
-	'oracle' => [
-		'read' => [
-			[
-				'host'     => '127.0.0.1',
-				'user'     => 'root',
-				'database' => 'teacher',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
-		]
-	],
-	'mssql' => [
-		'read' => [
-			[
-				'host'     => '127.0.0.1',
-				'user'     => 'root',
-				'database' => 'teacher',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
-		]
-	],
 	'redis' => [
 		[
 			'host' => '127.0.0.1',
@@ -101,14 +23,21 @@ return [
 	],
 	'redisSession' => [
 		[
-			'host' => '127.0.0.1',
-			'port' => 6379
+			'host'      => '127.0.0.1',
+			'port'      => 6379,
+			'important' => 0
 		],[
-			'host' => '127.0.0.1',
-			'port' => 6380
+			'host'      => '127.0.0.1',
+			'port'      => 6380,
+			'important' => 1
 		],[
-			'host' => '127.0.0.1',
-			'port' => 6381
+			'host'      => '127.0.0.1',
+			'port'      => 6381,
+			'important' => 2
+		],[
+			'host'      => '127.0.0.1',
+			'port'      => 6382,
+			'important' => 3
 		],
 	],
 	'flashText' => [

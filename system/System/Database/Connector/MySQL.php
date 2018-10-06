@@ -10,8 +10,9 @@ namespace System\Database\Connector;
 
 use System\Database\DB;
 use System\Database\DbConfigLogic\DbConfig;
-use System\Database\DbConfigLogic\Reader;
-use System\Database\DbConfigLogic\Writer;
+use System\Database\DbConfigLogic\DefaultInstanceConf;
+use System\Database\DbConfigLogic\ReaderConf;
+use System\Database\DbConfigLogic\WriterConf;
 
 class MySQL implements DBConnectorInterface
 {
@@ -26,7 +27,12 @@ class MySQL implements DBConnectorInterface
 	private $reader;
 
 	/**
-	 * @var Reader[]
+	 * @var \mysqli
+	 */
+	private $defaultInstance;
+
+	/**
+	 * @var ReaderConf[]
 	 */
 	private $readersConfig = [];
 
@@ -42,6 +48,7 @@ class MySQL implements DBConnectorInterface
 
 	/**
 	 * MySQL constructor.
+	 * @throws \Exception
 	 */
 	public function __construct()
 	{
@@ -53,7 +60,7 @@ class MySQL implements DBConnectorInterface
 	 */
 	public function getWriter(): \mysqli
 	{
-		return $this->writer;
+		return $this->defaultInstance ?? $this->writer;
 	}
 
 	/**
@@ -63,11 +70,28 @@ class MySQL implements DBConnectorInterface
 	 */
 	public function getReader(int $num = 0): \mysqli
 	{
+		if ($this->defaultInstance !== null) {
+			return $this->defaultInstance;
+		}
+
 		if (!$this->reader instanceof \mysqli) {
 			$this->initReader($num);
 		}
 
 		return $this->reader;
+	}
+
+	/**
+	 * @param DefaultInstanceConf $conf
+	 * @throws \Exception
+	 */
+	private function initDefault(DefaultInstanceConf $conf)
+	{
+		try {
+			$this->defaultInstance = $this->connect($conf);
+		} catch (\mysqli_sql_exception $e) {
+			throw $e;
+		}
 	}
 
 	/**
@@ -81,16 +105,7 @@ class MySQL implements DBConnectorInterface
 				$num = \random_int(0, $this->amountReaders - 1);
 			}
 
-			\mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-			$this->reader = new \mysqli(
-				$this->readersConfig[$num]->getHost(),
-				$this->readersConfig[$num]->getUser(),
-				$this->readersConfig[$num]->getPassword(),
-				$this->readersConfig[$num]->getDatabase()
-			);
-
-			$this->writer->set_charset($this->readersConfig[$num]->getCharset());
+			$this->reader = $this->connect($this->readersConfig[$num]);
 		} catch (\mysqli_sql_exception $e) {
 			if ($this->tryReconnectReader === $this->amountReaders - 1) {
 				throw $e;
@@ -101,34 +116,50 @@ class MySQL implements DBConnectorInterface
 		}
 	}
 
+	/**
+	 * @throws \Exception
+	 */
 	private function initWriter()
 	{
 		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
 
-		/** @var Writer $writer */
-		$writer  = $conf['write'];
-		$readers = $conf['read'];
+		if (!empty($conf[0])) {
+			$this->initDefault($conf[0]);
+			return;
+		}
+
+		$readersConf = $conf['read'];
+		$this->amountReaders = \count($readersConf);
 
 		try {
-			$this->amountReaders = \count($readers);
-
-			\mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-			$this->writer = new \mysqli(
-				$writer->getHost(),
-				$writer->getUser(),
-				$writer->getPassword(),
-				$writer->getDatabase()
-			);
-
-			$this->writer->set_charset($writer->getCharset());
+			$this->writer = $this->connect($conf['write']);
 		} catch (\mysqli_sql_exception $e) {
 			throw $e;
 		}
 
-		/** @var Reader $reader */
-		foreach ($readers as $reader) {
+		/** @var ReaderConf $reader */
+		foreach ($readersConf as $reader) {
 			$this->readersConfig[] = $reader;
 		}
+	}
+
+	/**
+	 * @param DefaultInstanceConf $conf
+	 * @return \mysqli
+	 */
+	private function connect(DefaultInstanceConf $conf): \mysqli
+	{
+		\mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+		$mysqli = new \mysqli(
+			$conf->getHost(),
+			$conf->getUser(),
+			$conf->getPassword(),
+			$conf->getDatabase()
+		);
+
+		$mysqli->set_charset($conf->getCharset());
+
+		return $mysqli;
 	}
 }

@@ -11,14 +11,24 @@ namespace System\Database\DbConfigLogic;
 class DatabaseConfigure
 {
 	/**
-	 * @var Writer
+	 * @var WriterConf
 	 */
 	private $writer;
 
 	/**
-	 * @var Reader[]
+	 * @var ReaderConf[]
 	 */
 	private $readers;
+
+	/**
+	 * @var DefaultInstanceConf
+	 */
+	private $defaultInstance;
+
+	/**
+	 * @var bool
+	 */
+	private $isOneInstance = false;
 
     /**
      * DatabaseConfigure constructor.
@@ -26,23 +36,45 @@ class DatabaseConfigure
      */
 	public function __construct(array $config)
 	{
-		$this->writer  = new Writer($config['write']);
+		if (!empty($config[0])) {
+			$this->defaultInstance = new DefaultInstanceConf($config[0]);
+			$this->isOneInstance   = true;
+			return;
+		}
+
+		$this->writer  = new WriterConf($config['write']);
 
 		foreach ($config['read'] as $item) {
-			$this->readers[] = new Reader($item);
+			$this->readers[] = new ReaderConf($item);
 		}
 	}
 
 	/**
-	 * @return Writer
+	 * @return bool
 	 */
-	public function getWriter(): Writer
+	public function isOneInstance(): bool
+	{
+		return $this->isOneInstance;
+	}
+
+	/**
+	 * @return WriterConf
+	 */
+	public function getWriter(): WriterConf
 	{
 		return $this->writer;
 	}
 
 	/**
-	 * @return Reader[]
+	 * @return DefaultInstanceConf
+	 */
+	public function getDefaultInstance(): DefaultInstanceConf
+	{
+		return $this->defaultInstance;
+	}
+
+	/**
+	 * @return ReaderConf[]
 	 */
 	public function getReaders(): array
 	{

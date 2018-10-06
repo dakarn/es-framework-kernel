@@ -6,38 +6,38 @@
  * Time: 18:29
  */
 
-namespace Http\Session;
+namespace Http\Session\Strategy;
 
-use Traits\SingletonTrait;
-
+/**
+ * Class Session
+ * @package Http\Session
+ */
 class Session
 {
-	use SingletonTrait;
-
 	/**
-	 * @var RedisStrategy
+	 * @return SimpleSessionStrategy
 	 */
-	private $strategy;
-
-	/**
-	 * @return SessionStrategy
-	 */
-	private function getStrategy(): SessionStrategy
+	public function getSimpleStrategy(): SimpleSessionStrategy
 	{
-		if (!$this->strategy instanceof SessionStrategy) {
-			$this->strategy = new RedisStrategy();
-		}
+		return new SimpleSessionStrategy();
+	}
 
-		return $this->strategy;
+	/**
+	 * @return RedisStrategy
+	 */
+	public function getRedisStrategy(): RedisStrategy
+	{
+		return new RedisStrategy();
 	}
 
 	/**
 	 * @param string $key
 	 * @return string
+	 * @throws \Exception\FileException
 	 */
 	public function get(string $key): string
 	{
-		return $this->getStrategy()->get($key);
+		return $this->getRedisStrategy()->get($key);
 	}
 
 	/**
@@ -46,16 +46,17 @@ class Session
 	 */
 	public function getAsArray(string $key): array
 	{
-		return [];
+		return $this->getRedisStrategy()->getAsArray($key);
 	}
 
 	/**
 	 * @param string $key
 	 * @return bool
+	 * @throws \Exception\FileException
 	 */
 	public function has(string $key): bool
 	{
-		return $this->getStrategy()->has($key);
+		return $this->getRedisStrategy()->has($key);
 	}
 
 	/**
@@ -63,7 +64,7 @@ class Session
 	 */
 	public function count(): int
 	{
-		return count($_SESSION);
+		return $this->getRedisStrategy()->count();
 	}
 
 	/**
@@ -72,15 +73,7 @@ class Session
 	 */
 	public function getSome(array $keys): array
 	{
-		$foundKeys = [];
-
-		foreach ($keys as $key) {
-			if (isset($_SESSION[$key])) {
-				$foundKeys[$key] = $_SESSION[$key];
-			}
-		}
-
-		return $foundKeys;
+		return $this->getRedisStrategy()->getSome($keys);
 	}
 
 	/**
@@ -88,7 +81,7 @@ class Session
 	 */
 	public function clear(): void
 	{
-		session_unset();
+		$this->getRedisStrategy()->clear();
 	}
 
 	/**
@@ -96,26 +89,28 @@ class Session
 	 */
 	public function all(): array
 	{
-		return $_SESSION;
+		return $this->getRedisStrategy()->all();
 	}
 
 	/**
 	 * @param string $key
 	 * @return bool
+	 * @throws \Exception\FileException
 	 */
 	public function delete(string $key): bool
 	{
-		return $this->getStrategy()->delete($key);
+		return $this->getRedisStrategy()->delete($key);
 	}
 
 	/**
 	 * @param string $key
 	 * @param $value
 	 * @return Session
+	 * @throws \Exception\FileException
 	 */
 	public function set(string $key, $value): Session
 	{
-		$this->getStrategy()->set($key, $value);
+		$this->getRedisStrategy()->set($key, $value);
 		return $this;
 	}
 }

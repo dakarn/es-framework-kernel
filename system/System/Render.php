@@ -4,7 +4,7 @@ namespace System;
 
 use Configs\Config;
 
-class Render
+class Render implements RenderInterface
 {
 	/**
 	 * @var string
@@ -39,9 +39,13 @@ class Render
 
 	/**
 	 * @return string
+	 * @throws \Exception\FileException
 	 */
 	public function render(): string
     {
+    	$paramsTemplate = Config::get('paramsTemplate');
+
+    	\extract($paramsTemplate);
         \extract($this->params);
         \ob_start();
         include $this->template;

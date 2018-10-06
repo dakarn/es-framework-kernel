@@ -30,7 +30,7 @@ class Redis
 	 * @return bool|string
 	 * @throws \Exception\FileException
 	 */
-	public static function get(string $key)
+	public static function get($key)
 	{
 		self::connect();
 
@@ -38,15 +38,25 @@ class Redis
 	}
 
 	/**
-	 * @param string $key
-	 * @return bool
+	 * @return int
 	 * @throws \Exception\FileException
 	 */
-	public static function has(string $key): bool
+	public static function getAmountKeys(): int
 	{
 		self::connect();
 
-		return self::$redis->exists($key);
+		return self::$redis->dbSize();
+	}
+
+	/**
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public static function flushAll(): bool
+	{
+		self::connect();
+
+		return self::$redis->flushAll();
 	}
 
 	/**
@@ -54,7 +64,43 @@ class Redis
 	 * @return bool
 	 * @throws \Exception\FileException
 	 */
-	public static function delete(string $key): bool
+	public static function has($key): bool
+	{
+		self::connect();
+
+		return self::$redis->exists($key);
+	}
+
+	/**
+	 * @param $key
+	 * @return int
+	 * @throws \Exception\FileException
+	 */
+	public static function incr($key): int
+	{
+		self::connect();
+
+		return self::$redis->incr($key);
+	}
+
+	/**
+	 * @param $key
+	 * @return int
+	 * @throws \Exception\FileException
+	 */
+	public static function decr($key): int
+	{
+		self::connect();
+
+		return self::$redis->decr($key);
+	}
+
+	/**
+	 * @param string $key
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public static function delete($key): bool
 	{
 		self::connect();
 
@@ -72,7 +118,17 @@ class Redis
 	{
 		self::connect();
 
-		return self::$redis->set($key, $value, $ttl);
+		if (\is_array($value)) {
+			$value = \json_encode($value, JSON_UNESCAPED_SLASHES || JSON_UNESCAPED_UNICODE);
+		}
+
+		if ($ttl === 0) {
+			$result = self::$redis->set($key, $value);
+		} else {
+			$result = self::$redis->set($key, $value, $ttl);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -82,6 +138,7 @@ class Redis
 	{
 		self::connect();
 
+		self::$redis = null;
 		self::$redis->close();
 	}
 
@@ -101,11 +158,16 @@ class Redis
 	{
 		if (!self::$redis instanceof \Redis) {
 
+			$config = self::getConfig();
+
 			try {
-				$config = self::getConfig();
 
 				self::$redis = new \Redis();
 				self::$redis->connect($config['host'], $config['port']);
+
+				if (!empty($config['password'])) {
+					self::$redis->auth($config['password']);
+				}
 
 				self::$tryConnect = 0;
 			} catch (\Throwable $e) {
@@ -115,6 +177,7 @@ class Redis
 					return self::$redis;
 				}
 
+				self::$redis = null;
 				self::$tryConnect++;
 				self::connect();
 			}
