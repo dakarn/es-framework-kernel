@@ -36,8 +36,8 @@ class DatabaseConfigure
      */
 	public function __construct(array $config)
 	{
-		if (!empty($config[0])) {
-			$this->defaultInstance = new DefaultInstanceConf($config[0]);
+		if (!empty($config['oneInstance'])) {
+			$this->defaultInstance = new DefaultInstanceConf($config['oneInstance']);
 			$this->isOneInstance   = true;
 			return;
 		}

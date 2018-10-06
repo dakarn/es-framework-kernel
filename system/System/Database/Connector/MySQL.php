@@ -122,7 +122,7 @@ class MySQL implements DBConnectorInterface
 	{
 		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
 
-		if (!empty($conf[0])) {
+		if (!empty($conf['oneInstance'])) {
 			$this->initDefault($conf[0]);
 			return;
 		}

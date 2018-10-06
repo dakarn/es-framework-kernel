@@ -21,7 +21,7 @@ class DbConfig
 	public function setConfigure(string $dbType, DatabaseConfigure $databaseConfigure): self
 	{
 		if ($databaseConfigure->isOneInstance()) {
-			$this->dbConfigs[$dbType][0]  = $databaseConfigure->getDefaultInstance();
+			$this->dbConfigs[$dbType]['oneInstance']  = $databaseConfigure->getDefaultInstance();
 			return $this;
 		}
 
