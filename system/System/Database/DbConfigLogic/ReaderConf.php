@@ -8,6 +8,6 @@
 
 namespace System\Database\DbConfigLogic;
 
-class ReaderConf extends DefaultInstanceConf
+class ReaderConf extends OneInstanceConf
 {
 }

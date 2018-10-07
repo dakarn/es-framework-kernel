@@ -5,7 +5,7 @@ use Http\Cookie;
 use Http\Session\SessionRedis;
 use System\Registry;
 use System\Kernel\TypesApp\AbstractApplication;
-use App\Model\User\User;
+use Models\User\User;
 
 /** @var AbstractApplication $app */
 $app =  Registry::get(Registry::APP);

@@ -112,6 +112,39 @@ class ServerRequest
         return $_SERVER[$item] ?? '';
     }
 
+	/**
+	 * @return string
+	 */
+    public function getAuthorization(): string
+    {
+    	$header = '';
+
+	    if (isset($_SERVER['Authorization'])) {
+		    $header = \trim($_SERVER["Authorization"]);
+	    } else if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+		    $header = \trim($_SERVER['HTTP_AUTHORIZATION']);
+	    } else if (\function_exists('apache_request_headers')) {
+		    $header = \apache_request_headers()['Authorization'] ?? '';
+	    }
+
+	    return $header;
+    }
+
+	/**
+	 * @return string
+	 */
+    public function getBearer(): string
+    {
+	    $authorization = $this->getAuthorization();
+
+	    if (\preg_match('/^Bearer\s(.*)$/', $authorization)) {
+
+		    return \explode(' ', $authorization)[1] ?? '';
+	    }
+
+	    return '';
+    }
+
     /**
      * @return string
      */
@@ -164,14 +197,6 @@ class ServerRequest
      * @return string
      */
     public function getProxy(): string
-    {
-        return '';
-    }
-
-    /**
-     * @return string
-     */
-    public function getAuthorization(): string
     {
         return '';
     }

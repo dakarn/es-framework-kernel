@@ -10,8 +10,8 @@ namespace System\Database\Connector;
 
 use System\Database\DB;
 use System\Database\DbConfigLogic\DbConfig;
-use System\Database\DbConfigLogic\DefaultInstanceConf;
-use System\Database\DbConfigLogic\ReaderConf;
+use System\Database\DbConfigLogic\OneInstanceConf;
+use System\Database\DbConfigLogic\ReaderConfList;
 
 class MySQL implements DBConnectorInterface
 {
@@ -31,9 +31,9 @@ class MySQL implements DBConnectorInterface
 	private $defaultInstance;
 
 	/**
-	 * @var ReaderConf[]
+	 * @var ReaderConfList
 	 */
-	private $readersConfig = [];
+	private $readersConfigList;
 
 	/**
 	 * @var int
@@ -81,10 +81,10 @@ class MySQL implements DBConnectorInterface
 	}
 
 	/**
-	 * @param DefaultInstanceConf $conf
+	 * @param OneInstanceConf $conf
 	 * @throws \Exception
 	 */
-	private function initDefault(DefaultInstanceConf $conf)
+	private function initDefault(OneInstanceConf $conf)
 	{
 		try {
 			$this->defaultInstance = $this->connect($conf);
@@ -104,7 +104,7 @@ class MySQL implements DBConnectorInterface
 				$num = \random_int(0, $this->amountReaders - 1);
 			}
 
-			$this->reader = $this->connect($this->readersConfig[$num]);
+			$this->reader = $this->connect($this->readersConfigList->get($num));
 		} catch (\mysqli_sql_exception $e) {
 			if ($this->tryReconnectReader === $this->amountReaders - 1) {
 				throw $e;
@@ -123,30 +123,26 @@ class MySQL implements DBConnectorInterface
 		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
 
 		if (!empty($conf['oneInstance'])) {
-			$this->initDefault($conf[0]);
+			$this->initDefault($conf['oneInstance']);
 			return;
 		}
 
-		$readersConf = $conf['read'];
-		$this->amountReaders = \count($readersConf);
+		/** @var ReaderConfList $readersConf */
+		$this->readersConfigList = $conf['read'];
+		$this->amountReaders = $this->readersConfigList->count();
 
 		try {
 			$this->writer = $this->connect($conf['write']);
 		} catch (\mysqli_sql_exception $e) {
 			throw $e;
 		}
-
-		/** @var ReaderConf $reader */
-		foreach ($readersConf as $reader) {
-			$this->readersConfig[] = $reader;
-		}
 	}
 
 	/**
-	 * @param DefaultInstanceConf $conf
+	 * @param OneInstanceConf $conf
 	 * @return \mysqli
 	 */
-	private function connect(DefaultInstanceConf $conf): \mysqli
+	private function connect(OneInstanceConf $conf): \mysqli
 	{
 		\mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 

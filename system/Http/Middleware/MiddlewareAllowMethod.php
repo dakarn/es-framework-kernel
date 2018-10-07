@@ -25,7 +25,7 @@ class MiddlewareAllowMethod implements MiddlewareInterface
 	{
 		$router = Routing::getFoundRouter();
 
-		if (!in_array($request->getMethod(), $router->getAllow())) {
+		if (!\in_array($request->getMethod(), $router->getAllow())) {
 			throw ControllerException::deniedMethod([$request->getMethod()]);
 		}
 

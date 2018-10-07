@@ -18,10 +18,10 @@ class DatabaseConfigure
 	/**
 	 * @var ReaderConf[]
 	 */
-	private $readers;
+	private $readersList;
 
 	/**
-	 * @var DefaultInstanceConf
+	 * @var OneInstanceConf
 	 */
 	private $defaultInstance;
 
@@ -37,15 +37,17 @@ class DatabaseConfigure
 	public function __construct(array $config)
 	{
 		if (!empty($config['oneInstance'])) {
-			$this->defaultInstance = new DefaultInstanceConf($config['oneInstance']);
+			$this->defaultInstance = new OneInstanceConf($config['oneInstance']);
 			$this->isOneInstance   = true;
 			return;
 		}
 
 		$this->writer  = new WriterConf($config['write']);
 
-		foreach ($config['read'] as $item) {
-			$this->readers[] = new ReaderConf($item);
+		$this->readersList = new ReaderConfList();
+
+		foreach ($config['read'] as $index => $item) {
+			$this->readersList->add($index, new ReaderConf($item));
 		}
 	}
 
@@ -66,18 +68,18 @@ class DatabaseConfigure
 	}
 
 	/**
-	 * @return DefaultInstanceConf
+	 * @return OneInstanceConf
 	 */
-	public function getDefaultInstance(): DefaultInstanceConf
+	public function getDefaultInstance(): OneInstanceConf
 	{
 		return $this->defaultInstance;
 	}
 
 	/**
-	 * @return ReaderConf[]
+	 * @return ReaderConfList
 	 */
-	public function getReaders(): array
+	public function getReadersList(): ReaderConfList
 	{
-		return $this->readers;
+		return $this->readersList;
 	}
 }

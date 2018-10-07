@@ -29,6 +29,6 @@ class Json implements FormatResponseInterface
 	 */
 	public function getFormattedText(): string
 	{
-		return json_encode($this->data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+		return \json_encode($this->data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
 	}
 }

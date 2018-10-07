@@ -14,7 +14,8 @@ use Http\Request\ServerRequest;
 use Http\Response\API;
 use Http\Response\FormatResponseInterface;
 use Http\Response\Response;
-use Http\Session;
+use Http\Session\SessionRedis;
+use Http\Session\Strategy\RedisStrategy;
 use System\Registry;
 use Configs\Config;
 use System\EventListener\EventManager;
@@ -67,6 +68,7 @@ abstract class AbstractController implements ControllerInterface
 
 	/**
 	 * @return Render
+	 * @throws \Exception\FileException
 	 */
 	protected function notFound(): Render
 	{
@@ -123,6 +125,7 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function responseApiOK(array $data): Response
 	{
+		$this->response->withHeader('Access-Control-Allow-Origin','*');
 		return $this->response(new API($data, ['type' => 'success']));
 	}
 
@@ -132,15 +135,16 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function responseApiBad(array $data): Response
 	{
-		return $this->response(new API($data, ['type' => 'failed']));
+		$this->response->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response(new API($data, ['type' => 'fail']));
 	}
 
 	/**
-	 * @return Session
+	 * @return RedisStrategy
 	 */
-	protected function session(): Session
+	protected function session(): RedisStrategy
 	{
-		return Session::create();
+		return SessionRedis::create();
 	}
 
 	/**
@@ -153,8 +157,9 @@ abstract class AbstractController implements ControllerInterface
 
 	/**
 	 * @param string $invokeRouter
-	 * @return mixed
 	 * @throws ControllerException
+	 * @throws \Exception\FileException
+	 * @throws \Exception\KernelException
 	 */
 	protected function invokeRouter(string $invokeRouter)
 	{
@@ -175,6 +180,7 @@ abstract class AbstractController implements ControllerInterface
 	/**
 	 * @param string $nameService
 	 * @return ServiceInterface
+	 * @throws \Exception\FileException
 	 */
 	protected function get(string $nameService): ServiceInterface
 	{
@@ -188,6 +194,7 @@ abstract class AbstractController implements ControllerInterface
 	 * @param string $template
 	 * @param array $param
 	 * @return Render
+	 * @throws \Exception\FileException
 	 */
 	protected function render(string $template, array $param = []): Render
 	{
@@ -198,6 +205,9 @@ abstract class AbstractController implements ControllerInterface
 	 * @param string $routeName
 	 * @param array $arguments
 	 * @param int $status
+	 * @throws \Exception\FileException
+	 * @throws \Exception\KernelException
+	 * @throws \Exception\RoutingException
 	 */
 	protected function redirectToRoute(string $routeName, array $arguments = [], int $status = 302): void
 	{

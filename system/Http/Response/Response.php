@@ -74,7 +74,6 @@ class Response implements ResponseInterface
         return $this->status[0];
     }
 
-
     /**
 	 * @param FormatResponseInterface $formatted
 	 * @return Response

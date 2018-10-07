@@ -18,7 +18,6 @@ return [
 		'503' => 'errors/503.html',
 		'502' => 'errors/502.html'
 	],
-	'User' => \UserManager\User::class,
 	'mysql' => [
         'host'     => '127.0.0.1',
         'user'     => 'root',

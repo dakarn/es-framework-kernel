@@ -75,7 +75,7 @@ class Cookie
 	 */
 	public function set(string $key, string $value, string $path = '', int $expire = 0, string $domain = ''): Cookie
 	{
-		setcookie($key, $value, $expire, $path, $domain);
+		\setcookie($key, $value, $expire, $path, $domain);
 		return $this;
 	}
 }

@@ -8,7 +8,7 @@
 
 namespace System\Database\DbConfigLogic;
 
-class DefaultInstanceConf
+class OneInstanceConf
 {
 	/**
 	 * @var string

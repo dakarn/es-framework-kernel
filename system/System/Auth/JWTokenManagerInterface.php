@@ -6,7 +6,7 @@
  * Time: 2:24
  */
 
-namespace Helper;
+namespace System\Auth;
 
 interface JWTokenManagerInterface
 {

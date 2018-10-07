@@ -32,6 +32,15 @@ class Util
 	}
 
 	/**
+	 * @return int
+	 */
+	public static function now(): int
+	{
+		return \time();
+
+	}
+
+	/**
 	 * @param int $length
 	 * @return string
 	 * @throws \Exception
@@ -88,6 +97,11 @@ class Util
 	public static function toDbTime(): string
 	{
 		return \date('Y-m-d H:i:s', time());
+	}
+
+	public static function escapeStringSQL(string $text): string
+	{
+		return \preg_replace('', '', $text);
 	}
 
 	/**

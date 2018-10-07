@@ -26,16 +26,22 @@ abstract class AbstractList
 		return $this;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function getFirstElement()
 	{
 		$list = $this->list;
-		return array_shift($list);
+		return \array_shift($list);
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function getEndElement()
 	{
 		$list = $this->list;
-		return array_pop($list);
+		return \array_pop($list);
 	}
 
 	/**
@@ -60,7 +66,7 @@ abstract class AbstractList
 	 */
 	public function count(): bool
 	{
-		return count($this->list);
+		return \count($this->list);
 	}
 
 	/**

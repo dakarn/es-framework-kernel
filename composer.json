@@ -19,7 +19,8 @@
       "System\\": "system/System",
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",
-      "Configs\\": "system/Configs"
+      "Configs\\": "system/Configs",
+      "Models\\": "system/Models"
     },
     "files": [
       "system/System/DefineSetup.php"

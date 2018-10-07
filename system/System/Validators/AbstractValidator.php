@@ -87,6 +87,21 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	}
 
 	/**
+	 * @param string $key
+	 * @return string
+	 */
+	public function getValueFieldForSQL(string $key)
+	{
+		$value = '';
+
+		if (empty($_POST[$key])) {
+			$value = $_POST[$key];
+		}
+
+		return $value;
+	}
+
+	/**
 	 * @return AbstractValidator
 	 */
 	public function setFlashErrors(): self
@@ -96,7 +111,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		}
 
 		foreach ($this->stackErrors as $errorText) {
-			FlashText::add('danger', $errorText);
+			FlashText::add(FlashText::MSG_DANGER, $errorText);
 		}
 
 		return $this;
@@ -108,7 +123,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 */
 	public function setFlashError(string $text): self
 	{
-		FlashText::add('danger', $text);
+		FlashText::add(FlashText::MSG_DANGER, $text);
 
 		return $this;
 	}
@@ -209,7 +224,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	public function setExtraErrorArray(array $errors): AbstractValidator
 	{
 		foreach ($errors as $errorText) {
-			FlashText::add('danger', $errorText);
+			FlashText::add(FlashText::MSG_DANGER, $errorText);
 		}
 
 		return $this;

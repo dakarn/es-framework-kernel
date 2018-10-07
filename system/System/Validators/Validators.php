@@ -10,7 +10,8 @@ namespace System\Validators;
 
 interface Validators
 {
-	public const REGISTER = 'RegisterValidator';
-	public const AUTH     = 'AuthValidator';
-	public const COMMON   = 'common';
+	public const REGISTER  = 'RegisterValidator';
+	public const AUTH      = 'AuthValidator';
+	public const COMMON    = 'common';
+	public const AUTH_APP  = 'AuthAppValidator';
 }

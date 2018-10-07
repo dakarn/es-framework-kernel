@@ -14,7 +14,6 @@ return [
 		'502' => 'errors/502.html',
 		'500' => 'errors/500.html',
 	],
-	'User' => 'User',
 	'mysql' => [
 		'read' => [
 			[

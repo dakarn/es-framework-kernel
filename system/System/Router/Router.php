@@ -61,6 +61,11 @@ class Router
 	private $name;
 
 	/**
+	 * @var int
+	 */
+	private $access = 0;
+
+	/**
 	 * @var bool
 	 */
 	private $isFilled = false;
@@ -85,6 +90,7 @@ class Router
 		$this->middleware = $router['middleware'] ?? [];
 		$this->isRegex    = $router['regex'] ?? false;
 		$this->name       = $router['name'] ?? '';
+		$this->access     = $router['access'] ?? '';
 
 		$this->isFilled = true;
 	}
@@ -103,6 +109,14 @@ class Router
 	public function getDefault(): string
 	{
 		return $this->default;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getAccess(): int
+	{
+		return $this->access;
 	}
 
 	/**

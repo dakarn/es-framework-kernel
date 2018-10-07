@@ -8,6 +8,14 @@ return [
 		'fail-auth-data' => 'Не верно введен логин(email) или пароль.',
 		'query'          => 'Не корректный запрос.',
 	],
+	Validators::AUTH_APP => [
+		'clientId'     => 'Не заполнен clientId.',
+		'clientSecret' => 'Не заполнен clientSecret.',
+		'site'         => 'Не заполнен site.',
+		'login'        => 'Не заполнен логин или email.',
+		'password'     => 'Не заполнен пароль.',
+		'query'        => 'Не корректный запрос.',
+	],
 	Validators::REGISTER => [
 		'login'      => 'Не заполнен логин.',
 		'email'      => 'Не верно заполнен email.',

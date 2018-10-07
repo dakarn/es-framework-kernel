@@ -6,9 +6,10 @@
  * Time: 18:17
  */
 
-namespace Helper;
+namespace System\Auth;
 
 use Configs\Config;
+use Helper\Util;
 use Traits\SingletonTrait;
 
 class JWTokenManager implements JWTokenManagerInterface
@@ -32,7 +33,7 @@ class JWTokenManager implements JWTokenManagerInterface
 	/**
 	 * @var JWTokenProperties
 	 */
-	private$JWTokenProperties;
+	private $JWTokenProperties;
 
 	/**
 	 * @var bool
@@ -45,13 +46,37 @@ class JWTokenManager implements JWTokenManagerInterface
 	private $token = '';
 
 	/**
+	 * @var string 
+	 */
+	private $refreshToken = '';
+
+	/**
+	 * @param string $refreshToken
+	 * @return JWTokenManager
+	 */
+	public function setRefreshToken(string $refreshToken): JWTokenManager
+	{
+		$this->refreshToken = $refreshToken;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getRefreshToken(): string
+	{
+		return $this->refreshToken;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getToken(): string
 	{
 		return $this->token;
 	}
-
+	
 	/**
 	 * @return JWTokenProperties
 	 */
@@ -109,14 +134,30 @@ class JWTokenManager implements JWTokenManagerInterface
 	 */
 	public function verifyToken(string $token, string $secretKey = ''): bool
 	{
-		$secretKey = !empty($secretKey) ? $secretKey: Config::get('salt', 'jwToken');
+		if (empty($secretKey)) {
+			$secretKey = Config::get('salt', 'jwToken');
+		}
 
-		list($header, $payload, $signToken) = \explode('.', $token);
+		$partToken = \explode('.', $token);
+
+		if (\count($partToken) != 3) {
+			return false;
+		}
+
+		list($header, $payload, $signToken) = $partToken;
 
 		$checkToken = \hash_hmac('sha256', $header . '.' . $payload, $secretKey, true);
 		$checkToken = Util::base64encode($checkToken);
 
-		return $signToken === $checkToken;
+		if ($signToken !== $checkToken) {
+			return false;
+		}
+
+		if ($this->decode()->getExp() < \time()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -133,8 +174,9 @@ class JWTokenManager implements JWTokenManagerInterface
 		$unsignedToken = $headerBase64 . '.' . $payloadBase64;
 		$signedToken   = Util::base64encode(\hash_hmac('sha256', $unsignedToken, $secretKey, true));
 
-		$this->token = $unsignedToken . '.' . $signedToken;
-		$this->isCreated = true;
+		$this->token             = $unsignedToken . '.' . $signedToken;
+		$this->JWTokenProperties = new JWTokenProperties($this->header + $this->payload);
+		$this->isCreated         = true;
 
 		return $this;
 	}
@@ -143,14 +185,23 @@ class JWTokenManager implements JWTokenManagerInterface
 	 * @param string $token
 	 * @return JWTokenProperties
 	 */
-	public function decode(string $token): JWTokenProperties
+	public function decode(string $token = ''): JWTokenProperties
 	{
-		list($headerStr, $payloadStr) = \explode('.', $token);
+		if ($this->JWTokenProperties instanceof JWTokenProperties) {
+			return $this->JWTokenProperties;
+		}
+
+		if (empty($this->token)) {
+			$this->token = $token;
+		}
+
+		list($headerStr, $payloadStr) = \explode('.', $this->token);
 
 		$header  = \json_decode(Util::base64decode($headerStr), true);
 		$payload = \json_decode(Util::base64decode($payloadStr), true);
 
 		$this->JWTokenProperties = new JWTokenProperties($header + $payload);
+
 		return $this->JWTokenProperties;
 	}
 }

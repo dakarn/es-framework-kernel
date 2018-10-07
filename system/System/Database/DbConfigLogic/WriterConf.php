@@ -8,6 +8,6 @@
 
 namespace System\Database\DbConfigLogic;
 
-class WriterConf extends DefaultInstanceConf
+class WriterConf extends OneInstanceConf
 {
 }

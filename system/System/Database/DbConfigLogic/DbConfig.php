@@ -25,7 +25,7 @@ class DbConfig
 			return $this;
 		}
 
-		$this->dbConfigs[$dbType]['read']  = $databaseConfigure->getReaders();
+		$this->dbConfigs[$dbType]['read']  = $databaseConfigure->getReadersList();
 		$this->dbConfigs[$dbType]['write'] = $databaseConfigure->getWriter();
 
 		return $this;
