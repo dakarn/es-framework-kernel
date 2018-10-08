@@ -26,6 +26,11 @@ class User implements UserInterface
 	/**
 	 * @var bool
 	 */
+	private $wasCheckAuth = false;
+
+	/**
+	 * @var bool
+	 */
 	private $isAuth = false;
 
 	/**
@@ -377,10 +382,11 @@ class User implements UserInterface
 	 */
 	public function isAuth(): bool
 	{
-		if ($this->isAuth) {
-			return true;
+		if ($this->wasCheckAuth) {
+			return $this->isAuth;
 		}
 
+		$this->wasCheckAuth = true;
 
 		Authorization::create()->verifyAccess();
 

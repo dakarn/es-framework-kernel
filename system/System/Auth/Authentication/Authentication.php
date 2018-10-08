@@ -8,12 +8,15 @@
 
 namespace System\Auth\Authentication;
 
+use App\Models\AuthAppRepository;
 use System\Auth\TokenRepository;
 use System\Auth\JWTokenManager;
 use Helper\Util;
 use Http\Cookie;
 use Http\Session\SessionRedis;
 use Models\User\UserInterface;
+use System\Validators\AbstractValidator;
+use System\Validators\Validators;
 use Traits\SingletonTrait;
 
 class Authentication implements AuthenticationInterface
@@ -66,6 +69,26 @@ class Authentication implements AuthenticationInterface
 	}
 
 	/**
+	 * @param AbstractValidator $validator
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public function processUpdateRefreshToken(AbstractValidator $validator, AuthAppRepository $authAppRepository): bool
+	{
+		$tokenRepos = new TokenRepository();
+		$result = $tokenRepos->loadByRefreshToken($validator);
+
+		if (!$tokenRepos->isLoaded()) {
+			$validator->setExtraErrorAPI('unknown-refresh', Validators::COMMON);
+			return false;
+		}
+
+		$tokenRepos->updateRefreshToken($result, $authAppRepository);
+		
+		return true;
+	}
+
+	/**
 	 * @param UserInterface $user
 	 * @param int $ttl
 	 * @return Authentication
@@ -88,14 +111,14 @@ class Authentication implements AuthenticationInterface
 
 		$JWTokenManager
 			->setPayload($dataToSave)
-			->setRefreshToken($this->createRefreshToken())
+			->setRefreshToken(Util::createRefreshToken())
 			->createToken();
 
 		Cookie::create()->set('JWT', $JWTokenManager->getToken(), '', \time() + 222222, 'es-framework.dev.ru');
 
 		$signToken = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
 		SessionRedis::create()->set($signToken, \json_encode($dataToSave));
-		$result    = (new TokenRepository)->addToken($JWTokenManager);
+		$result    = (new TokenRepository)->addAccessToken($JWTokenManager);
 
 		if ($result) {
 			$this->currentUser   = $user;
@@ -143,14 +166,5 @@ class Authentication implements AuthenticationInterface
 	public function isLogout(): bool
 	{
 		return $this->isLogout;
-	}
-
-	/**
-	 * @return string
-	 * @throws \Exception
-	 */
-	private function createRefreshToken(): string
-	{
-		return Util::base64encode(Util::generateCSRFToken());
 	}
 }

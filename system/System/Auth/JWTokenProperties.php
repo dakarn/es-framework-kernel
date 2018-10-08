@@ -138,7 +138,7 @@ class JWTokenProperties
 
 	public function getExpAsDT(): string
 	{
-		return  \date('Y-m-d H:i:s', $this->exp);		
+		return \date('Y-m-d H:i:s', $this->exp);
 	}
 	
 	/**

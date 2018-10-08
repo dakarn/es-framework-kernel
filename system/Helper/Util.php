@@ -96,7 +96,7 @@ class Util
 	 */
 	public static function toDbTime(): string
 	{
-		return \date('Y-m-d H:i:s', time());
+		return \date('Y-m-d H:i:s', \time());
 	}
 
 	public static function escapeStringSQL(string $text): string
@@ -113,10 +113,10 @@ class Util
 	{
 		$i        = 0;
 		$response = '';
-		$count    = strlen(self::DICTIONARY) - 1;
+		$count    = \strlen(self::DICTIONARY) - 1;
 
 		while ($i <= $length) {
-			$response .= self::DICTIONARY[random_int(0, $count)];
+			$response .= self::DICTIONARY[\random_int(0, $count)];
 			++$i;
 		}
 
@@ -130,5 +130,14 @@ class Util
 	public static function log(string $level, string  $message)
 	{
 		LoggerAware::setlogger(new Logger())->log($level, $message);
+	}
+
+	/**
+	 * @return string
+	 * @throws \Exception
+	 */
+	public static function createRefreshToken(): string
+	{
+		return Util::base64encode(Util::generateCSRFToken());
 	}
 }

@@ -148,7 +148,7 @@ class UserStrategy
 				created 
 			FROM user
 			WHERE 
-				`userId` = "' . $userId . '" 
+				`userId` = ' . $userId . '
 			LIMIT 1
 		');
 

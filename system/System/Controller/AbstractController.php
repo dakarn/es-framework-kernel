@@ -26,6 +26,7 @@ use System\Service\ServiceContainer;
 use System\Service\ServiceInterface;
 use System\Render;
 use System\Router\RouteData;
+use System\Validators\AbstractValidator;
 
 abstract class AbstractController implements ControllerInterface
 {
@@ -126,6 +127,8 @@ abstract class AbstractController implements ControllerInterface
 	protected function responseApiOK(array $data): Response
 	{
 		$this->response->withHeader('Access-Control-Allow-Origin','*');
+		$this->response->withHeader('Content-type','application/json');
+
 		return $this->response(new API($data, ['type' => 'success']));
 	}
 
@@ -136,7 +139,25 @@ abstract class AbstractController implements ControllerInterface
 	protected function responseApiBad(array $data): Response
 	{
 		$this->response->withHeader('Access-Control-Allow-Origin','*');
+		$this->response->withHeader('Content-type','application/json');
+
 		return $this->response(new API($data, ['type' => 'fail']));
+	}
+
+	/**
+	 * @param AbstractValidator $validator
+	 * @param string $keyError
+	 * @param $itemError
+	 * @return Response
+	 * @throws \Exception\FileException
+	 */
+	protected function responseApiBadWithError(AbstractValidator $validator, string $keyError, string $itemError): Response
+	{
+		$this->response->withHeader('Access-Control-Allow-Origin','*');
+		$this->response->withHeader('Content-type','application/json');
+
+		$validator->setExtraErrorAPI($keyError, $itemError);
+		return $this->response(new API($validator->getErrorsApi(), ['type' => 'fail']));
 	}
 
 	/**

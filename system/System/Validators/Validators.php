@@ -14,4 +14,5 @@ interface Validators
 	public const AUTH      = 'AuthValidator';
 	public const COMMON    = 'common';
 	public const AUTH_APP  = 'AuthAppValidator';
+	public const REF_TOKEN = 'RefreshTokenValidator';
 }

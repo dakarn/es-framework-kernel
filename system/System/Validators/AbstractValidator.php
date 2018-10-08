@@ -231,6 +231,19 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	}
 
 	/**
+	 * @param string $keyError
+	 * @return AbstractValidator
+	 * @throws \Exception\FileException
+	 */
+	public function setExtraErrorAPI(string $keyError, string $itemError = ''): AbstractValidator
+	{
+		$error = Util::getFormMessage($itemError ?: \basename(static::class))[$keyError];
+		$this->stackErrors[$keyError] = $error;
+		
+		return $this;
+	}
+
+	/**
 	 * @return mixed
 	 */
 	abstract public function validate();
