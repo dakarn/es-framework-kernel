@@ -4,16 +4,10 @@ namespace System\Database;
 
 use System\Database\Adapter\DBAdapter;
 use System\Database\Adapter\DBAdapterInterface;
-use System\Database\Adapter\MSSQLAdapter;
 use System\Database\Adapter\MySQLAdapter;
-use System\Database\Adapter\OracleAdapter;
 use System\Database\Adapter\PgSQLAdapter;
-use System\Database\Connector\MSSQL;
 use System\Database\Connector\MySQL;
-use System\Database\Connector\Oracle;
 use System\Database\Connector\PgSQL;
-use System\EventListener\EventTypes;
-use System\Registry;
 
 class DB
 {
@@ -28,16 +22,6 @@ class DB
 	const READ = 'read';
 
 	const WRITE = 'write';
-
-	/**
-	 * @var Oracle
-	 */
-	private static $oracle;
-
-	/**
-	 * @var MSSQL
-	 */
-	private static $mssql;
 
 	/**
 	 * @var DBAdapterInterface[]
@@ -73,6 +57,7 @@ class DB
 
 	/**
 	 * @return DBAdapterInterface
+	 * @throws \Exception
 	 */
 	public static function PgSQLAdapter(): DBAdapterInterface
 	{
@@ -81,23 +66,5 @@ class DB
 		}
 
 		return self::$adapters[self::MYSQL];
-	}
-
-	public static function OracleAdapter(): OracleAdapter
-	{
-		if (!self::$oracle instanceof OracleAdapter) {
-			self::$oracle = new OracleAdapter(new Oracle());
-		}
-
-		return self::$oracle;
-	}
-
-	public static function MSSQLAdapter(): MSSQLAdapter
-	{
-		if (!self::$mssql instanceof MSSQL) {
-			self::$mssql = new MSSQLAdapter(new MSSQL());
-		}
-
-		return self::$mssql;
 	}
 }

@@ -10,6 +10,8 @@ namespace Http\Session\Strategy;
 
 interface SessionStrategy
 {
+	public const JWT = 'JWT';
+
 	/**
 	 * @param string $key
 	 * @return mixed

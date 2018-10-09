@@ -108,6 +108,18 @@ class Redis
 	}
 
 	/**
+	 * @param array $keys
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public static function deleteKeys(array $keys): bool
+	{
+		self::connect();
+
+		return \call_user_func_array([self::$redis, 'delete'], $keys);
+	}
+
+	/**
 	 * @param $key
 	 * @param $value
 	 * @param int $ttl

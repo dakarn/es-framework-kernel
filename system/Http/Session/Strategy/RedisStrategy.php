@@ -95,6 +95,20 @@ class RedisStrategy implements SessionStrategy
 	}
 
 	/**
+	 * @param array $keys
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public function deleteKeys(array $keys): bool
+	{
+		if (empty($keys)) {
+			return false;
+		}
+
+		return Redis::deleteKeys($keys);
+	}
+
+	/**
 	 * @param string $key
 	 * @return bool
 	 * @throws \Exception\FileException
@@ -107,10 +121,11 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param string $key
 	 * @param $value
+	 * @param int $ttl
 	 * @return bool
 	 * @throws \Exception\FileException
 	 */
-	public function set($key, $value): bool
+	public function set($key, $value, int $ttl = 0): bool
 	{
 		return Redis::set($key, $value);
 	}

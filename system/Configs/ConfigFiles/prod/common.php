@@ -14,6 +14,7 @@ return [
 		'502' => 'errors/502.html',
 		'500' => 'errors/500.html',
 	],
+	'maxAuthUserWithDevices' => 10,
 	'mysql' => [
 		'read' => [
 			[

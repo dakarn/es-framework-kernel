@@ -145,6 +145,26 @@ class ServerRequest
 	    return '';
     }
 
+	/**
+	 * @return string
+	 */
+	public function getAccessTokenFromRequest(): string
+	{
+		$token = Cookie::create()->get('JWT');
+
+		if (!empty($token)) {
+			return $token;
+		}
+
+		$token = ServerRequest::create()->getBearer();
+
+		if (!empty($token)) {
+			return $token;
+		}
+
+		return ServerRequest::create()->takePost('accessToken');
+	}
+
     /**
      * @return string
      */

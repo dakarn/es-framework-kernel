@@ -9,9 +9,9 @@
 namespace System\Auth\Authorization;
 
 use System\Auth\JWTokenManager;
-use Http\Cookie;
 use Http\Request\ServerRequest;
 use Traits\SingletonTrait;
+use Http\Session\SessionRedis;
 
 class Authorization
 {
@@ -24,17 +24,26 @@ class Authorization
 	 */
 	public function verifyAccess()
 	{
-		$token = $this->getTokenFromRequest();
+		$token = ServerRequest::create()->getAccessTokenFromRequest();
 
 		if (empty($token)) {
 			return;
 		}
 
-
 		$JWTokenManager = JWTokenManager::create();
 		$JWTokenManager->setToken($token);
-
+		
 		if (!$JWTokenManager->verifyToken($token)) {
+			return;
+		}
+
+		$token = SessionRedis::create()->get($JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN));
+
+		if (!$token) {
+			return;
+		}
+
+		if ($JWTokenManager->getProperties()->getUserId() === 0) {
 			return;
 		}
 
@@ -65,19 +74,5 @@ class Authorization
 	public function verifyAccessByUserId(): Authorization
 	{
 		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	private function getTokenFromRequest(): string
-	{
-		$token = Cookie::create()->get('JWT');
-
-		if (!empty($token)) {
-			return $token;
-		}
-
-		return ServerRequest::create()->getBearer();
 	}
 }

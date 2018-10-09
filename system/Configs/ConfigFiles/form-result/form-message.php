@@ -24,10 +24,14 @@ return [
 		'user-exist' => 'Пользователь с такимии данными уже есть на сайте.'
 	],
 	Validators::COMMON => [
-		'error-query'       => 'Ошибка при выполнении опреации, попробуйте позже.',
+		'error-query'     => 'Ошибка при выполнении опреации, попробуйте позже.',
 		'error-save'      => 'Возникла ошибка при сохранении данных.',
 		'already-auth'    => 'Вы уже вшли на сайт',
 		'unknown-clients' => 'Не найдено приложение с такими clientId и clientSecret.',
 		'unknown-refresh' => 'Получен не известный refreshToken.',
-	]
+		'unknown-access'  => 'Получен неизвестный accessToken',
+	],
+	Validators::SUCCESS => [
+		'success' => 'Запрос выполнен успешно.',
+	],
 ];

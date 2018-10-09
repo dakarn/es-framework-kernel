@@ -9,6 +9,7 @@
 namespace System\Auth;
 
 use App\Models\AuthAppRepository;
+use Configs\Config;
 use Helper\Util;
 use Models\User\User;
 use System\Database\DB;
@@ -65,6 +66,42 @@ class TokenRepository
 	}
 
 	/**
+	 * @param string $token
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function deleteByAccessToken(string $token): bool
+	{
+		DB::MySQLAdapter()->delete('
+			DELETE
+			FROM 
+				access_tokens
+			WHERE
+				access = "' . $token  . '"
+		');
+
+		return true;
+	}
+
+	/**
+	 * @param int $userId
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function deleteTokensByUserId(int $userId): bool
+	{
+		DB::MySQLAdapter()->delete('
+			DELETE
+			FROM 
+				access_tokens
+			WHERE
+				userId = "' . $userId  . '"
+		');
+
+		return true;
+	}
+	
+	/**
 	 * @param JWTokenManager $JWTokenManager
 	 * @return bool
 	 * @throws \Exception
@@ -74,6 +111,7 @@ class TokenRepository
 		$token   = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
 		$payload = $JWTokenManager->getProperties();
 
+		error_log(print_r($payload,true));
 		DB::MySQLAdapter()->insert('
 			INSERT INTO access_tokens
 			(
@@ -131,8 +169,29 @@ class TokenRepository
 		return $this;
 	}
 
-	public function loadByUserId(int $userId): TokenRepository
+	/**
+	 * @param int $userId
+	 * @return array
+	 * @throws \Exception\FileException
+	 */
+	public function loadByUserId(int $userId): array
 	{
-		return $this;
+		$maxAuthUserWithDevices = Config::get('common', 'maxAuthUserWithDevices');
+
+		$result = DB::MySQLAdapter()->fetch('
+			SELECT 
+				*
+			FROM 
+				access_tokens
+			WHERE 
+				userId = "' . $userId . '"
+			LIMIT 10
+		');
+
+		if (!empty($result)) {
+			$this->isLoaded = true;
+		}
+
+		return $result;
 	}
 }

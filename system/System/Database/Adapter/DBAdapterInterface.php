@@ -8,6 +8,8 @@
 
 namespace System\Database\Adapter;
 
+use Helper\AbstractList;
+
 interface DBAdapterInterface
 {
 	/**
@@ -22,19 +24,61 @@ interface DBAdapterInterface
 	 */
 	public function fetchRow(string $sql): array;
 
-	public function getAffected();
+	/**
+	 * @return int
+	 */
+	public function getAffected(): int;
 
+	/**
+	 * @param string $sql
+	 * @param string $abstractList
+	 * @param string $object
+	 * @return mixed
+	 */
+	public function fetchToObjectList(string $sql, string $abstractList, string $object);
+
+	/**
+	 * @param string $sql
+	 * @param string $object
+	 * @return mixed
+	 */
+	public function fetchRowToObject(string $sql, string $object);
+
+	/**
+	 * @return mixed
+	 */
 	public function getLastInsertId();
 
-	public function insert(string $sql);
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function insert(string $sql): bool;
 
-	public function update(string $sql);
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function update(string $sql): bool;
 
-	public function delete(string $sql);
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function delete(string $sql): bool;
 
+	/**
+	 * @return mixed
+	 */
 	public function startTransaction();
 
+	/**
+	 * @return mixed
+	 */
 	public function commitTransaction();
 
+	/**
+	 * @return mixed
+	 */
 	public function rollbackTransaction();
 }

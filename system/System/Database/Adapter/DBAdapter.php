@@ -8,6 +8,8 @@
 
 namespace System\Database\Adapter;
 
+use Helper\AbstractList;
+
 class DBAdapter implements DBAdapterInterface
 {
 	/**
@@ -42,17 +44,47 @@ class DBAdapter implements DBAdapterInterface
 		return $this->adaptee->fetchRow($sql);
 	}
 
-	public function getAffected()
+	/**
+	 * @param string $sql
+	 * @param string $abstractList
+	 * @param string $object
+	 * @return AbstractList
+	 */
+	public function fetchToObjectList(string $sql, string $abstractList, string $object): AbstractList
 	{
-
+		return $this->adaptee->fetchToObjectList($sql, $abstractList, $object);
 	}
 
+	/**
+	 * @param string $sql
+	 * @param string $object
+	 */
+	public function fetchRowToObject(string $sql, string $object)
+	{
+		return $this->adaptee->fetchRowToObject($sql, $object);
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getAffected(): int
+	{
+		return $this->adaptee->getAffected();
+	}
+
+	/**
+	 * @return mixed
+	 */
 	public function getLastInsertId()
 	{
 		return $this->adaptee->getLastInsertId();
 	}
 
-	public function insert(string $sql)
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function insert(string $sql): bool
 	{
 		return $this->adaptee->insert($sql);
 	}
@@ -61,12 +93,16 @@ class DBAdapter implements DBAdapterInterface
 	 * @param string $sql
 	 * @return mixed
 	 */
-	public function update(string $sql)
+	public function update(string $sql): bool
 	{
 		return $this->adaptee->update($sql);
 	}
 
-	public function delete(string $sql)
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function delete(string $sql): bool
 	{
 		return $this->adaptee->delete($sql);
 	}

@@ -9,6 +9,7 @@
 namespace System\Controller;
 
 use Exception\ControllerException;
+use Helper\Util;
 use Http\Cookie;
 use Http\Request\ServerRequest;
 use Http\Response\API;
@@ -43,7 +44,6 @@ abstract class AbstractController implements ControllerInterface
     /**
      * @var ServerRequest
      */
-
 	protected $request;
 
     /**
@@ -126,8 +126,7 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function responseApiOK(array $data): Response
 	{
-		$this->response->withHeader('Access-Control-Allow-Origin','*');
-		$this->response->withHeader('Content-type','application/json');
+		$this->setHeaderAPI();
 
 		return $this->response(new API($data, ['type' => 'success']));
 	}
@@ -138,10 +137,43 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function responseApiBad(array $data): Response
 	{
-		$this->response->withHeader('Access-Control-Allow-Origin','*');
-		$this->response->withHeader('Content-type','application/json');
+		$this->setHeaderAPI();
 
 		return $this->response(new API($data, ['type' => 'fail']));
+	}
+
+	/**
+	 * @param string $keyError
+	 * @param string $itemError
+	 * @return Response
+	 * @throws \Exception\FileException
+	 */
+	protected function responseApiBadFormError(string $keyError, string $itemError): Response
+	{
+		$this->setHeaderAPI();
+
+		$data = [
+			'error' => Util::getFormMessage($itemError)[$keyError] ?? ''
+		];
+
+		return $this->response(new API($data, ['type' => 'success']));
+	}
+
+	/**
+	 * @param string $keyError
+	 * @param string $itemError
+	 * @return Response
+	 * @throws \Exception\FileException
+	 */
+	protected function responseApiOKFormMsg(string $keyError, string $itemError): Response
+	{
+		$this->setHeaderAPI();
+
+		$data = [
+			'text' => Util::getFormMessage($itemError)[$keyError] ?? ''
+		];
+
+		return $this->response(new API($data, ['type' => 'success']));
 	}
 
 	/**
@@ -153,8 +185,7 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function responseApiBadWithError(AbstractValidator $validator, string $keyError, string $itemError): Response
 	{
-		$this->response->withHeader('Access-Control-Allow-Origin','*');
-		$this->response->withHeader('Content-type','application/json');
+		$this->setHeaderAPI();
 
 		$validator->setExtraErrorAPI($keyError, $itemError);
 		return $this->response(new API($validator->getErrorsApi(), ['type' => 'fail']));
@@ -233,6 +264,12 @@ abstract class AbstractController implements ControllerInterface
 	protected function redirectToRoute(string $routeName, array $arguments = [], int $status = 302): void
 	{
 		$this->response->redirectToRoute($routeName, $arguments, $status);
+	}
+
+	private function setHeaderAPI()
+	{
+		$this->response->withHeader('Access-Control-Allow-Origin','*');
+		$this->response->withHeader('Content-type','application/json');
 	}
 
 	/**

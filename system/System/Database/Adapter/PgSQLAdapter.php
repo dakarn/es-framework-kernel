@@ -15,15 +15,27 @@ class PgSQLAdapter implements AdapteeInterface
 	/**
 	 * @var resource
 	 */
-	private $connector;
+	private $reader;
+
+	/**
+	 * @var resource
+	 */
+	private $writer;
+
+	/**
+	 * @var int
+	 */
+	private $affectedRows = 0;
 
 	/**
 	 * PgSQLAdapter constructor.
 	 * @param DBConnectorInterface $connector
+	 * @throws \Exception
 	 */
 	public function __construct(DBConnectorInterface $connector)
 	{
-		$this->connector = $connector->getConnector();
+		$this->writer = $connector->getWriter();
+		$this->reader = $connector->getReader();
 	}
 
 	/**
@@ -32,7 +44,7 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function fetch(string $sql): array
 	{
-		$query = \pg_query($this->connector, $sql);
+		$query = \pg_query($this->reader, $sql);
 		$data  = [];
 
 		while ($row = \pg_fetch_assoc($query)) {
@@ -48,15 +60,37 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function fetchRow(string $sql): array
 	{
-		$query = \pg_query($this->connector, $sql);
+		$query = \pg_query($this->reader, $sql);
 
 		return \pg_fetch_assoc($query);
 
 	}
 
-	public function getAffected()
+	/**
+	 * @param string $sql
+	 * @param string $abstractList
+	 * @return mixed|void
+	 */
+	public function fetchToObjectList(string $sql,  string $abstractList)
 	{
 
+	}
+
+	/**
+	 * @param string $sql
+	 * @param string $object
+	 */
+	public function fetchRowToObject(string $sql,  string $object)
+	{
+
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getAffected(): int
+	{
+		return $this->affectedRows;
 	}
 
 	public function getLastInsertId()
@@ -69,23 +103,34 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function insert(string $sql): bool
 	{
-		$result = pg_affected_rows(\pg_query($sql));
+		$result = \pg_affected_rows(\pg_query($sql));
+		$this->affectedRows = $result;
 
 		return $result === 0 ? false : true;
 	}
 
 	/**
 	 * @param string $sql
-	 * @return int
+	 * @return bool
 	 */
-	public function update(string $sql): int
+	public function update(string $sql): bool
 	{
-		return pg_affected_rows(\pg_query($sql));
+		$result = \pg_affected_rows(\pg_query($sql));
+		$this->affectedRows = $result;
+
+		return $result === 0 ? false : true;
 	}
 
-	public function delete(string $sql)
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
+	public function delete(string $sql): bool
 	{
-		\pg_query($sql);
+		$result = pg_affected_rows(\pg_query($sql));
+		$this->affectedRows = $result;
+
+		return $result === 0 ? false : true;
 	}
 
 	/**
@@ -93,7 +138,7 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function close(): bool
 	{
-		return \pg_close($this->connector);
+		return \pg_close($this->reader) && pg_close($this->writer);
 	}
 
 	public function startTransaction()

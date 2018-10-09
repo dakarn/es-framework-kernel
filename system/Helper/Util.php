@@ -109,7 +109,7 @@ class Util
 	 * @return string
 	 * @throws \Exception
 	 */
-	private static function generateRandom(int $length): string
+	public static function generateRandom(int $length): string
 	{
 		$i        = 0;
 		$response = '';

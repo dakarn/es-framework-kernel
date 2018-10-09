@@ -132,8 +132,12 @@ class JWTokenManager implements JWTokenManagerInterface
 	 * @return bool
 	 * @throws \Exception\FileException
 	 */
-	public function verifyToken(string $token, string $secretKey = ''): bool
+	public function verifyToken(string $token = '', string $secretKey = ''): bool
 	{
+		if (empty($token)) {
+			$token = $this->token;
+		}
+
 		if (empty($secretKey)) {
 			$secretKey = Config::get('salt', 'jwToken');
 		}

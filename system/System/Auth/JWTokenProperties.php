@@ -74,6 +74,16 @@ class JWTokenProperties
 	private $iat = 0;
 
 	/**
+	 * @var string
+	 */
+	private $userIp = '';
+
+	/**
+	 * @var string
+	 */
+	private $uniqueId = '';
+
+	/**
 	 * JWTokenProperties constructor.
 	 * @param array $props
 	 */
@@ -86,6 +96,16 @@ class JWTokenProperties
 		$this->exp     = $props['exp'];
 		$this->created = $props['created'];
 		$this->iat     = $props['iat'];
+		$this->userIp  = $props['ip'] ?? '';
+		$this->uniqueId  = $props['uniqueId'] ?? '';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUserIp(): string
+	{
+		return $this->userIp;
 	}
 
 	/**
@@ -94,6 +114,14 @@ class JWTokenProperties
 	public function getHeader(): array
 	{
 		return $this->header;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUniqueId(): string
+	{
+		return $this->uniqueId;
 	}
 
 	/**

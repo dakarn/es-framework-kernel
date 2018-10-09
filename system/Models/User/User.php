@@ -283,6 +283,24 @@ class User implements UserInterface
 	}
 
 	/**
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public function logoutAllDevice(): bool
+	{
+		$isLogout = Authentication::create()
+			->processLogoutAllDevice()
+			->isLogout();
+
+		if ($isLogout) {
+			$this->isLoaded = false;
+			$this->isAuth   = false;
+		}
+
+		return $isLogout;
+	}
+
+	/**
 	 * @param int $userId
 	 * @throws \Exception
 	 */
@@ -399,7 +417,7 @@ class User implements UserInterface
 
 		$this->setProperties(JWTokenManager::create()->decode()->toArray());
 
-		return $this->isAuth;//SessionRedis::create()->get($JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN));
+		return $this->isAuth;
 	}
 
 	/**

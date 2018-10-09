@@ -9,6 +9,7 @@
 namespace System\Auth\Authentication;
 
 use App\Models\AuthAppRepository;
+use Http\Request\ServerRequest;
 use System\Auth\TokenRepository;
 use System\Auth\JWTokenManager;
 use Helper\Util;
@@ -52,16 +53,53 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @return Authentication
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function processLogout(): Authentication
 	{
 		$JWTokenManager = JWTokenManager::create();
-		$JWTokenManager->setToken(Cookie::create()->get('JWT'));
+		$JWTokenManager->setToken(ServerRequest::create()->getAccessTokenFromRequest());
 
-		$isDelete = SessionRedis::create()->delete($JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN));
-		Cookie::create()->remove('JWT');
+		if (!$JWTokenManager->verifyToken()) {
+			return $this;
+		}
 
-		if ($isDelete) {
+		$signToken     = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
+		$isDeleteRedis = SessionRedis::create()->delete($signToken);
+
+		$tokenRepos = new TokenRepository();
+		$isDeleteDB = $tokenRepos->deleteByAccessToken($signToken);
+
+		if (!empty($isDeleteRedis && $isDeleteDB)) {
+			$this->isLogout = true;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return Authentication
+	 * @throws \Exception\FileException
+	 * @throws \Exception
+	 */
+	public function processLogoutAllDevice(): Authentication
+	{
+		$JWTokenManager = JWTokenManager::create();
+		$JWTokenManager->setToken(ServerRequest::create()->getAccessTokenFromRequest());
+
+		if (!$JWTokenManager->verifyToken()) {
+			return $this;
+		}
+
+		$userId = $JWTokenManager->decode()->getUserId();
+
+		$tokenRepos    = new TokenRepository();
+		$tokens        = $tokenRepos->loadByUserId($userId);
+
+		$isDeleteRedis = SessionRedis::create()->deleteKeys(\array_column($tokens, 'access'));
+		$isDeleteDB    = $tokenRepos->deleteTokensByUserId($userId);
+		
+		if ($isDeleteDB && $isDeleteRedis) {
 			$this->isLogout = true;
 		}
 
@@ -70,8 +108,10 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @param AbstractValidator $validator
+	 * @param AuthAppRepository $authAppRepository
 	 * @return bool
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function processUpdateRefreshToken(AbstractValidator $validator, AuthAppRepository $authAppRepository): bool
 	{
@@ -98,7 +138,7 @@ class Authentication implements AuthenticationInterface
 	public function processAuthentication(UserInterface $user, int $ttl): Authentication
 	{
 		$JWTokenManager = JWTokenManager::create();
-
+		
 		$dataToSave = [
 			'userId'  => $user->getUserId(),
 			'email'   => $user->getEmail(),
@@ -107,6 +147,7 @@ class Authentication implements AuthenticationInterface
 			'created' => $user->getCreated(),
 			'iat'     => \time(),
 			'exp'     => \time() + $ttl,
+			'uniqueId' => Util::generateRandom(20),
 		];
 
 		$JWTokenManager
@@ -114,10 +155,8 @@ class Authentication implements AuthenticationInterface
 			->setRefreshToken(Util::createRefreshToken())
 			->createToken();
 
-		Cookie::create()->set('JWT', $JWTokenManager->getToken(), '', \time() + 222222, 'es-framework.dev.ru');
-
 		$signToken = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
-		SessionRedis::create()->set($signToken, \json_encode($dataToSave));
+		SessionRedis::create()->set($signToken, \json_encode($dataToSave, \time() + $ttl));
 		$result    = (new TokenRepository)->addAccessToken($JWTokenManager);
 
 		if ($result) {
