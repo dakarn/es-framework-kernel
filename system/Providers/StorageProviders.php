@@ -40,7 +40,7 @@ class StorageProviders
 
 	public static function count(): int
 	{
-		return count(self::$list);
+		return \count(self::$list);
 	}
 
 	public static function get(): array

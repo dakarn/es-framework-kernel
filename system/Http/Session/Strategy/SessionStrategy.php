@@ -38,6 +38,12 @@ interface SessionStrategy
 	public function set($key, $value);
 
 	/**
+	 * @param array $keys
+	 * @return bool
+	 */
+	public function deleteKeys(array $keys): bool;
+
+	/**
 	 * @param string $key
 	 * @return array
 	 */

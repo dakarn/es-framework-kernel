@@ -39,21 +39,21 @@ class RequestBuilder implements RequestBuilderInterface
     {
         $this->curl = curl_init($request->getHost());
 
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);
+        \curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, 1);
 
         if ($request->getMethod() === Request::POST) {
-            curl_setopt($this->curl, CURLOPT_POST, true);
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $request->getBody());
+            \curl_setopt($this->curl, CURLOPT_POST, true);
+            \curl_setopt($this->curl, CURLOPT_POSTFIELDS, $request->getBody());
         } else if ($request->getMethod() !== Request::GET) {
-            curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $request->getMethod());
+            \curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $request->getMethod());
         }
 
         if (!empty($request->getReferer())) {
-            curl_setopt($this->curl, CURLOPT_REFERER, $request->getReferer());
+            \curl_setopt($this->curl, CURLOPT_REFERER, $request->getReferer());
         }
 
         if (!empty($request->getUserAgent())) {
-            curl_setopt($this->curl, CURLOPT_REFERER, $request->getUserAgent());
+            \curl_setopt($this->curl, CURLOPT_REFERER, $request->getUserAgent());
         }
 
         if (!empty($request->getCookies())) {
@@ -61,14 +61,14 @@ class RequestBuilder implements RequestBuilderInterface
             foreach($request->getCookies() as $name => $value ) {
                 $cookies .= $name . '=' . $value;
             };
-            curl_setopt($this->curl, CURLOPT_COOKIE, $cookies);
+            \curl_setopt($this->curl, CURLOPT_COOKIE, $cookies);
         }
 
         if (!empty($request->getHeaders())) {
             \curl_setopt($this->curl, CURLOPT_HTTPHEADER, $request->getHeaders());
         }
 
-        curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, 0);
+        \curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, 0);
+        \curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, 0);
     }
 }

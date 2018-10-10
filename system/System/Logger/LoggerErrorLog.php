@@ -27,7 +27,7 @@ class LoggerErrorLog implements LoggerStorageInterface
 	public function addLog(string $level, string $message): LoggerStorageInterface
 	{
 		$this->logs[] = [
-			'time'    => date('d.m.y H:i:s', time()),
+			'time'    => \date('d.m.y H:i:s', \time()),
 			'level'   => $level,
 			'message' => $message
 		];
@@ -49,7 +49,7 @@ class LoggerErrorLog implements LoggerStorageInterface
 	public function releaseLog(): void
 	{
 		foreach ($this->logs as $log) {
-			error_log('Log' . $log['level'] . ' - ' . $log['time'] . ' - ' . $log['message']);
+			\error_log('Log' . $log['level'] . ' - ' . $log['time'] . ' - ' . $log['message']);
 		}
 	}
 }

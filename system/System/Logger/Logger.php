@@ -10,36 +10,57 @@ namespace System\Logger;
 
 class Logger extends AbstractLogger implements LoggerInterface
 {
+	/**
+	 * @param string $message
+	 */
 	public function info(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::INFO, $message);
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function error(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::ERROR, $message);
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function notice(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::NOTICE, $message);
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function emergency(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::EMERGENCY, $message);
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function critical(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::CRITICAL, $message);
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function warning(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::WARNING, $message);
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function alert(string $message)
 	{
 		$this->getStrategy()->addLog(LogLevel::ALERT, $message);

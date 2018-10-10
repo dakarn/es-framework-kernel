@@ -10,6 +10,16 @@ namespace System\Kernel\TypesApp;
 
 class DefaultApp extends AbstractApplication
 {
+	public function customOutputError(\Throwable $e)
+	{
+
+	}
+
+	public function setupClass()
+	{
+
+	}
+
 	/**
 	 * @throws \Exception\FileException
 	 */

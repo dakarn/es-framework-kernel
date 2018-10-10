@@ -8,6 +8,7 @@
 
 namespace System\Database\Adapter;
 
+use Helper\AbstractList;
 use System\Database\Connector\DBConnectorInterface;
 
 class PgSQLAdapter implements AdapteeInterface
@@ -69,11 +70,29 @@ class PgSQLAdapter implements AdapteeInterface
 	/**
 	 * @param string $sql
 	 * @param string $abstractList
-	 * @return mixed|void
+	 * @param string $object
+	 * @return AbstractList
 	 */
-	public function fetchToObjectList(string $sql,  string $abstractList)
+	public function fetchToObjectList(string $sql,  string $abstractList, string $object): AbstractList
 	{
+		$rows = $this->fetch($sql);
 
+		if (!\class_exists($abstractList)) {
+			return null;
+		}
+
+		if (!\class_exists($object)) {
+			return null;
+		}
+
+		/** @var AbstractList $list */
+		$list = new $abstractList();
+
+		foreach ($rows as $index => $row) {
+			$list->add($index, new $object($row));
+		}
+
+		return $list;
 	}
 
 	/**
@@ -93,6 +112,9 @@ class PgSQLAdapter implements AdapteeInterface
 		return $this->affectedRows;
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function getLastInsertId()
 	{
 	}
@@ -127,7 +149,7 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function delete(string $sql): bool
 	{
-		$result = pg_affected_rows(\pg_query($sql));
+		$result = \pg_affected_rows(\pg_query($sql));
 		$this->affectedRows = $result;
 
 		return $result === 0 ? false : true;
@@ -138,19 +160,28 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function close(): bool
 	{
-		return \pg_close($this->reader) && pg_close($this->writer);
+		return \pg_close($this->reader) && \pg_close($this->writer);
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function startTransaction()
 	{
 		\pg_query('BEGIN');
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function commitTransaction()
 	{
 		\pg_query('COMMIT');
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function rollbackTransaction()
 	{
 		\pg_query('ROLLBACK');

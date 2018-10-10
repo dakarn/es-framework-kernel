@@ -10,5 +10,8 @@ namespace FFMpeg;
 
 interface FileFormatInterface
 {
+	/**
+	 * @return mixed
+	 */
     public function save();
 }

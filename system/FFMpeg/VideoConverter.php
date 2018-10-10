@@ -8,23 +8,36 @@
 
 namespace FFMpeg;
 
+use FFMpeg\Format\AVIFormat;
+use FFMpeg\Format\FLVFormat;
+use FFMpeg\Format\WEBMFormat;
+
 class VideoConverter extends AbstractFFMpegProperty implements FFMpegPropertyInterface
 {
-    private $data = [];
+	/**
+	 * @var array
+	 */
+	private $data = [];
 
     /**
      * @var FileFormatInterface
      */
     private $formatter;
 
-    public function save()
+	/**
+	 *
+	 */
+	public function save()
     {
         $this->validateParams();
 
         $this->formatter->save();
     }
 
-    public function selectOutputFormat()
+	/**
+	 *
+	 */
+	public function selectOutputFormat()
     {
         switch ($this->formatType) {
             case FFMpeg::TYPE_AVI:
@@ -42,7 +55,10 @@ class VideoConverter extends AbstractFFMpegProperty implements FFMpegPropertyInt
         }
     }
 
-    private function validateParams()
+	/**
+	 *
+	 */
+	private function validateParams()
     {
         switch (true) {
             case empty($this->inputFile):

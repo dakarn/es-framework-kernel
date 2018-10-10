@@ -8,8 +8,6 @@
 
 namespace RedisQueue;
 
-use Psr\Log\InvalidArgumentException;
-
 class OutputResult implements OutputResultInterface
 {
 	/**
@@ -37,6 +35,7 @@ class OutputResult implements OutputResultInterface
 
 	/**
 	 * @param string $typeRequeue
+	 * @throws \Exception
 	 */
 	public function failed(string $typeRequeue = RedisQueue::QUEUE_DELETE): void
 	{
@@ -47,7 +46,7 @@ class OutputResult implements OutputResultInterface
 				$this->redisQueue->publish($this->redisQueue->getEnvelope()->getBody());
 				break;
 			default:
-				throw new InvalidArgumentException('The queue no support this failed type!');
+				throw new \Exception('The queue no support this failed type!');
 		}
 
 		$this->redisQueue->setWorkDone();

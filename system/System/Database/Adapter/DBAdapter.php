@@ -107,16 +107,25 @@ class DBAdapter implements DBAdapterInterface
 		return $this->adaptee->delete($sql);
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function startTransaction()
 	{
 		$this->adaptee->startTransaction();
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function commitTransaction()
 	{
 		$this->adaptee->commitTransaction();
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function rollbackTransaction()
 	{
 		$this->adaptee->rollbackTransaction();

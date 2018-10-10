@@ -31,7 +31,7 @@ class MiddlewarePreController
 	{
 		CSRFTokenManager::create()->makeToken();
 
-		$cookie  = Cookie::create()->get('JWT');
+		$cookie     = Cookie::create()->get('JWT');
 		$currentApp = Registry::get(Registry::APP);
 
 		if ($currentApp->getApplicationType() === AbstractApplication::APP_TYPE['Auth']) {

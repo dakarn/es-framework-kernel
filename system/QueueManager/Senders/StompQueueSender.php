@@ -27,9 +27,10 @@ class StompQueueSender implements QueueSenderInterface
      */
     private $params;
 
-    /**
-     * RabbitQueueSender constructor.
-     */
+	/**
+	 * StompQueueSender constructor.
+	 * @throws \Exception\FileException
+	 */
     public function __construct()
     {
         $this->configConnect = Config::get('stomp');

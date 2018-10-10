@@ -46,10 +46,11 @@ class Client implements ClientInterface
         $this->redis      = $redis;
 	}
 
-    /**
-     * @param string $msg
-     * @return int
-     */
+	/**
+	 * @param string $msg
+	 * @return int
+	 * @throws \Exception
+	 */
     public function publish(string $msg): int
 	{
 		return $this->redis->rPush($this->redisQueue->getQueueParam()->getName(), $this->generateData($msg));
@@ -77,19 +78,20 @@ class Client implements ClientInterface
 			}
 
 			$currentTime += self::TIME_SLEEP;
-			usleep(self::TIME_SLEEP);
+			\usleep(self::TIME_SLEEP);
 		}
 
 		return '';
 	}
 
-    /**
-     * @param string $msg
-     * @return string
-     */
+	/**
+	 * @param string $msg
+	 * @return string
+	 * @throws \Exception
+	 */
     private function generateData(string $msg): string
 	{
-		$this->idHash = microtime(true) . random_int(1, 10000);
-		return sprintf(self::FORMAT_SEND, $this->idHash, $msg);
+		$this->idHash = microtime(true) . \random_int(1, 10000);
+		return \sprintf(self::FORMAT_SEND, $this->idHash, $msg);
 	}
 }

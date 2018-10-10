@@ -145,6 +145,9 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $this->stackErrors[$field] ?? '';
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function validateCSRFToken()
 	{
 		$isValid =  CSRFTokenManager::create()
@@ -232,6 +235,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 
 	/**
 	 * @param string $keyError
+	 * @param string $itemError
 	 * @return AbstractValidator
 	 * @throws \Exception\FileException
 	 */

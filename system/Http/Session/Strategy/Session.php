@@ -43,6 +43,7 @@ class Session
 	/**
 	 * @param string $key
 	 * @return array
+	 * @throws \Exception\FileException
 	 */
 	public function getAsArray(string $key): array
 	{
@@ -61,6 +62,7 @@ class Session
 
 	/**
 	 * @return int
+	 * @throws \Exception\FileException
 	 */
 	public function count(): int
 	{
@@ -70,6 +72,7 @@ class Session
 	/**
 	 * @param array $keys
 	 * @return array
+	 * @throws \Exception\FileException
 	 */
 	public function getSome(array $keys): array
 	{
@@ -77,7 +80,7 @@ class Session
 	}
 
 	/**
-	 * @return void
+	 * @throws \Exception\FileException
 	 */
 	public function clear(): void
 	{

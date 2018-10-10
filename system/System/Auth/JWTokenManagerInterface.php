@@ -16,6 +16,17 @@ interface JWTokenManagerInterface
 	public function getToken(): string;
 
 	/**
+	 * @param string $refreshToken
+	 * @return JWTokenManager
+	 */
+	public function setRefreshToken(string $refreshToken): JWTokenManager;
+
+	/**
+	 * @return string
+	 */
+	public function getRefreshToken(): string;
+
+	/**
 	 * @return JWTokenProperties
 	 */
 	public function getProperties(): JWTokenProperties;
@@ -63,7 +74,13 @@ interface JWTokenManagerInterface
 	 */
 	public function decode(string $token): JWTokenProperties;
 
+	/**
+	 * @return mixed
+	 */
 	public function __clone();
 
+	/**
+	 * @return JWTokenManager
+	 */
 	public static function create(): JWTokenManager;
 }

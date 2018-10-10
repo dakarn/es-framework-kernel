@@ -39,8 +39,8 @@ class ObjectMapper implements ObjectMapperInterface
         $methods  = \get_class_methods($object);
 
         foreach ($methods as $indexMethod => $getMethodName) {
-            if (substr($getMethodName, 0, 3) === self::GETTER) {
-                $property            = \lcfirst(substr($getMethodName, 3));
+            if (\substr($getMethodName, 0, 3) === self::GETTER) {
+                $property            = \lcfirst(\substr($getMethodName, 3));
                 $response[$property] = $object->$getMethodName();
             }
         }

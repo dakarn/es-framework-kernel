@@ -29,6 +29,6 @@ class Serialize implements FormatResponseInterface
      */
     public function getFormattedText(): string
     {
-        return serialize($this->data);
+        return \serialize($this->data);
     }
 }

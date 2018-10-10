@@ -50,7 +50,7 @@ class StorageMiddleware
 	 */
 	public static function deleteFirstItem(): array
     {
-        return array_shift(self::$middlewareList);
+        return \array_shift(self::$middlewareList);
     }
 
 	/**
@@ -58,7 +58,7 @@ class StorageMiddleware
 	 */
     public static function deleteEndItem(): array
     {
-        return array_pop(self::$middlewareList);
+        return \array_pop(self::$middlewareList);
     }
 
 	/**
@@ -90,7 +90,7 @@ class StorageMiddleware
 	 */
 	public static function count(): int
 	{
-		return count(self::$middlewareList);
+		return \count(self::$middlewareList);
 	}
 
 	/**

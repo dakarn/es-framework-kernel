@@ -10,30 +10,50 @@ namespace FFMpeg;
 
 class ScreenShooter extends AbstractFFMpegProperty implements FFMpegPropertyInterface
 {
-    private $qualityImage;
+	/**
+	 * @var
+	 */
+	private $qualityImage;
 
-    private $timeFromScreen;
+	/**
+	 * @var
+	 */
+	private $timeFromScreen;
 
-    public function setQuality(int $quality): ScreenShooter
+	/**
+	 * @param int $quality
+	 * @return ScreenShooter
+	 */
+	public function setQuality(int $quality): ScreenShooter
     {
         $this->qualityImage = $quality;
         return $this;
     }
 
-    public function setTimeScreen(string $time): ScreenShooter
+	/**
+	 * @param string $time
+	 * @return ScreenShooter
+	 */
+	public function setTimeScreen(string $time): ScreenShooter
     {
         $this->timeFromScreen = $time;
         return $this;
     }
 
-    public function makeImage()
+	/**
+	 *
+	 */
+	public function makeImage()
     {
         $this->validateParams();
 
-        exec(FFMpeg::PATH_TO_FFMPEG . ' -ss ' . $this->timeFromScreen . ' -i ' . $this->inputFile . ' -q:v ' . $this->qualityImage . ' ' . $this->outputFile);
+        \exec(FFMpeg::PATH_TO_FFMPEG . ' -ss ' . $this->timeFromScreen . ' -i ' . $this->inputFile . ' -q:v ' . $this->qualityImage . ' ' . $this->outputFile);
     }
 
-    private function validateParams()
+	/**
+	 *
+	 */
+	private function validateParams()
     {
         switch (true) {
             case empty($this->timeFromScreen):

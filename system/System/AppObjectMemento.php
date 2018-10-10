@@ -30,7 +30,7 @@ class AppObjectMemento
 			return self::$listObject[$class];
 		}
 
-		throw KernelException::notFoundInAppMemento([self::$listObject[$class]]);
+		throw KernelException::notFoundInRegistry([self::$listObject[$class]]);
 	}
 
 	/**

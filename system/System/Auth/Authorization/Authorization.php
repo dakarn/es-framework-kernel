@@ -13,7 +13,7 @@ use Http\Request\ServerRequest;
 use Traits\SingletonTrait;
 use Http\Session\SessionRedis;
 
-class Authorization
+class Authorization implements AuthorizationInterface
 {
 	use SingletonTrait;
 

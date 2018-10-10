@@ -11,6 +11,9 @@ namespace System\Database\Connector;
 
 interface DBConnectorInterface
 {
+	/**
+	 * @return mixed
+	 */
 	public function getWriter();
 
 	/**

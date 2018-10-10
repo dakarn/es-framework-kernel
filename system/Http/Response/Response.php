@@ -8,10 +8,8 @@
 
 namespace Http\Response;
 
-use Exception\ResponseException;
 use Exception\RoutingException;
-use Helper\Cookie;
-use System\Render;
+use Http\Cookie;
 use System\Router\Routing;
 
 class Response implements ResponseInterface
@@ -166,7 +164,7 @@ class Response implements ResponseInterface
 	public function sendHeaders(): bool
 	{
 		foreach ($this->headers as $headerKey => $header) {
-			header($headerKey . ': ' . $header, false);
+			\header($headerKey . ': ' . $header, false);
 		}
 
 		foreach ($this->cookies as $cookieKey => $cookie) {
@@ -181,7 +179,7 @@ class Response implements ResponseInterface
 	 */
 	public function redirect(string $url): void
 	{
-		header('Location: ' . $url);
+		\header('Location: ' . $url);
 		exit;
 	}
 
@@ -199,10 +197,8 @@ class Response implements ResponseInterface
 
 		if (!empty($router)) {
 			$url = URL . Routing::replaceRegexToParam($router->getPath(), $router->getParam(), $arguments);
-			header('Location: ' . $url, true, $status);
+			\header('Location: ' . $url, true, $status);
 			exit;
 		}
-
-		//throw RoutingException::notFound([$routerName]);
 	}
 }

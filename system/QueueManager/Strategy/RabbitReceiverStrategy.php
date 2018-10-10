@@ -81,6 +81,8 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @param \AMQPEnvelope $msg
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
 	 */
 	public function sendSuccess(\AMQPEnvelope $msg)
 	{
@@ -89,6 +91,8 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @param \AMQPEnvelope $msg
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
 	 */
 	public function sendFailed(\AMQPEnvelope $msg)
 	{
@@ -105,6 +109,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @return RabbitReceiverStrategy
+	 * @throws \AMQPConnectionException
 	 */
 	private function connection(): self
 	{
@@ -116,6 +121,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @return RabbitReceiverStrategy
+	 * @throws \AMQPConnectionException
 	 */
 	private function createChannel(): self
 	{
@@ -125,6 +131,9 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @return RabbitReceiverStrategy
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
+	 * @throws \AMQPExchangeException
 	 */
 	private function createExchange(): self
 	{
@@ -139,6 +148,9 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @return RabbitReceiverStrategy
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
+	 * @throws \AMQPQueueException
 	 */
 	private function createQueue(): self
 	{

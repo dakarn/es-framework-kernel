@@ -138,7 +138,6 @@ class ServerRequest
 	    $authorization = $this->getAuthorization();
 
 	    if (\preg_match('/^Bearer\s(.*)$/', $authorization)) {
-
 		    return \explode(' ', $authorization)[1] ?? '';
 	    }
 

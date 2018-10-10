@@ -41,6 +41,15 @@ class SimpleSessionStrategy implements SessionStrategy
 	}
 
 	/**
+	 * @param array $keys
+	 * @return bool
+	 */
+	public function deleteKeys(array $keys): bool
+	{
+		return true;
+	}
+
+	/**
 	 * @param string $key
 	 * @return mixed|string
 	 */

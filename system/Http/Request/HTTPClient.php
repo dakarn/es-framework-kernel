@@ -93,7 +93,7 @@ final class HttpClient implements HttpClientInterface
 	private function execute(): void
 	{
 		$this->curl   = $this->requestBuilder->getBuilderData();
-		$this->result = curl_exec($this->curl);
-		curl_close($this->curl);
+		$this->result = \curl_exec($this->curl);
+		\curl_close($this->curl);
 	}
 }

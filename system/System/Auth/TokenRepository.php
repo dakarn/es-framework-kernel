@@ -173,6 +173,7 @@ class TokenRepository
 	 * @param int $userId
 	 * @return array
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function loadByUserId(int $userId): array
 	{
@@ -185,7 +186,7 @@ class TokenRepository
 				access_tokens
 			WHERE 
 				userId = "' . $userId . '"
-			LIMIT 10
+			LIMIT ' . $maxAuthUserWithDevices . '
 		');
 
 		if (!empty($result)) {

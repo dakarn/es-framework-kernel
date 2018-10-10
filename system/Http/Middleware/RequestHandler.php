@@ -35,11 +35,12 @@ class RequestHandler implements RequestHandlerInterface
 		return $this->response;
 	}
 
-    /**
-     * @param ServerRequest $request
-     * @param RequestHandler $handler
-     * @return Response
-     */
+	/**
+	 * @param ServerRequest $request
+	 * @param RequestHandler $handler
+	 * @return Response
+	 * @throws \Exception\MiddlewareException
+	 */
 	public function handle(ServerRequest $request, RequestHandler $handler): Response
 	{
 		$curr = StorageMiddleware::current();

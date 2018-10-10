@@ -10,19 +10,43 @@ namespace QueueManager\Senders;
 
 use QueueManager\QueueModel;
 
+/**
+ * Class NodeQueueSender
+ * @package QueueManager\Senders
+ */
 class NodeQueueSender implements QueueSenderInterface
 {
+	/**
+	 * @param QueueModel $params
+	 * @return QueueSenderInterface
+	 */
 	public function setParams(QueueModel $params): QueueSenderInterface
 	{
 		return $this;
 	}
 
+	/**
+	 * @param string $data
+	 * @return QueueSenderInterface
+	 */
+	public function setDataForSend(string $data): QueueSenderInterface
+	{
+		return $this;
+	}
+
+	/**
+	 * @return QueueSenderInterface
+	 */
 	public function build(): QueueSenderInterface
 	{
 		return $this;
 	}
 
-	public function send(): bool
+	/**
+	 * @param bool $isClose
+	 * @return bool|mixed
+	 */
+	public function send(bool $isClose = false)
     {
 		return true;
     }

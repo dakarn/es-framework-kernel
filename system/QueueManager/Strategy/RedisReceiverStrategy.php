@@ -30,6 +30,10 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 	 */
 	private $configConnect;
 
+	/**
+	 * RedisReceiverStrategy constructor.
+	 * @throws \Exception\FileException
+	 */
 	public function __construct()
 	{
 		$this->configConnect = Config::get('redis-queue');
@@ -46,7 +50,8 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 	}
 
 	/**
-	 * @return $this
+	 * @return $this|mixed
+	 * @throws \RedisException
 	 */
 	public function build()
 	{

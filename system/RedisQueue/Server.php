@@ -73,7 +73,7 @@ class Server implements ServerInterface
      */
     public function pause(int $pause = 1000000): void
 	{
-		usleep($pause);
+		\usleep($pause);
 	}
 
     /**
@@ -123,9 +123,9 @@ class Server implements ServerInterface
                 $this->isDoWork = true;
             }
 
-            $bodyJson     = json_decode($body, true);
+            $bodyJson     = \json_decode($body, true);
             $this->idHash = $bodyJson['hash'];
-            $this->envelope->setBody((string)$bodyJson['data']);
+            $this->envelope->setBody((string) $bodyJson['data']);
 
             return $this->envelope;
         } catch (\RedisException $e) {

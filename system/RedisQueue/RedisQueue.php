@@ -124,7 +124,7 @@ class RedisQueue implements RedisQueueInterface
      */
 	private function reConnect(string $host, string $port, string $password): void
     {
-        sleep(2);
+        \sleep(2);
 
         if (!$this->redis->connect($host, $port)) {
             throw new \RuntimeException('Redis Server on "' . $host . ':' . $port . '" gone away!');

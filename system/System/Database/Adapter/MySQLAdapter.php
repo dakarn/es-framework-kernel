@@ -118,6 +118,9 @@ class MySQLAdapter implements AdapteeInterface
 		return $this->affected;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function getLastInsertId()
 	{
 		return $this->writer->insert_id;
@@ -143,6 +146,10 @@ class MySQLAdapter implements AdapteeInterface
 		return $this->writer->affected_rows;
 	}
 
+	/**
+	 * @param string $sql
+	 * @return bool
+	 */
 	public function delete(string $sql): bool
 	{
 		return $this->writer->query($sql);
@@ -156,16 +163,25 @@ class MySQLAdapter implements AdapteeInterface
 		return $this->writer->close() && $this->reader->close();
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function startTransaction()
 	{
 		$this->writer->begin_transaction();
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function commitTransaction()
 	{
 		$this->writer->commit();
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function rollbackTransaction()
 	{
 		$this->writer->rollback();

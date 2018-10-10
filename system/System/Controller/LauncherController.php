@@ -100,7 +100,7 @@ class LauncherController implements LauncherControllerInterface
 	 */
     private function prepare(): void
     {
-        $this->className = self::APP . str_replace(':', '\\', $this->router->getController());
+        $this->className = self::APP . \str_replace(':', '\\', $this->router->getController());
         $this->action    = $this->router->getAction() . self::PREFIX_ACTION;
     }
 
@@ -136,12 +136,12 @@ class LauncherController implements LauncherControllerInterface
 	 */
     private function runAction(ControllerInterface $controller, string $action)
     {
-        if (!method_exists($controller, $action)) {
+        if (!\method_exists($controller, $action)) {
             throw ControllerException::notFoundController([$action]);
         }
 
         $this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
-        $this->resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
+        $this->resultAction = \call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
         $this->eventManager->runEvent(EventTypes::AFTER_ACTION);
     }
 
@@ -154,7 +154,7 @@ class LauncherController implements LauncherControllerInterface
     {
         $routeData  = (new RouteData())
             ->setData('action', $action)
-            ->setData('controller', substr($router->getController(), strrpos($router->getController(), ':') + 1));
+            ->setData('controller', \substr($router->getController(), \strrpos($router->getController(), ':') + 1));
 
         return $routeData;
     }

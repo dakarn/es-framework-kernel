@@ -15,7 +15,7 @@ class GETParam implements GETParamInterface
      */
 	public static function setParamForController(array $nameParams, array $values): void
 	{
-		array_shift($values);
+		\array_shift($values);
 
 		foreach ($values as $index => $value) {
 			self::$paramForController[$nameParams[$index]] = $value;
@@ -36,7 +36,7 @@ class GETParam implements GETParamInterface
      */
 	public static function getPath(): string
 	{
-		return str_replace(basename(__DIR__), '', self::options());
+		return \str_replace(\basename(__DIR__), '', self::options());
 	}
 
     /**

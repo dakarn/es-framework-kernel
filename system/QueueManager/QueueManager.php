@@ -94,9 +94,9 @@ class QueueManager implements QueueManagerInterface
      */
     public function runHandlers(): bool
     {
-        pcntl_async_signals(true);
-        pcntl_signal(SIGINT, [$this, 'handlerSignal']);
-        pcntl_signal(SIGTERM, [$this, 'handlerSignal']);
+        \pcntl_async_signals(true);
+        \pcntl_signal(SIGINT, [$this, 'handlerSignal']);
+        \pcntl_signal(SIGTERM, [$this, 'handlerSignal']);
 
         foreach ($this->handlers as $name => $handler) {
 
@@ -104,7 +104,7 @@ class QueueManager implements QueueManagerInterface
 
             if ($pid > 0) {
 
-                cli_set_process_title($name . '-queue-fork-php');
+                \cli_set_process_title($name . '-queue-fork-php');
                 echo 'Create Fork: '. $name . PHP_EOL;
 
                 $this->handlers[$name]->prepareObject()->loopObserver();

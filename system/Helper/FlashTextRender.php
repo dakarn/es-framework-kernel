@@ -14,6 +14,7 @@ class FlashTextRender
 {
 	/**
 	 * @param array $items
+	 * @throws \Exception\FileException
 	 */
 	public static function render(array $items = [])
 	{
@@ -21,12 +22,13 @@ class FlashTextRender
 		$bigText   = $flashText['isBigText'] ? '<b>%s</b>' : '%s';
 
 		foreach ($items as $item) {
-			echo sprintf($flashText['cssStart'] . $bigText, $item['type'], $item['text']) . $flashText['cssEnd'];
+			echo \sprintf($flashText['cssStart'] . $bigText, $item['type'], $item['text']) . $flashText['cssEnd'];
 		}
 	}
 
 	/**
 	 * @return array
+	 * @throws \Exception\FileException
 	 */
 	private static function getConfigFlash(): array
 	{

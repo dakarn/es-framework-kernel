@@ -10,21 +10,42 @@ namespace FFMpeg;
 
 abstract class AbstractFFMpegProperty implements FFMpegPropertyInterface
 {
-    protected $inputFile;
+	/**
+	 * @var
+	 */
+	protected $inputFile;
 
-    protected $outputFile;
+	/**
+	 * @var
+	 */
+	protected $outputFile;
 
-    protected $formatType;
+	/**
+	 * @var
+	 */
+	protected $formatType;
 
-    protected $size = [];
+	/**
+	 * @var array
+	 */
+	protected $size = [];
 
-    public function setFile(string $file): FFMpegPropertyInterface
+	/**
+	 * @param string $file
+	 * @return FFMpegPropertyInterface
+	 */
+	public function setFile(string $file): FFMpegPropertyInterface
     {
         $this->inputFile = $file;
         return $this;
     }
 
-    public function setSize(int $width, int $height): FFMpegPropertyInterface
+	/**
+	 * @param int $width
+	 * @param int $height
+	 * @return FFMpegPropertyInterface
+	 */
+	public function setSize(int $width, int $height): FFMpegPropertyInterface
     {
         $this->size = [
             'width'  => $width,
@@ -34,13 +55,21 @@ abstract class AbstractFFMpegProperty implements FFMpegPropertyInterface
         return $this;
     }
 
-    public function setFormatType(string $type): FFMpegPropertyInterface
+	/**
+	 * @param string $type
+	 * @return FFMpegPropertyInterface
+	 */
+	public function setFormatType(string $type): FFMpegPropertyInterface
     {
         $this->formatType = $type;
         return $this;
     }
 
-    public function setOutputFile(string $file): FFMpegPropertyInterface
+	/**
+	 * @param string $file
+	 * @return FFMpegPropertyInterface
+	 */
+	public function setOutputFile(string $file): FFMpegPropertyInterface
     {
         $this->outputFile = $file;
         return $this;

@@ -32,7 +32,8 @@ class RedisQueueSender implements QueueSenderInterface
 	private $queueRedis;
 
 	/**
-	 * RabbitQueueSender constructor.
+	 * RedisQueueSender constructor.
+	 * @throws \Exception\FileException
 	 */
 	public function __construct()
 	{
@@ -51,6 +52,7 @@ class RedisQueueSender implements QueueSenderInterface
 
 	/**
 	 * @return QueueSenderInterface
+	 * @throws \RedisException
 	 */
 	public function build(): QueueSenderInterface
 	{
@@ -81,6 +83,7 @@ class RedisQueueSender implements QueueSenderInterface
 	/**
 	 * @param bool $isClose
 	 * @return int
+	 * @throws \Exception
 	 */
 	public function send(bool $isClose = false): int
 	{

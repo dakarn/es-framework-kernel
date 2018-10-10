@@ -10,23 +10,50 @@ namespace ElasticSearch;
 
 class ElasticQuery
 {
+	/**
+	 * @var ElasticHttp
+	 */
 	private $elasticHttp;
 
+	/**
+	 * @var
+	 */
 	private $index;
 
+	/**
+	 * @var
+	 */
 	private $type;
 
+	/**
+	 * @var
+	 */
 	private $id;
 
+	/**
+	 * @var array
+	 */
 	private $body = [];
 
+	/**
+	 * @var
+	 */
 	private $path;
 
+	/**
+	 * ElasticQuery constructor.
+	 * @param ElasticHttp $elasticHttp
+	 */
 	public function __construct(ElasticHttp $elasticHttp)
 	{
 		$this->elasticHttp = $elasticHttp;
 	}
 
+	/**
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function execute(): ElasticResult
 	{
 		return $this->elasticHttp
@@ -34,6 +61,12 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param array $body
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function search(array $body): ElasticResult
 	{
 		if (empty($body)) {
@@ -48,48 +81,78 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param string $method
+	 * @param $body
+	 * @return ElasticQuery
+	 */
 	public function setBody(string $method, $body): self
 	{
 		if (!isset(ElasticHttp::ALLOW_METHOD[$method])) {
 			throw new \InvalidArgumentException('No allow method!');
 		}
 
-		$method = 'set' . strtoupper($method);
+		$method = 'set' . \strtoupper($method);
 		$this->body = $body;
 		$this->elasticHttp->$method();
 
 		return $this;
 	}
 
+	/**
+	 * @param string $index
+	 * @return ElasticQuery
+	 */
 	public function setIndex(string $index): self
 	{
 		$this->index = $index;
 		return $this;
 	}
 
+	/**
+	 * @param string $id
+	 * @return ElasticQuery
+	 */
 	public function setId(string $id): self
 	{
 		$this->id = $id;
 		return $this;
 	}
 
+	/**
+	 * @param string $type
+	 * @return ElasticQuery
+	 */
 	public function setType(string $type): self
 	{
 		$this->type = $type;
 		return $this;
 	}
 
+	/**
+	 * @param string $path
+	 * @return ElasticQuery
+	 */
 	public function setPath(string $path): self
 	{
 		$this->path = $path;
 		return $this;
 	}
 
+	/**
+	 *
+	 */
 	public function update()
 	{
 
 	}
 
+	/**
+	 * @param string $id
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function delete(string $id): ElasticResult
 	{
 		$this->elasticHttp->setDELETE();
@@ -100,6 +163,12 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param array $body
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function add(array $body): ElasticResult
 	{
 		if (empty($body['id'])) {
@@ -116,6 +185,11 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function createIndex(): ElasticResult
 	{
 		$this->elasticHttp->setPUT();
@@ -125,6 +199,11 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function deleteIndex(): ElasticResult
 	{
 		$this->elasticHttp->setDELETE();
@@ -134,6 +213,13 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param int $size
+	 * @param int $from
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function getRecords(int $size, int $from): ElasticResult
 	{
 		$this->elasticHttp->setGET();
@@ -144,6 +230,12 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param string $id
+	 * @return ElasticResult
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 */
 	public function get(string $id): ElasticResult
 	{
 		$this->elasticHttp->setGET();
@@ -159,6 +251,9 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @return array
+	 */
 	private function buildQueryArray(): array
 	{
 		$param = [

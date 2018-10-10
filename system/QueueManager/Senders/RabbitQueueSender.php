@@ -45,6 +45,7 @@ class RabbitQueueSender implements QueueSenderInterface
 
 	/**
 	 * RabbitQueueSender constructor.
+	 * @throws \Exception\FileException
 	 */
 	public function __construct()
 	{
@@ -61,9 +62,13 @@ class RabbitQueueSender implements QueueSenderInterface
 		return $this;
 	}
 
-    /**
-     * @return QueueSenderInterface
-     */
+	/**
+	 * @return QueueSenderInterface
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
+	 * @throws \AMQPExchangeException
+	 * @throws \AMQPQueueException
+	 */
 	public function build(): QueueSenderInterface
 	{
 		if ($this->amqp instanceof \AMQPConnection) {
@@ -99,7 +104,10 @@ class RabbitQueueSender implements QueueSenderInterface
 
 	/**
 	 * @param bool $isClose
-	 * @return bool
+	 * @return bool|mixed
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
+	 * @throws \AMQPExchangeException
 	 */
 	public function send(bool $isClose = false)
 	{

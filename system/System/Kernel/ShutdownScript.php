@@ -12,6 +12,9 @@ use System\Registry;
 
 class ShutdownScript
 {
+	/**
+	 * @throws \Exception\KernelException
+	 */
 	public static function run()
 	{
 		Registry::get(Registry::APP)->terminate();

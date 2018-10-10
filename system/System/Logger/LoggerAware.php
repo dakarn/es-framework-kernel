@@ -10,7 +10,9 @@ namespace System\Logger;
 
 class LoggerAware implements LoggerAwareInterface
 {
-	/** @var  Logger */
+	/**
+     * @var  Logger
+	 */
 	private static $logger;
 
 	/**

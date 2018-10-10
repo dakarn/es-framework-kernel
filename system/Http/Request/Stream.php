@@ -10,7 +10,10 @@ namespace Http\Request;
 
 class Stream implements StreamInterface
 {
-	public function close(): void
+	/**
+	 *
+	 */
+	public function close()
 	{
 
 	}

@@ -22,13 +22,25 @@ class FFMpeg
 
     const PATH_TO_FFMPEG = 'C:/Users/v.konovalov/Downloads/ffmpeg/ffmpeg.exe';
 
-    private $converter;
+	/**
+	 * @var
+	 */
+	private $converter;
 
-    private $screenShoot;
+	/**
+	 * @var
+	 */
+	private $screenShoot;
 
-    private $metaInfo;
+	/**
+	 * @var
+	 */
+	private $metaInfo;
 
-    public function ScreenShooter(): ScreenShooter
+	/**
+	 * @return ScreenShooter
+	 */
+	public function ScreenShooter(): ScreenShooter
     {
         if (!$this->screenShoot instanceof ScreenShooter) {
             $this->screenShoot = new ScreenShooter();
@@ -37,7 +49,10 @@ class FFMpeg
         return $this->screenShoot;
     }
 
-    public function MetaInfo(): MetaInfo
+	/**
+	 * @return MetaInfo
+	 */
+	public function MetaInfo(): MetaInfo
     {
         if (!$this->metaInfo instanceof MetaInfo) {
             $this->metaInfo = new MetaInfo();
@@ -46,7 +61,10 @@ class FFMpeg
         return $this->metaInfo;
     }
 
-    public function Converter(): VideoConverter
+	/**
+	 * @return VideoConverter
+	 */
+	public function Converter(): VideoConverter
     {
         if (!$this->converter instanceof VideoConverter) {
             $this->converter = new VideoConverter();

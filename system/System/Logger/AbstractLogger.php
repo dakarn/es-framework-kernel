@@ -33,7 +33,7 @@ class AbstractLogger
 	 */
 	public function log(string $level, string $message = '')
 	{
-		if (!method_exists($this, $level)) {
+		if (!\method_exists($this, $level)) {
 			throw new \InvalidArgumentException('This is level of log invalid!');
 		}
 

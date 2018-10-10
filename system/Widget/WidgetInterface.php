@@ -10,7 +10,13 @@ namespace Widget;
 
 interface WidgetInterface
 {
+	/**
+	 * WidgetInterface constructor.
+	 */
 	public function __construct();
 
+	/**
+	 * @return mixed
+	 */
 	public function run();
 }

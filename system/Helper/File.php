@@ -29,7 +29,7 @@ final class File
 	 */
 	public function getFilesize(): int
 	{
-		return filesize($this->file);
+		return \filesize($this->file);
 	}
 
 	/**
@@ -37,7 +37,7 @@ final class File
 	 */
 	public function getContent(): string
 	{
-		return file_get_contents($this->file);
+		return \file_get_contents($this->file);
 	}
 
 }

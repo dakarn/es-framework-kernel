@@ -10,7 +10,7 @@ namespace Http;
 
 use Traits\SingletonTrait;
 
-class Cookie
+class Cookie implements CookieInterface
 {
 	use SingletonTrait;
 

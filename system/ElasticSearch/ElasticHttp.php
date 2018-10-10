@@ -21,28 +21,59 @@ class ElasticHttp
 		'HEAD'   => '',
 	];
 
+	/**
+	 * @var bool
+	 */
 	private $isPretty = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isGet = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isSearch = false;
 
+	/**
+	 * @var string
+	 */
 	private $url = '';
 
+	/**
+	 * @var bool
+	 */
 	private $isPost = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isPut = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isDelete = false;
 
+	/**
+	 * @var array
+	 */
 	private $query = [];
 
+	/**
+	 * @param bool $isPretty
+	 * @return ElasticHttp
+	 */
 	public function setPretty(bool $isPretty): self
 	{
 		$this->isPretty = $isPretty;
 		return $this;
 	}
 
+	/**
+	 *
+	 */
 	public function setGET()
 	{
 		$this->isGet    = true;
@@ -51,6 +82,9 @@ class ElasticHttp
 		$this->isPut    = false;
 	}
 
+	/**
+	 *
+	 */
 	public function setPOST()
 	{
 		$this->isGet    = false;
@@ -59,6 +93,9 @@ class ElasticHttp
 		$this->isPut    = false;
 	}
 
+	/**
+	 *
+	 */
 	public function setDELETE()
 	{
 		$this->isGet    = false;
@@ -68,6 +105,9 @@ class ElasticHttp
 		$this->isDelete = true;
 	}
 
+	/**
+	 *
+	 */
 	public function setPUT()
 	{
 		$this->isGet    = false;
@@ -76,6 +116,9 @@ class ElasticHttp
 		$this->isPut    = true;
 	}
 
+	/**
+	 *
+	 */
 	public function setSearch()
 	{
 		$this->isSearch = true;
@@ -112,32 +155,35 @@ class ElasticHttp
 
 		$this->buildUri($urlRoot);
 
-		$ch = curl_init($this->url);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 5 );
+		$ch = \curl_init($this->url);
+		\curl_setopt($ch, CURLOPT_TIMEOUT, 5 );
 
-		if (!empty($query['body']) && is_array($query['body'])) {
-			$query['body'] = json_encode($query['body'],  JSON_UNESCAPED_UNICODE);
+		if (!empty($query['body']) && \is_array($query['body'])) {
+			$query['body'] = \json_encode($query['body'],  JSON_UNESCAPED_UNICODE);
 		}
 
 		if ($this->isPost) {
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $query['body']);
+			\curl_setopt($ch, CURLOPT_POST, true);
+			\curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
+			\curl_setopt($ch, CURLOPT_POSTFIELDS, $query['body']);
 		} else if ($this->isPut) {
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-			curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $query['body']);
+			\curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+			\curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json']);
+			\curl_setopt($ch, CURLOPT_POSTFIELDS, $query['body']);
 		} else if ($this->isDelete) {
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+			\curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 		}
 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$result = curl_exec($ch);
-		curl_close($ch);
+		\curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$result = \curl_exec($ch);
+		\curl_close($ch);
 
 		return $result;
 	}
 
+	/**
+	 * @param string $urlRoot
+	 */
 	private function buildUri(string $urlRoot)
 	{
 		if ($this->isSearch) {

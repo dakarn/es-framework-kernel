@@ -22,6 +22,7 @@ class MiddlewareController implements MiddlewareInterface
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response|mixed
 	 * @throws \Exception\ControllerException
+	 * @throws \Exception\FileException
 	 * @throws \Exception\KernelException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)

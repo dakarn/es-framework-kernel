@@ -73,6 +73,7 @@ class CSRFTokenManager
 
 	/**
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function makeToken(): void
 	{
@@ -88,6 +89,7 @@ class CSRFTokenManager
 
 	/**
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function refreshToken(): void
     {

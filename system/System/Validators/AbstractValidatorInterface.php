@@ -2,14 +2,47 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 09.03.2018
- * Time: 15:27
+ * Date: 10.10.2018
+ * Time: 19:18
  */
 
 namespace System\Validators;
 
 interface AbstractValidatorInterface
 {
+	/**
+	 * @return AbstractValidator
+	 */
+	public function setUseIfPost(): AbstractValidator;
+
+	/**
+	 * @return array
+	 */
+	public function getErrorsApi(): array;
+
+	/**
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function getValueField(string $key);
+
+	/**
+	 * @param string $key
+	 * @return string
+	 */
+	public function getValueFieldForSQL(string $key);
+
+	/**
+	 * @return AbstractValidator
+	 */
+	public function setFlashErrors(): AbstractValidator;
+
+	/**
+	 * @param string $text
+	 * @return AbstractValidator
+	 */
+	public function setFlashError(string $text): AbstractValidator;
+
 	/**
 	 * @return array
 	 */
@@ -22,9 +55,9 @@ interface AbstractValidatorInterface
 	public function getError(string $field): string;
 
 	/**
-	 * @return array
+	 * @return mixed
 	 */
-	public function getErrorsApi(): array;
+	public function validateCSRFToken();
 
 	/**
 	 * @return bool
@@ -40,4 +73,30 @@ interface AbstractValidatorInterface
 	 * @return bool
 	 */
 	public function isValid(): bool;
+
+	/**
+	 * @param string $keyError
+	 * @return AbstractValidator
+	 * @throws \Exception\FileException
+	 */
+	public function setExtraError(string $keyError): AbstractValidator;
+
+	/**
+	 * @param array $errors
+	 * @return AbstractValidator
+	 */
+	public function setExtraErrorArray(array $errors): AbstractValidator;
+
+	/**
+	 * @param string $keyError
+	 * @param string $itemError
+	 * @return AbstractValidator
+	 * @throws \Exception\FileException
+	 */
+	public function setExtraErrorAPI(string $keyError, string $itemError = ''): AbstractValidator;
+
+	/**
+	 * @return mixed
+	 */
+	public function validate();
 }

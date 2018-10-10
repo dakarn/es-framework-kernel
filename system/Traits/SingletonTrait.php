@@ -10,16 +10,28 @@ namespace Traits;
 
 trait SingletonTrait
 {
+	/**
+	 * @var
+	 */
 	protected static $instance;
 
+	/**
+	 * SingletonTrait constructor.
+	 */
 	public function __construct()
 	{
 	}
 
+	/**
+	 *
+	 */
 	public function __clone()
 	{
 	}
 
+	/**
+	 * @return SingletonTrait
+	 */
 	public static function create(): self
 	{
 		if (!self::$instance instanceof static) {
