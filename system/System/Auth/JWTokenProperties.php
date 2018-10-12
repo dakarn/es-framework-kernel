@@ -100,7 +100,7 @@ class JWTokenProperties
 		$this->created = $props['created'];
 		$this->iat     = $props['iat'];
 		$this->iss     = $props['iss'] ?? '';
-		$this->sub     = $props['sub'];
+		$this->sub     = $props['sub'] ?? '';
 		$this->userIp  = $props['ip'] ?? '';
 		$this->uniqueId  = $props['uniqueId'] ?? '';
 	}
