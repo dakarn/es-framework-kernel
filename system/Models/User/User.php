@@ -22,6 +22,7 @@ class User implements UserInterface
 	public const ROLE_ADMIN = 0b000001; //64
 	public const ROLE_USER  = 0b000001; //1
 	public const ROLE_MODER = 0b000100; //2
+	public const ROLE_ANON  = 0b000000; //0
 
 	/**
 	 * @var bool
@@ -434,7 +435,7 @@ class User implements UserInterface
 	 */
 	public function isGranted(int $role): bool
 	{
-		return $this->role & $role;
+		return Authorization::create()->isGranted($role, $this->role);
 	}
 
 	/**

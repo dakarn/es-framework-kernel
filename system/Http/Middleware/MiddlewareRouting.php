@@ -27,6 +27,7 @@ class MiddlewareRouting implements MiddlewareInterface
 	 * @return \Http\Response\Response|mixed
 	 * @throws \Exception\FileException
 	 * @throws \Exception\KernelException
+	 * @throws \Exception\MiddlewareException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
