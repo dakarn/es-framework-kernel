@@ -27,10 +27,8 @@ class MiddlewareGrantAccess
 
 		if (!empty($router->getAccess())) {
 
-			$user = User::current();
+			if (!User::current()->isGranted($router->getAccess())) {
 
-			if (!$user->isGranted($router->getAccess())) {
-				exit();
 			}
 		}
 
