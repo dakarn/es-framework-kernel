@@ -12,10 +12,10 @@ use Exception\KernelException;
 
 class Registry
 {
-	const APP_EVENT    = 'AppEvent';
-	const APP_KERNEL   = 'AppKernel';
-	const ROUTERS      = 'Routers';
-	const APP          = 'APP';
+	const APP_EVENT   = 'AppEvent';
+	const APP_KERNEL  = 'AppKernel';
+	const ROUTERS     = 'Routers';
+	const APP         = 'APP';
 
 	/**
 	 * @var array

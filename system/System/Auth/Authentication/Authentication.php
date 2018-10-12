@@ -123,7 +123,23 @@ class Authentication implements AuthenticationInterface
 			return false;
 		}
 
+		$JWToken = JWTokenManager::create();
+
+		$now = Util::now();
+		$ttl = $authAppRepository->getResult()->getAccessTTL();
+
+		$user = User::create();
+		$user->loadByUserId($tokenModel->getUserId());
+
+		$dataToSave = $this->fillPayload($authAppRepository, $user, $now, $ttl);
+		
+		$JWToken
+			->setPayload($dataToSave)
+			->setRefreshToken(Util::createRefreshToken())
+			->createToken();
+
 		$tokenRepos->updateRefreshToken($result, $authAppRepository);
+		SessionRedis::create()->set($signToken, \json_encode($dataToSave, $ttl));
 		
 		return true;
 	}
@@ -135,20 +151,14 @@ class Authentication implements AuthenticationInterface
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processAuthentication(UserInterface $user, int $ttl): Authentication
+	public function processAuthentication(UserInterface $user, AuthAppRepository $authAppRepository): Authentication
 	{
 		$JWTokenManager = JWTokenManager::create();
-		
-		$dataToSave = [
-			'userId'  => $user->getUserId(),
-			'email'   => $user->getEmail(),
-			'role'    => $user->getRole(),
-			'login'   => $user->getLogin(),
-			'created' => $user->getCreated(),
-			'iat'     => \time(),
-			'exp'     => \time() + $ttl,
-			'uniqueId' => Util::generateRandom(20),
-		];
+
+		$now = Util::now();
+		$ttl = $authAppRepository->getResult()->getAccessTTL();
+
+		$dataToSave = $this->fillPayload($authAppRepository, $user, $now, $ttl);
 
 		$JWTokenManager
 			->setPayload($dataToSave)
@@ -156,8 +166,9 @@ class Authentication implements AuthenticationInterface
 			->createToken();
 
 		$signToken = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
-		SessionRedis::create()->set($signToken, \json_encode($dataToSave, \time() + $ttl));
 		$result    = (new TokenRepository)->addAccessToken($JWTokenManager);
+
+		SessionRedis::create()->set($signToken, \json_encode($dataToSave, $ttl));
 
 		if ($result) {
 			$this->currentUser   = $user;
@@ -205,5 +216,27 @@ class Authentication implements AuthenticationInterface
 	public function isLogout(): bool
 	{
 		return $this->isLogout;
+	}
+
+	/**
+	 * @param AuthAppRepository $authAppRepository
+	 * @param UserInterface $user
+	 * @param int $now
+	 * @param int $ttl
+	 * @return array
+	 */
+	private function fillPayload(AuthAppRepository $authAppRepository, UserInterface $user, int $now, int $ttl): array
+	{
+		return [
+			'sub'     => $authAppRepository->getResult()->getType(),
+			'iss'     => $authAppRepository->getResult()->getSite(),
+			'userId'  => $user->getUserId(),
+			'email'   => $user->getEmail(),
+			'role'    => $user->getRole(),
+			'login'   => $user->getLogin(),
+			'created' => $user->getCreated(),
+			'iat'     => $now,
+			'exp'     => $now + $ttl,
+		];
 	}
 }

@@ -108,6 +108,26 @@ class DBAdapter implements DBAdapterInterface
 	}
 
 	/**
+	 * @param string $types
+	 * @param array $values
+	 * @return DBAdapter
+	 */
+	public function bindParams(string $types, array $values): DBAdapter
+	{
+		$this->adaptee->bindParams($types, $values);
+
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasError(): bool
+	{
+		return false;
+	}
+
+	/**
 	 * @return mixed|void
 	 */
 	public function startTransaction()
@@ -129,5 +149,10 @@ class DBAdapter implements DBAdapterInterface
 	public function rollbackTransaction()
 	{
 		$this->adaptee->rollbackTransaction();
+	}
+
+	public function getError()
+	{
+
 	}
 }

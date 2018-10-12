@@ -10,6 +10,7 @@ namespace System\Database\Adapter;
 
 use Helper\AbstractList;
 use System\Database\Connector\DBConnectorInterface;
+use System\Database\DB;
 
 class MySQLAdapter implements AdapteeInterface
 {
@@ -29,14 +30,74 @@ class MySQLAdapter implements AdapteeInterface
 	private $affected = 0;
 
 	/**
+	 * @var \mysqli_stmt
+	 */
+	private $prepareStmt;
+
+	/**
 	 * MySQLAdapter constructor.
 	 * @param DBConnectorInterface $connector
 	 * @throws \Exception
 	 */
 	public function __construct(DBConnectorInterface $connector)
 	{
-		$this->writer    = $connector->getWriter();
-		$this->reader   = $connector->getReader();
+		$this->writer = $connector->getWriter();
+		$this->reader = $connector->getReader();
+	}
+
+	/**
+	 * @param string $types
+	 * @param array $values
+	 * @return AdapteeInterface
+	 */
+	public function bindParams(string $types, array $values): AdapteeInterface
+	{
+		\call_user_func_array([$this->prepareStmt, 'bind_param'], $values);
+
+		return $this;
+	}
+
+	/**
+	 * @param string $prepareSql
+	 * @param string $sqlType
+	 * @return AdapteeInterface
+	 */
+	public function prepare(string $prepareSql, string $sqlType): AdapteeInterface
+	{
+		switch (true) {
+			case $sqlType === DB::READ:
+				$this->prepareStmt = $this->reader->prepare($prepareSql);
+				break;
+			case $sqlType === DB::WRITE:
+				$this->prepareStmt = $this->writer->prepare($prepareSql);
+				break;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function executePrepare(): bool
+	{
+		return $this->prepareStmt->execute();
+	}
+
+	/**
+	 * @return mixed|void
+	 */
+	public function getError()
+	{
+
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasError(): bool
+	{
+		return false;
 	}
 
 	/**

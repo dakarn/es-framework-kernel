@@ -72,6 +72,23 @@ interface AdapteeInterface
 	public function close(): bool;
 
 	/**
+	 * @param string $types
+	 * @param array $values
+	 * @return AdapteeInterface
+	 */
+	public function bindParams(string $types, array $values): AdapteeInterface;
+
+	/**
+	 * @return bool
+	 */
+	public function hasError(): bool;
+
+	/**
+	 * @return mixed
+	 */
+	public function getError();
+
+	/**
 	 * @return mixed
 	 */
 	public function startTransaction();

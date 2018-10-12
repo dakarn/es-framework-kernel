@@ -8,8 +8,6 @@
 
 namespace System\Database\Adapter;
 
-use Helper\AbstractList;
-
 interface DBAdapterInterface
 {
 	/**
@@ -66,6 +64,23 @@ interface DBAdapterInterface
 	 * @return bool
 	 */
 	public function delete(string $sql): bool;
+
+	/**
+	 * @param string $types
+	 * @param array $values
+	 * @return DBAdapter
+	 */
+	public function bindParams(string $types, array $values): DBAdapter;
+
+	/**
+	 * @return mixed
+	 */
+	public function getError();
+
+	/**
+	 * @return bool
+	 */
+	public function hasError(): bool;
 
 	/**
 	 * @return mixed

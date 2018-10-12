@@ -30,25 +30,8 @@ class TokenRepository
 	public function updateRefreshToken(TokenModel $tokenModel, AuthAppRepository $authAppRepository): bool
 	{
 		$JWToken      = JWTokenManager::create();
-		$refreshToken = Util::createRefreshToken();
-
-		$user    = User::create();
-		$user->loadByUserId($tokenModel->getUserId());
-
-		$JWToken->setPayload([
-			'userId'  => $user->getUserId(),
-			'email'   => $user->getEmail(),
-			'role'    => $user->getRole(),
-			'login'   => $user->getLogin(),
-			'created' => $user->getCreated(),
-			'iat'     => \time(),
-			'exp'     => \time() + $authAppRepository->getResult()->getAccessTTL(),
-			])
-			->createToken();
-
-		$tokenProperty = $JWToken
-			->setRefreshToken($refreshToken)
-			->getProperties();
+		$refreshToken = $JWToken->getRefreshToken();
+		$now          = Util::now();
 		
 		$result = DB::MySQLAdapter()->update('
 			UPDATE 
@@ -56,7 +39,7 @@ class TokenRepository
 			SET
 				refresh = "' . $refreshToken . '",
 				access = "' . $JWToken->getPartToken(JWTokenManager::SIGN_TOKEN) . '",
-				expire = "' . $tokenProperty->getExpAsDT() . '",
+				expire = "' . $JWToken->getProperties()->getExpAsDT() . '",
 				created = "' . Util::toDbTime() . '"
 			WHERE 
 				refresh = "' . $tokenModel->getRefresh() . '"
@@ -110,8 +93,7 @@ class TokenRepository
 	{
 		$token   = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
 		$payload = $JWTokenManager->getProperties();
-
-		error_log(print_r($payload,true));
+		
 		DB::MySQLAdapter()->insert('
 			INSERT INTO access_tokens
 			(

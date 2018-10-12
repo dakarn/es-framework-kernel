@@ -145,6 +145,14 @@ class ServerRequest
     }
 
 	/**
+	 * @return bool
+	 */
+    public function hasBearerHeader(): bool
+    {
+	    return \preg_match('/^Bearer\s(.*)$/', $this->getAuthorization());
+    }
+
+	/**
 	 * @return string
 	 */
 	public function getAccessTokenFromRequest(): string

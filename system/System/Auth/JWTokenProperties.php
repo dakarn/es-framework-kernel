@@ -31,12 +31,12 @@ class JWTokenProperties
 	/**
 	 * @var string
 	 */
-	private $iss = 'es-framework.dev.ru';
+	private $iss = '';
 
 	/**
 	 * @var string
 	 */
-	private $sub = 'site';
+	private $sub = '';
 
 	/**
 	 * @var int
@@ -89,6 +89,9 @@ class JWTokenProperties
 	 */
 	public function __construct(array $props)
 	{
+		$this->header['alg'] = $props['alg'] ?? '';
+		$this->header['typ'] = $props['typ'] ?? '';
+
 		$this->role    = $props['role'];
 		$this->userId  = $props['userId'];
 		$this->login   = $props['login'];
@@ -96,6 +99,8 @@ class JWTokenProperties
 		$this->exp     = $props['exp'];
 		$this->created = $props['created'];
 		$this->iat     = $props['iat'];
+		$this->iss     = $props['iss'];
+		$this->sub     = $props['sub'];
 		$this->userIp  = $props['ip'] ?? '';
 		$this->uniqueId  = $props['uniqueId'] ?? '';
 	}

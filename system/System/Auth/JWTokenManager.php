@@ -25,10 +25,10 @@ class JWTokenManager implements JWTokenManagerInterface
 		'typ' => 'JWT',
 	];
 
-	private $payload = [
-		'iss'   => 'es-framework.dev.ru',
-		'sub'   => 'site',
-	];
+	/**
+	 * @var array
+	 */
+	private $payload = [];
 
 	/**
 	 * @var JWTokenProperties
@@ -113,9 +113,17 @@ class JWTokenManager implements JWTokenManagerInterface
 	 */
 	public function setPayload(array $payload): JWTokenManager
 	{
-		$this->payload = $this->payload + $payload;
+		$this->payload = $payload;
 		
 		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPayload(): array
+	{
+		return $this->payload;
 	}
 
 	/**

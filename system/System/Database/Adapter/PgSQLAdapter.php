@@ -132,6 +132,32 @@ class PgSQLAdapter implements AdapteeInterface
 	}
 
 	/**
+	 * @param string $types
+	 * @param array $values
+	 * @return AdapteeInterface
+	 */
+	public function bindParams(string $types, array $values): AdapteeInterface
+	{
+		return $this;
+	}
+
+	/**
+	 * @return mixed|void
+	 */
+	public function getError()
+	{
+
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function hasError(): bool
+	{
+		return false;
+	}
+
+	/**
 	 * @param string $sql
 	 * @return bool
 	 */

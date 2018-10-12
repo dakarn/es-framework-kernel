@@ -8,6 +8,7 @@
 
 namespace System\Auth\Authentication;
 
+use App\Models\AuthAppRepository;
 use Models\User\UserInterface;
 
 interface AuthenticationInterface
@@ -29,7 +30,7 @@ interface AuthenticationInterface
 	 * @param int $ttl
 	 * @return Authentication
 	 */
-	public function processAuthentication(UserInterface $user, int $ttl): Authentication;
+	public function processAuthentication(UserInterface $user, AuthAppRepository $authAppRepositoryl): Authentication;
 
 	/**
 	 * @param int $userId
