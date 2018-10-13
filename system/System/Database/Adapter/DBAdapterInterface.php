@@ -54,10 +54,27 @@ interface DBAdapterInterface
 	public function insert(string $sql): bool;
 
 	/**
+	 * @param string $prepareSql
+	 * @param string $sqlType
+	 * @return mixed
+	 */
+	public function prepare(string $prepareSql, string $sqlType): DBAdapterInterface;
+
+	/**
+	 * @return bool
+	 */
+	public function execute(): bool;
+
+	/**
 	 * @param string $sql
 	 * @return bool
 	 */
 	public function update(string $sql): bool;
+
+	/**
+	 * @return mixed
+	 */
+	public function getResult();
 
 	/**
 	 * @param string $sql
@@ -70,7 +87,7 @@ interface DBAdapterInterface
 	 * @param array $values
 	 * @return DBAdapter
 	 */
-	public function bindParams(string $types, array $values): DBAdapter;
+	public function bindParams(string $types, array $values): DBAdapterInterface;
 
 	/**
 	 * @return mixed

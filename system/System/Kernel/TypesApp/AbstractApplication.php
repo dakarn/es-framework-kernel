@@ -8,6 +8,8 @@
 
 namespace System\Kernel\TypesApp;
 
+use App\Mail;
+use Http\Request\ServerRequest;
 use System\Database\DbConfigLogic\DbConfig;
 use System\EventListener\EventManager;
 use System\Database\DB;
@@ -188,6 +190,14 @@ abstract class AbstractApplication implements ApplicationInterface
 		} else {
 			$this->customOutputError($e);
 		}
+
+		/*Mail::create()
+			->setTo('admin@es-framework.ru')
+			->setSubject('Error on ' . ServerRequest::create()->getHost())
+			->setFrom('admin@es-framework.ru')
+			->asHtml()
+			->setTemplate()
+			->send();*/
 	}
 
 	/**

@@ -10,6 +10,7 @@ namespace Http\Response;
 
 use Exception\RoutingException;
 use Http\Cookie;
+use System\Render;
 use System\Router\Routing;
 
 class Response implements ResponseInterface
@@ -28,11 +29,6 @@ class Response implements ResponseInterface
 	 * @var array
 	 */
 	private $headers = [];
-
-	/**
-	 * @var string
-	 */
-	private $template = '';
 
 	/**
 	 * @var array
@@ -90,6 +86,7 @@ class Response implements ResponseInterface
 	public function output(): Response
 	{
 		echo $this->data;
+
 		return $this;
 	}
 
@@ -109,6 +106,7 @@ class Response implements ResponseInterface
 	public function withHeader(string $name, string $value): Response
 	{
 		$this->headers[$name] = $value;
+
 		return $this;
 	}
 
@@ -129,16 +127,19 @@ class Response implements ResponseInterface
 	public function withCookie(string $name, string $value): Response
 	{
 		$this->cookies[$name] = $value;
+
 		return $this;
 	}
 
 	/**
 	 * @param string $template
 	 * @return Response
+	 * @throws \Exception\FileException
 	 */
 	public function withTemplate(string $template): Response
 	{
-		$this->template = $template;
+		$this->data = new Text((new Render($template))->render());
+
 		return $this;
 	}
 
@@ -187,7 +188,6 @@ class Response implements ResponseInterface
 	 * @param string $routerName
 	 * @param array $arguments
 	 * @param int $status
-	 * @throws RoutingException
 	 * @throws \Exception\FileException
 	 * @throws \Exception\KernelException
 	 */

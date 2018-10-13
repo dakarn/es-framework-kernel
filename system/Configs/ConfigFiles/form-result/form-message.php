@@ -26,10 +26,11 @@ return [
 	Validators::COMMON => [
 		'error-query'     => 'Ошибка при выполнении опреации, попробуйте позже.',
 		'error-save'      => 'Возникла ошибка при сохранении данных.',
-		'already-auth'    => 'Вы уже вшли на сайт',
+		'already-auth'    => 'Вы уже вшли на сайт.',
 		'unknown-clients' => 'Не найдено приложение с такими clientId и clientSecret.',
 		'unknown-refresh' => 'Получен не известный refreshToken.',
-		'unknown-access'  => 'Получен неизвестный accessToken',
+		'unknown-access'  => 'Получен неизвестный accessToken.',
+		'CSRFToken'       => 'Отправлен невалидный CSRFToken.'
 	],
 	Validators::SUCCESS => [
 		'success' => 'Запрос выполнен успешно.',

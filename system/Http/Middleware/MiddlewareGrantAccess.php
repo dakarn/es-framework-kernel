@@ -31,7 +31,7 @@ class MiddlewareGrantAccess
 		if (!empty($router->getAccess())) {
 
 			if (!User::current()->isGranted($router->getAccess())) {
-
+				
 				/** @var AbstractApplication $app */
 				$app = Registry::get(Registry::APP);
 

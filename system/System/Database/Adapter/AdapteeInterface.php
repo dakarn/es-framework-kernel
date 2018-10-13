@@ -13,6 +13,23 @@ use Helper\AbstractList;
 interface AdapteeInterface
 {
 	/**
+	 * @param string $prepareSql
+	 * @param string $sqlType
+	 * @return AdapteeInterface
+	 */
+	public function prepare(string $prepareSql, string $sqlType): AdapteeInterface;
+
+	/**
+	 * @return bool
+	 */
+	public function execute(): bool;
+
+	/**
+	 * @return mixed
+	 */
+	public function getResult();
+
+	/**
 	 * @param string $sql
 	 * @return array
 	 */

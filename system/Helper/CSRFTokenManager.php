@@ -68,6 +68,7 @@ class CSRFTokenManager
 		}
 
 		$this->isValid = $tokenFromCookie === $tokenFromPost;
+		
 		return $this;
 	}
 

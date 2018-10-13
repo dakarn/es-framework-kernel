@@ -40,6 +40,32 @@ class PgSQLAdapter implements AdapteeInterface
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function execute(): bool
+	{
+		return true;
+	}
+
+	/**
+	 * @param string $prepareSql
+	 * @param string $sqlType
+	 * @return AdapteeInterface
+	 */
+	public function prepare(string $prepareSql, string $sqlType): AdapteeInterface
+	{
+		return $this;
+	}
+
+	/**
+	 * @return mixed|void
+	 */
+	public function getResult()
+	{
+
+	}
+
+	/**
 	 * @param string $sql
 	 * @return array
 	 */

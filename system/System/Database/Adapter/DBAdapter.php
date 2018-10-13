@@ -27,6 +27,26 @@ class DBAdapter implements DBAdapterInterface
 	}
 
 	/**
+	 * @param string $prepareSql
+	 * @param string $sqlType
+	 * @return $this|mixed
+	 */
+	public function prepare(string $prepareSql, string $sqlType): DBAdapterInterface
+	{
+		$this->adaptee->prepare($prepareSql, $sqlType);
+
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function execute(): bool
+	{
+		return $this->adaptee->execute();
+	}
+
+	/**
 	 * @param string $sql
 	 * @return array
 	 */
@@ -112,11 +132,19 @@ class DBAdapter implements DBAdapterInterface
 	 * @param array $values
 	 * @return DBAdapter
 	 */
-	public function bindParams(string $types, array $values): DBAdapter
+	public function bindParams(string $types, array $values): DBAdapterInterface
 	{
 		$this->adaptee->bindParams($types, $values);
 
 		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getResult()
+	{
+		return $this->adaptee->getResult();
 	}
 
 	/**
@@ -151,8 +179,11 @@ class DBAdapter implements DBAdapterInterface
 		$this->adaptee->rollbackTransaction();
 	}
 
+	/**
+	 * @return mixed|void
+	 */
 	public function getError()
 	{
-
+		$this->adaptee->getError();
 	}
 }

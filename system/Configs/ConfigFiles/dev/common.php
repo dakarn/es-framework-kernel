@@ -4,7 +4,7 @@ return [
 	'routerFiles' => [
 		'customRoutersApp' => 'routersFiles'
 	],
-	'useCSRFToken' => true,
+	'useCSRFToken' => false,
 	'service' => [
 		'autoLoad' => true,
 	],

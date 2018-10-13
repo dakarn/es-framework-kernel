@@ -8,7 +8,7 @@
 
 namespace Helper;
 
-final class File
+final class self
 {
 	/**
 	 * @var string

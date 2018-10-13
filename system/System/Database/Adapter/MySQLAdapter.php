@@ -35,6 +35,11 @@ class MySQLAdapter implements AdapteeInterface
 	private $prepareStmt;
 
 	/**
+	 * @var \mysqli_result|bool
+	 */
+	private $result;
+
+	/**
 	 * MySQLAdapter constructor.
 	 * @param DBConnectorInterface $connector
 	 * @throws \Exception
@@ -52,7 +57,14 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function bindParams(string $types, array $values): AdapteeInterface
 	{
-		\call_user_func_array([$this->prepareStmt, 'bind_param'], $values);
+
+		$params[] = $types;
+
+		foreach ($values as $value) {
+			$params[] = &$value;
+		}
+
+		\call_user_func_array([$this->prepareStmt, 'bind_param'], $params);
 
 		return $this;
 	}
@@ -79,17 +91,21 @@ class MySQLAdapter implements AdapteeInterface
 	/**
 	 * @return bool
 	 */
-	public function executePrepare(): bool
+	public function execute(): bool
 	{
-		return $this->prepareStmt->execute();
+		$result       = $this->prepareStmt->execute();
+		$this->result = $this->prepareStmt->get_result();
+
+		return $result;
+
 	}
 
 	/**
-	 * @return mixed|void
+	 * @return mixed|string
 	 */
 	public function getError()
 	{
-
+		return $this->reader->error ?? $this->writer->error;
 	}
 
 	/**
@@ -97,6 +113,15 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function hasError(): bool
 	{
+		switch (true) {
+			case $this->reader->error !== null:
+				return true;
+				break;
+			case $this->writer->error !== null:
+				return true;
+				break;
+		}
+
 		return false;
 	}
 
@@ -106,7 +131,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetchRow(string $sql): array
 	{
-		$query = $this->reader->query($sql);
+		$query = $this->result = $this->reader->query($sql);
 
 		return $query->fetch_assoc() ?? [];
 	}
@@ -117,7 +142,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetch(string $sql): array
 	{
-		$query = $this->reader->query($sql);
+		$query = $this->result = $this->reader->query($sql);
 		$data  = [];
 
 		while ($row = $query->fetch_assoc()) {
@@ -125,6 +150,28 @@ class MySQLAdapter implements AdapteeInterface
 		}
 
 		return $data;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getResult()
+	{
+		if ($this->prepareStmt === null) {
+			return false;
+		}
+
+		if (!$this->result instanceof \mysqli_result) {
+			return $this->result;
+		}
+
+		$ret = [];
+
+		while ($row = $this->result->fetch_assoc()) {
+			$ret[] = $row;
+		}
+
+		return $ret;
 	}
 
 	/**

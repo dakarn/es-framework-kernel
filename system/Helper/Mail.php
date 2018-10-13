@@ -19,7 +19,7 @@ class Mail
     /**
      * @var string
      */
-    protected $_mailer = "WebPetroMailer / 1.0";
+    protected $_mailer = "WebESMailer / 1.0";
 
     /**
      * @var string
