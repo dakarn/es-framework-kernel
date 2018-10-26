@@ -85,7 +85,7 @@ class CSRFTokenManager
 		$this->start();
 
 		$this->token->setToken(Util::generateCSRFToken());
-		Cookie::create()->set(self::TOKEN_NAME, $this->token->getToken());
+		Cookie::create()->set(self::TOKEN_NAME, $this->token->getToken(), '/', 0, '.es-framework.dev.ru');
 	}
 
 	/**
@@ -97,7 +97,7 @@ class CSRFTokenManager
 	    $this->start();
 
         $this->token->setToken(Util::generateCSRFToken());
-        Cookie::create()->set(self::TOKEN_NAME, $this->token->getToken());
+        Cookie::create()->set(self::TOKEN_NAME, $this->token->getToken(), '/', 0, '.es-framework.dev.ru');
     }
 
     /**

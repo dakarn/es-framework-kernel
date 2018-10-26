@@ -13,7 +13,7 @@ use Http\Request\ServerRequest;
 use Http\Response\API;
 use Http\Response\Text;
 use System\Kernel\TypesApp\AbstractApplication;
-use System\Registry;
+use System\ES;
 use System\Render;
 use System\Router\Routing;
 use System\Kernel\GETParam;
@@ -36,7 +36,7 @@ class MiddlewareRouting implements MiddlewareInterface
 		if (!$router->isFilled()) {
 
 			/** @var AbstractApplication $app */
-			$app = Registry::get(Registry::APP);
+			$app = ES::get(ES::APP);
 
 			if ($app->getApplicationType() === AbstractApplication::APP_TYPE['Web']) {
 				$outputData = new Text((new Render(Config::get('common', 'errors')['404']))->render());

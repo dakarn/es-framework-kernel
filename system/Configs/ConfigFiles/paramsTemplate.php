@@ -3,12 +3,12 @@
 use Http\Request\ServerRequest;
 use Http\Cookie;
 use Http\Session\SessionRedis;
-use System\Registry;
+use System\ES;
 use System\Kernel\TypesApp\AbstractApplication;
 use Models\User\User;
 
 /** @var AbstractApplication $app */
-$app =  Registry::get(Registry::APP);
+$app =  ES::get(ES::APP);
 
 return [
 	'request' => ServerRequest::create(),

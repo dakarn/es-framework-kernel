@@ -17,7 +17,7 @@ use Configs\Config;
 use System\Database\DbConfigLogic\DatabaseConfigure;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
-use System\Registry;
+use System\ES;
 
 abstract class AbstractApplication implements ApplicationInterface
 {
@@ -71,7 +71,7 @@ abstract class AbstractApplication implements ApplicationInterface
      */
 	public function __construct()
 	{
-		Registry::set(Registry::APP, $this);
+		ES::set(ES::APP, $this);
 		$this->setupClass();
 	}
 

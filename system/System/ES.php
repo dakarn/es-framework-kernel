@@ -10,7 +10,7 @@ namespace System;
 
 use Exception\KernelException;
 
-class Registry
+class ES
 {
 	const APP_EVENT   = 'AppEvent';
 	const APP_KERNEL  = 'AppKernel';

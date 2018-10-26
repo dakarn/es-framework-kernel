@@ -2,7 +2,7 @@
 
 namespace System\Router;
 
-use System\Registry;
+use System\ES;
 use System\Kernel\GETParam;
 use Configs\Config;
 
@@ -83,7 +83,7 @@ class Routing implements RoutingInterface
 			$routerList->add($router->getName(), $router);
 		}
 
-		Registry::set(Registry::ROUTERS, $routerList);
+		ES::set(ES::ROUTERS, $routerList);
 	}
 
 	/**
@@ -93,11 +93,11 @@ class Routing implements RoutingInterface
 	 */
 	public static function getRouterList(): RouterList
 	{
-		if (!Registry::has(Registry::ROUTERS)) {
+		if (!ES::has(ES::ROUTERS)) {
 			self::fillRouterList();
 		}
 
-		return Registry::get(Registry::ROUTERS);
+		return ES::get(ES::ROUTERS);
 	}
 
 	/**

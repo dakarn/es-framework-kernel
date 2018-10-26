@@ -8,7 +8,7 @@
 
 namespace System\Kernel;
 
-use System\Registry;
+use System\ES;
 
 class ShutdownScript
 {
@@ -17,6 +17,6 @@ class ShutdownScript
 	 */
 	public static function run()
 	{
-		Registry::get(Registry::APP)->terminate();
+		ES::get(ES::APP)->terminate();
 	}
 }

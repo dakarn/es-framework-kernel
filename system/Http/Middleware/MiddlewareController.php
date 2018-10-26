@@ -11,7 +11,7 @@ namespace Http\Middleware;
 use Http\Request\ServerRequest;
 use Http\Response\Text;
 use System\Controller\LauncherController;
-use System\Registry;
+use System\ES;
 use System\Render;
 use System\Router\Routing;
 
@@ -28,7 +28,7 @@ class MiddlewareController implements MiddlewareInterface
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
         $launcher = new LauncherController(
-            Registry::get(Registry::APP),
+            ES::get(ES::APP),
             Routing::getFoundRouter(),
             $request,
             $handler->getResponse()

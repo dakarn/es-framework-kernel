@@ -17,7 +17,7 @@ use Http\Response\FormatResponseInterface;
 use Http\Response\Response;
 use Http\Session\SessionRedis;
 use Http\Session\Strategy\RedisStrategy;
-use System\Registry;
+use System\ES;
 use Configs\Config;
 use System\EventListener\EventManager;
 use System\Logger\Logger;
@@ -219,7 +219,7 @@ abstract class AbstractController implements ControllerInterface
 
 		if (!empty($router)) {
 			(new LauncherController(
-				Registry::get(Registry::APP),
+				ES::get(ES::APP),
 				$router,
 				$this->request,
 				$this->response

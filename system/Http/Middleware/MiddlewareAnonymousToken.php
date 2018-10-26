@@ -15,7 +15,7 @@ use Http\Request\ServerRequest;
 use Http\Session\SessionRedis;
 use System\Auth\JWTokenManager;
 use System\Kernel\TypesApp\AbstractApplication;
-use System\Registry;
+use System\ES;
 
 class MiddlewareAnonymousToken
 {
@@ -29,7 +29,7 @@ class MiddlewareAnonymousToken
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
 		$cookie     = Cookie::create()->get('JWT');
-		$currentApp = Registry::get(Registry::APP);
+		$currentApp = ES::get(ES::APP);
 
 		if ($currentApp->getApplicationType() === AbstractApplication::APP_TYPE['Auth']) {
 			return $handler->handle($request, $handler);

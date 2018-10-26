@@ -12,7 +12,7 @@ use Http\Request\ServerRequest;
 use Http\Response\API;
 use Models\User\User;
 use System\Kernel\TypesApp\AbstractApplication;
-use System\Registry;
+use System\ES;
 use System\Router\Routing;
 
 class MiddlewareGrantAccess
@@ -33,7 +33,7 @@ class MiddlewareGrantAccess
 			if (!User::current()->isGranted($router->getAccess())) {
 				
 				/** @var AbstractApplication $app */
-				$app = Registry::get(Registry::APP);
+				$app = ES::get(ES::APP);
 
 				if ($app->getApplicationType() === AbstractApplication::APP_TYPE['Web']) {
 					$handler->getResponse()->redirectToRoute('authUser', [], 301);
