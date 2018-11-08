@@ -10,7 +10,7 @@ namespace System;
 
 use Exception\KernelException;
 
-class ES
+class ES implements ContainerInterface
 {
 	const APP_EVENT   = 'AppEvent';
 	const APP_KERNEL  = 'AppKernel';

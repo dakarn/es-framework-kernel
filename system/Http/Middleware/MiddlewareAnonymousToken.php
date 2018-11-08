@@ -31,7 +31,7 @@ class MiddlewareAnonymousToken
 		$cookie     = Cookie::create()->get('JWT');
 		$currentApp = ES::get(ES::APP);
 
-		if ($currentApp->getApplicationType() === AbstractApplication::APP_TYPE['Auth']) {
+		if ($currentApp->getApplicationType() === AbstractApplication::APP_TYPE_AUTH) {
 			return $handler->handle($request, $handler);
 		}
 

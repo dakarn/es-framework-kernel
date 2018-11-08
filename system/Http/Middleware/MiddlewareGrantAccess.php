@@ -35,7 +35,7 @@ class MiddlewareGrantAccess
 				/** @var AbstractApplication $app */
 				$app = ES::get(ES::APP);
 
-				if ($app->getApplicationType() === AbstractApplication::APP_TYPE['Web']) {
+				if ($app->getApplicationType() === AbstractApplication::APP_TYPE_WEB) {
 					$handler->getResponse()->redirectToRoute('authUser', [], 301);
 				} else {
 					$handler

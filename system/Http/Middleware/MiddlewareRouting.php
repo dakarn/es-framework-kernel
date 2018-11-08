@@ -38,7 +38,7 @@ class MiddlewareRouting implements MiddlewareInterface
 			/** @var AbstractApplication $app */
 			$app = ES::get(ES::APP);
 
-			if ($app->getApplicationType() === AbstractApplication::APP_TYPE['Web']) {
+			if ($app->getApplicationType() === AbstractApplication::APP_TYPE_WEB) {
 				$outputData = new Text((new Render(Config::get('common', 'errors')['404']))->render());
 			} else {
 				$outputData = new API([

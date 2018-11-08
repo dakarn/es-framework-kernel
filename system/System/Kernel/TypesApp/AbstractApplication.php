@@ -32,26 +32,6 @@ abstract class AbstractApplication implements ApplicationInterface
 	public const APP_TYPE_AUTH    = 'Auth';
 
 	/**
-	 * @var array
-	 */
-	const ENV_TYPE = [
-		'DEV'  => 'DEV',
-		'TEST' => 'TEST',
-		'PROD' => 'PROD',
-	];
-
-	/**
-	 * @var array
-	 */
-	const APP_TYPE = [
-		'Web'     => 'Web',
-		'Console' => 'Console',
-		'Queue'   => 'Queue',
-		'Api'     => 'Api',
-		'Auth'    => 'Auth',
-	];
-
-	/**
 	 * @var string
 	 */
 	const PREFIX_ACTION = 'Action';
@@ -98,7 +78,7 @@ abstract class AbstractApplication implements ApplicationInterface
      */
 	public function setEnvironment($env): self
 	{
-		if (!isset(self::ENV_TYPE[$env])) {
+		if (!\defined('ENV_TYPE_'. \strtoupper($env))) {
 			throw new \InvalidArgumentException('Try setup invalid environment!');
 		}
 
@@ -125,7 +105,7 @@ abstract class AbstractApplication implements ApplicationInterface
      */
 	public function isWebApp(): bool
 	{
-		return $this->getApplicationType() === self::APP_TYPE['Web'];
+		return $this->applicationType === self::APP_TYPE_WEB;
 	}
 
 	/**
@@ -133,7 +113,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	 */
 	public function isAuthApp(): bool
 	{
-		return $this->getApplicationType() === self::APP_TYPE['Auth'];
+		return $this->applicationType === self::APP_TYPE_AUTH;
 	}
 
 	/**
@@ -141,7 +121,7 @@ abstract class AbstractApplication implements ApplicationInterface
      */
 	public function isAPIApp(): bool
 	{
-		return $this->getApplicationType() === self::APP_TYPE['Api'];
+		return $this->applicationType === self::APP_TYPE_API;
 	}
 
     /**
@@ -149,7 +129,7 @@ abstract class AbstractApplication implements ApplicationInterface
      */
 	public function isConsoleApp(): bool
 	{
-		return $this->getApplicationType() === self::APP_TYPE['Console'];
+		return $this->applicationType === self::APP_TYPE_CONSOLE;
 	}
 
     /**
@@ -195,7 +175,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	 */
 	public function outputException(\Throwable $e): void
 	{
-		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
+		if ($this->env == self::ENV_DEV) {
 			$this->customOutputError($e);
 		} else {
 			$this->customOutputError($e);
