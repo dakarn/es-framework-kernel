@@ -8,9 +8,9 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\AbstractElasticQueryParams;
+use ElasticSearchNew\ElasticQueryParams;
 
-class Insert extends AbstractElasticQueryParams
+class Insert extends ElasticQueryParams
 {
     public function buildParams()
     {

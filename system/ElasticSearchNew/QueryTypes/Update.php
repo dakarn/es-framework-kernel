@@ -8,9 +8,9 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\AbstractElasticQueryParams;
+use ElasticSearchNew\ElasticQueryParams;
 
-class Update extends AbstractElasticQueryParams
+class Update extends ElasticQueryParams
 {
     public function buildParams()
     {

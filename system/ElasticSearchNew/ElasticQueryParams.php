@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew;
 
-abstract class AbstractElasticQueryParams extends AbstractElasticQuery implements ElasticQueryParamsInterface
+abstract class ElasticQueryParams implements ElasticQueryParamsInterface
 {
     /**
      * @var string
@@ -61,9 +61,9 @@ abstract class AbstractElasticQueryParams extends AbstractElasticQuery implement
 
     /**
      * @param bool $isPretty
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setIsPretty(bool $isPretty): AbstractElasticQueryParams
+    public function setIsPretty(bool $isPretty): ElasticQueryParams
     {
         $this->isPretty = $isPretty;
 
@@ -72,9 +72,9 @@ abstract class AbstractElasticQueryParams extends AbstractElasticQuery implement
 
     /**
      * @param array $query
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setQuery(array $query): AbstractElasticQueryParams
+    public function setQuery(array $query): ElasticQueryParams
     {
         $this->query = $query;
 
@@ -83,9 +83,9 @@ abstract class AbstractElasticQueryParams extends AbstractElasticQuery implement
 
     /**
      * @param string $index
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setIndex(string $index): AbstractElasticQueryParams
+    public function setIndex(string $index): ElasticQueryParams
     {
         $this->index = $index;
 
@@ -102,9 +102,9 @@ abstract class AbstractElasticQueryParams extends AbstractElasticQuery implement
 
     /**
      * @param string $type
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setType(string $type): AbstractElasticQueryParams
+    public function setType(string $type): ElasticQueryParams
     {
         $this->type = $type;
 
@@ -121,9 +121,9 @@ abstract class AbstractElasticQueryParams extends AbstractElasticQuery implement
 
     /**
      * @param string $id
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setId(string $id): AbstractElasticQueryParams
+    public function setId(string $id): ElasticQueryParams
     {
         $this->id = $id;
 

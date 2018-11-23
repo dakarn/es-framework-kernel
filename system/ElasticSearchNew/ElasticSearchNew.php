@@ -11,7 +11,7 @@ namespace ElasticSearchNew;
 use ElasticSearchNew\QueryTypes\QueryTypesInterface;
 use Traits\SingletonTrait;
 
-class ElasticSearchNew
+class ElasticSearchNew implements ElasticSearchNewInterface
 {
 	use SingletonTrait;
 
@@ -21,46 +21,54 @@ class ElasticSearchNew
     private $queryParamsObject = [];
 
     /**
-     * @var AbstractElasticQueryParams
+     * @var ElasticQueryParams
      */
 	private $currentQueryClass;
 
     /**
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function select(): AbstractElasticQueryParams
+    public function select(): ElasticQueryParams
     {
         return $this->getQueryClass(QueryTypesInterface::SELECT);
     }
 
     /**
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function update(): AbstractElasticQueryParams
+    public function index(): ElasticQueryParams
+    {
+        return $this->getQueryClass(QueryTypesInterface::INDEX);
+    }
+
+    /**
+     * @return ElasticQueryParams
+     */
+    public function update(): ElasticQueryParams
     {
         return $this->getQueryClass(QueryTypesInterface::UPDATE);
     }
 
     /**
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function remove(): AbstractElasticQueryParams
+    public function remove(): ElasticQueryParams
     {
         return $this->getQueryClass(QueryTypesInterface::REMOVE);
     }
 
     /**
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function insert(): AbstractElasticQueryParams
+    public function insert(): ElasticQueryParams
     {
         return $this->getQueryClass(QueryTypesInterface::INSERT);
     }
 
     /**
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function getCurrentQueryType(): AbstractElasticQueryParams
+    public function getCurrentQueryType(): ElasticQueryParams
     {
         return $this->currentQueryClass;
     }

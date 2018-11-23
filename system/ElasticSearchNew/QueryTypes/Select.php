@@ -8,21 +8,11 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\AbstractElasticQueryParams;
+use ElasticSearchNew\ElasticQueryParams;
 
-class Select extends AbstractElasticQueryParams
+class Select extends ElasticQueryParams
 {
     public function buildParams()
-    {
-
-    }
-
-    public function getRecords(): array
-    {
-        return [];
-    }
-
-    public function getRecordsAsObject($objectList, $object)
     {
 
     }

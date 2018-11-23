@@ -17,9 +17,9 @@ interface ElasticQueryParamsInterface
 
     /**
      * @param string $index
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setIndex(string $index): AbstractElasticQueryParams;
+    public function setIndex(string $index): ElasticQueryParams;
 
     /**
      * @return string
@@ -28,9 +28,9 @@ interface ElasticQueryParamsInterface
 
     /**
      * @param string $type
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setType(string $type): AbstractElasticQueryParams;
+    public function setType(string $type): ElasticQueryParams;
 
     /**
      * @return string
@@ -39,7 +39,7 @@ interface ElasticQueryParamsInterface
 
     /**
      * @param string $id
-     * @return AbstractElasticQueryParams
+     * @return ElasticQueryParams
      */
-    public function setId(string $id): AbstractElasticQueryParams;
+    public function setId(string $id): ElasticQueryParams;
 }

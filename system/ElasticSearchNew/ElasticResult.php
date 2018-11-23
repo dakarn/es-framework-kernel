@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew;
 
-class ElasticResult
+class ElasticResult implements ElasticResultInterface
 {
 	/**
 	 * @var mixed
@@ -32,6 +32,23 @@ class ElasticResult
 	{
 		return $this->response;
 	}
+
+    /**
+     * @return array
+     */
+    public function getRecords(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param $objectList
+     * @param $object
+     */
+    public function getRecordsAsObject($objectList, $object)
+    {
+
+    }
 
 	/**
 	 * @return bool

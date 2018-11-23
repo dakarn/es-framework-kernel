@@ -8,9 +8,9 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\AbstractElasticQueryParams;
+use ElasticSearchNew\ElasticQueryParams;
 
-class Remove extends AbstractElasticQueryParams
+class Remove extends ElasticQueryParams
 {
     public function buildParams()
     {
