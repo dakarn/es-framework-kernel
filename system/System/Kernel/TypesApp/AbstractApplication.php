@@ -8,8 +8,6 @@
 
 namespace System\Kernel\TypesApp;
 
-use App\Mail;
-use Http\Request\ServerRequest;
 use System\Database\DbConfigLogic\DbConfig;
 use System\EventListener\EventManager;
 use System\Database\DB;
@@ -78,10 +76,6 @@ abstract class AbstractApplication implements ApplicationInterface
      */
 	public function setEnvironment($env): self
 	{
-		if (!\defined('ENV_TYPE_'. \strtoupper($env))) {
-			throw new \InvalidArgumentException('Try setup invalid environment!');
-		}
-
 		if (!empty($this->env)) {
 			throw new \LogicException('Environment setup already!');
 		}
