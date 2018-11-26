@@ -10,8 +10,8 @@ require_once '../vendor/autoload.php';
 
 use ElasticSearchNew\ElasticSearchNew;
 use ElasticSearchNew\ElasticQuery;
-use ElasticSearchNew\QueryTypes\Index;
-use ElasticSearchNew\QueryTypes\Bulk;
+use ElasticSearchNew\QueryEndpoints\Index;
+use ElasticSearchNew\QueryEndpoints\Bulk;
 
 class ElasticTest
 {

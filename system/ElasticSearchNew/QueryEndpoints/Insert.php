@@ -6,7 +6,7 @@
  * Time: 15:45
  */
 
-namespace ElasticSearchNew\QueryTypes;
+namespace ElasticSearchNew\QueryEndpoints;
 
 use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
@@ -23,7 +23,7 @@ class Insert extends ElasticQueryParams implements RequestOperationInterface
     {
 	    $this->httpQuery = new HttpQuery();
 
-        $host = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
+        $host = $this->makeHost($connect);
 
         if (empty($this->id)) {
             $pathname = $this->index . '/' . $this->type . '/';

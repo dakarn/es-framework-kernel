@@ -10,14 +10,14 @@ namespace ElasticSearchNew;
 
 use Configs\Config;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryTypes\Bulk;
-use ElasticSearchNew\QueryTypes\Index;
-use ElasticSearchNew\QueryTypes\Insert;
-use ElasticSearchNew\QueryTypes\QueryTypesInterface;
-use ElasticSearchNew\QueryTypes\Remove;
-use ElasticSearchNew\QueryTypes\Search;
-use ElasticSearchNew\QueryTypes\Select;
-use ElasticSearchNew\QueryTypes\Update;
+use ElasticSearchNew\QueryEndpoints\Bulk;
+use ElasticSearchNew\QueryEndpoints\Index;
+use ElasticSearchNew\QueryEndpoints\Insert;
+use ElasticSearchNew\QueryEndpoints\QueryTypesInterface;
+use ElasticSearchNew\QueryEndpoints\Remove;
+use ElasticSearchNew\QueryEndpoints\Search;
+use ElasticSearchNew\QueryEndpoints\Select;
+use ElasticSearchNew\QueryEndpoints\Update;
 use Traits\SingletonTrait;
 
 class ElasticSearchNew implements ElasticSearchNewInterface

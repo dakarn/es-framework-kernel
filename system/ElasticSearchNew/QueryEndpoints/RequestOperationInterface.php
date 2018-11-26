@@ -6,7 +6,7 @@
  * Time: 17:10
  */
 
-namespace ElasticSearchNew\QueryTypes;
+namespace ElasticSearchNew\QueryEndpoints;
 
 interface RequestOperationInterface
 {

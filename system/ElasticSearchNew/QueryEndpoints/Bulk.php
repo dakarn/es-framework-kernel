@@ -6,7 +6,7 @@
  * Time: 21:21
  */
 
-namespace ElasticSearchNew\QueryTypes;
+namespace ElasticSearchNew\QueryEndpoints;
 
 use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
@@ -29,8 +29,8 @@ class Bulk extends ElasticQueryParams
 	{
 		$this->httpQuery = new HttpQuery();
 
+		$host     = $this->makeHost($connect);
 		$pathname = HttpCommandsInterface::BULK;
-		$host     = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
 
 		$this->httpQuery->setUrl($host . $pathname);
 		$this->httpQuery->setMethod(Request::POST);

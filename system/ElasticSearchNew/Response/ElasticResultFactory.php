@@ -8,11 +8,10 @@
 
 namespace ElasticSearchNew\Response;
 
-use ElasticSearchNew\ElasticResultFactoryInterface;
 use ElasticSearchNew\ElasticSearchNew;
-use ElasticSearchNew\QueryTypes\Select;
+use ElasticSearchNew\QueryEndpoints\Select;
 
-class ElasticResultFactory implements ElasticResultFactoryInterface
+class ElasticResultFactory
 {
 	/**
 	 * @var mixed

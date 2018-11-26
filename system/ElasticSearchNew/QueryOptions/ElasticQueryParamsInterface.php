@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew\QueryOptions;
 
-use ElasticSearchNew\QueryTypes\RequestOperationInterface;
+use ElasticSearchNew\QueryEndpoints\RequestOperationInterface;
 
 interface ElasticQueryParamsInterface
 {

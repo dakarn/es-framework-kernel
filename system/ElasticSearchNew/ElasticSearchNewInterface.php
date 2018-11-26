@@ -9,12 +9,12 @@
 namespace ElasticSearchNew;
 
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryTypes\Bulk;
-use ElasticSearchNew\QueryTypes\Index;
-use ElasticSearchNew\QueryTypes\Insert;
-use ElasticSearchNew\QueryTypes\Remove;
-use ElasticSearchNew\QueryTypes\Select;
-use ElasticSearchNew\QueryTypes\Update;
+use ElasticSearchNew\QueryEndpoints\Bulk;
+use ElasticSearchNew\QueryEndpoints\Index;
+use ElasticSearchNew\QueryEndpoints\Insert;
+use ElasticSearchNew\QueryEndpoints\Remove;
+use ElasticSearchNew\QueryEndpoints\Select;
+use ElasticSearchNew\QueryEndpoints\Update;
 
 interface ElasticSearchNewInterface
 {

@@ -14,6 +14,6 @@ interface HttpCommandsInterface
     public const SEARCH  = '_search';
     public const REINDEX = '_reindex';
 
-    public const DELETE_QUERY = 'delete_by_query';
-    public const UPDATE_QUERY = 'update_by_query';
+    public const DELETE_QUERY = '_delete_by_query';
+    public const UPDATE_QUERY = '_update_by_query';
 }

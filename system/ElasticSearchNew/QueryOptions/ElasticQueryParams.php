@@ -9,7 +9,7 @@
 namespace ElasticSearchNew\QueryOptions;
 
 use ElasticSearchNew\ElasticConnection;
-use ElasticSearchNew\QueryTypes\RequestOperationInterface;
+use ElasticSearchNew\QueryEndpoints\RequestOperationInterface;
 
 abstract class ElasticQueryParams implements ElasticQueryParamsInterface, RequestOperationInterface
 {
@@ -157,6 +157,11 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
         $this->id = $id;
 
         return $this;
+    }
+
+    protected function makeHost(ElasticConnection $connect): string
+    {
+    	return $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
     }
 
     /**

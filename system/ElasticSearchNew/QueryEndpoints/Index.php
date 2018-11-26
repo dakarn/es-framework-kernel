@@ -6,7 +6,7 @@
  * Time: 16:57
  */
 
-namespace ElasticSearchNew\QueryTypes;
+namespace ElasticSearchNew\QueryEndpoints;
 
 use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
@@ -39,8 +39,8 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     {
         $this->httpQuery = new HttpQuery();
 
-        $pathname = $this->index;
-        $host     = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
+        $host     = $this->makeHost($connect);
+	    $pathname = $this->index;
 
 
         switch ($this->command) {

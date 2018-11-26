@@ -6,7 +6,7 @@
  * Time: 15:44
  */
 
-namespace ElasticSearchNew\QueryTypes;
+namespace ElasticSearchNew\QueryEndpoints;
 
 use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
@@ -23,7 +23,7 @@ class Select extends ElasticQueryParams
     {
 	    $this->httpQuery = new HttpQuery();
 
-        $host     = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
+        $host     = $this->makeHost($connect);
         $pathname = $this->index . '/' . $this->type .'/' . $this->id;
 
 	    $this->httpQuery->setUrl($host . $pathname);
