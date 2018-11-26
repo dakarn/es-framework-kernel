@@ -8,6 +8,7 @@
 
 namespace ElasticSearchNew;
 
+use Configs\Config;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryTypes\QueryTypesInterface;
 use Traits\SingletonTrait;
@@ -26,6 +27,28 @@ class ElasticSearchNew implements ElasticSearchNewInterface
      */
 	private $currentQueryClass;
 
+    /**
+     * @var ElasticConnection
+     */
+	private $configConnection;
+
+    /**
+     * @return ElasticConnection
+     */
+	public function getConfigConnection(): ElasticConnection
+    {
+        if (!$this->configConnection instanceof ElasticConnection) {
+
+            $config = Config::get('elasticsearch');
+
+            $this->configConnection = new ElasticConnection();
+            $this->configConnection->setSchema($config['schema']);
+            $this->configConnection->setPort($config['port']);
+            $this->configConnection->setHost($config['host']);
+        }
+
+        return $this->configConnection;
+    }
     /**
      * @return ElasticQueryParams
      */

@@ -11,9 +11,9 @@ namespace ElasticSearchNew;
 interface ElasticResultInterface
 {
     /**
-     * @return array
+     * @return string
      */
-    public function getResult(): array;
+    public function getResult(): string;
 
     /**
      * @return array
@@ -44,7 +44,7 @@ interface ElasticResultInterface
     /**
      * @return int
      */
-    public function getCount(): int;
+    public function getCountRecords(): int;
 
     /**
      * @return string

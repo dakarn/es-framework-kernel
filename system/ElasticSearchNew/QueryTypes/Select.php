@@ -8,24 +8,26 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\ElasticConnect;
+use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
 class Select extends ElasticQueryParams
 {
-    public function buildParams(ElasticConnect $elasticConnect): HttpQuery
+    /**
+     * @param ElasticConnection $connect
+     * @return HttpQuery
+     */
+    public function buildParams(ElasticConnection $connect): HttpQuery
     {
         $httpQuery = new HttpQuery();
 
-        $httpQuery->setHeaders([
-            'Content-type' => 'application/json'
-        ]);
+        $host     = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
+        $pathname = $this->index . '/' . $this->type .'/' . $this->id;
 
-        $httpQuery->setUrl('http://elasticsearch/twitter/_doc/0');
+        $httpQuery->setUrl($host . $pathname);
         $httpQuery->setMethod(Request::GET);
-        $httpQuery->setPort('9200');
 
         return $httpQuery;
     }

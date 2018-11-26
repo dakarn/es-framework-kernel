@@ -18,21 +18,6 @@ class HttpQuery
     /**
      * @var string
      */
-    private $host = '';
-
-    /**
-     * @var string
-     */
-    private $port = '';
-
-    /**
-     * @var string
-     */
-    private $pathname = '';
-
-    /**
-     * @var string
-     */
     private $method = '';
 
     /**
@@ -43,7 +28,9 @@ class HttpQuery
     /**
      * @var array
      */
-    private $headers = [];
+    private $headers = [
+        'Content-type' => 'application/json'
+    ];
 
     /**
      * @return string
@@ -59,54 +46,6 @@ class HttpQuery
     public function setUrl(string $url)
     {
         $this->url = $url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHost(): string
-    {
-        return $this->host;
-    }
-
-    /**
-     * @param string $host
-     */
-    public function setHost(string $host)
-    {
-        $this->host = $host;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPort(): string
-    {
-        return $this->port;
-    }
-
-    /**
-     * @param string $port
-     */
-    public function setPort(string $port)
-    {
-        $this->port = $port;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPathname(): string
-    {
-        return $this->pathname;
-    }
-
-    /**
-     * @param string $pathname
-     */
-    public function setPathname(string $pathname)
-    {
-        $this->pathname = $pathname;
     }
 
     /**

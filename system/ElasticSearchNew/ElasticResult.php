@@ -25,20 +25,57 @@ class ElasticResult implements ElasticResultInterface
 		return $this;
 	}
 
+	public function isFound(): bool
+    {
+        return isset($this->response['found']) && $this->response['found'] == true;
+    }
+
 	/**
 	 * @return array
 	 */
-	public function getResult(): array
+	public function getResponse(): array
 	{
 		return $this->response;
 	}
+
+    /**
+     * @return string
+     */
+	public function getResult(): string
+    {
+        return $this->response['result'] ?? '';
+    }
 
     /**
      * @return array
      */
     public function getRecords(): array
     {
-        return [];
+        $data = [];
+
+        if (isset($this->response['hits'])) {
+            foreach ($this->response['hits']['hits'] as $valueHit) {
+                $data[$valueHit['_id']] = $valueHit['_source'];
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRecord(): array
+    {
+        $data = [];
+
+        if (isset($this->response['_source'])) {
+            foreach ($this->response['_source'] as $indexSource => $valueSource) {
+                return [$indexSource=> $valueSource];
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -89,7 +126,7 @@ class ElasticResult implements ElasticResultInterface
 	/**
 	 * @return int
 	 */
-	public function getCount(): int
+	public function getCountRecords(): int
 	{
 		if (isset($this->response['hits']['total'])) {
 			return $this->response['hits']['total'];
@@ -113,4 +150,22 @@ class ElasticResult implements ElasticResultInterface
 	{
 		return $this->response['error'] ?? [];
 	}
+
+    /**
+     * @return array
+     */
+	public function getShards(): array
+    {
+        return $this->response['_shards'] ?? [];
+    }
+
+    /**
+     * @return int
+     */
+	public function getVersion(): int
+    {
+        return $this->response['_version'] ?? 0;
+    }
+
+
 }

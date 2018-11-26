@@ -8,10 +8,15 @@
 
 namespace ElasticSearchNew\QueryOptions;
 
-use ElasticSearchNew\ElasticConnect;
+use ElasticSearchNew\ElasticConnection;
 
 abstract class ElasticQueryParams implements ElasticQueryParamsInterface
 {
+    /**
+     * @var HttpQuery
+     */
+    protected $httpQuery;
+
     /**
      * @var string
      */
@@ -65,7 +70,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      * @param bool $isPretty
      * @return ElasticQueryParams
      */
-    public function setIsPretty(bool $isPretty): ElasticQueryParams
+    public function setPretty(bool $isPretty): ElasticQueryParams
     {
         $this->isPretty = $isPretty;
 
@@ -133,8 +138,8 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
     }
 
     /**
-     * @param ElasticConnect $elasticConnect
+     * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    abstract public function buildParams(ElasticConnect $elasticConnect): HttpQuery;
+    abstract public function buildParams(ElasticConnection $elasticConnect): HttpQuery;
 }

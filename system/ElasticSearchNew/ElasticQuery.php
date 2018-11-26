@@ -8,15 +8,18 @@
 
 namespace ElasticSearchNew;
 
-use Configs\Config;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryOptions\HttpQuery;
+use Exception\HttpException;
 use Traits\SingletonTrait;
 
 class ElasticQuery
 {
     use SingletonTrait;
 
+    /**
+     * @var
+     */
     private $elasticQueryParams;
 
     /**
@@ -24,33 +27,35 @@ class ElasticQuery
      */
     private $httpQuery;
 
+    /**
+     * @var
+     */
     private $curl;
 
+    /**
+     * @param ElasticQueryParams $elasticQueryParams
+     * @return ElasticResult
+     * @throws HttpException
+     */
     public function execute(ElasticQueryParams $elasticQueryParams): ElasticResult
     {
         $this->elasticQueryParams = $elasticQueryParams;
-        $this->httpQuery          = $elasticQueryParams->buildParams($this->getConfigConnect());
+        $this->httpQuery          = $elasticQueryParams->buildParams(ElasticSearchNew::create()->getConfigConnection());
 
-        return new ElasticResult($this->doRequest());
+        $result = $this->doRequest();
+
+        if (empty($result)) {
+            throw new HttpException('Unable to connect with Elastic Search!');
+        }
+
+        return new ElasticResult($result);
     }
 
-    private function getConfigConnect(): ElasticConnect
-    {
-        $config = Config::get('elasticsearch');
-
-        $elasticConnect = new ElasticConnect();
-
-        $elasticConnect->setSchema($config['schema']);
-        $elasticConnect->setPort($config['port']);
-        $elasticConnect->setHost($config['host']);
-
-        return $elasticConnect;
-    }
-
+    /**
+     * @return mixed
+     */
     private function doRequest()
     {
-        print_r($this->httpQuery);
-
         $this->curl = \curl_init($this->httpQuery->getFullUrl());
 
         \curl_setopt($this->curl, CURLOPT_TIMEOUT, 5);
@@ -60,13 +65,15 @@ class ElasticQuery
             \curl_setopt($this->curl, CURLOPT_HTTPHEADER, [$headerName . ':' . $headerValue]);
         }
 
-        \curl_setopt($this->curl, CURLOPT_POST, true);
-        \curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->httpQuery->getQueryString());
+        \curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $this->httpQuery->getMethod());
+
+        if (!empty($this->httpQuery->getQueryString())) {
+            \curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->httpQuery->getQueryString());
+        }
 
         $result = \curl_exec($this->curl);
         \curl_close($this->curl);
 
-        echo $result;
         return $result;
     }
 }

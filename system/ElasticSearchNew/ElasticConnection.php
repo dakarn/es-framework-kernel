@@ -12,7 +12,7 @@ namespace ElasticSearchNew;
  * Class ElasticConnect
  * @package ElasticSearchNew
  */
-class ElasticConnect
+class ElasticConnection
 {
     /**
      * @var string
