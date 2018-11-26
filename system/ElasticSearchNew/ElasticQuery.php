@@ -66,6 +66,7 @@ class ElasticQuery
         $result = \curl_exec($this->curl);
         \curl_close($this->curl);
 
+        echo $result;
         return $result;
     }
 }

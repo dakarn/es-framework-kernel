@@ -23,9 +23,12 @@ class Insert extends ElasticQueryParams
             'Content-type' => 'application/json'
         ]);
 
-        $httpQuery->setUrl($connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/');
+        $host     = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
+        $pathname = $this->index . '/' . $this->type .'/';
+
+        $httpQuery->setUrl($host . $pathname);
         $httpQuery->setMethod(Request::POST);
-        $httpQuery->setQueryArray($this->getQuery());
+        $httpQuery->setQueryArray($this->query);
 
         return $httpQuery;
     }

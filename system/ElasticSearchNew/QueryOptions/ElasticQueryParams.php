@@ -15,27 +15,27 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
     /**
      * @var string
      */
-    private $index = '';
+    protected $index = '';
 
     /**
      * @var string
      */
-    private $type = '';
+    protected $type = '';
 
     /**
      * @var array
      */
-    private $query = [];
+    protected $query = [];
 
     /**
      * @var string
      */
-    private $id = '';
+    protected $id = '';
 
     /**
      * @var bool
      */
-    private $isPretty = true;
+    protected $isPretty = true;
 
     /**
      * @return string
