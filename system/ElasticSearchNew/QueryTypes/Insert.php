@@ -10,6 +10,7 @@ namespace ElasticSearchNew\QueryTypes;
 
 use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+use ElasticSearchNew\QueryOptions\HttpCommandsInterface;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
@@ -36,8 +37,9 @@ class Insert extends ElasticQueryParams implements RequestOperationInterface
         $host = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
 
         if ($this->isBulk) {
-            $pathname = '_bulk';
-            $method   = Request::POST;
+            $pathname    = HttpCommandsInterface::BULK;
+            $method      = Request::POST;
+            $this->query = $this->convertArrayToBulkString();
         } else if (empty($this->id)) {
             $pathname = $this->index . '/' . $this->type . '/';
             $method   = Request::POST;
@@ -63,5 +65,19 @@ class Insert extends ElasticQueryParams implements RequestOperationInterface
         $this->bulkData = $data;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    private function convertArrayToBulkString(): string
+    {
+        $retData = '';
+
+        foreach ($this->bulkData as $index => $value) {
+            $retData = '';
+        }
+
+        return $retData;
     }
 }
