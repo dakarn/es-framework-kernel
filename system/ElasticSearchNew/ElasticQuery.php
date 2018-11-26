@@ -65,6 +65,9 @@ class ElasticQuery
             \curl_setopt($this->curl, CURLOPT_HTTPHEADER, [$headerName . ':' . $headerValue]);
         }
 
+        \curl_setopt($this->curl, CURLOPT_POST, true);
+        \curl_setopt($ch, CURLOPT_POSTFIELDS, $this->httpQuery->getQueryString());
+
         $result = \curl_exec($this->curl);
 
         \curl_close($this->curl);

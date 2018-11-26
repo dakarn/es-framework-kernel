@@ -25,9 +25,7 @@ class Insert extends ElasticQueryParams
 
         $httpQuery->setUrl($connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/');
         $httpQuery->setMethod(Request::POST);
-        $httpQuery->setQueryArray([
-            'email' => 'Test'
-        ]);
+        $httpQuery->setQueryArray($this->getQuery());
 
         return $httpQuery;
     }

@@ -143,7 +143,7 @@ class HttpQuery
 
     public function setQueryArray(array $queryArray)
     {
-        $this->queryString = \json_encode($queryArray);
+        $this->queryString = \json_encode($queryArray, JSON_UNESCAPED_UNICODE);
     }
 
     /**
