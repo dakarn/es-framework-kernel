@@ -8,12 +8,27 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\ElasticQueryParams;
+use ElasticSearchNew\ElasticConnect;
+use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+use ElasticSearchNew\QueryOptions\HttpQuery;
+use Http\Request\Request;
 
 class Insert extends ElasticQueryParams
 {
-    public function buildParams()
+    public function buildParams(ElasticConnect $connect): HttpQuery
     {
+        $httpQuery = new HttpQuery();
 
+        $httpQuery->setHeaders([
+            'Content-type' => 'application/json'
+        ]);
+
+        $httpQuery->setUrl($connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/');
+        $httpQuery->setMethod(Request::POST);
+        $httpQuery->setQueryArray([
+            'email' => 'Test'
+        ]);
+
+        return $httpQuery;
     }
 }

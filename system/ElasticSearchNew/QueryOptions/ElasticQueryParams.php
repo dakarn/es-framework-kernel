@@ -6,7 +6,9 @@
  * Time: 15:41
  */
 
-namespace ElasticSearchNew;
+namespace ElasticSearchNew\QueryOptions;
+
+use ElasticSearchNew\ElasticConnect;
 
 abstract class ElasticQueryParams implements ElasticQueryParamsInterface
 {
@@ -130,5 +132,9 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
         return $this;
     }
 
-    abstract function buildParams();
+    /**
+     * @param ElasticConnect $elasticConnect
+     * @return HttpQuery
+     */
+    abstract public function buildParams(ElasticConnect $elasticConnect): HttpQuery;
 }

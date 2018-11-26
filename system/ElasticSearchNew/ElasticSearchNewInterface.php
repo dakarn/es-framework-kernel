@@ -8,6 +8,8 @@
 
 namespace ElasticSearchNew;
 
+use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+
 interface ElasticSearchNewInterface
 {
     /**

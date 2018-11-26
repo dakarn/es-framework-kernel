@@ -8,6 +8,7 @@
 
 namespace ElasticSearchNew;
 
+use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryTypes\QueryTypesInterface;
 use Traits\SingletonTrait;
 
@@ -16,7 +17,7 @@ class ElasticSearchNew implements ElasticSearchNewInterface
 	use SingletonTrait;
 
     /**
-     * @var array
+     * @var ElasticQueryParams
      */
     private $queryParamsObject = [];
 
@@ -47,6 +48,14 @@ class ElasticSearchNew implements ElasticSearchNewInterface
     public function update(): ElasticQueryParams
     {
         return $this->getQueryClass(QueryTypesInterface::UPDATE);
+    }
+
+    /**
+     * @return ElasticQueryParams
+     */
+    public function search(): ElasticQueryParams
+    {
+        return $this->getQueryClass(QueryTypesInterface::SEARCH);
     }
 
     /**

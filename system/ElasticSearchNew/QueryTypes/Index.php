@@ -7,10 +7,12 @@
  */
 
 namespace ElasticSearchNew\QueryTypes;
+use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 
-use ElasticSearchNew\ElasticQuery;
-
-class Index extends ElasticQuery
+class Index extends ElasticQueryParams
 {
+    public function buildParams()
+    {
 
+    }
 }

@@ -15,4 +15,5 @@ interface QueryTypesInterface
     public const REMOVE = Remove::class;
     public const INSERT = Insert::class;
     public const INDEX  = Index::class;
+    public const SEARCH = Search::class;
 }

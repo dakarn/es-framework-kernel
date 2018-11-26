@@ -26,22 +26,22 @@ class ObjectMapper implements ObjectMapperInterface
     const GETTER = 'get';
 
 	/**
-	 * @param object $object
+	 * @param object $objectInput
 	 * @return array
 	 */
-    public function objectToArray($object): array
+    public function objectToArray($objectInput): array
     {
-        if (!\is_object($object)) {
+        if (!\is_object($objectInput)) {
             throw new \InvalidArgumentException('');
         }
 
         $response = [];
-        $methods  = \get_class_methods($object);
+        $methods  = \get_class_methods($objectInput);
 
         foreach ($methods as $indexMethod => $getMethodName) {
             if (\substr($getMethodName, 0, 3) === self::GETTER) {
                 $property            = \lcfirst(\substr($getMethodName, 3));
-                $response[$property] = $object->$getMethodName();
+                $response[$property] = $objectInput->$getMethodName();
             }
         }
 

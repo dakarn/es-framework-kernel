@@ -2,15 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: v.konovalov
- * Date: 23.11.2018
- * Time: 15:44
+ * Date: 26.11.2018
+ * Time: 11:02
  */
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+use ElasticSearchNew\QueryOptions\SearchQueryParams;
 
-class Update extends ElasticQueryParams
+class Search extends SearchQueryParams
 {
     public function buildParams()
     {

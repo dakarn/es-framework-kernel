@@ -6,7 +6,7 @@
  * Time: 15:47
  */
 
-namespace ElasticSearchNew;
+namespace ElasticSearchNew\QueryOptions;
 
 interface ElasticQueryParamsInterface
 {

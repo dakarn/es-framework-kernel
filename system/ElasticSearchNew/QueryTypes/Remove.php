@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew\QueryTypes;
 
-use ElasticSearchNew\ElasticQueryParams;
+use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 
 class Remove extends ElasticQueryParams
 {
