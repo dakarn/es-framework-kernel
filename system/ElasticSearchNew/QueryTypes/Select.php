@@ -21,14 +21,14 @@ class Select extends ElasticQueryParams
      */
     public function buildParams(ElasticConnection $connect): HttpQuery
     {
-        $httpQuery = new HttpQuery();
+	    $this->httpQuery = new HttpQuery();
 
         $host     = $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';
         $pathname = $this->index . '/' . $this->type .'/' . $this->id;
 
-        $httpQuery->setUrl($host . $pathname);
-        $httpQuery->setMethod(Request::GET);
+	    $this->httpQuery->setUrl($host . $pathname);
+	    $this->httpQuery->setMethod(Request::GET);
 
-        return $httpQuery;
+        return $this->httpQuery;
     }
 }

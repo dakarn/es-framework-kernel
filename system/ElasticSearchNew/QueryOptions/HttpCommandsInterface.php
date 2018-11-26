@@ -13,4 +13,7 @@ interface HttpCommandsInterface
     public const BULK    = '_bulk';
     public const SEARCH  = '_search';
     public const REINDEX = '_reindex';
+
+    public const DELETE_QUERY = 'delete_by_query';
+    public const UPDATE_QUERY = 'update_by_query';
 }

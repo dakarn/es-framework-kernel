@@ -10,6 +10,7 @@ namespace ElasticSearchNew\QueryTypes;
 
 use ElasticSearchNew\ElasticConnection;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+use ElasticSearchNew\QueryOptions\HttpCommandsInterface;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
@@ -98,7 +99,7 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     {
         $this->httpQuery->setMethod(Request::PUT);
 
-        if (empty($this->mappings)) {
+        if (!empty($this->mappings)) {
             $this->httpQuery->setQueryArray($this->mappings);
         }
 
@@ -130,6 +131,6 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     {
         $this->httpQuery->setMethod(Request::POST);
 
-        return '_reindex';
+        return HttpCommandsInterface::REINDEX;
     }
 }

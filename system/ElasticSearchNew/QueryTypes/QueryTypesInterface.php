@@ -16,4 +16,5 @@ interface QueryTypesInterface
     public const INSERT = Insert::class;
     public const INDEX  = Index::class;
     public const SEARCH = Search::class;
+    public const BULK   = Bulk::class;
 }

@@ -32,9 +32,10 @@ class ElasticSearchNew implements ElasticSearchNewInterface
      */
 	private $configConnection;
 
-    /**
-     * @return ElasticConnection
-     */
+	/**
+	 * @return ElasticConnection
+	 * @throws \Exception\FileException
+	 */
 	public function getConfigConnection(): ElasticConnection
     {
         if (!$this->configConnection instanceof ElasticConnection) {
@@ -95,6 +96,11 @@ class ElasticSearchNew implements ElasticSearchNewInterface
     public function insert(): ElasticQueryParams
     {
         return $this->getQueryClass(QueryTypesInterface::INSERT);
+    }
+
+    public function bulk(): ElasticQueryParams
+    {
+        return $this->getQueryClass(QueryTypesInterface::BULK);
     }
 
     /**

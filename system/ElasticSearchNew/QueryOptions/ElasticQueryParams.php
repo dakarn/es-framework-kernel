@@ -37,10 +37,31 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      */
     protected $id = '';
 
+	/**
+	 * @var string
+	 */
+    protected $queryStringURI = '';
+
     /**
      * @var bool
      */
     protected $isPretty = true;
+
+	/**
+	 * @return string
+	 */
+	public function getQueryStringURI(): string
+	{
+		return $this->queryStringURI;
+	}
+
+	/**
+	 * @param string $queryStringURI
+	 */
+	public function setQueryStringURI(string $queryStringURI): void
+	{
+		$this->queryStringURI = $queryStringURI;
+	}
 
     /**
      * @return string
