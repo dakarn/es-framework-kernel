@@ -31,8 +31,6 @@ class ElasticQuery
         $this->elasticQueryParams = $elasticQueryParams;
         $this->httpQuery          = $elasticQueryParams->buildParams($this->getConfigConnect());
 
-        $this->buildRequest();
-
         return new ElasticResult($this->doRequest());
     }
 
@@ -49,13 +47,10 @@ class ElasticQuery
         return $elasticConnect;
     }
 
-    private function buildRequest()
-    {
-
-    }
-
     private function doRequest()
     {
+        print_r($this->httpQuery);
+
         $this->curl = \curl_init($this->httpQuery->getFullUrl());
 
         \curl_setopt($this->curl, CURLOPT_TIMEOUT, 5);
@@ -69,7 +64,6 @@ class ElasticQuery
         \curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->httpQuery->getQueryString());
 
         $result = \curl_exec($this->curl);
-
         \curl_close($this->curl);
 
         return $result;
