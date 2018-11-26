@@ -36,7 +36,7 @@ class ElasticQuery
 
 	/**
 	 * @param ElasticQueryParams $elasticQueryParams
-	 * @return ElasticResultFactory
+	 * @return AbstractResponse
 	 * @throws HttpException
 	 * @throws \Exception\FileException
 	 */
