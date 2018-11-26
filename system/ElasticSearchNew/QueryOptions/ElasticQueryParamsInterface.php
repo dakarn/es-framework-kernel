@@ -8,6 +8,8 @@
 
 namespace ElasticSearchNew\QueryOptions;
 
+use ElasticSearchNew\QueryTypes\RequestOperationInterface;
+
 interface ElasticQueryParamsInterface
 {
     /**
@@ -19,7 +21,7 @@ interface ElasticQueryParamsInterface
      * @param string $index
      * @return ElasticQueryParams
      */
-    public function setIndex(string $index): ElasticQueryParams;
+    public function setIndex(string $index): RequestOperationInterface;
 
     /**
      * @return string
@@ -30,7 +32,7 @@ interface ElasticQueryParamsInterface
      * @param string $type
      * @return ElasticQueryParams
      */
-    public function setType(string $type): ElasticQueryParams;
+    public function setType(string $type): RequestOperationInterface;
 
     /**
      * @return string
@@ -41,5 +43,5 @@ interface ElasticQueryParamsInterface
      * @param string $id
      * @return ElasticQueryParams
      */
-    public function setId(string $id): ElasticQueryParams;
+    public function setId(string $id): RequestOperationInterface;
 }

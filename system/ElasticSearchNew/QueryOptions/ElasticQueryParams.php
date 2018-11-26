@@ -9,8 +9,9 @@
 namespace ElasticSearchNew\QueryOptions;
 
 use ElasticSearchNew\ElasticConnection;
+use ElasticSearchNew\QueryTypes\RequestOperationInterface;
 
-abstract class ElasticQueryParams implements ElasticQueryParamsInterface
+abstract class ElasticQueryParams implements ElasticQueryParamsInterface, RequestOperationInterface
 {
     /**
      * @var HttpQuery
@@ -91,7 +92,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      * @param bool $isPretty
      * @return ElasticQueryParams
      */
-    public function setPretty(bool $isPretty): ElasticQueryParams
+    public function setPretty(bool $isPretty): RequestOperationInterface
     {
         $this->isPretty = $isPretty;
 
@@ -102,7 +103,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      * @param array $query
      * @return ElasticQueryParams
      */
-    public function setQuery(array $query): ElasticQueryParams
+    public function setQuery(array $query): RequestOperationInterface
     {
         $this->query = $query;
 
@@ -113,7 +114,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      * @param string $index
      * @return ElasticQueryParams
      */
-    public function setIndex(string $index): ElasticQueryParams
+    public function setIndex(string $index): RequestOperationInterface
     {
         $this->index = $index;
 
@@ -132,7 +133,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      * @param string $type
      * @return ElasticQueryParams
      */
-    public function setType(string $type): ElasticQueryParams
+    public function setType(string $type): RequestOperationInterface
     {
         $this->type = $type;
 
@@ -151,7 +152,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface
      * @param string $id
      * @return ElasticQueryParams
      */
-    public function setId(string $id): ElasticQueryParams
+    public function setId(string $id): RequestOperationInterface
     {
         $this->id = $id;
 

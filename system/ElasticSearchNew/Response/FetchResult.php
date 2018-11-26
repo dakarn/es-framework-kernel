@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew\Response;
 
-class FetchResult
+final class FetchResult extends AbstractResponse
 {
 
 }

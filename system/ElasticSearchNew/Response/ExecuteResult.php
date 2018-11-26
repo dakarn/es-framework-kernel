@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew\Response;
 
-class ExecuteResult
+final class ExecuteResult extends AbstractResponse
 {
 
 }

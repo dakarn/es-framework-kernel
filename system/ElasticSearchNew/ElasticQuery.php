@@ -10,6 +10,8 @@ namespace ElasticSearchNew;
 
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryOptions\HttpQuery;
+use ElasticSearchNew\Response\AbstractResponse;
+use ElasticSearchNew\Response\ElasticResultFactory;
 use Exception\HttpException;
 use Traits\SingletonTrait;
 
@@ -32,12 +34,13 @@ class ElasticQuery
      */
     private $curl;
 
-    /**
-     * @param ElasticQueryParams $elasticQueryParams
-     * @return ElasticResult
-     * @throws HttpException
-     */
-    public function execute(ElasticQueryParams $elasticQueryParams): ElasticResult
+	/**
+	 * @param ElasticQueryParams $elasticQueryParams
+	 * @return ElasticResultFactory
+	 * @throws HttpException
+	 * @throws \Exception\FileException
+	 */
+    public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse
     {
         $this->elasticQueryParams = $elasticQueryParams;
         $this->httpQuery          = $elasticQueryParams->buildParams(ElasticSearchNew::create()->getConfigConnection());
@@ -48,7 +51,7 @@ class ElasticQuery
             throw new HttpException('Unable to connect with Elastic Search!');
         }
 
-        return new ElasticResult($result);
+        return ElasticResultFactory::factory($result);
     }
 
     /**

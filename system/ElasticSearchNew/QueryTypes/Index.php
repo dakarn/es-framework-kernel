@@ -63,30 +63,30 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
         return $this->httpQuery;
     }
 
-    /**
-     * @param array $data
-     * @return ElasticQueryParams
-     */
-    public function withMapping(array $data): ElasticQueryParams
+	/**
+	 * @param array $data
+	 * @return Index
+	 */
+    public function withMapping(array $data): Index
     {
         $this->mappings = $data;
 
         return $this;
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function create(): ElasticQueryParams
+	/**
+	 * @return Index
+	 */
+    public function create(): Index
     {
         $this->command = self::CREATE;
         return $this;
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function remove(): ElasticQueryParams
+	/**
+	 * @return Index
+	 */
+    public function remove(): Index
     {
         $this->command = self::REMOVE;
         return $this;

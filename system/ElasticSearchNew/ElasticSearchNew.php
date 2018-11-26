@@ -10,7 +10,14 @@ namespace ElasticSearchNew;
 
 use Configs\Config;
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+use ElasticSearchNew\QueryTypes\Bulk;
+use ElasticSearchNew\QueryTypes\Index;
+use ElasticSearchNew\QueryTypes\Insert;
 use ElasticSearchNew\QueryTypes\QueryTypesInterface;
+use ElasticSearchNew\QueryTypes\Remove;
+use ElasticSearchNew\QueryTypes\Search;
+use ElasticSearchNew\QueryTypes\Select;
+use ElasticSearchNew\QueryTypes\Update;
 use Traits\SingletonTrait;
 
 class ElasticSearchNew implements ElasticSearchNewInterface
@@ -50,55 +57,59 @@ class ElasticSearchNew implements ElasticSearchNewInterface
 
         return $this->configConnection;
     }
-    /**
-     * @return ElasticQueryParams
-     */
-    public function select(): ElasticQueryParams
+
+	/**
+	 * @return Select
+	 */
+	public function select(): Select
     {
         return $this->getQueryClass(QueryTypesInterface::SELECT);
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function index(): ElasticQueryParams
+	/**
+	 * @return Index
+	 */
+	public function index(): Index
     {
         return $this->getQueryClass(QueryTypesInterface::INDEX);
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function update(): ElasticQueryParams
+	/**
+	 * @return Update
+	 */
+	public function update(): Update
     {
         return $this->getQueryClass(QueryTypesInterface::UPDATE);
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function search(): ElasticQueryParams
+	/**
+	 * @return Search
+	 */
+	public function search(): Search
     {
         return $this->getQueryClass(QueryTypesInterface::SEARCH);
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function remove(): ElasticQueryParams
+	/**
+	 * @return Remove
+	 */
+	public function remove(): Remove
     {
         return $this->getQueryClass(QueryTypesInterface::REMOVE);
     }
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function insert(): ElasticQueryParams
+	/**
+	 * @return Insert
+	 */
+	public function insert(): Insert
     {
         return $this->getQueryClass(QueryTypesInterface::INSERT);
     }
 
-    public function bulk(): ElasticQueryParams
+	/**
+	 * @return Bulk
+	 */
+	public function bulk(): Bulk
     {
         return $this->getQueryClass(QueryTypesInterface::BULK);
     }

@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew;
 
-interface ElasticResultInterface
+interface ElasticResultFactoryInterface
 {
     /**
      * @return string

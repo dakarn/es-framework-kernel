@@ -9,36 +9,52 @@
 namespace ElasticSearchNew;
 
 use ElasticSearchNew\QueryOptions\ElasticQueryParams;
+use ElasticSearchNew\QueryTypes\Bulk;
+use ElasticSearchNew\QueryTypes\Index;
+use ElasticSearchNew\QueryTypes\Insert;
+use ElasticSearchNew\QueryTypes\Remove;
+use ElasticSearchNew\QueryTypes\Select;
+use ElasticSearchNew\QueryTypes\Update;
 
 interface ElasticSearchNewInterface
 {
-    /**
-     * @return ElasticQueryParams
-     */
-    public function select(): ElasticQueryParams;
+	/**
+	 * @return Bulk
+	 */
+	public function bulk(): Bulk;
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function index(): ElasticQueryParams;
+	/**
+	 * @return Select
+	 */
+	public function select(): Select;
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function update(): ElasticQueryParams;
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function remove(): ElasticQueryParams;
+	/**
+	 * @return Index
+	 */
+	public function index(): Index;
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function insert(): ElasticQueryParams;
 
-    /**
-     * @return ElasticQueryParams
-     */
-    public function getCurrentQueryType(): ElasticQueryParams;
+	/**
+	 * @return Update
+	 */
+	public function update(): Update;
+
+
+	/**
+	 * @return Remove
+	 */
+	public function remove(): Remove;
+
+
+	/**
+	 * @return Insert
+	 */
+	public function insert(): Insert;
+
+
+	/**
+	 * @return ElasticQueryParams
+	 */
+	public function getCurrentQueryType(): ElasticQueryParams;
 }

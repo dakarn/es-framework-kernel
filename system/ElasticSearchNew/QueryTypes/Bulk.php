@@ -41,9 +41,20 @@ class Bulk extends ElasticQueryParams
 
 	/**
 	 * @param array $data
-	 * @return ElasticQueryParams
+	 * @return Bulk
 	 */
-	public function setBulkData(array $data): ElasticQueryParams
+	public function setBulkArray(array $data): Bulk
+	{
+		$this->bulkData = $data;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $data
+	 * @return Bulk
+	 */
+	public function setBulkString(string $data): Bulk
 	{
 		$this->bulkData = $data;
 
