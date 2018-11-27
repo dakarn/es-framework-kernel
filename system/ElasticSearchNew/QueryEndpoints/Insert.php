@@ -21,8 +21,6 @@ class Insert extends ElasticQueryParams implements RequestOperationInterface
      */
     public function buildParams(ElasticConnection $connect): HttpQuery
     {
-	    $this->httpQuery = new HttpQuery();
-
         $host = $this->makeHost($connect);
 
         if (empty($this->id)) {

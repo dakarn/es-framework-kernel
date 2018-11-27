@@ -48,7 +48,12 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      */
     protected $isPretty = true;
 
-	/**
+    public function __construct()
+    {
+        $this->httpQuery = new HttpQuery();
+    }
+
+    /**
 	 * @return string
 	 */
 	public function getQueryStringURI(): string

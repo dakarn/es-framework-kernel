@@ -37,8 +37,6 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
      */
     public function buildParams(ElasticConnection $connect): HttpQuery
     {
-        $this->httpQuery = new HttpQuery();
-
         $host     = $this->makeHost($connect);
 	    $pathname = $this->index;
 

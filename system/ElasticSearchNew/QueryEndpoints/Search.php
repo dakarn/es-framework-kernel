@@ -23,8 +23,6 @@ class Search extends ElasticQueryParams
      */
     public function buildParams(ElasticConnection $connect): HttpQuery
     {
-	    $this->httpQuery = new HttpQuery();
-
         $host     = $this->makeHost($connect);
         $pathname = $this->index . self::SEARCH;
 

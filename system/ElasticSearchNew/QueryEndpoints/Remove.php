@@ -27,8 +27,6 @@ class Remove extends ElasticQueryParams
      */
     public function buildParams(ElasticConnection $connect): HttpQuery
     {
-	    $this->httpQuery = new HttpQuery();
-
         $host = $this->makeHost($connect);
 
         if (!empty($this->queryRemove)) {

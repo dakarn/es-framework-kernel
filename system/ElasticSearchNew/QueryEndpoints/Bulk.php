@@ -17,9 +17,9 @@ use Http\Request\Request;
 class Bulk extends ElasticQueryParams
 {
 	/**
-	 * @var array
+	 * @var string
 	 */
-	private $bulkData = [];
+	private $bulkData = '';
 
 	/**
 	 * @param ElasticConnection $connect
@@ -27,14 +27,11 @@ class Bulk extends ElasticQueryParams
 	 */
 	public function buildParams(ElasticConnection $connect): HttpQuery
 	{
-		$this->httpQuery = new HttpQuery();
-
 		$host     = $this->makeHost($connect);
-		$pathname = HttpCommandsInterface::BULK;
 
-		$this->httpQuery->setUrl($host . $pathname);
+		$this->httpQuery->setUrl($host . HttpCommandsInterface::BULK);
 		$this->httpQuery->setMethod(Request::POST);
-		$this->httpQuery->setQueryString($this->arrayToBulkString());
+		$this->httpQuery->setQueryString($this->bulkData);
 
 		return $this->httpQuery;
 	}
@@ -45,7 +42,7 @@ class Bulk extends ElasticQueryParams
 	 */
 	public function setBulkArray(array $data): Bulk
 	{
-		$this->bulkData = $data;
+		$this->bulkData = $this->arrayToBulkString($data);
 
 		return $this;
 	}
@@ -61,33 +58,16 @@ class Bulk extends ElasticQueryParams
 		return $this;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function arrayToBulkString(): string
+    /**
+     * @param array $bulkData
+     * @return string
+     */
+	private function arrayToBulkString(array $bulkData): string
 	{
 		$retData = '';
 
-		foreach ($this->bulkData as $index => $value) {
-
-			$header = [
-				'_index' => $this->index,
-				'_type' => $this->type
-			];
-
-			if (!empty($this->id)) {
-				$header = $header + ['_id' => $this->id];
-			}
-
-			$retData .= \json_encode([
-					'index' => $header,
-				], JSON_UNESCAPED_UNICODE) . \PHP_EOL;
-
-
-			$retData .= \json_encode([
-					'word'   => 'fdfdf',
-				], JSON_UNESCAPED_UNICODE) . \PHP_EOL;
-
+		foreach ($bulkData as  $itemArray) {
+            $retData .= \json_encode($itemArray, JSON_UNESCAPED_UNICODE) . \PHP_EOL;
 		}
 
 		return $retData;

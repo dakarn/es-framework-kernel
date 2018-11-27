@@ -129,7 +129,8 @@ class ElasticSearchNew implements ElasticSearchNewInterface
     private function getQueryClass(string $queryClass)
     {
         if (!isset($this->queryParamsObject[$queryClass])) {
-            $this->queryParamsObject[$queryClass] = new $queryClass();
+            $current = $this->queryParamsObject[$queryClass] = new $queryClass();
+            $this->currentQueryClass = $current;
         }
 
         return $this->queryParamsObject[$queryClass];
