@@ -9,9 +9,8 @@
 namespace ElasticSearchNew\QueryOptions;
 
 use ElasticSearchNew\ElasticConnection;
-use ElasticSearchNew\QueryEndpoints\RequestOperationInterface;
 
-abstract class ElasticQueryParams implements ElasticQueryParamsInterface, RequestOperationInterface
+trait ElasticQueryParams
 {
     /**
      * @var HttpQuery
@@ -48,6 +47,9 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      */
     protected $isPretty = true;
 
+    /**
+     * ElasticQueryParams constructor.
+     */
     public function __construct()
     {
         $this->httpQuery = new HttpQuery();
@@ -97,7 +99,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      * @param bool $isPretty
      * @return ElasticQueryParams
      */
-    public function setPretty(bool $isPretty): RequestOperationInterface
+    public function setPretty(bool $isPretty): ElasticQueryParams
     {
         $this->isPretty = $isPretty;
 
@@ -108,7 +110,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      * @param array $query
      * @return ElasticQueryParams
      */
-    public function setQuery(array $query): RequestOperationInterface
+    public function setQuery(array $query): ElasticQueryParams
     {
         $this->query = $query;
 
@@ -119,7 +121,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      * @param string $index
      * @return ElasticQueryParams
      */
-    public function setIndex(string $index): RequestOperationInterface
+    public function setIndex(string $index): ElasticQueryParams
     {
         $this->index = $index;
 
@@ -138,7 +140,7 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      * @param string $type
      * @return ElasticQueryParams
      */
-    public function setType(string $type): RequestOperationInterface
+    public function setType(string $type): ElasticQueryParams
     {
         $this->type = $type;
 
@@ -157,13 +159,17 @@ abstract class ElasticQueryParams implements ElasticQueryParamsInterface, Reques
      * @param string $id
      * @return ElasticQueryParams
      */
-    public function setId(string $id): RequestOperationInterface
+    public function setId(string $id): ElasticQueryParams
     {
         $this->id = $id;
 
         return $this;
     }
 
+    /**
+     * @param ElasticConnection $connect
+     * @return string
+     */
     protected function makeHost(ElasticConnection $connect): string
     {
     	return $connect->getSchema() . '://' . $connect->getHost() . ':' . $connect->getPort() . '/';

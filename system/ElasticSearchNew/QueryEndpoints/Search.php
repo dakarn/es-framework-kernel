@@ -13,8 +13,10 @@ use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Search extends ElasticQueryParams
+class Search
 {
+    use ElasticQueryParams;
+
     private const SEARCH = '/_search/';
 
     /**

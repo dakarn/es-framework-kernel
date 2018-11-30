@@ -14,8 +14,10 @@ use ElasticSearchNew\QueryOptions\HttpCommandsInterface;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Update extends ElasticQueryParams
+class Update
 {
+    use ElasticQueryParams;
+
 	/**
 	 * @var array
 	 */

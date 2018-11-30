@@ -51,7 +51,7 @@ class ElasticQuery
             throw new HttpException('Unable to connect with Elastic Search!');
         }
 
-        return ElasticResultFactory::factory($result);
+        return ElasticResultFactory::factory($result, ElasticSearchNew::create());
     }
 
     /**

@@ -80,6 +80,9 @@ class HttpQuery
         $this->queryString = $queryString;
     }
 
+    /**
+     * @param array $queryArray
+     */
     public function setQueryArray(array $queryArray)
     {
         $this->queryString = \json_encode($queryArray, JSON_UNESCAPED_UNICODE);

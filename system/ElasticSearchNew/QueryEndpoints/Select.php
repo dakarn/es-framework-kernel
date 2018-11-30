@@ -13,8 +13,10 @@ use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Select extends ElasticQueryParams
+class Select
 {
+    use ElasticQueryParams;
+
     /**
      * @param ElasticConnection $connect
      * @return HttpQuery

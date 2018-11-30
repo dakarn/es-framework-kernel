@@ -18,13 +18,14 @@ class ElasticResultFactory
 	 */
 	private $response;
 
-	/**
-	 * @param string $response
-	 * @return AbstractResponse
-	 */
-	public static function factory(string $response): AbstractResponse
+    /**
+     * @param string $response
+     * @param ElasticSearchNew $elasticSearchNew
+     * @return AbstractResponse
+     */
+	public static function factory(string $response, ElasticSearchNew $elasticSearchNew): AbstractResponse
 	{
-			$currentQuery = ElasticSearchNew::create()->getCurrentQueryType();
+			$currentQuery = $elasticSearchNew->getCurrentQueryType();
 			$responseObj  = null;
 
 			if ($currentQuery instanceof Select) {

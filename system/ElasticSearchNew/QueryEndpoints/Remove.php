@@ -14,8 +14,10 @@ use ElasticSearchNew\QueryOptions\HttpCommandsInterface;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Remove extends ElasticQueryParams
+class Remove
 {
+    use ElasticQueryParams;
+
 	/**
 	 * @var array
 	 */

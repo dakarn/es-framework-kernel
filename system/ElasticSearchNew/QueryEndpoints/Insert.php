@@ -13,8 +13,10 @@ use ElasticSearchNew\QueryOptions\ElasticQueryParams;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Insert extends ElasticQueryParams implements RequestOperationInterface
+class Insert
 {
+    use ElasticQueryParams;
+
     /**
      * @param ElasticConnection $connect
      * @return HttpQuery

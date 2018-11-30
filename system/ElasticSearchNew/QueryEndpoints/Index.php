@@ -14,8 +14,10 @@ use ElasticSearchNew\QueryOptions\HttpCommandsInterface;
 use ElasticSearchNew\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Index extends ElasticQueryParams implements RequestOperationInterface
+class Index
 {
+    use ElasticQueryParams;
+
     private const CREATE  = 'create';
     private const REMOVE  = 'remove';
     private const MAPPING = 'mapping';
@@ -93,7 +95,7 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     /**
      * @return Index
      */
-    private function appendCreate(): self
+    private function appendCreate(): Index
     {
         $this->httpQuery->setMethod(Request::PUT);
 
@@ -107,7 +109,7 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     /**
      * @return Index
      */
-    private function appendRemove(): self
+    private function appendRemove(): Index
     {
         $this->httpQuery->setMethod(Request::DELETE);
 
@@ -117,7 +119,7 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     /**
      * @return Index
      */
-    private function appendMapping(): self
+    private function appendMapping(): Index
     {
         return $this;
     }
@@ -125,7 +127,7 @@ class Index extends ElasticQueryParams implements RequestOperationInterface
     /**
      * @return string
      */
-    private function appendReindex()
+    private function appendReindex(): string
     {
         $this->httpQuery->setMethod(Request::POST);
 
