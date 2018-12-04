@@ -43,7 +43,7 @@ class ElasticQuery
     public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse
     {
         $this->elasticQueryParams = $elasticQueryParams;
-        $this->httpQuery          = $elasticQueryParams->buildParams(ElasticSearchNew::create()->getConfigConnection());
+        $this->httpQuery          = $elasticQueryParams->buildQuery(ElasticSearchNew::create()->getConfigConnection());
 
         $result = $this->doRequest();
 

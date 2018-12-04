@@ -21,7 +21,7 @@ class Select
      * @param ElasticConnection $connect
      * @return HttpQuery
      */
-    public function buildParams(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $connect): HttpQuery
     {
         $host     = $this->makeHost($connect);
         $pathname = $this->index . '/' . $this->type .'/' . $this->id;

@@ -47,6 +47,34 @@ trait ElasticQueryParams
      */
     protected $isPretty = true;
 
+	/**
+	 * @var array
+	 */
+    protected $customQuery = [];
+
+	/**
+	 * @return array
+	 */
+	public function getCustomQuery(): array
+	{
+		return $this->customQuery;
+	}
+
+	/**
+	 * @param string $path
+	 * @param string $method
+	 * @param array $query
+	 * @return ElasticQueryParams
+	 */
+	public function setCustomQuery(string $path, string $method, array $query): ElasticQueryParams
+	{
+		$this->customQuery['path']   = $path;
+		$this->customQuery['method'] = $method;
+		$this->customQuery['query']  = $query;
+
+		return $this;
+	}
+
     /**
      * ElasticQueryParams constructor.
      */
@@ -179,5 +207,5 @@ trait ElasticQueryParams
      * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    abstract public function buildParams(ElasticConnection $elasticConnect): HttpQuery;
+    abstract public function buildQuery(ElasticConnection $elasticConnect): HttpQuery;
 }

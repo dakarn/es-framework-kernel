@@ -21,20 +21,20 @@ class Remove
 	/**
 	 * @var array
 	 */
-	private $queryRemove = [];
+	private $queryByRemove = [];
 
     /**
      * @param ElasticConnection $connect
      * @return HttpQuery
      */
-    public function buildParams(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $connect): HttpQuery
     {
         $host = $this->makeHost($connect);
 
-        if (!empty($this->queryRemove)) {
+        if (!empty($this->queryByRemove)) {
 	        $pathname = $this->index . '/' . HttpCommandsInterface::DELETE_QUERY;
 	        $method   = Request::POST;
-	        $this->httpQuery->setQueryArray($this->queryRemove);
+	        $this->httpQuery->setQueryArray($this->queryByRemove);
         } else {
 	        $pathname = $this->index . '/' . $this->type .'/' . $this->id;
 	        $method   = Request::DELETE;
@@ -52,7 +52,7 @@ class Remove
 	 */
 	public function byQuery(array $queryRemove): Remove
 	{
-		$this->queryRemove = $queryRemove;
+		$this->queryByRemove = $queryRemove;
 
 		return $this;
 	}
