@@ -8,7 +8,7 @@
 
 namespace ElasticSearchNew\Response;
 
-class Error
+class Error extends AbstractResponse
 {
 
 }
