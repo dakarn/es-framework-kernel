@@ -24,4 +24,9 @@ interface RepositoryInterface
 	 * @return bool
 	 */
 	public function isSaved(): bool;
+
+	/**
+	 * @return mixed
+	 */
+	public function getResult();
 }

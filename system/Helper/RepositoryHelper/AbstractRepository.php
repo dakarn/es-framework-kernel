@@ -11,7 +11,7 @@ namespace Helper\RepositoryHelper;
 class AbstractRepository implements RepositoryInterface
 {
 	/**
-	 * @var
+	 * @var mixed
 	 */
 	protected $resultOperation;
 
@@ -24,6 +24,19 @@ class AbstractRepository implements RepositoryInterface
 	 * @var bool
 	 */
 	protected $isSaved = false;
+
+	/**
+	 * @var mixed
+	 */
+	protected $storage;
+
+	/**
+	 * @return mixed
+	 */
+	public function getResult()
+	{
+		return $this->resultOperation;
+	}
 
 	/**
 	 * @return bool

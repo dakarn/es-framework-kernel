@@ -53,6 +53,46 @@ class TokenModel
 	}
 
 	/**
+	 * @param string $access
+	 */
+	public function setAccess(string $access): void
+	{
+		$this->access = $access;
+	}
+
+	/**
+	 * @param string $refresh
+	 */
+	public function setRefresh(string $refresh): void
+	{
+		$this->refresh = $refresh;
+	}
+
+	/**
+	 * @param int $userId
+	 */
+	public function setUserId(int $userId): void
+	{
+		$this->userId = $userId;
+	}
+
+	/**
+	 * @param string $created
+	 */
+	public function setCreated(string $created): void
+	{
+		$this->created = $created;
+	}
+
+	/**
+	 * @param string $expire
+	 */
+	public function setExpire(string $expire): void
+	{
+		$this->expire = $expire;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getAccess(): string

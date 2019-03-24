@@ -8,12 +8,13 @@
 
 namespace System\Auth\Authentication;
 
-use App\Models\AuthAppRepository;
+use System\Auth\ClientAppRepository;
+use Helper\RepositoryHelper\StorageRepository;
 use Http\Request\ServerRequest;
+use Models\User\User;
 use System\Auth\TokenRepository;
 use System\Auth\JWTokenManager;
 use Helper\Util;
-use Http\Cookie;
 use Http\Session\SessionRedis;
 use Models\User\UserInterface;
 use System\Validators\AbstractValidator;
@@ -33,6 +34,11 @@ class Authentication implements AuthenticationInterface
 	 * @var bool
 	 */
 	private $isLogout = false;
+
+	/**
+	 * @var bool 
+	 */
+	private $isUpdate = false;
 
 	/**
 	 * @var UserInterface
@@ -67,8 +73,9 @@ class Authentication implements AuthenticationInterface
 		$signToken     = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
 		$isDeleteRedis = SessionRedis::create()->delete($signToken);
 
-		$tokenRepos = new TokenRepository();
-		$isDeleteDB = $tokenRepos->deleteByAccessToken($signToken);
+		/** @var TokenRepository $tokenRepository */
+		$tokenRepository = StorageRepository::getRepository(TokenRepository::class);
+		$isDeleteDB      = $tokenRepository->deleteByAccessToken($signToken);
 
 		if (!empty($isDeleteRedis && $isDeleteDB)) {
 			$this->isLogout = true;
@@ -93,11 +100,12 @@ class Authentication implements AuthenticationInterface
 
 		$userId = $JWTokenManager->decode()->getUserId();
 
-		$tokenRepos    = new TokenRepository();
-		$tokens        = $tokenRepos->loadByUserId($userId);
+		/** @var TokenRepository $tokenRepository */
+		$tokenRepository = StorageRepository::getRepository(TokenRepository::class);
+		$tokens          = $tokenRepository->loadByUserId($userId);
 
 		$isDeleteRedis = SessionRedis::create()->deleteKeys(\array_column($tokens, 'access'));
-		$isDeleteDB    = $tokenRepos->deleteTokensByUserId($userId);
+		$isDeleteDB    = $tokenRepository->deleteTokensByUserId($userId);
 		
 		if ($isDeleteDB && $isDeleteRedis) {
 			$this->isLogout = true;
@@ -108,40 +116,44 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @param AbstractValidator $validator
-	 * @param AuthAppRepository $authAppRepository
-	 * @return bool
+	 * @return null|Authentication
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processUpdateRefreshToken(AbstractValidator $validator, AuthAppRepository $authAppRepository): bool
+	public function processUpdateRefreshToken(AbstractValidator $validator):? Authentication
 	{
-		$tokenRepos = new TokenRepository();
-		$result = $tokenRepos->loadByRefreshToken($validator);
+		/** @var TokenRepository $tokenRepository */
+		$tokenRepository   = StorageRepository::getRepository(TokenRepository::class);
+		$tokenModel        = $tokenRepository->loadByRefreshToken($validator);
 
-		if (!$tokenRepos->isLoaded()) {
+		/** @var ClientAppRepository $clientAppRepository */
+		$clientAppRepository = StorageRepository::getRepository(ClientAppRepository::class);
+
+		if (!$tokenRepository->isLoaded()) {
 			$validator->setExtraErrorAPI('unknown-refresh', Validators::COMMON);
-			return false;
+			return null;
 		}
 
 		$JWToken = JWTokenManager::create();
 
 		$now = Util::now();
-		$ttl = $authAppRepository->getResult()->getAccessTTL();
+		$ttl = $clientAppRepository->getResult()->getAccessTTL();
 
-		$user = User::create();
-		$user->loadByUserId($tokenModel->getUserId());
+		$user = User::loadByUserId($tokenModel->getUserId());
 
-		$dataToSave = $this->fillPayload($authAppRepository, $user, $now, $ttl);
+		$dataToSave = $this->fillPayload($clientAppRepository, $user, $now, $ttl);
 		
 		$JWToken
 			->setPayload($dataToSave)
 			->setRefreshToken(Util::createRefreshToken())
 			->createToken();
 
-		$tokenRepos->updateRefreshToken($result, $authAppRepository);
-		SessionRedis::create()->set($signToken, \json_encode($dataToSave, $ttl));
+		$tokenRepository->updateRefreshToken($tokenModel);
+		SessionRedis::create()->set($JWToken->getToken(), \json_encode($dataToSave, $ttl));
+
+		$this->isUpdate = true;
 		
-		return true;
+		return $this;
 	}
 
 	/**
@@ -151,14 +163,19 @@ class Authentication implements AuthenticationInterface
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processAuthentication(UserInterface $user, AuthAppRepository $authAppRepository): Authentication
+	public function processAuthentication(UserInterface $user): Authentication
 	{
+		/** @var TokenRepository $tokenRepository */
+		$tokenRepository   = StorageRepository::getRepository(TokenRepository::class);
+		/** @var ClientAppRepository $clientAppRepository */
+		$clientAppRepository = StorageRepository::getRepository(ClientAppRepository::class);
+
 		$JWTokenManager = JWTokenManager::create();
 
 		$now = Util::now();
-		$ttl = $authAppRepository->getResult()->getAccessTTL();
+		$ttl = $clientAppRepository->getResult()->getAccessTTL();
 
-		$dataToSave = $this->fillPayload($authAppRepository, $user, $now, $ttl);
+		$dataToSave = $this->fillPayload($clientAppRepository, $user, $now, $ttl);
 
 		$JWTokenManager
 			->setPayload($dataToSave)
@@ -166,7 +183,7 @@ class Authentication implements AuthenticationInterface
 			->createToken();
 
 		$signToken = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
-		$result    = (new TokenRepository)->addAccessToken($JWTokenManager);
+		$result    = $tokenRepository->addAccessToken($JWTokenManager);
 
 		SessionRedis::create()->set($signToken, \json_encode($dataToSave, $ttl));
 
@@ -213,19 +230,27 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @return bool
 	 */
+	public function isUpdate(): bool
+	{
+		return $this->isUpdate;
+	}
+	
+	/**
+	 * @return bool
+	 */
 	public function isLogout(): bool
 	{
 		return $this->isLogout;
 	}
 
 	/**
-	 * @param AuthAppRepository $authAppRepository
+	 * @param ClientAppRepository $authAppRepository
 	 * @param UserInterface $user
 	 * @param int $now
 	 * @param int $ttl
 	 * @return array
 	 */
-	private function fillPayload(AuthAppRepository $authAppRepository, UserInterface $user, int $now, int $ttl): array
+	private function fillPayload(ClientAppRepository $authAppRepository, UserInterface $user, int $now, int $ttl): array
 	{
 		return [
 			'sub'     => $authAppRepository->getResult()->getType(),

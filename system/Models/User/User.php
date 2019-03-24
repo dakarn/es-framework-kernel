@@ -255,7 +255,7 @@ class User implements UserInterface
 	 */
 	public function authentication(): void
 	{
-		$auth = Authentication::create()->processAuthentication($this, 1000);
+		$auth = Authentication::create()->processAuthentication($this);
 
 		if ($auth->isAuth()) {
 			FlashText::add(FlashText::MSG_SUCCESS, 'Вы успешно авторизовались на сайте!');
@@ -303,88 +303,104 @@ class User implements UserInterface
 
 	/**
 	 * @param int $userId
-	 * @throws \Exception
+	 * @return UserInterface|null
 	 */
-	public function loadByUserId(int $userId)
+	public static function loadByUserId(int $userId):? UserInterface
 	{
-		$user = $this
+		$userObject = new static();
+
+		$user = $userObject
 			->getStrategyUser()
 			->loadByUserId($userId);
 
 		if (empty($user)){
-			$this->isLoaded = false;
-			return;
+			$userObject->isLoaded = false;
+			return null;
 		}
 
-		$this->isLoaded = true;
-		$this->setProperties($user);
+		$userObject->isLoaded = true;
+		$userObject->setProperties($user);
+
+		return $userObject;
 	}
 
 	/**
 	 * @param string $login
-	 * @throws \Exception
+	 * @return UserInterface|null
 	 */
-	public function loadByLogin(string $login)
+	public static function loadByLogin(string $login):? UserInterface
 	{
-		$user = $this
+		$userObject = new static();
+
+		$user = $userObject
 			->getStrategyUser()
 			->loadByLogin($login);
 
 		if (empty($user)){
-			$this->isLoaded = false;
-			return;
+			$userObject->isLoaded = false;
+			return null;
 		}
 
-		$this->isLoaded = true;
-		$this->setProperties($user);
+		$userObject->isLoaded = true;
+		$userObject->setProperties($user);
+
+		return $userObject;
 	}
 
 	/**
 	 * @param string $email
-	 * @throws \Exception
+	 * @return UserInterface
 	 */
-	public function loadByEmail(string $email)
+	public static function loadByEmail(string $email):? UserInterface
 	{
-		$user = $this
+		$userObject = new static();
+
+		$user = $userObject
 			->getStrategyUser()
 			->loadByLogin($email);
 
 		if (empty($user)){
-			$this->isLoaded = false;
-			return;
+			$userObject->isLoaded = false;
+			return null;
 		}
 
-		$this->isLoaded = true;
-		$this->setProperties($user);
+		$userObject->isLoaded = true;
+		$userObject->setProperties($user);
+
+		return $userObject;
 	}
 
 	/**
 	 * @param AbstractValidator $form
+	 * @return UserInterface|null
 	 * @throws \Exception\FileException
-	 * @throws \Exception
 	 */
-	public function loadByEmailOrLogin(AbstractValidator $form)
+	public static function loadByEmailOrLogin(AbstractValidator $form):? UserInterface
 	{
-		$user = $this
+		$userObject = new static();
+
+		$user = $userObject
 			->getStrategyUser()
 			->loadByEmailOrLogin($form->getValueField('email'), $form->getValueField('login'));
 
 		if (empty($user)){
-			$this->errors[] = Util::getFormMessage(Validators::AUTH)['fail-auth-data'] ?? '';
-			$this->isLoaded = false;
-			return;
+			$userObject->errors[] = Util::getFormMessage(Validators::AUTH)['fail-auth-data'] ?? '';
+			$userObject->isLoaded = false;
+			return null;
 		}
 
 		$authPassword = $form->getValueField('password') . Config::get('salt', 'passwordUser');
 
 		if (!\password_verify($authPassword, $user['password'])) {
-			$this->isLoaded = false;
-			$this->errors[] = Util::getFormMessage(Validators::AUTH)['fail-auth-data'] ?? '';
-			return;
+			$userObject->isLoaded = false;
+			$userObject->errors[] = Util::getFormMessage(Validators::AUTH)['fail-auth-data'] ?? '';
+			return null;
 		}
 
-		$this->isLoaded = true;
-		$this->setProperties($user);
+		$userObject->isLoaded = true;
+		$userObject->setProperties($user);
+
+		return $userObject;
 	}
 
 	/**

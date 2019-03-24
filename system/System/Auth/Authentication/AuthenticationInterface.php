@@ -27,10 +27,9 @@ interface AuthenticationInterface
 
 	/**
 	 * @param UserInterface $user
-	 * @param int $ttl
 	 * @return Authentication
 	 */
-	public function processAuthentication(UserInterface $user, AuthAppRepository $authAppRepositoryl): Authentication;
+	public function processAuthentication(UserInterface $user): Authentication;
 
 	/**
 	 * @param int $userId

@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 05.10.2018
- * Time: 21:24
+ * Date: 25.03.2019
+ * Time: 1:19
  */
 
 namespace Models\User;
@@ -14,6 +14,7 @@ interface UserInterface
 {
 	/**
 	 * @return User
+	 * @throws \Exception\FileException
 	 */
 	public static function current(): User;
 
@@ -101,13 +102,44 @@ interface UserInterface
 	/**
 	 * @throws \Exception
 	 */
-	public function authentication();
+	public function authentication(): void;
+
+	/**
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public function logout(): bool;
+
+	/**
+	 * @return bool
+	 * @throws \Exception\FileException
+	 */
+	public function logoutAllDevice(): bool;
+
+	/**
+	 * @param int $userId
+	 * @return UserInterface|null
+	 */
+	public static function loadByUserId(int $userId): ?UserInterface;
+
+	/**
+	 * @param string $login
+	 * @return UserInterface|null
+	 */
+	public static function loadByLogin(string $login): ?UserInterface;
+
+	/**
+	 * @param string $email
+	 * @return User|void
+	 */
+	public static function loadByEmail(string $email): ?UserInterface;
 
 	/**
 	 * @param AbstractValidator $form
+	 * @return UserInterface|null
 	 * @throws \Exception\FileException
 	 */
-	public function loadByEmailOrLogin(AbstractValidator $form);
+	public static function loadByEmailOrLogin(AbstractValidator $form): ?UserInterface;
 
 	/**
 	 * @return bool
@@ -134,6 +166,7 @@ interface UserInterface
 	/**
 	 * @return User
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function createUser(): User;
 

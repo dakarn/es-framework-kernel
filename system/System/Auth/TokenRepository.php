@@ -8,42 +8,24 @@
 
 namespace System\Auth;
 
-use App\Models\AuthAppRepository;
 use Configs\Config;
-use Helper\Util;
-use Models\User\User;
-use System\Database\DB;
+use Helper\RepositoryHelper\AbstractRepository;
+use System\Database\ORM\Mapping\ObjectMapper;
 use System\Validators\AbstractValidator;
 
-class TokenRepository
+class TokenRepository extends AbstractRepository
 {
-	/**
-	 * @var bool
-	 */
-	private $isLoaded = false;
-
 	/**
 	 * @param TokenModel $tokenModel
 	 * @return bool
 	 * @throws \Exception
 	 */
-	public function updateRefreshToken(TokenModel $tokenModel, AuthAppRepository $authAppRepository): bool
+	public function updateRefreshToken(TokenModel $tokenModel): bool
 	{
 		$JWToken      = JWTokenManager::create();
 		$refreshToken = $JWToken->getRefreshToken();
-		$now          = Util::now();
-		
-		$result = DB::MySQLAdapter()->update('
-			UPDATE 
-				access_tokens 
-			SET
-				refresh = "' . $refreshToken . '",
-				access = "' . $JWToken->getPartToken(JWTokenManager::SIGN_TOKEN) . '",
-				expire = "' . $JWToken->getProperties()->getExpAsDT() . '",
-				created = "' . Util::toDbTime() . '"
-			WHERE 
-				refresh = "' . $tokenModel->getRefresh() . '"
-		');
+
+		$result = $this->getStorage()->updateRefreshToken($JWToken, $refreshToken, $tokenModel);
 
 		return $result > 0 ? true : false;
 	}
@@ -55,15 +37,7 @@ class TokenRepository
 	 */
 	public function deleteByAccessToken(string $token): bool
 	{
-		DB::MySQLAdapter()->delete('
-			DELETE
-			FROM 
-				access_tokens
-			WHERE
-				access = "' . $token  . '"
-		');
-
-		return true;
+		return $this->getStorage()->deleteByAccessToken($token);
 	}
 
 	/**
@@ -73,15 +47,7 @@ class TokenRepository
 	 */
 	public function deleteTokensByUserId(int $userId): bool
 	{
-		DB::MySQLAdapter()->delete('
-			DELETE
-			FROM 
-				access_tokens
-			WHERE
-				userId = "' . $userId  . '"
-		');
-
-		return true;
+		return $this->getStorage()->deleteByAccessToken($userId);
 	}
 	
 	/**
@@ -93,23 +59,8 @@ class TokenRepository
 	{
 		$token   = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
 		$payload = $JWTokenManager->getProperties();
-		
-		DB::MySQLAdapter()->insert('
-			INSERT INTO access_tokens
-			(
-				access, 
-				refresh, 
-				userId, 
-				created,
-				expire
-			)
-			VALUES (
-				"' . $token . '",
-			    "' . $JWTokenManager->getRefreshToken() . '", 
-			    "' . $payload->getUserId() . '",  
-			    "' . Util::toDbTime() . '",
-			    "' . $payload->getExpAsDT() . '")
-		');
+
+		$this->getStorage()->addAccessToken($JWTokenManager->getRefreshToken(), $token, $payload);
 
 		return true;
 	}
@@ -121,34 +72,13 @@ class TokenRepository
 	 */
 	public function loadByRefreshToken(AbstractValidator $validator): TokenModel
 	{
-		$result = DB::MySQLAdapter()->fetchRow('
-			SELECT 
-				*
-			FROM 
-				access_tokens
-			WHERE 
-				refresh = "' . $validator->getValueField('refreshToken') . '"
-			LIMIT 1
-		');
+		$result = $this->getStorage()->loadByRefreshToken($validator);
 
 		if (!empty($result)) {
 			$this->isLoaded = true;
 		}
 
-		return new TokenModel($result);
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isLoaded(): bool
-	{
-		return $this->isLoaded;
-	}
-
-	public function loadByAccessToken(string $token): TokenRepository
-	{
-		return $this;
+		return ObjectMapper::create()->arrayToObject($result, TokenModel::class);
 	}
 
 	/**
@@ -161,20 +91,24 @@ class TokenRepository
 	{
 		$maxAuthUserWithDevices = Config::get('common', 'maxAuthUserWithDevices');
 
-		$result = DB::MySQLAdapter()->fetch('
-			SELECT 
-				*
-			FROM 
-				access_tokens
-			WHERE 
-				userId = "' . $userId . '"
-			LIMIT ' . $maxAuthUserWithDevices . '
-		');
+		$result = $this->getStorage()->loadByUserId($userId, $maxAuthUserWithDevices);
 
 		if (!empty($result)) {
 			$this->isLoaded = true;
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @return TokenStorage
+	 */
+	private function getStorage(): TokenStorage
+	{
+		if (!$this->storage instanceof TokenStorage) {
+			$this->storage = new TokenStorage();
+		}
+
+		return $this->storage;
 	}
 }
