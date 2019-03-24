@@ -9,6 +9,7 @@
 namespace ElasticSearchNew\Response;
 
 use ElasticSearchNew\ElasticSearchNew;
+use ElasticSearchNew\QueryEndpoints\Search;
 use ElasticSearchNew\QueryEndpoints\Select;
 
 class ElasticResultFactory
@@ -25,16 +26,16 @@ class ElasticResultFactory
      */
 	public static function factory(string $response, ElasticSearchNew $elasticSearchNew): AbstractResponse
 	{
-			$currentQuery = $elasticSearchNew->getCurrentQueryType();
-			$responseObj  = null;
+        $currentQuery = $elasticSearchNew->getCurrentQueryType();
+        $responseObj  = null;
 
-			if ($currentQuery instanceof Select) {
-				$responseObj = new FetchResult($response);
-			} else {
-				$responseObj = new ExecuteResult($response);
-			}
+        if ($currentQuery instanceof Select || $currentQuery instanceof Search) {
+            $responseObj = new FetchResult($response);
+        } else {
+            $responseObj = new ExecuteResult($response);
+        }
 
-			return $responseObj;
+        return $responseObj;
 	}
 
 	/**

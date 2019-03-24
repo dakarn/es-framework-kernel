@@ -66,7 +66,7 @@ trait ElasticQueryParams
 	 * @param array $query
 	 * @return ElasticQueryParams
 	 */
-	public function setCustomQuery(string $path, string $method, array $query): ElasticQueryParams
+	public function setCustomQuery(string $path, string $method, array $query): self
 	{
 		$this->customQuery['path']   = $path;
 		$this->customQuery['method'] = $method;
@@ -127,7 +127,7 @@ trait ElasticQueryParams
      * @param bool $isPretty
      * @return ElasticQueryParams
      */
-    public function setPretty(bool $isPretty): ElasticQueryParams
+    public function setPretty(bool $isPretty): self
     {
         $this->isPretty = $isPretty;
 
@@ -138,7 +138,7 @@ trait ElasticQueryParams
      * @param array $query
      * @return ElasticQueryParams
      */
-    public function setQuery(array $query): ElasticQueryParams
+    public function setQuery(array $query): self
     {
         $this->query = $query;
 
@@ -149,7 +149,7 @@ trait ElasticQueryParams
      * @param string $index
      * @return ElasticQueryParams
      */
-    public function setIndex(string $index): ElasticQueryParams
+    public function setIndex(string $index): self
     {
         $this->index = $index;
 
@@ -168,7 +168,7 @@ trait ElasticQueryParams
      * @param string $type
      * @return ElasticQueryParams
      */
-    public function setType(string $type): ElasticQueryParams
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -187,7 +187,7 @@ trait ElasticQueryParams
      * @param string $id
      * @return ElasticQueryParams
      */
-    public function setId(string $id): ElasticQueryParams
+    public function setId(string $id): self
     {
         $this->id = $id;
 
