@@ -19,107 +19,107 @@ class Mail
     /**
      * @var string
      */
-    protected $_mailer = "WebESMailer / 1.0";
+    protected $mailer = "WebESMailer / 1.0";
 
     /**
      * @var string
      */
-    protected $_domain;
+    protected $domain;
 
     /**
      * @var string
      */
-    protected $_mimeVersion = '1.0';
+    protected $mimeVersion = '1.0';
 
     /**
      * @var string
      */
-    protected $_mime        = Mime::TEXT;
+    protected $mime        = Mime::TEXT;
 
     /**
      * @var string
      */
-    protected $_multiMime   = Mime::MULTI_MIX;
+    protected $multiMime   = Mime::MULTI_MIX;
 
     /**
      * @var string
      */
-    protected $_encoding    = 'utf-8';
+    protected $encoding    = 'utf-8';
 
     /**
      * @var array
      */
-    protected $_sender;
+    protected $sender;
 
     /**
      * @var array
      */
-    protected $_from = [];
+    protected $from = [];
 
     /**
      * @var array
      */
-    protected $_to = [];
+    protected $to = [];
 
     /**
      * @var array
      */
-    protected $_replyTo = [];
+    protected $replyTo = [];
 
     /**
      * @var array
      */
-    protected $_cc = [];
+    protected $cc = [];
 
     /**
      * @var array
      */
-    protected $_bcc = [];
+    protected $bcc = [];
 
     /**
      * @var string
      */
-    protected $_subject;
+    protected $subject;
 
     /**
      * @var string
      */
-    protected $_message;
+    protected $message;
 
     /**
      * @var array
      */
-    protected $_cid = [];
+    protected $cid = [];
 
     /**
      * @var array
      */
-    protected $_attaches = [];
+    protected $attaches = [];
 
     /**
      * @var bool
      */
-    protected $_isMultipart = false;
+    protected $isMultipart = false;
 
     /**
      * @var array of strings multipart boundary
      */
-    protected $_boundary = [];
+    protected $boundary = [];
 
     /**
      * @var bool
      */
-    protected $_wasSent = false;
+    protected $wasSent = false;
 
     /**
      * @var bool
      */
-    protected $_withWardenBCC = true;
+    protected $withWardenBCC = true;
 
 	/**
 	 * @var array
 	 */
-	protected $_headers = [];
+	protected $headers = [];
 
 	/**
 	 * Constructor
@@ -128,9 +128,9 @@ class Mail
 	protected function __construct($domain = null)
 	{
 		if (empty($domain)) {
-			$this->_domain = Config::getDomainName();
+			$this->domain = '';
 		} else {
-			$this->_domain = $domain;
+			$this->domain = $domain;
 		}
 	}
 
@@ -148,7 +148,7 @@ class Mail
 	 */
 	public function noWarden()
 	{
-		$this->_withWardenBCC = false;
+		$this->withWardenBCC = false;
 		return $this;
 	}
 
@@ -157,7 +157,7 @@ class Mail
 	 */
 	public function asHtml()
 	{
-		$this->_mime = Mime::HTML;
+		$this->mime = Mime::HTML;
 
 		return $this;
 	}
@@ -168,8 +168,8 @@ class Mail
 	 */
 	public function asMultipart()
 	{
-		$this->_isMultipart = true;
-		$this->_multiMime = 'multipart/mixed';
+		$this->isMultipart = true;
+		$this->multiMime = 'multipart/mixed';
 		$this->getBoundary(0);
 
 		return $this;
@@ -182,11 +182,11 @@ class Mail
 	 */
 	public function getBoundary($id = 0)
 	{
-		if (empty($this->_boundary[$id])) {
-			$this->_boundary[$id] = Util::generateRandom(30);
+		if (empty($this->boundary[$id])) {
+			$this->boundary[$id] = Util::generateRandom(30);
 		}
 
-		return $this->_boundary[$id];
+		return $this->boundary[$id];
 	}
 
 	/**
@@ -195,7 +195,7 @@ class Mail
 	 */
 	public function setMime($mime)
 	{
-		$this->_mime = $mime;
+		$this->mime = $mime;
 		return $this;
 	}
 
@@ -206,7 +206,7 @@ class Mail
 	public function setFrom($from)
 	{
 		if ($from = self::_validEmails($from)) {
-			$this->_from = $from;
+			$this->from = $from;
 		}
 
 		return $this;
@@ -219,7 +219,7 @@ class Mail
 	public function setTo($to)
 	{
 		if ($to = self::_validEmails($to)) {
-			$this->_to = $to;
+			$this->to = $to;
 		}
 
 		return $this;
@@ -238,8 +238,8 @@ class Mail
 	 */
 	public function overrideRealTo(): Mail
 	{
-		$this->_subject .= " ::TO::" . self::_prepareEmail($this->_to) . " " . self::_prepareEmail($this->_bcc);
-		$this->_to = [Config::getDefaultEmail()];
+		$this->subject .= " ::TO::" . self::_prepareEmail($this->to) . " " . self::_prepareEmail($this->bcc);
+		$this->to = '';
 
 		return $this;
 	}
@@ -251,7 +251,7 @@ class Mail
 	public function setReplyTo($reply)
 	{
 		if ($reply = self::_validEmails($reply)) {
-			$this->_replyTo = $reply;
+			$this->replyTo = $reply;
 		}
 
 		return $this;
@@ -264,7 +264,7 @@ class Mail
 	public function setCC($cc)
 	{
 		if ($cc = self::_validEmails($cc)) {
-			$this->_cc = $cc;
+			$this->cc = $cc;
 		}
 
 		return $this;
@@ -277,7 +277,7 @@ class Mail
 	public function setBCC($bcc)
 	{
 		if ($bcc = self::_validEmails($bcc)) {
-			$this->_bcc = $bcc;
+			$this->bcc = $bcc;
 		}
 
 		return $this;
@@ -290,7 +290,7 @@ class Mail
 	public function addBCC($bcc)
 	{
 		if ($bcc = self::_validEmails($bcc)) {
-			$this->_bcc = \array_merge($this->_bcc, $bcc);
+			$this->bcc = \array_merge($this->bcc, $bcc);
 		}
 
 		return $this;
@@ -302,7 +302,7 @@ class Mail
 	 */
 	public function setSubject($subject)
 	{
-		$this->_subject = $subject;
+		$this->subject = $subject;
 
 		return $this;
 	}
@@ -313,7 +313,7 @@ class Mail
 	 */
 	public function setMessage($message)
 	{
-		$this->_message = $message;
+		$this->message = $message;
 
 		return $this;
 	}
@@ -325,45 +325,6 @@ class Mail
 	 */
 	public function setTemplate($template, array $data = [])
 	{
-		return $this;
-	}
-
-	/**
-	 * @param null $postKey
-	 * @return $this
-	 * @throws \Exception
-	 */
-	public function setPostedAttaches($postKey = null)
-	{
-		if (empty($postKey) || !Request::hasFiles()) {
-			return $this;
-		}
-
-		if (Request::isMultiFile($postKey)) {
-			$files = Request::takeFiles($postKey);
-
-			if (empty($files)) {
-				return $this;
-			}
-		} else {
-			$file = Request::takeFile($postKey);
-
-			if (empty($file)) {
-				return $this;
-			}
-
-			$files = [$file];
-		}
-
-		$this->asMultipart();
-
-		$i = 0;
-
-		foreach ($files as $file) {
-			$cid = $this->_cid(++$i, $file['name'], $postKey . $i);
-			$this->_attaches[$cid] = Attach::createFromPost($cid, $file);
-		}
-
 		return $this;
 	}
 
@@ -381,8 +342,8 @@ class Mail
 
 		$this->asMultipart();
 
-		$cid = $this->_cid(\count($this->_attaches), $file, $cidName);
-		$this->_attaches[$cid] = Attach::createFromFile($cid, $file);
+		$cid = $this->_cid(\count($this->attaches), $file, $cidName);
+		$this->attaches[$cid] = Attach::createFromFile($cid, $file);
 
 		return $this;
 	}
@@ -402,8 +363,8 @@ class Mail
 
 		$this->asMultipart();
 
-		$cid = $this->_cid(\count($this->_attaches), $name);
-		$this->_attaches[$cid] = Attach::createFromData($cid, $data, $mime, $name);
+		$cid = $this->_cid(\count($this->attaches), $name);
+		$this->attaches[$cid] = Attach::createFromData($cid, $data, $mime, $name);
 
 		return $this;
 	}
@@ -425,7 +386,7 @@ class Mail
 
 		foreach ($files as $cidName => $file) {
 			$cid = $this->_cid(++$i, $file, $cidName);
-			$this->_attaches[$cid] = Attach::createFromFile($cid, $file);
+			$this->attaches[$cid] = Attach::createFromFile($cid, $file);
 		}
 
 		return $this;
@@ -444,42 +405,40 @@ class Mail
 	 */
 	protected function _prepareGeneralHeaders()
 	{
-		$this->_headers[] = "MIME-Version: $this->_mimeVersion";
-		$this->_headers[] = "X-Mailer:  {$this->_mailer}";
+		$this->headers[] = "MIME-Version: $this->mimeVersion";
+		$this->headers[] = "X-Mailer:  {$this->mailer}";
 
 		$reply = $from = $cc = $bcc = false;
 
 		if ($this->isTestMail()) {
 			$this->overrideRealTo();
 		} else {
-			$cc = self::_prepareEmail($this->_cc);
-			$bcc = self::_prepareEmail($this->_bcc);
+			$cc = self::_prepareEmail($this->cc);
+			$bcc = self::_prepareEmail($this->bcc);
 		}
 
-		if ($this->_from) {
-			$from = self::_prepareEmail($this->_from);
-		} else {
-			$from = \defaultNoReplyEmail();
+		if ($this->from) {
+			$from = self::_prepareEmail($this->from);
 		}
 
-		if ($this->_replyTo) {
-			$reply = self::_prepareEmail($this->_replyTo);
+		if ($this->replyTo) {
+			$reply = self::_prepareEmail($this->replyTo);
 		}
 
 		if ($from) {
-			$this->_headers[] = "From:  {$from}";
+			$this->headers[] = "From:  {$from}";
 		}
 
 		if ($reply) {
-			$this->_headers[] = "Reply-To: {$reply}";
+			$this->headers[] = "Reply-To: {$reply}";
 		}
 
 		if ($cc) {
-			$this->_headers[] = "CC: {$cc}";
+			$this->headers[] = "CC: {$cc}";
 		}
 
 		if ($bcc) {
-			$this->_headers[] = "BCC: {$bcc}";
+			$this->headers[] = "BCC: {$bcc}";
 		}
 	}
 
@@ -488,20 +447,16 @@ class Mail
 	 */
 	protected function _sendMessage()
 	{
-		if (empty($this->_to)) {
+		if (empty($this->to)) {
 			return false;
 		}
 
 		try {
-			if ($this->_withWardenBCC) {
-				$this->addBCC(\getEmail('warden'));
-			}
-
 			$this->_prepareGeneralHeaders();
-			$to = self::_prepareEmail($this->_to);
-			$subject = Util::base64Encode($this->_subject);
+			$to = self::_prepareEmail($this->to);
+			$subject = Util::base64Encode($this->subject);
 
-			return $this->_wasSent = \mail($to, $subject, $this->_prepareContent(), \implode(self::CRLF, $this->_headers));
+			return $this->wasSent = \mail($to, $subject, $this->_prepareContent(), \implode(self::CRLF, $this->headers));
 		} catch (\Throwable $e) {
 
 		}
@@ -515,15 +470,15 @@ class Mail
 	 */
 	protected function _prepareContent()
 	{
-		if ($this->_isMultipart) {
+		if ($this->isMultipart) {
 			$bound = $this->getBoundary();
-			$this->_headers[] = "Content-Type: {$this->_multiMime}; boundary={$bound}";
+			$this->headers[] = "Content-Type: {$this->multiMime}; boundary={$bound}";
 
 			return $this->_prepareMultipartContent($bound);
 		} else {
-			$this->_headers[] = "Content-Type: {$this->_mime}; charset={$this->_encoding}";
+			$this->headers[] = "Content-Type: {$this->mime}; charset={$this->encoding}";
 
-			return $this->_message;
+			return $this->message;
 		}
 	}
 
@@ -534,13 +489,13 @@ class Mail
 	protected function _prepareMultipartContent($mainBound)
 	{
 		$message[] = '--' . $mainBound;
-		$message[] = "Content-Type: {$this->_mime}; charset={$this->_encoding}";
+		$message[] = "Content-Type: {$this->mime}; charset={$this->encoding}";
 		$message[] = '';
-		$message[] = $this->_message;
+		$message[] = $this->message;
 
-		if ($this->_attaches) {
+		if ($this->attaches) {
 
-			foreach ($this->_attaches as $attach) {
+			foreach ($this->attaches as $attach) {
 				if ($attach instanceof Attach) {
 					$message[] = '--' . $mainBound;
 					$message[] = $attach->getContentString();
@@ -606,10 +561,10 @@ class Mail
 	 */
 	private function _cid($i, $file = '', $cidName = null)
 	{
-		$cid = Util::generateRandom(10) . Util::getTimeFormatted('%s') . '.' . $i . '@' . $this->_domain . $file;
+		$cid = Util::generateRandom(10) . Util::getTimeFormatted('%s') . '.' . $i . '@' . $this->domain . $file;
 
 		if (\is_string($cidName) && $cidName) {
-			$this->_cid[$cidName] = $cid;
+			$this->cid[$cidName] = $cid;
 		}
 
 		return $cid;

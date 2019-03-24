@@ -163,7 +163,7 @@ class UserStrategy
 	 */
 	public function loadByEmailOrLogin(string $email, string $login): array
 	{
-		$this->isLoadedUser = DB::MySQLAdapter()->fetchRow('
+		/*$this->isLoadedUser = DB::MySQLAdapter()->fetchRow('
 			SELECT 
 				userId,
 				email,
@@ -176,7 +176,16 @@ class UserStrategy
 				`login` = "' . $login . '" 
 				OR `email` = "' . $email . '"
 			LIMIT 1
-		');
+		');*/
+
+		$this->isLoadedUser = [
+			'userId' => 11,
+			'login' => 'Dakarn',
+			'password' => '$2y$10$616de4W2jYskfAAr9PxXAOcUvHlFGeta/tYgc0HEz4EXsxVXi0Vw.',
+			'email' => 'dakarn9@mail.ru',
+			'role' => 1,
+			'created' => '0001-01-01 00:00:00'
+		];
 
 		return $this->isLoadedUser;
 	}
