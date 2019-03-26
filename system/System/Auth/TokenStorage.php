@@ -27,12 +27,12 @@ class TokenStorage
 			UPDATE 
 				`access_tokens` 
 			SET
-				`refresh` = "' . $refreshToken . '",
-				`access` = "' . $JWToken->getPartToken(JWTokenManager::SIGN_TOKEN) . '",
-				`expire` = "' . $JWToken->getProperties()->getExpAsDT() . '",
-				`created` = "' . Util::toDbTime() . '"
+				`refresh` = \'' . $refreshToken . '\',
+				`access` = \'' . $JWToken->getPartToken(JWTokenManager::SIGN_TOKEN) . '\',
+				`expire` = \'' . $JWToken->getProperties()->getExpAsDT() . '\',
+				`created` = \'' . Util::toDbTime() . '\'
 			WHERE 
-				`refresh` = "' . $tokenModel->getRefresh() . '"
+				`refresh` = \'' . $tokenModel->getRefresh() . '\'
 		');
 
 		return $result > 0 ? true : false;
@@ -50,7 +50,7 @@ class TokenStorage
 			FROM 
 				access_tokens
 			WHERE
-				access = "' . $token  . '"
+				access = \'' . $token  . '\'
 		');
 	}
 
@@ -66,7 +66,7 @@ class TokenStorage
 			FROM 
 				access_tokens
 			WHERE
-				userId = "' . $userId  . '"
+				userId = \'' . $userId  . '\'
 		');
 
 		return true;
@@ -91,11 +91,11 @@ class TokenStorage
 				`expire`
 			)
 			VALUES (
-				"' . $token . '",
-			    "' . $refreshToken . '", 
-			    "' . $JWTokenProperties->getUserId() . '",  
-			    "' . Util::toDbTime() . '",
-			    "' . $JWTokenProperties->getExpAsDT() . '")
+				\'' . $token . '\',
+			    \'' . $refreshToken . '\', 
+			    \'' . $JWTokenProperties->getUserId() . '\',  
+			    \'' . Util::toDbTime() . '\',
+			    \'' . $JWTokenProperties->getExpAsDT() . '\')
 		');
 
 		return true;
@@ -114,7 +114,7 @@ class TokenStorage
 			FROM 
 				access_tokens
 			WHERE 
-				refresh = "' . $validator->getValueField('refreshToken') . '"
+				refresh = \'' . $validator->getValueField('refreshToken') . '\'
 			LIMIT 1
 		') ?? [];
 	}
@@ -133,7 +133,7 @@ class TokenStorage
 			FROM 
 				access_tokens
 			WHERE 
-				userId = "' . $userId . '"
+				userId = \'' . $userId . '\'
 			LIMIT ' . $maxAuthUserWithDevices . '
 		') ?? [];
 	}

@@ -13,7 +13,7 @@ interface AuthorizationInterface
 	/**
 	 * @throws \Exception\FileException
 	 */
-	public function verifyAccess();
+	public function verifyAccess(): AuthorizationInterface;
 
 	/**
 	 * @return bool
@@ -30,5 +30,5 @@ interface AuthorizationInterface
 	/**
 	 * @return Authorization
 	 */
-	public function verifyAccessByUserId(): Authorization;
+	public function verifyAccessByUserId(): AuthorizationInterface;
 }

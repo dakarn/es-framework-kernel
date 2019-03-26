@@ -17,25 +17,25 @@ interface AuthenticationInterface
 	 * @param UserInterface $user
 	 * @return Authentication
 	 */
-	public function setCurrentUser(UserInterface $user): Authentication;
+	public function setCurrentUser(UserInterface $user): AuthenticationInterface;
 
 	/**
 	 * @return Authentication
 	 * @throws \Exception\FileException
 	 */
-	public function processLogout(): Authentication;
+	public function processLogout(): AuthenticationInterface;
 
 	/**
 	 * @param UserInterface $user
 	 * @return Authentication
 	 */
-	public function processAuthentication(UserInterface $user): Authentication;
+	public function processAuthentication(UserInterface $user): AuthenticationInterface;
 
 	/**
-	 * @param int $userId
+	 * @param UserInterface $user
 	 * @return Authentication
 	 */
-	public function authByUserId(int $userId): Authentication;
+	public function processAuthByUserId(UserInterface $user): AuthenticationInterface;
 
 	/**
 	 * @return bool

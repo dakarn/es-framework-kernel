@@ -77,4 +77,22 @@ class ObjectMapper implements ObjectMapperInterface
 
         return $objectOutput;
     }
+
+	/**
+	 * @param array $arrayData
+	 * @return \stdClass
+	 */
+    public function arrayToStdClass(array $arrayData): \stdClass
+    {
+		return new \stdClass();
+    }
+
+	/**
+	 * @param \stdClass $stdClass
+	 * @return array
+	 */
+    public function stdClassToArray(\stdClass $stdClass): array
+    {
+    	return [];
+    }
 }

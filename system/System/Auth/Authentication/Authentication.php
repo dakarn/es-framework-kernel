@@ -8,17 +8,14 @@
 
 namespace System\Auth\Authentication;
 
-use System\Auth\ClientAppRepository;
-use Helper\RepositoryHelper\StorageRepository;
-use Http\Request\ServerRequest;
-use Models\User\User;
-use System\Auth\TokenRepository;
+use System\Auth\Authentication\Processes\AuthByUserIdProcess;
+use System\Auth\Authentication\Processes\AuthenticationProcess;
+use System\Auth\Authentication\Processes\LogoutAllDevicesProcess;
+use System\Auth\Authentication\Processes\LogoutProcess;
+use System\Auth\Authentication\Processes\UpdateRefreshTokenProcess;
 use System\Auth\JWTokenManager;
-use Helper\Util;
-use Http\Session\SessionRedis;
 use Models\User\UserInterface;
 use System\Validators\AbstractValidator;
-use System\Validators\Validators;
 use Traits\SingletonTrait;
 
 class Authentication implements AuthenticationInterface
@@ -49,7 +46,7 @@ class Authentication implements AuthenticationInterface
 	 * @param UserInterface $user
 	 * @return Authentication
 	 */
-	public function setCurrentUser(UserInterface $user): Authentication
+	public function setCurrentUser(UserInterface $user): AuthenticationInterface
 	{
 		$this->currentUser = $user;
 
@@ -61,25 +58,10 @@ class Authentication implements AuthenticationInterface
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processLogout(): Authentication
+	public function processLogout(): AuthenticationInterface
 	{
-		$JWTokenManager = JWTokenManager::create();
-		$JWTokenManager->setToken(ServerRequest::create()->getAccessTokenFromRequest());
-
-		if (!$JWTokenManager->verifyToken()) {
-			return $this;
-		}
-
-		$signToken     = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
-		$isDeleteRedis = SessionRedis::create()->delete($signToken);
-
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository = StorageRepository::getRepository(TokenRepository::class);
-		$isDeleteDB      = $tokenRepository->deleteByAccessToken($signToken);
-
-		if (!empty($isDeleteRedis && $isDeleteDB)) {
-			$this->isLogout = true;
-		}
+		$logoutProcess  = new LogoutProcess();
+		$this->isLogout = $logoutProcess->execute();
 
 		return $this;
 	}
@@ -89,27 +71,10 @@ class Authentication implements AuthenticationInterface
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processLogoutAllDevice(): Authentication
+	public function processLogoutAllDevice(): AuthenticationInterface
 	{
-		$JWTokenManager = JWTokenManager::create();
-		$JWTokenManager->setToken(ServerRequest::create()->getAccessTokenFromRequest());
-
-		if (!$JWTokenManager->verifyToken()) {
-			return $this;
-		}
-
-		$userId = $JWTokenManager->decode()->getUserId();
-
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository = StorageRepository::getRepository(TokenRepository::class);
-		$tokens          = $tokenRepository->loadByUserId($userId);
-
-		$isDeleteRedis = SessionRedis::create()->deleteKeys(\array_column($tokens, 'access'));
-		$isDeleteDB    = $tokenRepository->deleteTokensByUserId($userId);
-		
-		if ($isDeleteDB && $isDeleteRedis) {
-			$this->isLogout = true;
-		}
+		$logoutProcess  = new LogoutAllDevicesProcess();
+		$this->isLogout = $logoutProcess->execute();
 
 		return $this;
 	}
@@ -120,77 +85,41 @@ class Authentication implements AuthenticationInterface
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processUpdateRefreshToken(AbstractValidator $validator):? Authentication
+	public function processUpdateRefreshToken(AbstractValidator $validator):? AuthenticationInterface
 	{
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository   = StorageRepository::getRepository(TokenRepository::class);
-		$tokenModel        = $tokenRepository->loadByRefreshToken($validator);
-
-		/** @var ClientAppRepository $clientAppRepository */
-		$clientAppRepository = StorageRepository::getRepository(ClientAppRepository::class);
-
-		if (!$tokenRepository->isLoaded()) {
-			$validator->setExtraErrorAPI('unknown-refresh', Validators::COMMON);
-			return null;
-		}
-
-		$JWToken = JWTokenManager::create();
-
-		$now = Util::now();
-		$ttl = $clientAppRepository->getResult()->getAccessTTL();
-
-		$user = User::loadByUserId($tokenModel->getUserId());
-
-		$dataToSave = $this->fillPayload($clientAppRepository, $user, $now, $ttl);
-		
-		$JWToken
-			->setPayload($dataToSave)
-			->setRefreshToken(Util::createRefreshToken())
-			->createToken();
-
-		$tokenRepository->updateRefreshToken($tokenModel);
-		SessionRedis::create()->set($JWToken->getToken(), \json_encode($dataToSave, $ttl));
-
-		$this->isUpdate = true;
+		$logoutProcess  = new UpdateRefreshTokenProcess($validator);
+		$this->isUpdate = $logoutProcess->execute();
 		
 		return $this;
 	}
 
 	/**
 	 * @param UserInterface $user
-	 * @param int $ttl
 	 * @return Authentication
 	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
-	public function processAuthentication(UserInterface $user): Authentication
+	public function processAuthentication(UserInterface $user): AuthenticationInterface
 	{
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository   = StorageRepository::getRepository(TokenRepository::class);
-		/** @var ClientAppRepository $clientAppRepository */
-		$clientAppRepository = StorageRepository::getRepository(ClientAppRepository::class);
+		$logoutProcess  = new AuthenticationProcess($user);
+		$this->isAuth   = $logoutProcess->execute();
 
-		$JWTokenManager = JWTokenManager::create();
-
-		$now = Util::now();
-		$ttl = $clientAppRepository->getResult()->getAccessTTL();
-
-		$dataToSave = $this->fillPayload($clientAppRepository, $user, $now, $ttl);
-
-		$JWTokenManager
-			->setPayload($dataToSave)
-			->setRefreshToken(Util::createRefreshToken())
-			->createToken();
-
-		$signToken = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
-		$result    = $tokenRepository->addAccessToken($JWTokenManager);
-
-		SessionRedis::create()->set($signToken, \json_encode($dataToSave, $ttl));
-
-		if ($result) {
-			$this->currentUser   = $user;
-			$this->isAuth        = true;
+		if ($this->isAuth) {
+			$this->currentUser = $user;
 		}
+
+		return $this;
+	}
+
+	/**
+	 * @param UserInterface $user
+	 * @return Authentication
+	 * @throws \Exception\FileException
+	 */
+	public function processAuthByUserId(UserInterface $user): AuthenticationInterface
+	{
+		$logoutProcess  = new AuthByUserIdProcess($user);
+		$this->isAuth   = $logoutProcess->execute();
 
 		return $this;
 	}
@@ -199,7 +128,7 @@ class Authentication implements AuthenticationInterface
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function getCreds(): array
+	public function getCredentials(): array
 	{
 		$JWToken = JWTokenManager::create();
 
@@ -208,15 +137,6 @@ class Authentication implements AuthenticationInterface
 			'refreshToken' => $JWToken->getRefreshToken(),
 			'expires_in'   => $JWToken->getProperties()->getExp(),
 		];
-	}
-
-	/**
-	 * @param int $userId
-	 * @return Authentication
-	 */
-	public function authByUserId(int $userId): Authentication
-	{
-		return $this;
 	}
 
 	/**
@@ -241,27 +161,5 @@ class Authentication implements AuthenticationInterface
 	public function isLogout(): bool
 	{
 		return $this->isLogout;
-	}
-
-	/**
-	 * @param ClientAppRepository $authAppRepository
-	 * @param UserInterface $user
-	 * @param int $now
-	 * @param int $ttl
-	 * @return array
-	 */
-	private function fillPayload(ClientAppRepository $authAppRepository, UserInterface $user, int $now, int $ttl): array
-	{
-		return [
-			'sub'     => $authAppRepository->getResult()->getType(),
-			'iss'     => $authAppRepository->getResult()->getSite(),
-			'userId'  => $user->getUserId(),
-			'email'   => $user->getEmail(),
-			'role'    => $user->getRole(),
-			'login'   => $user->getLogin(),
-			'created' => $user->getCreated(),
-			'iat'     => $now,
-			'exp'     => $now + $ttl,
-		];
 	}
 }

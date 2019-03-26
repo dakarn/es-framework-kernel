@@ -8,6 +8,7 @@
 
 namespace System\Auth\Authorization;
 
+use System\Auth\Authentication\Authentication;
 use System\Auth\JWTokenManager;
 use Http\Request\ServerRequest;
 use Traits\SingletonTrait;
@@ -22,32 +23,34 @@ class Authorization implements AuthorizationInterface
 	/**
 	 * @throws \Exception\FileException
 	 */
-	public function verifyAccess()
+	public function verifyAccess(): AuthorizationInterface
 	{
 		$token = ServerRequest::create()->getAccessTokenFromRequest();
 
 		if (empty($token)) {
-			return;
+			return $this;
 		}
 
 		$JWTokenManager = JWTokenManager::create();
 		$JWTokenManager->setToken($token);
 		
 		if (!$JWTokenManager->verifyToken($token)) {
-			return;
+			return $this;
 		}
 
 		$token = SessionRedis::create()->get($JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN));
 
 		if (!$token) {
-			return;
+			return $this;
 		}
 
 		if ($JWTokenManager->getProperties()->getUserId() === 0) {
-			return;
+			return $this;
 		}
 
 		$this->isAccess = true;
+
+		return $this;
 	}
 
 	/**
@@ -71,7 +74,7 @@ class Authorization implements AuthorizationInterface
 	/**
 	 * @return Authorization
 	 */
-	public function verifyAccessByUserId(): Authorization
+	public function verifyAccessByUserId(): AuthorizationInterface
 	{
 		return $this;
 	}

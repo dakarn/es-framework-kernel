@@ -25,9 +25,9 @@ class ClientAppStorage
 			FROM 
 				`access_application`
 			WHERE 
-				`clientId` = "' . $validator->getValueField('clientId') . '"
+				`clientId` = \'' . $validator->getValueField('clientId') . '\'
 				AND 
-				`clientSecret` = "' . $validator->getValueField('clientSecret') . '"
+				`clientSecret` = \'' . $validator->getValueField('clientSecret') . '\'
 			LIMIT 1
 		') ?? [];
 	}
