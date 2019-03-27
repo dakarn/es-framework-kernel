@@ -8,6 +8,8 @@
 
 namespace System\Auth;
 
+use Http\Cookie;
+
 class JWTokenProperties
 {
 	/**
@@ -15,7 +17,7 @@ class JWTokenProperties
 	 */
 	private $header = [
 		'alg' => 'HS256',
-		'typ' => 'JWT',
+		'typ' => Cookie::JWT,
 	];
 
 	/**
@@ -26,7 +28,7 @@ class JWTokenProperties
 	/**
 	 * @var string
 	 */
-	private $typ = 'JWT';
+	private $typ = Cookie::JWT;
 
 	/**
 	 * @var string

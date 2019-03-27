@@ -13,9 +13,9 @@ interface LoggerStorageInterface
 	/**
 	 * @param string $level
 	 * @param string $message
-	 * @return LoggerStorageInterface
+	 * @return AbstractLoggerStorage
 	 */
-	public function addLog(string $level, string $message): LoggerStorageInterface;
+	public function addLog(string $level, string $message): AbstractLoggerStorage;
 
 	/**
 	 * @return array
@@ -25,5 +25,5 @@ interface LoggerStorageInterface
 	/**
 	 *
 	 */
-	public function releaseLog(): void;
+	public function releaseLogs(): void;
 }

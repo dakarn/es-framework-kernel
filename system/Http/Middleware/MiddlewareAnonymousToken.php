@@ -28,7 +28,7 @@ class MiddlewareAnonymousToken
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
-		$cookie     = Cookie::create()->get('JWT');
+		$cookie     = Cookie::create()->get(Cookie::JWT);
 		$currentApp = ES::get(ES::APP);
 
 		if ($currentApp->getApplicationType() === AbstractApplication::APP_TYPE_AUTH) {
@@ -48,7 +48,7 @@ class MiddlewareAnonymousToken
 	 */
 	private function createAnonymousJWToken()
 	{
-		$expires = \time() + (int) Config::get('common', 'timeAnonJWToken');
+		$expire = \time() + Config::get('common', 'TTLAnonymousJWToken');
 
 		$dataToSave = [
 			'uniqueId' => Util::generateCookieToken(20),
@@ -59,14 +59,14 @@ class MiddlewareAnonymousToken
 			'login'    => '',
 			'created'  => \microtime(true),
 			'iat'      => \time(),
-			'exp'      => \time() + $expires,
+			'exp'      => $expire,
 		];
 
 		$JWTToken = JWTokenManager::create()->setPayload($dataToSave)->createToken();
-		$result   = SessionRedis::create()->set($JWTToken->getPartToken(JWTokenManager::SIGN_TOKEN), \json_encode([]), $expires);
+		$result   = SessionRedis::create()->set($JWTToken->getPartToken(JWTokenManager::SIGN_TOKEN), \json_encode([]), $expire);
 
 		if ($result) {
-			Cookie::create()->set('JWT', $JWTToken->getToken(), '', $expires);
+			Cookie::create()->set(Cookie::JWT, $JWTToken->getToken(), '/', $expire);
 		}
 	}
 }

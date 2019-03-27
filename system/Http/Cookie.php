@@ -8,11 +8,14 @@
 
 namespace Http;
 
+use System\Constants;
 use Traits\SingletonTrait;
 
 class Cookie implements CookieInterface
 {
 	use SingletonTrait;
+
+	public const JWT = 'JWT';
 
 	/**
 	 * @param string $key
@@ -62,7 +65,7 @@ class Cookie implements CookieInterface
      */
 	public function remove(string $key)
     {
-        setcookie($key);
+        \setcookie($key);
     }
 
 	/**
@@ -73,7 +76,7 @@ class Cookie implements CookieInterface
 	 * @param string $domain
 	 * @return Cookie
 	 */
-	public function set(string $key, string $value, string $path = '', int $expire = 0, string $domain = ''): Cookie
+	public function set(string $key, string $value, string $path = '/', int $expire = 0, string $domain = Constants::COMMON_URL): Cookie
 	{
 		\setcookie($key, $value, $expire, $path, $domain);
 		return $this;

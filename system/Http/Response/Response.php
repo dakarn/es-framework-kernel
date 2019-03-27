@@ -10,6 +10,7 @@ namespace Http\Response;
 
 use Exception\RoutingException;
 use Http\Cookie;
+use System\Constants;
 use System\Render;
 use System\Router\Routing;
 
@@ -119,14 +120,23 @@ class Response implements ResponseInterface
         return $this;
     }
 
-    /**
+	/**
 	 * @param string $name
 	 * @param string $value
+	 * @param int $expire
+	 * @param string $path
+	 * @param string $domain
 	 * @return Response
 	 */
-	public function withCookie(string $name, string $value): Response
+	public function withCookie(string $name, string $value, int $expire = 0, string $path = '/', string $domain = Constants::COMMON_URL): Response
 	{
-		$this->cookies[$name] = $value;
+		$this->cookies[] = [
+			'name'   => $name,
+			'value'  => $value,
+			'expire' => $expire,
+			'path'   => $path,
+			'domain' => $domain,
+		];
 
 		return $this;
 	}
@@ -168,8 +178,8 @@ class Response implements ResponseInterface
 			\header($headerKey . ': ' . $header, false);
 		}
 
-		foreach ($this->cookies as $cookieKey => $cookie) {
-			Cookie::create()->set($cookieKey, $cookie);
+		foreach ($this->cookies as $cookie) {
+			Cookie::create()->set($cookie['name'], $cookie['value'], $cookie['path'], $cookie['expire'], $cookie['domain']);
 		}
 
 		return true;

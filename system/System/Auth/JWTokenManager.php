@@ -10,6 +10,7 @@ namespace System\Auth;
 
 use Configs\Config;
 use Helper\Util;
+use Http\Cookie;
 use Traits\SingletonTrait;
 
 class JWTokenManager implements JWTokenManagerInterface
@@ -22,7 +23,7 @@ class JWTokenManager implements JWTokenManagerInterface
 
 	private $header = [
 		'alg' => 'HS256',
-		'typ' => 'JWT',
+		'typ' => Cookie::JWT,
 	];
 
 	/**

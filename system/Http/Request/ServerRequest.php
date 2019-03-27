@@ -157,7 +157,7 @@ class ServerRequest
 	 */
 	public function getAccessTokenFromRequest(): string
 	{
-		$token = Cookie::create()->get('JWT');
+		$token = Cookie::create()->get(Cookie::JWT);
 
 		if (!empty($token)) {
 			return $token;

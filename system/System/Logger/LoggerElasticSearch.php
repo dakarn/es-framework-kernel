@@ -8,71 +8,41 @@
 
 namespace System\Logger;
 
-use ElasticSearch\ElasticSearch;
+use ElasticSearchNew\ElasticQuery;
+use ElasticSearchNew\ElasticSearchNew;
 use Traits\SingletonTrait;
 
-class LoggerElasticSearch implements LoggerStorageInterface
+class LoggerElasticSearch extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	use SingletonTrait;
 
 	/**
-	 * @var array
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
 	 */
-	private $logs = [];
-
-	/**
-	 * @param string $level
-	 * @param string $message
-	 * @return LoggerStorageInterface
-	 */
-	public function addLog(string $level, string $message): LoggerStorageInterface
-	{
-		$this->logs[] = [
-			'time'    => date('d.m.y H:i:s', time()),
-			'level'   => $level,
-			'message' => $message
-		];
-
-		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getLogs(): array
-	{
-		return $this->logs;
-	}
-
-	/**
-	 *
-	 */
-	public function releaseLog(): void
+	public function releaseLogs(): void
 	{
 		if (empty($this->logs)) {
 			return;
 		}
 
-		$data = '';
+		$data = [];
 
 		foreach ($this->logs as $log) {
-			$data .= \json_encode([
-				'index' => [
-					'_index' => 'logs',
-					'_type' => 'errorLog'
-				]
-			]) . \PHP_EOL;
-
-			$data .= \json_encode([
-					'level'   => \ucfirst($log['level']),
-					'time'    => $log['time'],
-					'message' => $log['message'],
-				], JSON_UNESCAPED_UNICODE) . \PHP_EOL;
+			$data[] = [
+				'index' => ['_index' => 'logs', '_type' => 'errorLog']
+			];
+			$data[] = [
+				'level'   => \ucfirst($log['level']),
+				'time'    => $log['time'],
+				'message' => $log['message'],
+			];
 		}
 
-		ElasticSearch::create()
-			->setPath('_bulk')
-			->setBody('POST', $data)
-			->execute();
+		$es = ElasticSearchNew::create()
+			->bulk()
+			->setBulkArray($data);
+
+		ElasticQuery::create()->execute($es);
 	}
 }
