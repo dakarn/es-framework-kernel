@@ -13,18 +13,18 @@ class AbstractLogger
 	/**
 	 * @var null
 	 */
-	private $strategy = null;
+	private $loggerStorage;
 
 	/**
 	 * @return LoggerStorageInterface
 	 */
-	protected function getStrategy(): LoggerStorageInterface
+	public function getLoggerStorage(): LoggerStorageInterface
 	{
-		if ($this->strategy === null) {
-			$this->strategy = LoggerErrorLog::create();
+		if (!$this->loggerStorage instanceof LoggerStorageInterface) {
+			$this->loggerStorage = new LoggerErrorLog();
 		}
 
-		return $this->strategy;
+		return $this->loggerStorage;
 	}
 
 	/**

@@ -16,13 +16,13 @@ class LoggerAware implements LoggerAwareInterface
 	private static $logger;
 
 	/**
-	 * @param LoggerInterface $logger
+	 * @param string $loggerClass
 	 * @return Logger
 	 */
-	public static function setLogger(LoggerInterface $logger): Logger
+	public static function setLogger(string $loggerClass): LoggerInterface
 	{
 		if (!self::$logger instanceof LoggerInterface) {
-			self::$logger = $logger;
+			self::$logger = new $loggerClass();
 		}
 
 		return self::$logger;

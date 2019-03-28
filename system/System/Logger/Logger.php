@@ -15,7 +15,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function info(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::INFO, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::INFO, $message);
 	}
 
 	/**
@@ -23,7 +23,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function error(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::ERROR, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::ERROR, $message);
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function notice(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::NOTICE, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::NOTICE, $message);
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function emergency(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::EMERGENCY, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::EMERGENCY, $message);
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function critical(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::CRITICAL, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::CRITICAL, $message);
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function warning(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::WARNING, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::WARNING, $message);
 	}
 
 	/**
@@ -63,6 +63,6 @@ class Logger extends AbstractLogger implements LoggerInterface
 	 */
 	public function alert(string $message)
 	{
-		$this->getStrategy()->addLog(LogLevel::ALERT, $message);
+		$this->getLoggerStorage()->addLog(LogLevel::ALERT, $message);
 	}
 }

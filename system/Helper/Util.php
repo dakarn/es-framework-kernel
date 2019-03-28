@@ -129,7 +129,7 @@ class Util
 	 */
 	public static function log(string $level, string  $message)
 	{
-		LoggerAware::setlogger(new Logger())->log($level, $message);
+		LoggerAware::setlogger(Logger::class)->log($level, $message);
 	}
 
 	/**

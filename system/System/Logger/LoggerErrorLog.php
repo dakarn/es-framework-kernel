@@ -8,12 +8,8 @@
 
 namespace System\Logger;
 
-use Traits\SingletonTrait;
-
 class LoggerErrorLog extends AbstractLoggerStorage implements LoggerStorageInterface
 {
-	use SingletonTrait;
-
 	/**
 	 *
 	 */

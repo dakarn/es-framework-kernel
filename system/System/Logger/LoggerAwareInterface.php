@@ -11,8 +11,8 @@ namespace System\Logger;
 interface LoggerAwareInterface
 {
 	/**
-	 * @param LoggerInterface $logger
+	 * @param string $loggerClass
 	 * @return mixed
 	 */
-	public static function setLogger(LoggerInterface $logger);
+	public static function setLogger(string $loggerClass);
 }

@@ -203,7 +203,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	 */
 	protected function log(string $level, string  $message): void
 	{
-		LoggerAware::setlogger(new Logger())->log($level, $message);
+		LoggerAware::setlogger(Logger::class)->log($level, $message);
 	}
 
 	/**

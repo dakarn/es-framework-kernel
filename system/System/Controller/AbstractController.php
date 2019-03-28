@@ -82,7 +82,7 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function log(string $level, string  $message)
 	{
-		LoggerAware::setlogger(new Logger())->log($level, $message);
+		LoggerAware::setlogger(Logger::class)->log($level, $message);
 	}
 
 	/**
