@@ -8,7 +8,10 @@
 
 namespace System\Auth;
 
-class ClientApp
+use System\Database\ORM\Mapping\ClassToMappingInterface;
+use System\Database\ORM\Mapping\TestClass;
+
+class ClientApp implements ClassToMappingInterface
 {
 	/**
 	 * @var mixed|string
@@ -55,7 +58,31 @@ class ClientApp
 	 */
 	private $allowIps = [];
 
-	/**
+	private $testClass;
+
+	public function __construct()
+    {
+        $this->testClass = new TestClass();
+    }
+
+    /**
+     * @return TestClass
+     */
+    public function getTestClass(): TestClass
+    {
+        return $this->testClass;
+    }
+
+    /**
+     * @param TestClass $testClass
+     */
+    public function setTestClass(TestClass $testClass)
+    {
+        $this->testClass = $testClass;
+    }
+
+
+    /**
 	 * @return string
 	 */
 	public function getType(): string

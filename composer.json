@@ -13,6 +13,7 @@
       "Authentication\\": "system/Authentication",
       "Authorization\\": "system/Authorization",
       "Providers\\": "system/Providers",
+      "ObjectMapper\\": "system/ObjectMapper",
       "QueueManager\\": "system/QueueManager",
       "UserManager\\": "system/UserManager",
       "RedisQueue\\": "system/RedisQueue",

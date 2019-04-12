@@ -20,9 +20,14 @@ abstract class AbstractList
 	 * @param $value
 	 * @return AbstractList
 	 */
-	public function add($key, $value): self
+	public function add($value, $key = null): self
 	{
-		$this->list[$key] = $value;
+		if (empty($key)) {
+		    $this->list[] = $value;
+        } else {
+            $this->list[$key] = $value;
+        }
+
 		return $this;
 	}
 
@@ -79,12 +84,11 @@ abstract class AbstractList
 	}
 
 	/**
-	 * @param $key
 	 * @return array
 	 */
-	public function getAll($key): array
+	public function getAll(): array
 	{
-		return $this->list[$key];
+		return $this->list;
 	}
 
 	/**

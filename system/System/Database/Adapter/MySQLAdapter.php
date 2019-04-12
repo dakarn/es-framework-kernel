@@ -9,6 +9,8 @@
 namespace System\Database\Adapter;
 
 use Helper\AbstractList;
+use ObjectMapper\ClassToMappingInterface;
+use ObjectMapper\ObjectMapper;
 use System\Database\Connector\DBConnectorInterface;
 use System\Database\DB;
 
@@ -182,40 +184,17 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetchToObjectList(string $sql, string $abstractList, string $object):? AbstractList
 	{
-		$rows = $this->fetch($sql);
-		/** @var AbstractList $list */
-
-		if (!\class_exists($abstractList)) {
-			return null;
-		}
-
-		if (!\class_exists($object)) {
-			return null;
-		}
-
-		$list = new $abstractList();
-
-		foreach ($rows as $index => $row) {
-			$list->add($index, new $object($row));
-		}
-
-		return $list;
+		return ObjectMapper::create()->arraysToObjectList($this->fetch($sql), $object, $abstractList);
 	}
 
-	/**
-	 * @param string $sql
-	 * @param string $object
-	 * @return mixed
-	 */
-	public function fetchRowToObject(string $sql, string $object)
+    /**
+     * @param string $sql
+     * @param string $object
+     * @return mixed|\ObjectMapper\ClassToMappingInterface
+     */
+	public function fetchRowToObject(string $sql, string $object): ClassToMappingInterface
 	{
-		$result = $this->fetchRow($sql);
-
-		if (!\class_exists($object)) {
-			return null;
-		}
-
-		return new $object($result);
+		return ObjectMapper::create()->arrayToObject( $this->fetchRow($sql), $object);
 	}
 
 	/**

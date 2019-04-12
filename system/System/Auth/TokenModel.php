@@ -8,7 +8,9 @@
 
 namespace System\Auth;
 
-class TokenModel
+use ObjectMapper\ClassToMappingInterface;
+
+class TokenModel implements ClassToMappingInterface
 {
 	/**
 	 * @var string

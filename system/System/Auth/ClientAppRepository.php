@@ -9,7 +9,7 @@
 namespace System\Auth;
 
 use Helper\RepositoryHelper\AbstractRepository;
-use System\Database\ORM\Mapping\ObjectMapper;
+use ObjectMapper\ObjectMapper;
 use System\Validators\AbstractValidator;
 
 class ClientAppRepository extends AbstractRepository

@@ -10,7 +10,7 @@ namespace System\Auth;
 
 use Configs\Config;
 use Helper\RepositoryHelper\AbstractRepository;
-use System\Database\ORM\Mapping\ObjectMapper;
+use ObjectMapper\ObjectMapper;
 use System\Validators\AbstractValidator;
 
 class TokenRepository extends AbstractRepository
