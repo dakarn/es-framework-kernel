@@ -12,7 +12,7 @@ use ElasticSearchNew\ElasticQuery;
 use ElasticSearchNew\ElasticSearchNew;
 use Traits\SingletonTrait;
 
-class LoggerElasticSearch extends AbstractLoggerStorage implements LoggerStorageInterface
+class LoggerElasticSearchStorage extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	use SingletonTrait;
 

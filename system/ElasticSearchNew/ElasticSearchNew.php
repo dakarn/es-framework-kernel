@@ -18,6 +18,7 @@ use ElasticSearchNew\QueryEndpoints\Remove;
 use ElasticSearchNew\QueryEndpoints\Search;
 use ElasticSearchNew\QueryEndpoints\Select;
 use ElasticSearchNew\QueryEndpoints\Update;
+use ObjectMapper\ObjectMapper;
 use Traits\SingletonTrait;
 
 class ElasticSearchNew implements ElasticSearchNewInterface
@@ -46,13 +47,8 @@ class ElasticSearchNew implements ElasticSearchNewInterface
 	public function getConfigConnection(): ElasticConnection
     {
         if (!$this->configConnection instanceof ElasticConnection) {
-
-            $config = Config::get('elasticsearch');
-
-            $this->configConnection = new ElasticConnection();
-            $this->configConnection->setSchema($config['schema']);
-            $this->configConnection->setPort($config['port']);
-            $this->configConnection->setHost($config['host']);
+            $config                 = Config::get('elasticsearch');
+            $this->configConnection = ObjectMapper::create()->arrayToObject($config, ElasticConnection::class);
         }
 
         return $this->configConnection;

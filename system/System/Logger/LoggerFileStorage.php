@@ -8,7 +8,7 @@
 
 namespace System\Logger;
 
-class LoggerErrorLog extends AbstractLoggerStorage implements LoggerStorageInterface
+class LoggerFileStorage extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	/**
 	 *

@@ -8,11 +8,13 @@
 
 namespace ElasticSearchNew;
 
+use ObjectMapper\ClassToMappingInterface;
+
 /**
  * Class ElasticConnect
  * @package ElasticSearchNew
  */
-class ElasticConnection
+class ElasticConnection implements ClassToMappingInterface
 {
     /**
      * @var string

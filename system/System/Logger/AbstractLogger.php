@@ -21,7 +21,7 @@ class AbstractLogger
 	public function getLoggerStorage(): LoggerStorageInterface
 	{
 		if (!$this->loggerStorage instanceof LoggerStorageInterface) {
-			$this->loggerStorage = new LoggerErrorLog();
+			$this->loggerStorage = new LoggerFileStorage();
 		}
 
 		return $this->loggerStorage;
