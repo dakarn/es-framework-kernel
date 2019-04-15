@@ -33,8 +33,8 @@ class ObjectMapper implements ObjectMapperInterface
 	 */
     public function objectToArray($objectInput): array
     {
-        if (!\is_object($objectInput)) {
-            throw new \InvalidArgumentException('');
+        if (\is_string($objectInput)) {
+	        $objectInput = new $objectInput();
         }
 
         $response = [];
@@ -98,33 +98,34 @@ class ObjectMapper implements ObjectMapperInterface
 	 * @return AbstractList
 	 * @throws ObjectException
 	 */
-    public function arraysToObjectList(array $arraysItems, string $objectInput, string $objectList): AbstractList
+    public function arraysToObjectList(array $arraysItems, $objectInput, string $objectList): AbstractList
     {
-        /** @var AbstractList $objectListClass */
-        $objectListClass = new $objectList();
+	    if (\is_string($objectInput)) {
+		    $objectInput = new $objectInput();
+	    }
+
+	    if (\is_string($objectList)) {
+	    	/** @var AbstractList $objectList */
+		    $objectList = new $objectList();
+	    }
 
         foreach ($arraysItems as $arrayItem) {
-            $objectListClass->add($this->arrayToObject($arrayItem, $objectInput));
+            $objectList->add($this->arrayToObject($arrayItem, $objectInput));
         }
 
-        return $objectListClass;
+        return $objectList;
     }
 
 	/**
 	 * @param array $arrayData
-	 * @param string $objectInput
-	 * @param ClassToMappingInterface|null $objectOutput
-	 * @return ClassToMappingInterface
+	 * @param $objectInput
+	 * @return mixed
 	 * @throws ObjectException
 	 */
-    public function arrayToObject(array $arrayData, string $objectInput, ClassToMappingInterface $objectOutput = null)
+    public function arrayToObject(array $arrayData, $objectInput)
     {
-        if (!$objectInput instanceof ClassToMappingInterface) {
-            //throw ObjectException::notFound([$objectInput]);
-        }
-
-        if (empty($objectOutput)) {
-            $objectOutput = new $objectInput();
+        if (\is_string($objectInput)) {
+        	$objectInput = new $objectInput();
         }
 
         foreach ($arrayData as $property => $itemValue) {
@@ -132,23 +133,16 @@ class ObjectMapper implements ObjectMapperInterface
             $setMethodName = self::SETTER . \ucfirst($property);
             $getMethodName = self::GETTER . \ucfirst($property);
 
-            if ($objectOutput->$getMethodName() instanceof ClassToMappingInterface) {
-                $this->arrayToObject($itemValue, $property, $objectOutput->$getMethodName());
-            } else if ($objectOutput->$getMethodName() instanceof AbstractList) {
-                $this->arraysToObjectList($itemValue, $objectOutput->$getMethodName()->getMappingClass(), $objectOutput->$getMethodName());
+            if ($objectInput->$getMethodName() instanceof ClassToMappingInterface && \is_array($itemValue)) {
+                $this->arrayToObject($itemValue, $objectInput->$getMethodName());
+            } else if ($objectInput->$getMethodName() instanceof AbstractList) {
+                $this->arraysToObjectList($itemValue, $objectInput->$getMethodName()->getMappingClass(), $objectInput->$getMethodName());
             } else {
-                $objectOutput->$setMethodName($itemValue);
+                $objectInput->$setMethodName($itemValue);
             }
         }
 
-	    if ($objectInput instanceof HasJsonPropertyInterface) {
-		    $this->arrayToObject(
-			    \json_decode($arrayData[$objectInput->getJsonProperty()]),
-			    self::GETTER . \ucfirst($objectInput->getJsonProperty())
-		    );
-	    }
-
-        return $objectOutput;
+        return $objectInput;
     }
 
 	/**

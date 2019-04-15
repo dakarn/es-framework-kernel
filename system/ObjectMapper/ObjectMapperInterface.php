@@ -39,14 +39,12 @@ interface ObjectMapperInterface
      */
     public function arraysToObjectList(array $arraysItems, string $objectInput, string $objectList): AbstractList;
 
-    /**
-     * @param array $arrayData
-     * @param string $objectInput
-     * @param ClassToMappingInterface|null $objectOutput
-     * @return ClassToMappingInterface
-     * @throws ObjectException
-     */
-    public function arrayToObject(array $arrayData, string $objectInput, ClassToMappingInterface $objectOutput = null);
+	/**
+	 * @param array $arrayData
+	 * @param $objectInput
+	 * @return mixed
+	 */
+    public function arrayToObject(array $arrayData, $objectInput);
 
     /**
      * @param array $arrayData
