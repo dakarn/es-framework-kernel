@@ -120,7 +120,7 @@ class ObjectMapper implements ObjectMapperInterface
     public function arrayToObject(array $arrayData, string $objectInput, ClassToMappingInterface $objectOutput = null)
     {
         if (!$objectInput instanceof ClassToMappingInterface) {
-            throw ObjectException::notFound([$objectInput]);
+            //throw ObjectException::notFound([$objectInput]);
         }
 
         if (empty($objectOutput)) {

@@ -11,6 +11,7 @@ namespace ObjectMapper;
 class Test implements ClassToMappingInterface, HasJsonPropertyInterface
 {
 	private $data;
+	private $login;
 
 	public function __construct()
 	{
@@ -20,6 +21,22 @@ class Test implements ClassToMappingInterface, HasJsonPropertyInterface
 	public function getJsonProperty(): string
 	{
 		return 'data';
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLogin()
+	{
+		return $this->login;
+	}
+
+	/**
+	 * @param mixed $login
+	 */
+	public function setLogin($login): void
+	{
+		$this->login = $login;
 	}
 
 	/**
