@@ -77,15 +77,13 @@ class Routing implements RoutingInterface
 	 */
 	public static function fillRouterList(): void
 	{
-		$routerList = ObjectMapper::create()->arraysToObjectList(Config::getRouters(), Router::class, RouterList::class);
-
-		/*$routers    = Config::getRouters();
+		$routers    = Config::getRouters();
 		$routerList = new RouterList();
 
 		foreach ($routers as $key => $value) {
 			$router = new Router($value);
 			$routerList->add($router, $router->getName());
-		}*/
+		}
 
 		ES::set(ES::ROUTERS, $routerList);
 	}

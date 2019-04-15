@@ -10,6 +10,7 @@ namespace ObjectMapper;
 
 use Exception\ObjectException;
 use Helper\AbstractList;
+use Helper\Util;
 use Traits\SingletonTrait;
 
 class ObjectMapper implements ObjectMapperInterface
@@ -90,12 +91,13 @@ class ObjectMapper implements ObjectMapperInterface
         return \json_encode($array);
     }
 
-    /**
-     * @param array $arraysItems
-     * @param string $objectInput
-     * @param string $objectList
-     * @return AbstractList
-     */
+	/**
+	 * @param array $arraysItems
+	 * @param string $objectInput
+	 * @param string $objectList
+	 * @return AbstractList
+	 * @throws ObjectException
+	 */
     public function arraysToObjectList(array $arraysItems, string $objectInput, string $objectList): AbstractList
     {
         /** @var AbstractList $objectListClass */
@@ -108,13 +110,13 @@ class ObjectMapper implements ObjectMapperInterface
         return $objectListClass;
     }
 
-    /**
-     * @param array $arrayData
-     * @param string $objectInput
-     * @param ClassToMappingInterface|null $objectOutput
-     * @return ClassToMappingInterface|mixed
-     * @throws ObjectException
-     */
+	/**
+	 * @param array $arrayData
+	 * @param string $objectInput
+	 * @param ClassToMappingInterface|null $objectOutput
+	 * @return ClassToMappingInterface
+	 * @throws ObjectException
+	 */
     public function arrayToObject(array $arrayData, string $objectInput, ClassToMappingInterface $objectOutput = null)
     {
         if (!$objectInput instanceof ClassToMappingInterface) {
@@ -138,6 +140,13 @@ class ObjectMapper implements ObjectMapperInterface
                 $objectOutput->$setMethodName($itemValue);
             }
         }
+
+	    if ($objectInput instanceof HasJsonPropertyInterface) {
+		    $this->arrayToObject(
+			    \json_decode($arrayData[$objectInput->getJsonProperty()]),
+			    self::GETTER . \ucfirst($objectInput->getJsonProperty())
+		    );
+	    }
 
         return $objectOutput;
     }
