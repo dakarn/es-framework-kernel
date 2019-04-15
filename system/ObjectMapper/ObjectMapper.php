@@ -98,7 +98,7 @@ class ObjectMapper implements ObjectMapperInterface
 	 * @return AbstractList
 	 * @throws ObjectException
 	 */
-    public function arraysToObjectList(array $arraysItems, $objectInput, string $objectList): AbstractList
+    public function arraysToObjectList(array $arraysItems, $objectInput, $objectList): AbstractList
     {
 	    if (\is_string($objectInput)) {
 		    $objectInput = new $objectInput();
