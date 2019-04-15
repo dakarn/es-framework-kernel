@@ -2,6 +2,8 @@
 
 namespace System\Router;
 
+use Helper\Util;
+use ObjectMapper\ObjectMapper;
 use System\ES;
 use System\Kernel\GETParam;
 use Configs\Config;
@@ -30,7 +32,7 @@ class Routing implements RoutingInterface
 	 */
 	public static function findRoute(array $routers, string $path): Router
 	{
-		$path = self::cutSlash($path);
+		$path = Util::cutSlash($path);
 
 		foreach ($routers as $router) {
 
@@ -75,13 +77,15 @@ class Routing implements RoutingInterface
 	 */
 	public static function fillRouterList(): void
 	{
-		$routers    = Config::getRouters();
+		$routerList = ObjectMapper::create()->arraysToObjectList(Config::getRouters(), Router::class, RouterList::class);
+
+		/*$routers    = Config::getRouters();
 		$routerList = new RouterList();
 
 		foreach ($routers as $key => $value) {
 			$router = new Router($value);
-			$routerList->add($router->getName(), $router);
-		}
+			$routerList->add($router, $router->getName());
+		}*/
 
 		ES::set(ES::ROUTERS, $routerList);
 	}
@@ -140,18 +144,5 @@ class Routing implements RoutingInterface
 		}
 
 		return $path1;
-	}
-
-	/**
-	 * @param string $path
-	 * @return string
-	 */
-	private static function cutSlash(string $path): string
-	{
-		if (\substr($path, -1) == '/') {
-			$path = \substr($path, 0 , -1);
-		}
-
-		return $path;
 	}
 }

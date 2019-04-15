@@ -19,12 +19,12 @@ class ObjectMapper implements ObjectMapperInterface
     /**
      * @var string
      */
-    const SETTER = 'set';
+    private const SETTER = 'set';
 
     /**
      * @var string
      */
-    const GETTER = 'get';
+    private const GETTER = 'get';
 
 	/**
 	 * @param object $objectInput

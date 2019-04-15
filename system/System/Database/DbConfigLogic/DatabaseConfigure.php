@@ -47,7 +47,7 @@ class DatabaseConfigure
 		$this->readersList = new ReaderConfList();
 
 		foreach ($config['read'] as $index => $item) {
-			$this->readersList->add($index, new ReaderConf($item));
+			$this->readersList->add(new ReaderConf($item), $index);
 		}
 	}
 

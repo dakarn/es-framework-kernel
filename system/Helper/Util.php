@@ -140,4 +140,17 @@ class Util
 	{
 		return Util::base64encode(Util::generateCSRFToken());
 	}
+
+	/**
+	 * @param string $path
+	 * @return string
+	 */
+	public static function cutSlash(string $path): string
+	{
+		if (\substr($path, -1) == '/') {
+			$path = \substr($path, 0 , -1);
+		}
+
+		return $path;
+	}
 }
