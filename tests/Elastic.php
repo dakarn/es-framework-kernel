@@ -13,7 +13,7 @@ use ElasticSearch\ElasticQuery;
 use ElasticSearch\QueryEndpoints\Index;
 use ElasticSearch\QueryEndpoints\Bulk;
 
-class ElasticTest
+class Elastic
 {
 	/**
 	 * @throws \Exception\FileException
@@ -78,4 +78,4 @@ class ElasticTest
 }
 
 
-ElasticTest::testBulk();
+Elastic::testBulk();

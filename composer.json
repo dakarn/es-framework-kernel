@@ -27,5 +27,13 @@
       "system/System/DefineSetup.php"
     ]
   },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PHPUnit\\": "tests"
+    }
+  },
   "minimum-stability": "dev"
 }

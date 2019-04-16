@@ -11,7 +11,7 @@ require_once '../vendor/autoload.php';
 use ElasticSearch\ElasticSearch;
 use ElasticSearch\ElasticQuery;
 
-class ElasticTests
+class Elastic1
 {
     public static function testSelect()
     {
@@ -112,4 +112,4 @@ class ElasticTests
     }
 }
 
-ElasticTests::testBulk();
+Elastic1::testBulk();
