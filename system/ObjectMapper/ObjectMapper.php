@@ -37,6 +37,8 @@ class ObjectMapper implements ObjectMapperInterface
 	        $objectInput = new $objectInput();
         }
 
+        $this->verifyInterface($objectInput);
+
         $response = [];
         $methods  = \get_class_methods($objectInput);
 
@@ -98,6 +100,8 @@ class ObjectMapper implements ObjectMapperInterface
 		    $objectInput = new $objectInput();
 	    }
 
+	    $this->verifyInterface($objectInput);
+
 	    if (\is_string($objectList)) {
 	    	/** @var AbstractList $objectList */
 		    $objectList = new $objectList();
@@ -121,6 +125,8 @@ class ObjectMapper implements ObjectMapperInterface
         if (\is_string($objectInput)) {
         	$objectInput = new $objectInput();
         }
+
+        $this->verifyInterface($objectInput);
 
         foreach ($arrayData as $property => $itemValue) {
 
@@ -159,5 +165,15 @@ class ObjectMapper implements ObjectMapperInterface
     public function stdClassToArray(\stdClass $stdClass): array
     {
         return Util::jsonDecode(Util::jsonEncode($stdClass));
+    }
+
+    /**
+     * @param $object
+     */
+    private function verifyInterface($object)
+    {
+        if (!$object instanceof ClassToMappingInterface) {
+            throw new \InvalidArgumentException('Class must be implements from ClassToMappingInterface');
+        }
     }
 }
