@@ -6,17 +6,17 @@
  * Time: 17:35
  */
 
-namespace ElasticSearchNew;
+namespace ElasticSearch;
 
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryEndpoints\Bulk;
-use ElasticSearchNew\QueryEndpoints\Index;
-use ElasticSearchNew\QueryEndpoints\Insert;
-use ElasticSearchNew\QueryEndpoints\Remove;
-use ElasticSearchNew\QueryEndpoints\Select;
-use ElasticSearchNew\QueryEndpoints\Update;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryEndpoints\Bulk;
+use ElasticSearch\QueryEndpoints\Index;
+use ElasticSearch\QueryEndpoints\Insert;
+use ElasticSearch\QueryEndpoints\Remove;
+use ElasticSearch\QueryEndpoints\Select;
+use ElasticSearch\QueryEndpoints\Update;
 
-interface ElasticSearchNewInterface
+interface ElasticSearchInterface
 {
 	/**
 	 * @return Bulk

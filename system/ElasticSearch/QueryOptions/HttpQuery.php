@@ -6,7 +6,7 @@
  * Time: 11:25
  */
 
-namespace ElasticSearchNew\QueryOptions;
+namespace ElasticSearch\QueryOptions;
 
 class HttpQuery
 {

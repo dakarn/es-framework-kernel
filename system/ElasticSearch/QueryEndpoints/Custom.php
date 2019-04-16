@@ -6,11 +6,11 @@
  * Time: 18:53
  */
 
-namespace ElasticSearchNew\QueryEndpoints;
+namespace ElasticSearch\QueryEndpoints;
 
-use ElasticSearchNew\ElasticConnection;
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryOptions\HttpQuery;
+use ElasticSearch\ElasticConnection;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryOptions\HttpQuery;
 
 class Custom
 {

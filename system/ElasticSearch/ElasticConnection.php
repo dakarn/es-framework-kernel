@@ -6,13 +6,13 @@
  * Time: 11:32
  */
 
-namespace ElasticSearchNew;
+namespace ElasticSearch;
 
 use ObjectMapper\ClassToMappingInterface;
 
 /**
  * Class ElasticConnect
- * @package ElasticSearchNew
+ * @package ElasticSearch
  */
 class ElasticConnection implements ClassToMappingInterface
 {

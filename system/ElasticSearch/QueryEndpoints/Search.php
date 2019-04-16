@@ -2,20 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: v.konovalov
- * Date: 23.11.2018
- * Time: 15:44
+ * Date: 26.11.2018
+ * Time: 11:02
  */
 
-namespace ElasticSearchNew\QueryEndpoints;
+namespace ElasticSearch\QueryEndpoints;
 
-use ElasticSearchNew\ElasticConnection;
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryOptions\HttpQuery;
+use ElasticSearch\ElasticConnection;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Select
+class Search
 {
     use ElasticQueryParams;
+
+    private const SEARCH = '/_search/';
 
     /**
      * @param ElasticConnection $connect
@@ -24,10 +26,11 @@ class Select
     public function buildQuery(ElasticConnection $connect): HttpQuery
     {
         $host     = $this->makeHost($connect);
-        $pathname = $this->index . '/' . $this->type .'/' . $this->id;
+        $pathname = $this->index . self::SEARCH;
 
 	    $this->httpQuery->setUrl($host . $pathname);
 	    $this->httpQuery->setMethod(Request::GET);
+	    $this->httpQuery->setQueryArray($this->query);
 
         return $this->httpQuery;
     }

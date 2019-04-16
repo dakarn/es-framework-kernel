@@ -6,7 +6,6 @@
   "autoload": {
     "psr-4": {
       "ElasticSearch\\": "system/ElasticSearch",
-      "ElasticSearchNew\\": "system/ElasticSearchNew",
       "Exception\\": "system/Exception",
       "Helper\\": "system/Helper",
       "Http\\": "system/Http",

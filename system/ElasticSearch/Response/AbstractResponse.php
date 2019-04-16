@@ -6,7 +6,7 @@
  * Time: 22:13
  */
 
-namespace ElasticSearchNew\Response;
+namespace ElasticSearch\Response;
 
 class AbstractResponse
 {

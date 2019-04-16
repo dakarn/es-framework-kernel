@@ -6,9 +6,9 @@
  * Time: 15:41
  */
 
-namespace ElasticSearchNew\QueryOptions;
+namespace ElasticSearch\QueryOptions;
 
-use ElasticSearchNew\ElasticConnection;
+use ElasticSearch\ElasticConnection;
 
 trait ElasticQueryParams
 {

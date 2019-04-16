@@ -6,11 +6,11 @@
  * Time: 15:45
  */
 
-namespace ElasticSearchNew\QueryEndpoints;
+namespace ElasticSearch\QueryEndpoints;
 
-use ElasticSearchNew\ElasticConnection;
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryOptions\HttpQuery;
+use ElasticSearch\ElasticConnection;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
 class Insert

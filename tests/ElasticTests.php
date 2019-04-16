@@ -8,14 +8,14 @@
 
 require_once '../vendor/autoload.php';
 
-use ElasticSearchNew\ElasticSearchNew;
-use ElasticSearchNew\ElasticQuery;
+use ElasticSearch\ElasticSearch;
+use ElasticSearch\ElasticQuery;
 
 class ElasticTests
 {
     public static function testSelect()
     {
-        $es = ElasticSearchNew::create()
+        $es = ElasticSearch::create()
             ->select()
             ->setIndex('twitter')
             ->setType('_doc')
@@ -26,7 +26,7 @@ class ElasticTests
 
     public static function testInsert()
     {
-        $es = ElasticSearchNew::create()
+        $es = ElasticSearch::create()
             ->insert()
             ->setIndex('twitter')
             ->setType('_doc');
@@ -36,7 +36,7 @@ class ElasticTests
 
     public static function testCreateIndex()
     {
-        $es = ElasticSearchNew::create()
+        $es = ElasticSearch::create()
             ->index()
             ->create()
             ->withMapping([
@@ -57,7 +57,7 @@ class ElasticTests
 
     public static function testUpdate()
     {
-        ElasticSearchNew::create()
+        ElasticSearch::create()
             ->insert()
             ->setIndex('test')
             ->setType('book')
@@ -66,7 +66,7 @@ class ElasticTests
 
     public static function testRemove()
     {
-        $es = ElasticSearchNew::create()
+        $es = ElasticSearch::create()
             ->remove()
             ->setIndex('twitter')
             ->setType('_doc')
@@ -77,7 +77,7 @@ class ElasticTests
 
     public static function testSearch()
     {
-        $es = ElasticSearchNew::create()
+        $es = ElasticSearch::create()
             ->search()
             ->setIndex('twitter')
             ->setQuery([
@@ -104,7 +104,7 @@ class ElasticTests
             ];
         }
 
-        $es = ElasticSearchNew::create()
+        $es = ElasticSearch::create()
             ->bulk()
             ->setBulkArray($data);
 

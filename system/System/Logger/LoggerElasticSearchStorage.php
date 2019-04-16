@@ -8,8 +8,8 @@
 
 namespace System\Logger;
 
-use ElasticSearchNew\ElasticQuery;
-use ElasticSearchNew\ElasticSearchNew;
+use ElasticSearch\ElasticQuery;
+use ElasticSearch\ElasticSearch;
 use Traits\SingletonTrait;
 
 class LoggerElasticSearchStorage extends AbstractLoggerStorage implements LoggerStorageInterface
@@ -39,7 +39,7 @@ class LoggerElasticSearchStorage extends AbstractLoggerStorage implements Logger
 			];
 		}
 
-		$es = ElasticSearchNew::create()
+		$es = ElasticSearch::create()
 			->bulk()
 			->setBulkArray($data);
 

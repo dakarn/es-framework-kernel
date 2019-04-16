@@ -6,12 +6,12 @@
  * Time: 15:46
  */
 
-namespace ElasticSearchNew;
+namespace ElasticSearch;
 
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryOptions\HttpQuery;
-use ElasticSearchNew\Response\AbstractResponse;
-use ElasticSearchNew\Response\ElasticResultFactory;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryOptions\HttpQuery;
+use ElasticSearch\Response\AbstractResponse;
+use ElasticSearch\Response\ElasticResultFactory;
 use Exception\HttpException;
 use Traits\SingletonTrait;
 
@@ -34,16 +34,17 @@ class ElasticQuery
      */
     private $curl;
 
-	/**
-	 * @param ElasticQueryParams $elasticQueryParams
-	 * @return AbstractResponse
-	 * @throws HttpException
-	 * @throws \Exception\FileException
-	 */
+    /**
+     * @param ElasticQueryParams $elasticQueryParams
+     * @return AbstractResponse
+     * @throws HttpException
+     * @throws \Exception\FileException
+     * @throws \Exception\ObjectException
+     */
     public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse
     {
         $this->elasticQueryParams = $elasticQueryParams;
-        $this->httpQuery          = $elasticQueryParams->buildQuery(ElasticSearchNew::create()->getConfigConnection());
+        $this->httpQuery          = $elasticQueryParams->buildQuery(ElasticSearch::create()->getConfigConnection());
 
         $result = $this->doRequest();
 
@@ -51,7 +52,7 @@ class ElasticQuery
             throw new HttpException('Unable to connect with Elastic Search!');
         }
 
-        return ElasticResultFactory::factory($result, ElasticSearchNew::create());
+        return ElasticResultFactory::factory($result, ElasticSearch::create());
     }
 
     /**

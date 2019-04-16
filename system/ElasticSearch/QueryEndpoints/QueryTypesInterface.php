@@ -6,7 +6,7 @@
  * Time: 15:57
  */
 
-namespace ElasticSearchNew\QueryEndpoints;
+namespace ElasticSearch\QueryEndpoints;
 
 interface QueryTypesInterface
 {

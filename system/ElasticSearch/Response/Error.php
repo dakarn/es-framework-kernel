@@ -6,7 +6,7 @@
  * Time: 18:45
  */
 
-namespace ElasticSearchNew\Response;
+namespace ElasticSearch\Response;
 
 class Error extends AbstractResponse
 {

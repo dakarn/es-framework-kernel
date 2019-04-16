@@ -6,11 +6,11 @@
  * Time: 20:38
  */
 
-namespace ElasticSearchNew\Response;
+namespace ElasticSearch\Response;
 
-use ElasticSearchNew\ElasticSearchNew;
-use ElasticSearchNew\QueryEndpoints\Search;
-use ElasticSearchNew\QueryEndpoints\Select;
+use ElasticSearch\ElasticSearch;
+use ElasticSearch\QueryEndpoints\Search;
+use ElasticSearch\QueryEndpoints\Select;
 
 class ElasticResultFactory
 {
@@ -21,10 +21,10 @@ class ElasticResultFactory
 
     /**
      * @param string $response
-     * @param ElasticSearchNew $elasticSearchNew
+     * @param ElasticSearch $elasticSearchNew
      * @return AbstractResponse
      */
-	public static function factory(string $response, ElasticSearchNew $elasticSearchNew): AbstractResponse
+	public static function factory(string $response, ElasticSearch $elasticSearchNew): AbstractResponse
 	{
         $currentQuery = $elasticSearchNew->getCurrentQueryType();
         $responseObj  = null;

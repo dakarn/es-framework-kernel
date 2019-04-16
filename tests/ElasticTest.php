@@ -8,10 +8,10 @@
 
 require_once '../vendor/autoload.php';
 
-use ElasticSearchNew\ElasticSearchNew;
-use ElasticSearchNew\ElasticQuery;
-use ElasticSearchNew\QueryEndpoints\Index;
-use ElasticSearchNew\QueryEndpoints\Bulk;
+use ElasticSearch\ElasticSearch;
+use ElasticSearch\ElasticQuery;
+use ElasticSearch\QueryEndpoints\Index;
+use ElasticSearch\QueryEndpoints\Bulk;
 
 class ElasticTest
 {
@@ -22,7 +22,7 @@ class ElasticTest
 	public static function testCreateIndex()
 	{
 		/** @var Index $es */
-		$es = ElasticSearchNew::create()
+		$es = ElasticSearch::create()
 			->index()
 			->setIndex('twitter');
 
@@ -49,7 +49,7 @@ class ElasticTest
 	public static function testBulk()
 	{
 		/** @var Bulk $es */
-		$es = ElasticSearchNew::create()->bulk();
+		$es = ElasticSearch::create()->bulk();
 
 		$es->setBulkArray([
 				'index' => [
@@ -67,7 +67,7 @@ class ElasticTest
 	 */
 	public static function testSelect()
 	{
-		$es = ElasticSearchNew::create()
+		$es = ElasticSearch::create()
 			->select()
 			->setIndex('twitter')
 			->setType('twitter')

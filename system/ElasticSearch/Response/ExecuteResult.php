@@ -6,7 +6,7 @@
  * Time: 20:39
  */
 
-namespace ElasticSearchNew\Response;
+namespace ElasticSearch\Response;
 
 final class ExecuteResult extends AbstractResponse
 {

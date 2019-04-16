@@ -6,22 +6,22 @@
  * Time: 20:14
  */
 
-namespace ElasticSearchNew;
+namespace ElasticSearch;
 
 use Configs\Config;
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryEndpoints\Bulk;
-use ElasticSearchNew\QueryEndpoints\Index;
-use ElasticSearchNew\QueryEndpoints\Insert;
-use ElasticSearchNew\QueryEndpoints\QueryTypesInterface;
-use ElasticSearchNew\QueryEndpoints\Remove;
-use ElasticSearchNew\QueryEndpoints\Search;
-use ElasticSearchNew\QueryEndpoints\Select;
-use ElasticSearchNew\QueryEndpoints\Update;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryEndpoints\Bulk;
+use ElasticSearch\QueryEndpoints\Index;
+use ElasticSearch\QueryEndpoints\Insert;
+use ElasticSearch\QueryEndpoints\QueryTypesInterface;
+use ElasticSearch\QueryEndpoints\Remove;
+use ElasticSearch\QueryEndpoints\Search;
+use ElasticSearch\QueryEndpoints\Select;
+use ElasticSearch\QueryEndpoints\Update;
 use ObjectMapper\ObjectMapper;
 use Traits\SingletonTrait;
 
-class ElasticSearchNew implements ElasticSearchNewInterface
+class ElasticSearch implements ElasticSearchInterface
 {
 	use SingletonTrait;
 
@@ -40,10 +40,11 @@ class ElasticSearchNew implements ElasticSearchNewInterface
      */
 	private $configConnection;
 
-	/**
-	 * @return ElasticConnection
-	 * @throws \Exception\FileException
-	 */
+    /**
+     * @return ElasticConnection
+     * @throws \Exception\FileException
+     * @throws \Exception\ObjectException
+     */
 	public function getConfigConnection(): ElasticConnection
     {
         if (!$this->configConnection instanceof ElasticConnection) {

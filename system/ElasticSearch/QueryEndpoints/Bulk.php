@@ -6,12 +6,12 @@
  * Time: 21:21
  */
 
-namespace ElasticSearchNew\QueryEndpoints;
+namespace ElasticSearch\QueryEndpoints;
 
-use ElasticSearchNew\ElasticConnection;
-use ElasticSearchNew\QueryOptions\ElasticQueryParams;
-use ElasticSearchNew\QueryOptions\HttpCommandsInterface;
-use ElasticSearchNew\QueryOptions\HttpQuery;
+use ElasticSearch\ElasticConnection;
+use ElasticSearch\QueryOptions\ElasticQueryParams;
+use ElasticSearch\QueryOptions\HttpCommandsInterface;
+use ElasticSearch\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
 class Bulk
