@@ -20,13 +20,13 @@ class DefaultApp extends AbstractApplication
 
 	}
 
-	/**
-	 * @throws \Exception\FileException
-	 */
+    /**
+     * @throws \Exception\FileException
+     */
 	public function run()
 	{
-		$this->env = 'dev';
-		$this->applicationType = 'Console';
+		$this->env = self::ENV_DEV;
+		$this->applicationType = self::APP_TYPE_CONSOLE;
 
 		$this->runInternal();
 	}

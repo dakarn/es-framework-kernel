@@ -40,6 +40,37 @@ class Util
 
 	}
 
+    /**
+     * @param array|\stdClass $data
+     * @return string|null
+     */
+	public static function jsonEncode($data):? string
+    {
+        $data = \json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        if (\json_last_error() > 0) {
+            return null;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param string $data
+     * @param bool $isAssoc
+     * @return array|\stdClass
+     */
+    public static function jsonDecode(string $data, bool $isAssoc = true)
+    {
+        $answer = \json_decode($data, $isAssoc);
+
+        if (\json_last_error() > 0) {
+            return null;
+        }
+
+        return $answer;
+    }
+
 	/**
 	 * @param int $length
 	 * @return string

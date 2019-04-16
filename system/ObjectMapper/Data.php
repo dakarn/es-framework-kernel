@@ -8,7 +8,7 @@
 
 namespace ObjectMapper;
 
-class Data implements ClassToMappingInterface
+class Data implements ClassToMappingInterface, JsonPropertiesInterface
 {
 	private $name;
 

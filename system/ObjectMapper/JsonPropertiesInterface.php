@@ -8,10 +8,6 @@
 
 namespace ObjectMapper;
 
-interface HasJsonPropertyInterface
+interface JsonPropertiesInterface
 {
-	/**
-	 * @return string
-	 */
-	public function getJsonProperty(): string ;
 }

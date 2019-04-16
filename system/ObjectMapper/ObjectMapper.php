@@ -67,18 +67,12 @@ class ObjectMapper implements ObjectMapperInterface
      */
     public function objectToJson($objectInput): string
     {
-        $json = \json_encode($this->objectToArray($objectInput));
-
-        if (json_last_error() > 0) {
-            return '';
-        }
-
-        return $json;
+        return Util::jsonEncode($objectInput);
     }
 
     /**
      * @param AbstractList $objectList
-     * @return string
+     * @return false|string
      */
     public function objectListToJson(AbstractList $objectList)
     {
@@ -88,7 +82,7 @@ class ObjectMapper implements ObjectMapperInterface
             $array[] = $this->objectToArray($objectItem);
         }
 
-        return \json_encode($array);
+        return Util::jsonEncode($array);
     }
 
 	/**
@@ -133,8 +127,12 @@ class ObjectMapper implements ObjectMapperInterface
             $setMethodName = self::SETTER . \ucfirst($property);
             $getMethodName = self::GETTER . \ucfirst($property);
 
-            if ($objectInput->$getMethodName() instanceof ClassToMappingInterface && \is_array($itemValue)) {
-                $this->arrayToObject($itemValue, $objectInput->$getMethodName());
+            if ($objectInput->$getMethodName() instanceof ClassToMappingInterface) {
+                if ($objectInput->$getMethodName() instanceof JsonPropertiesInterface) {
+                    $this->arrayToObject(Util::jsonDecode($itemValue), $objectInput->$getMethodName());
+                } else {
+                    $this->arrayToObject($itemValue, $objectInput->$getMethodName());
+                }
             } else if ($objectInput->$getMethodName() instanceof AbstractList) {
                 $this->arraysToObjectList($itemValue, $objectInput->$getMethodName()->getMappingClass(), $objectInput->$getMethodName());
             } else {
@@ -145,21 +143,21 @@ class ObjectMapper implements ObjectMapperInterface
         return $objectInput;
     }
 
-	/**
-	 * @param array $arrayData
-	 * @return \stdClass
-	 */
+    /**
+     * @param array $arrayData
+     * @return \stdClass
+     */
     public function arrayToStdClass(array $arrayData): \stdClass
     {
-		return \json_decode(\json_encode($arrayData));
+		return Util::jsonDecode(Util::jsonEncode($arrayData));
     }
 
-	/**
-	 * @param \stdClass $stdClass
-	 * @return array
-	 */
+    /**
+     * @param \stdClass $stdClass
+     * @return array
+     */
     public function stdClassToArray(\stdClass $stdClass): array
     {
-        return \json_decode(\json_encode($stdClass), true);
+        return Util::jsonDecode(Util::jsonEncode($stdClass));
     }
 }
