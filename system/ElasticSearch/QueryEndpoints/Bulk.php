@@ -14,7 +14,7 @@ use ElasticSearch\QueryOptions\HttpCommandsInterface;
 use ElasticSearch\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Bulk
+class Bulk implements BuilderQueryInterface
 {
     use ElasticQueryParams;
 

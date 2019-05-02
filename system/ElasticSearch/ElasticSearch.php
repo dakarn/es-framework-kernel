@@ -9,6 +9,7 @@
 namespace ElasticSearch;
 
 use Configs\Config;
+use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
 use ElasticSearch\QueryOptions\ElasticQueryParams;
 use ElasticSearch\QueryEndpoints\Bulk;
 use ElasticSearch\QueryEndpoints\Index;
@@ -114,7 +115,7 @@ class ElasticSearch implements ElasticSearchInterface
     /**
      * @return ElasticQueryParams
      */
-    public function getCurrentQueryType(): ElasticQueryParams
+    public function getCurrentQueryType(): BuilderQueryInterface
     {
         return $this->currentQueryClass;
     }

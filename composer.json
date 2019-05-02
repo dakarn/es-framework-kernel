@@ -21,7 +21,8 @@
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",
       "Configs\\": "system/Configs",
-      "Models\\": "system/Models"
+      "Models\\": "system/Models",
+      "Kafka\\": "system/Kafka"
     },
     "files": [
       "system/System/DefineSetup.php"

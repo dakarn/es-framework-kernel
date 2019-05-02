@@ -8,6 +8,7 @@
 
 namespace ElasticSearch;
 
+use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
 use ElasticSearch\QueryOptions\ElasticQueryParams;
 use ElasticSearch\QueryEndpoints\Bulk;
 use ElasticSearch\QueryEndpoints\Index;
@@ -56,5 +57,5 @@ interface ElasticSearchInterface
 	/**
 	 * @return ElasticQueryParams
 	 */
-	public function getCurrentQueryType(): ElasticQueryParams;
+	public function getCurrentQueryType(): BuilderQueryInterface;
 }

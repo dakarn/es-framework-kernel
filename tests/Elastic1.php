@@ -13,6 +13,11 @@ use ElasticSearch\ElasticQuery;
 
 class Elastic1
 {
+	/**
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 * @throws \Exception\ObjectException
+	 */
     public static function testSelect()
     {
         $es = ElasticSearch::create()

@@ -16,4 +16,6 @@ class Constants
 	public const ONE_MINUTE = 60;
 	public const ONE_DAY    = 86400;
 	public const ONE_YEAR   = 31536000;
+
+	public const DEFAULT_KAFKA_PORT = 2181;
 }

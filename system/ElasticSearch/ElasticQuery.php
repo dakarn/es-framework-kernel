@@ -8,6 +8,7 @@
 
 namespace ElasticSearch;
 
+use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
 use ElasticSearch\QueryOptions\ElasticQueryParams;
 use ElasticSearch\QueryOptions\HttpQuery;
 use ElasticSearch\Response\AbstractResponse;
@@ -34,14 +35,14 @@ class ElasticQuery
      */
     private $curl;
 
-    /**
-     * @param ElasticQueryParams $elasticQueryParams
-     * @return AbstractResponse
-     * @throws HttpException
-     * @throws \Exception\FileException
-     * @throws \Exception\ObjectException
-     */
-    public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse
+	/**
+	 * @param BuilderQueryInterface $elasticQueryParams
+	 * @return AbstractResponse
+	 * @throws HttpException
+	 * @throws \Exception\FileException
+	 * @throws \Exception\ObjectException
+	 */
+    public function execute(BuilderQueryInterface $elasticQueryParams): AbstractResponse
     {
         $this->elasticQueryParams = $elasticQueryParams;
         $this->httpQuery          = $elasticQueryParams->buildQuery(ElasticSearch::create()->getConfigConnection());

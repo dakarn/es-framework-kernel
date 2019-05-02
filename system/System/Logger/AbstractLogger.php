@@ -11,7 +11,7 @@ namespace System\Logger;
 class AbstractLogger
 {
 	/**
-	 * @var null
+	 * @var LoggerStorageInterface
 	 */
 	private $loggerStorage;
 
@@ -21,7 +21,7 @@ class AbstractLogger
 	public function getLoggerStorage(): LoggerStorageInterface
 	{
 		if (!$this->loggerStorage instanceof LoggerStorageInterface) {
-			$this->loggerStorage = new LoggerFileStorage();
+			$this->loggerStorage = new LoggerKafkaQueue();
 		}
 
 		return $this->loggerStorage;
