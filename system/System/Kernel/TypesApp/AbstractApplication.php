@@ -25,7 +25,6 @@ abstract class AbstractApplication implements ApplicationInterface
 
 	public const APP_TYPE_WEB     = 'Web';
 	public const APP_TYPE_CONSOLE = 'Console';
-	public const APP_TYPE_QUEUE   = 'Queue';
 	public const APP_TYPE_API     = 'Api';
 	public const APP_TYPE_AUTH    = 'Auth';
 

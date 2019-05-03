@@ -57,5 +57,5 @@ interface ElasticSearchInterface
 	/**
 	 * @return ElasticQueryParams
 	 */
-	public function getCurrentQueryType(): BuilderQueryInterface;
+	public function getCurrentQueryType(): ElasticQueryParams;
 }

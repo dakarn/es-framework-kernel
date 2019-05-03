@@ -14,10 +14,8 @@ use ElasticSearch\QueryOptions\HttpCommandsInterface;
 use ElasticSearch\QueryOptions\HttpQuery;
 use Http\Request\Request;
 
-class Index
+class Index extends ElasticQueryParams
 {
-    use ElasticQueryParams;
-
     private const CREATE  = 'create';
     private const REMOVE  = 'remove';
     private const MAPPING = 'mapping';

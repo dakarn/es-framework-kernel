@@ -10,7 +10,7 @@ namespace ElasticSearch\QueryOptions;
 
 use ElasticSearch\ElasticConnection;
 
-trait ElasticQueryParams
+abstract class ElasticQueryParams
 {
     /**
      * @var HttpQuery

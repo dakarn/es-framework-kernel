@@ -115,7 +115,7 @@ class ElasticSearch implements ElasticSearchInterface
     /**
      * @return ElasticQueryParams
      */
-    public function getCurrentQueryType(): BuilderQueryInterface
+    public function getCurrentQueryType(): ElasticQueryParams
     {
         return $this->currentQueryClass;
     }

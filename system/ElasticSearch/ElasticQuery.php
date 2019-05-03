@@ -36,13 +36,13 @@ class ElasticQuery
     private $curl;
 
 	/**
-	 * @param BuilderQueryInterface $elasticQueryParams
+	 * @param ElasticQueryParams $elasticQueryParams
 	 * @return AbstractResponse
 	 * @throws HttpException
 	 * @throws \Exception\FileException
 	 * @throws \Exception\ObjectException
 	 */
-    public function execute(BuilderQueryInterface $elasticQueryParams): AbstractResponse
+    public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse
     {
         $this->elasticQueryParams = $elasticQueryParams;
         $this->httpQuery          = $elasticQueryParams->buildQuery(ElasticSearch::create()->getConfigConnection());
