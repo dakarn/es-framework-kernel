@@ -11,7 +11,7 @@ namespace Kafka;
 class KafkaProducer
 {
 	private $configureConnect;
-	private $body;
+	private $payload;
 
 	public function __construct(ConfigureConnectInterface $configureConnect)
 	{
@@ -30,15 +30,15 @@ class KafkaProducer
 
 		$topic = $rk->newTopic($this->configureConnect->getTopic());
 
-		$topic->produce(RD_KAFKA_PARTITION_UA, 0, json_encode($this->body));
+		$topic->produce(RD_KAFKA_PARTITION_UA, 0, json_encode($this->payload));
 		$rk->poll(0);
 
 
 	}
 
-	public function setBody(array $body): self
+	public function setPayload(array $payload): self
 	{
-		$this->body = $body;
+		$this->payload = $payload;
 
 		return $this;
 	}

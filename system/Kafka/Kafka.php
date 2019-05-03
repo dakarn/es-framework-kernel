@@ -37,8 +37,8 @@ class Kafka
 
 	public function getConsumer(): KafkaConsumer
 	{
-		if (!$this->producer instanceof KafkaConsumer) {
-			$this->producer = new KafkaConsumer($this->configureConnect);
+		if (!$this->consumer instanceof KafkaConsumer) {
+			$this->consumer = new KafkaConsumer($this->configureConnect);
 		}
 
 		return $this->consumer;

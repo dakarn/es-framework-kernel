@@ -138,7 +138,7 @@ class Config implements ConfigInterface
             return $pathConfig;
         }
 
-        throw FileException::notFound([$config]);
+        throw FileException::notFound([$pathConfigEnv]);
     }
 
     /**

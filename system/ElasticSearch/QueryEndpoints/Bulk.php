@@ -27,7 +27,7 @@ class Bulk extends ElasticQueryParams
 	 */
 	public function buildQuery(ElasticConnection $connect): HttpQuery
 	{
-		$host     = $this->makeHost($connect);
+		$host = $this->makeHost($connect);
 
 		$this->httpQuery->setUrl($host . HttpCommandsInterface::BULK);
 		$this->httpQuery->setMethod(Request::POST);
@@ -40,7 +40,7 @@ class Bulk extends ElasticQueryParams
 	 * @param array $data
 	 * @return Bulk
 	 */
-	public function setBulkArray(array $data): Bulk
+	public function setBulkArray(array $data): self
 	{
 		$this->bulkData = $this->arrayToBulkString($data);
 
@@ -51,7 +51,7 @@ class Bulk extends ElasticQueryParams
 	 * @param string $data
 	 * @return Bulk
 	 */
-	public function setBulkString(string $data): Bulk
+	public function setBulkString(string $data): self
 	{
 		$this->bulkData = $data;
 

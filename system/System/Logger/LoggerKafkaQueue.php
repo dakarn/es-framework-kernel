@@ -8,25 +8,35 @@
 
 namespace System\Logger;
 
+use Configs\Config;
 use Kafka\ConfigureConnect;
 use Kafka\Kafka;
 
 class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	/**
-	 *
+	 * @throws \Exception\FileException
 	 */
 	public function releaseLogs(): void
 	{
-		$connectConfig = new ConfigureConnect(['192.168.99.1'], 'test', 'myConsumerGroup');
+		$connectConfig = new ConfigureConnect([Config::get('kafka', 'host')], 'logs', 'myConsumerGroup');
+		$kafka = Kafka::create()
+			->setConfigureConnect($connectConfig)
+			->getProducer();
 
 		foreach ($this->logs as $log) {
+			$microtime = microtime(true);
+			$log = [
+				'header' => [
+					'topicName' => 'logs',
+					'time'      => $microtime,
+					'hash'      => md5($microtime . 'logs')
+				],
+				'body' => $log
+			];
 
-			Kafka::create()
-				->setConfigureConnect($connectConfig)
-				->getProducer()
-				->setBody($log)
-				->send();
+			$kafka->setPayload($log)->send();
 		}
+
 	}
 }
