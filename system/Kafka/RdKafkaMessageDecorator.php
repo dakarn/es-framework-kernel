@@ -104,6 +104,14 @@ class RdKafkaMessageDecorator
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function hasError(): bool
+	{
+		return $this->message->err === RD_KAFKA_RESP_ERR_NO_ERROR;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getTopicName(): string

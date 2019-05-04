@@ -8,8 +8,15 @@
 
 namespace QueueManager;
 
+use QueueManager\Strategy\ReceiverStrategyInterface;
+
 abstract class AbstractQueueHandler
 {
+	/**
+	 * @var ReceiverStrategyInterface
+	 */
+	protected $strategy;
+
 	/**
 	 * @var QueueModel
 	 */
