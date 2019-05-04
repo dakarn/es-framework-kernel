@@ -8,20 +8,45 @@
 
 namespace Kafka;
 
-class ConfigureConnect implements ConfigureConnectInterface
+class ConfigConnection implements ConfigureConnectInterface
 {
 	/**
 	 * @var array
 	 */
 	private $brokers;
+
+	/**
+	 * @var string
+	 */
 	private $group;
+
+	/**
+	 * @var string
+	 */
 	private $topic;
 
-	public function __construct(array $brokers, string $topic, string $group)
+	/**
+	 * @param array $brokers
+	 */
+	public function setBrokers(array $brokers): void
 	{
 		$this->brokers = $brokers;
-		$this->topic   = $topic;
-		$this->group   = $group;
+	}
+
+	/**
+	 * @param string $group
+	 */
+	public function setGroup(string $group): void
+	{
+		$this->group = $group;
+	}
+
+	/**
+	 * @param string $topic
+	 */
+	public function setTopic(string $topic): void
+	{
+		$this->topic = $topic;
 	}
 
 	/**

@@ -10,19 +10,24 @@ namespace Kafka;
 
 use RdKafka\Conf;
 use RdKafka\Consumer;
-use Configs\Config;
 use RdKafka\ConsumerTopic;
 use RdKafka\TopicConf;
-use Kafka\Message\Payload;
-use ObjectMapper\ObjectMapper;
-use ElasticSearch\ElasticQuery;
-use ElasticSearch\ElasticSearch;
-use App\Models\Queue\Body\Logs;
 
 class KafkaConsumer
 {
-	private $configureConnect;
+	/**
+	 * @var ConfigureConnectInterface
+	 */
+	private $configConnection;
+
+	/**
+	 * @var Conf
+	 */
 	private $kafkaConf;
+
+	/**
+	 * @var \RdKafka\KafkaConsumer
+	 */
 	private $rdKafkaConsumer;
 
 	/**
@@ -31,71 +36,73 @@ class KafkaConsumer
 	private $consumerTopic;
 
 	/**
-	 * KafkaConsumer constructor.
-	 * @param ConfigureConnectInterface $configureConnect
-	 * @throws \Exception\FileException
+	 * @var AbstractKafkaHandler
 	 */
-	public function __construct(ConfigureConnectInterface $configureConnect)
+	private $handlerClass;
+
+	/**
+	 * KafkaConsumer constructor.
+	 * @param ConfigureConnectInterface $configConnection
+	 */
+	public function __construct(ConfigureConnectInterface $configConnection)
 	{
-		if (empty($configureConnect->getBrokers())) {
+		if (empty($configConnection->getBrokers())) {
 			throw new \RuntimeException('No brokers for connect');
 		}
 
-		$this->configureConnect = $configureConnect;
+		$this->configConnection = $configConnection;
 		$this->prepareObject();
 	}
 
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
-	 * @throws \Exception\ObjectException
+	 * @param AbstractKafkaHandler $handlerClass
+	 * @return KafkaConsumer
 	 */
-	public function waitMessage()
+	public function setHandlerClass(AbstractKafkaHandler $handlerClass): KafkaConsumer
+	{
+		$this->handlerClass = $handlerClass;
+
+		return $this;
+	}
+
+	/**
+	 * @return KafkaConsumer
+	 */
+	public function waitMessage(): KafkaConsumer
 	{
 		while (true) {
 
 			$message = $this->consumerTopic->consume(0, 120*10000);
-			$message = new RdKafkaMessage($message);
 
-			if ($message->getErr() === RD_KAFKA_RESP_ERR_NO_ERROR) {
+			$messageDecorator = new RdKafkaMessageDecorator($message);
 
-				/** @var Payload $payloadModel */
-				$payloadModel = ObjectMapper::create()->arrayToObject($message->getPayloadAsArray(), new Payload(Logs::class));
-
-				$data[] = [
-					'index' => ['_index' => 'logs', '_type' => 'errorLog']
-				];
-				$data[] = [
-					'level'   => \ucfirst($payloadModel->getBody()->getLevel()),
-					'time'    => $payloadModel->getBody()->getTime(),
-					'message' => $payloadModel->getBody()->getMessage(),
-				];
-
-				$es = ElasticSearch::create()
-					->bulk()
-					->setBulkArray($data);
-
-				ElasticQuery::create()->execute($es);
+			if ($messageDecorator->getErr() === RD_KAFKA_RESP_ERR_NO_ERROR) {
+				$this->handlerClass->setMessageDecorator($messageDecorator);
+				$this->handlerClass->execute();
 			}
 		}
+
+		return $this;
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @return KafkaConsumer
 	 */
-	private function prepareObject()
+	public function prepareObject(): KafkaConsumer
 	{
 		$this->kafkaConf = new Conf();
 
-		$this->kafkaConf->set('group.id', Groups::MY_CONSUMER_GROUP);
+		$this->kafkaConf->set('group.id', $this->configConnection->getGroup());
 
 		$this->rdKafkaConsumer = new Consumer($this->kafkaConf);
-		$this->rdKafkaConsumer->addBrokers(Config::get('kafka')['host']);
+		$this->rdKafkaConsumer->addBrokers(implode($this->configConnection->getBrokers(), ','));
 
 		$topicConf = new TopicConf();
 		$topicConf->set('auto.commit.interval.ms', 100);
 
-		$this->consumerTopic = $this->rdKafkaConsumer->newTopic(Topics::LOGS, $topicConf);
+		$this->consumerTopic = $this->rdKafkaConsumer->newTopic($this->configConnection->getTopic(), $topicConf);
 		$this->consumerTopic->consumeStart(0, RD_KAFKA_OFFSET_STORED);
+
+		return $this;
 	}
 }

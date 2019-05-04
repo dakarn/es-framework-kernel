@@ -8,15 +8,23 @@
 
 namespace Kafka;
 
+use Kafka\Message\AbstractQueueBody;
+use ObjectMapper\ClassToMappingInterface;
 use RdKafka\Message;
+use Kafka\Message\Payload;
+use ObjectMapper\ObjectMapper;
 
-class RdKafkaMessage
+class RdKafkaMessageDecorator
 {
 	/**
 	 * @var Message
 	 */
 	private $message;
 
+	/**
+	 * @var AbstractQueueBody
+	 */
+	private $bodyEntity;
 
 	/**
 	 * RdKafkaMessage constructor.
@@ -25,6 +33,17 @@ class RdKafkaMessage
 	public function __construct(Message $message)
 	{
 		$this->message = $message;
+	}
+
+	/**
+	 * @param string $bodyEntity
+	 * @return RdKafkaMessageDecorator
+	 */
+	public function setBodyEntity(string $bodyEntity): self
+	{
+		$this->bodyEntity = $bodyEntity;
+
+		return $this;
 	}
 
 	/**
@@ -41,6 +60,15 @@ class RdKafkaMessage
 	public function getPayloadAsArray(): array
 	{
 		return json_decode($this->message->payload, true);
+	}
+
+	/**
+	 * @return ClassToMappingInterface
+	 * @throws \Exception\ObjectException
+	 */
+	public function getPayloadEntity(): ClassToMappingInterface
+	{
+		return ObjectMapper::create()->arrayToObject($this->getPayloadAsArray(), new Payload($this->bodyEntity));
 	}
 
 	/**

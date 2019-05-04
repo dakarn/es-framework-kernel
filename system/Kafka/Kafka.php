@@ -19,7 +19,7 @@ class Kafka
 
 	private $configureConnect;
 
-	public function setConfigureConnect(ConfigureConnectInterface $configureConnect): Kafka
+	public function setConfigConnection(ConfigureConnectInterface $configureConnect): Kafka
 	{
 		$this->configureConnect = $configureConnect;
 

@@ -8,7 +8,7 @@
 
 namespace Kafka\Message;
 
-abstract class AbstractBody
+abstract class AbstractQueueBody
 {
 
 }

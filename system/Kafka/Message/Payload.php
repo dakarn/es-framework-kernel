@@ -32,7 +32,7 @@ class Payload implements ClassToMappingInterface
 	/**
 	 * @return mixed
 	 */
-	public function getBody()
+	public function getBody(): AbstractQueueBody
 	{
 		return $this->body;
 	}

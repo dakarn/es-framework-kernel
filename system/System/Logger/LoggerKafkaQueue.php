@@ -9,8 +9,10 @@
 namespace System\Logger;
 
 use Configs\Config;
-use Kafka\ConfigureConnect;
+use Kafka\ConfigConnection;
+use Kafka\Groups;
 use Kafka\Kafka;
+use Kafka\Topics;
 
 class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInterface
 {
@@ -19,18 +21,22 @@ class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInt
 	 */
 	public function releaseLogs(): void
 	{
-		$connectConfig = new ConfigureConnect([Config::get('kafka', 'host')], 'logs', 'myConsumerGroup');
+		$configConnection = new ConfigConnection();
+		$configConnection->setBrokers([Config::get('kafka', 'host')]);
+		$configConnection->setTopic(Topics::LOGS);
+		$configConnection->setGroup(Groups::MY_CONSUMER_GROUP);
+
 		$kafka = Kafka::create()
-			->setConfigureConnect($connectConfig)
+			->setConfigConnection($configConnection)
 			->getProducer();
 
 		foreach ($this->logs as $log) {
-			$microtime = microtime(true);
+			$time = microtime(true);
 			$log = [
 				'header' => [
 					'topicName' => 'logs',
-					'time'      => $microtime,
-					'hash'      => md5($microtime . 'logs')
+					'time'      => $time,
+					'hash'      => md5($time . Topics::LOGS)
 				],
 				'body' => $log
 			];
