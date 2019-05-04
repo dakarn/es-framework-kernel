@@ -13,8 +13,6 @@ use RdKafka\Producer;
 use RdKafka\ProducerTopic;
 use Configs\Config;
 use Kafka\ConfigConnection;
-use Kafka\Topics;
-use Kafka\Groups;
 use Kafka\Kafka;
 
 class KafkaQueueSender implements QueueSenderInterface
@@ -42,15 +40,15 @@ class KafkaQueueSender implements QueueSenderInterface
 	{
 		$configConnection = new ConfigConnection();
 		$configConnection->setBrokers([Config::get('kafka', 'host')]);
-		$configConnection->setTopic(Topics::LOGS);
-		$configConnection->setGroup(Groups::MY_CONSUMER_GROUP);
+		$configConnection->setTopic($this->params->getTopicName());
+		$configConnection->setGroup($this->params->getGroupId());
 
 		$producer = Kafka::create()
 			->setConfigConnection($configConnection)
 			->getProducer();
 
 		$this->producer      = $producer->getProducer();
-		$this->producerTopic = $this->producer->newTopic($configConnection->getTopic());
+		$this->producerTopic = $this->producer->newTopic($this->params->getTopicName());
 
 		return $this;
 	}

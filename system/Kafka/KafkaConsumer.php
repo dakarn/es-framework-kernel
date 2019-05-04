@@ -60,26 +60,6 @@ class KafkaConsumer
 	/**
 	 * @return KafkaConsumer
 	 */
-	public function waitMessage(): KafkaConsumer
-	{
-		while (true) {
-
-			$message = $this->consumerTopic->consume(0, 120*10000);
-
-			$messageDecorator = new RdKafkaMessageDecorator($message);
-
-			if ($messageDecorator->getErr() === RD_KAFKA_RESP_ERR_NO_ERROR) {
-				$this->handlerClass->setMessageDecorator($messageDecorator);
-				$this->handlerClass->execute();
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * @return KafkaConsumer
-	 */
 	public function prepareObject(): KafkaConsumer
 	{
 		$this->kafkaConf = new Conf();

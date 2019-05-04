@@ -63,10 +63,10 @@ class RdKafkaMessageDecorator
 	}
 
 	/**
-	 * @return ClassToMappingInterface
+	 * @return ClassToMappingInterface|Payload
 	 * @throws \Exception\ObjectException
 	 */
-	public function getPayloadEntity(): ClassToMappingInterface
+	public function getPayloadEntity(): Payload
 	{
 		return ObjectMapper::create()->arrayToObject($this->getPayloadAsArray(), new Payload($this->bodyEntity));
 	}
