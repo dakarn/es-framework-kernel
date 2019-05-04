@@ -46,6 +46,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * RabbitReceiverStrategy constructor.
+	 * @throws \Exception\FileException
 	 */
 	public function __construct()
 	{
@@ -63,7 +64,11 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	}
 
 	/**
-	 * @return $this
+	 * @return $this|mixed
+	 * @throws \AMQPChannelException
+	 * @throws \AMQPConnectionException
+	 * @throws \AMQPExchangeException
+	 * @throws \AMQPQueueException
 	 */
 	public function build()
 	{
@@ -156,7 +161,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	{
 		$this->queueInst = new \AMQPQueue($this->channel);
 
-		$this->queueInst->setName($this->params->getName());
+		$this->queueInst->setName($this->params->getTopicName());
 		$this->queueInst->declareQueue();
 		$this->queueInst->bind($this->params->getExchangeName(), $this->params->getRoutingKey());
 

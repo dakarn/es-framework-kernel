@@ -22,4 +22,7 @@ interface ReceiverStrategyInterface
      * @return mixed
      */
     public function build();
+
+	public function getCreationObject(): array;
+
 }

@@ -14,7 +14,7 @@ interface QueueModelInterface
 	 * @param string $name
 	 * @return QueueModel
 	 */
-	public function setName(string $name): QueueModel;
+	public function setTopicName(string $name): QueueModel;
 
 	/**
 	 * @param string $name
@@ -49,7 +49,7 @@ interface QueueModelInterface
 	/**
 	 * @return string
 	 */
-	public function getName(): string;
+	public function getTopicName(): string;
 
 	/**
 	 * @return string

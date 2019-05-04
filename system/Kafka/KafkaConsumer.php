@@ -36,11 +36,6 @@ class KafkaConsumer
 	private $consumerTopic;
 
 	/**
-	 * @var AbstractKafkaHandler
-	 */
-	private $handlerClass;
-
-	/**
 	 * KafkaConsumer constructor.
 	 * @param ConfigureConnectInterface $configConnection
 	 */
@@ -55,14 +50,11 @@ class KafkaConsumer
 	}
 
 	/**
-	 * @param AbstractKafkaHandler $handlerClass
-	 * @return KafkaConsumer
+	 * @return ConsumerTopic
 	 */
-	public function setHandlerClass(AbstractKafkaHandler $handlerClass): KafkaConsumer
+	public function getConsumerTopic(): ConsumerTopic
 	{
-		$this->handlerClass = $handlerClass;
-
-		return $this;
+		return $this->consumerTopic;
 	}
 
 	/**

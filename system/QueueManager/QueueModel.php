@@ -41,6 +41,30 @@ class QueueModel implements QueueModelInterface
 	private $routingName;
 
 	/**
+	 * @var string
+	 */
+	private $groupId;
+
+	/**
+	 * @return string
+	 */
+	public function getGroupId(): string
+	{
+		return $this->groupId;
+	}
+
+	/**
+	 * @param string $groupId
+	 * @return QueueModel
+	 */
+	public function setGroupId(string $groupId): QueueModel
+	{
+		$this->groupId = $groupId;
+
+		return $this;
+	}
+
+	/**
 	 * @param string $type
 	 * @return QueueModel
 	 */
@@ -94,7 +118,7 @@ class QueueModel implements QueueModelInterface
 	 * @param string $name
 	 * @return QueueModel
 	 */
-	public function setName(string $name): QueueModel
+	public function setTopicName(string $name): QueueModel
 	{
 		$this->name = $name;
 		return $this;
@@ -153,7 +177,7 @@ class QueueModel implements QueueModelInterface
 	/**
 	 * @return string
 	 */
-	public function getName(): string
+	public function getTopicName(): string
 	{
 		return $this->name;
 	}

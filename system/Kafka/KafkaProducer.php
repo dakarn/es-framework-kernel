@@ -8,11 +8,21 @@
 
 namespace Kafka;
 
+use RdKafka\Producer;
+
 class KafkaProducer
 {
 	private $configureConnect;
-	private $payload;
 
+	/**
+	 * @var Producer
+	 */
+	private $producer;
+
+	/**
+	 * KafkaProducer constructor.
+	 * @param ConfigureConnectInterface $configureConnect
+	 */
 	public function __construct(ConfigureConnectInterface $configureConnect)
 	{
 		if (empty($configureConnect->getBrokers())) {
@@ -20,26 +30,21 @@ class KafkaProducer
 		}
 
 		$this->configureConnect = $configureConnect;
+		$this->prepareObject();
 	}
 
-	public function send()
+	public function prepareObject()
 	{
-		$rk = new \RdKafka\Producer();
-		$rk->setLogLevel(LOG_DEBUG);
-		$rk->addBrokers(implode($this->configureConnect->getBrokers(), ','));
-
-		$topic = $rk->newTopic($this->configureConnect->getTopic());
-
-		$topic->produce(RD_KAFKA_PARTITION_UA, 0, json_encode($this->payload));
-		$rk->poll(0);
-
-
+		$this->producer = new Producer();
+		$this->producer->setLogLevel(LOG_DEBUG);
+		$this->producer->addBrokers(implode($this->configureConnect->getBrokers(), ','));
 	}
 
-	public function setPayload(array $payload): self
+	/**
+	 * @return Producer
+	 */
+	public function getProducer(): Producer
 	{
-		$this->payload = $payload;
-
-		return $this;
+		return $this->producer;
 	}
 }

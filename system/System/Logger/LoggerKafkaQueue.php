@@ -8,41 +8,41 @@
 
 namespace System\Logger;
 
-use Configs\Config;
-use Kafka\ConfigConnection;
+use Helper\Util;
 use Kafka\Groups;
-use Kafka\Kafka;
 use Kafka\Topics;
+use QueueManager\QueueManager;
+use QueueManager\QueueModel;
+use QueueManager\Senders\KafkaQueueSender;
 
 class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	/**
 	 * @throws \Exception\FileException
+	 * @throws \Exception
 	 */
 	public function releaseLogs(): void
 	{
-		$configConnection = new ConfigConnection();
-		$configConnection->setBrokers([Config::get('kafka', 'host')]);
-		$configConnection->setTopic(Topics::LOGS);
-		$configConnection->setGroup(Groups::MY_CONSUMER_GROUP);
-
-		$kafka = Kafka::create()
-			->setConfigConnection($configConnection)
-			->getProducer();
+		$payload = [
+			'header' => [
+				'topicName' => Topics::LOGS,
+				'time'      => time(),
+				'hash'      => md5(time() . Topics::LOGS . Util::generateRandom(20))
+			],
+		];
 
 		foreach ($this->logs as $log) {
-			$time = microtime(true);
-			$log = [
-				'header' => [
-					'topicName' => 'logs',
-					'time'      => $time,
-					'hash'      => md5($time . Topics::LOGS)
-				],
-				'body' => $log
-			];
-
-			$kafka->setPayload($log)->send();
+			$payload['body'][] = $log;
 		}
 
+		$send = new QueueModel();
+		$send->setTopicName(Topics::LOGS)
+			 ->setGroupId(Groups::MY_CONSUMER_GROUP)
+			 ->setDataAsArray($payload);
+
+		QueueManager::create()
+			->setSender(new KafkaQueueSender())
+			->sender($send)
+			->send();
 	}
 }

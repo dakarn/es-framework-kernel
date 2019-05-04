@@ -33,9 +33,10 @@ class QueueManager implements QueueManagerInterface
 	 */
 	private $sender;
 
-    /**
-     * @return ReceiverStrategyInterface
-     */
+	/**
+	 * @return ReceiverStrategyInterface
+	 * @throws \Exception\FileException
+	 */
 	public function getReceiver(): ReceiverStrategyInterface
 	{
 		if (!$this->receiver instanceof ReceiverStrategyInterface) {
@@ -128,10 +129,11 @@ class QueueManager implements QueueManagerInterface
 		return true;
 	}
 
-    /**
-     * @param QueueModel $queue
-     * @return QueueSenderInterface
-     */
+	/**
+	 * @param QueueModel $queue
+	 * @return QueueSenderInterface
+	 * @throws \Exception\FileException
+	 */
 	public function sender(QueueModel $queue): QueueSenderInterface
 	{
 		if (!$this->sender instanceof QueueSenderInterface) {
