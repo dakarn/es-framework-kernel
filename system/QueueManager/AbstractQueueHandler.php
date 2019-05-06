@@ -8,12 +8,12 @@
 
 namespace QueueManager;
 
-use QueueManager\Strategy\ReceiverStrategyInterface;
+use QueueManager\ReceiverStrategy\KafkaReceiverStrategy;
 
 abstract class AbstractQueueHandler
 {
 	/**
-	 * @var ReceiverStrategyInterface
+	 * @var KafkaReceiverStrategy
 	 */
 	protected $strategy;
 
@@ -21,6 +21,19 @@ abstract class AbstractQueueHandler
 	 * @var QueueModelInterface
 	 */
 	protected $queueParam;
+
+	/**
+	 * @return bool
+	 */
+	public function loopObserver(): bool
+	{
+		while (true) {
+			$message = $this->getMessage();
+			$this->executeTask($message);
+		}
+
+		return true;
+	}
 
 	/**
 	 * @return AbstractQueueHandler
@@ -35,15 +48,20 @@ abstract class AbstractQueueHandler
 	/**
 	 * @return mixed
 	 */
-	abstract public function before();
+	abstract protected function before();
 
 	/**
 	 * @return bool
 	 */
-	abstract public function executeTask(): bool;
+	abstract protected function executeTask($message): bool;
 
 	/**
 	 * @return mixed
 	 */
-	abstract public function after();
+	abstract protected function after();
+
+	/**
+	 * @return mixed
+	 */
+	abstract public function getMessage();
 }

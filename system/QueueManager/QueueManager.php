@@ -108,7 +108,7 @@ class QueueManager implements QueueManagerInterface
 
                 /** @var AbstractQueueHandler $handler */
                 $handler = $this->handlers[$name];
-                $handler->prepareObject()->executeTask();
+                $handler->prepareObject()->loopObserver();
             }
         }
 
@@ -127,7 +127,7 @@ class QueueManager implements QueueManagerInterface
 
 		/** @var AbstractQueueHandler $handler */
 		$handler = $this->handlers[$name];
-		$handler->prepareObject()->executeTask();
+		$handler->prepareObject()->loopObserver();
 		return true;
 	}
 
