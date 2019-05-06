@@ -8,15 +8,15 @@
 
 namespace QueueManager\Senders;
 
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 
 interface QueueSenderInterface
 {
 	/**
-	 * @param QueueModel $params
+	 * @param QueueModelInterface $params
 	 * @return QueueSenderInterface
 	 */
-	public function setParams(QueueModel $params): QueueSenderInterface;
+	public function setParams(QueueModelInterface $params): QueueSenderInterface;
 
 	/**
 	 * @return QueueSenderInterface
@@ -33,7 +33,7 @@ interface QueueSenderInterface
 	 * @param string $data
 	 * @return QueueSenderInterface
 	 */
-    public function setData(string $data): QueueSenderInterface;
+    public function setDataString(string $data): QueueSenderInterface;
 
 	/**
 	 * @param array $data

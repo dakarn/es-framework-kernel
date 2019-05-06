@@ -6,15 +6,14 @@
  * Time: 22:43
  */
 
-namespace Kafka;
+namespace Kafka\Message;
 
-use Kafka\Message\AbstractQueueBody;
+use Helper\AbstractList;
 use ObjectMapper\ClassToMappingInterface;
 use RdKafka\Message;
-use Kafka\Message\Payload;
 use ObjectMapper\ObjectMapper;
 
-class RdKafkaMessageDecorator
+class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 {
 	/**
 	 * @var Message
@@ -22,9 +21,9 @@ class RdKafkaMessageDecorator
 	private $message;
 
 	/**
-	 * @var AbstractQueueBody
+	 * @var AbstractQueueBody|AbstractList
 	 */
-	private $bodyEntity;
+	private $entity;
 
 	/**
 	 * RdKafkaMessage constructor.
@@ -41,7 +40,18 @@ class RdKafkaMessageDecorator
 	 */
 	public function setBodyEntity(string $bodyEntity): self
 	{
-		$this->bodyEntity = $bodyEntity;
+		$this->entity = $bodyEntity;
+
+		return $this;
+	}
+
+    /**
+     * @param string $entityList
+     * @return RdKafkaMessageDecorator
+     */
+	public function setEntityList(string $entityList): self
+	{
+		$this->entity = $entityList;
 
 		return $this;
 	}
@@ -63,12 +73,23 @@ class RdKafkaMessageDecorator
 	}
 
 	/**
-	 * @return ClassToMappingInterface|Payload
+	 * @return ClassToMappingInterface|Payload|AbstractList
 	 * @throws \Exception\ObjectException
 	 */
 	public function getPayloadEntity(): Payload
 	{
-		return ObjectMapper::create()->arrayToObject($this->getPayloadAsArray(), new Payload($this->bodyEntity));
+        $payloadObject = new Payload();
+        $entity        = new $this->entity();
+
+	    if ($entity instanceof AbstractList) {
+            $payloadObject->setObjectList($entity);
+        } else if($entity instanceof AbstractQueueBody) {
+            $payloadObject->setBody($entity);
+        } else {
+	        throw new \InvalidArgumentException('No support this entity (' . $this->entity . ') for Kafka Payload');
+        }
+
+		return ObjectMapper::create()->arrayToObject($this->getPayloadAsArray(), $payloadObject);
 	}
 
 	/**

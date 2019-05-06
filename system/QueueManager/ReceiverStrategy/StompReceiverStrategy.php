@@ -6,11 +6,11 @@
  * Time: 10:47
  */
 
-namespace QueueManager\Strategy;
+namespace QueueManager\ReceiverStrategy;
 
 use AMQPConnection;
 use Configs\Config;
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 
 class StompReceiverStrategy implements ReceiverStrategyInterface
 {
@@ -25,7 +25,7 @@ class StompReceiverStrategy implements ReceiverStrategyInterface
     private $configConnect = [];
 
     /**
-     * @var QueueModel
+     * @var QueueModelInterface
      */
     private $params;
 
@@ -39,10 +39,10 @@ class StompReceiverStrategy implements ReceiverStrategyInterface
     }
 
     /**
-     * @param QueueModel $params
+     * @param QueueModelInterface $params
      * @return ReceiverStrategyInterface
      */
-    public function setParams(QueueModel $params): ReceiverStrategyInterface
+    public function setParams(QueueModelInterface $params): ReceiverStrategyInterface
     {
         $this->params = $params;
         return $this;
@@ -53,7 +53,7 @@ class StompReceiverStrategy implements ReceiverStrategyInterface
 	 */
     public function build()
     {
-        if (!$this->params instanceof QueueModel) {
+        if (!$this->params instanceof QueueModelInterface) {
             throw new \LogicException('Object data for connection with QueueServer do not filled!');
         }
 
@@ -66,7 +66,7 @@ class StompReceiverStrategy implements ReceiverStrategyInterface
     /**
      * @return array
      */
-    public function getCreationObject(): array
+    public function getCreatedObject(): array
     {
         return ['stomp' => $this->stomp];
     }

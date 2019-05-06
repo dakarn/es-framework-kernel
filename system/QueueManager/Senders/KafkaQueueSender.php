@@ -8,7 +8,7 @@
 
 namespace QueueManager\Senders;
 
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 use RdKafka\Producer;
 use RdKafka\ProducerTopic;
 use Configs\Config;
@@ -28,7 +28,7 @@ class KafkaQueueSender implements QueueSenderInterface
 	private $producer;
 
 	/**
-	 * @var QueueModel
+	 * @var QueueModelInterface
 	 */
 	private $params;
 
@@ -64,10 +64,10 @@ class KafkaQueueSender implements QueueSenderInterface
 	}
 
 	/**
-	 * @param QueueModel $params
+	 * @param QueueModelInterface $params
 	 * @return QueueSenderInterface
 	 */
-	public function setParams(QueueModel $params): QueueSenderInterface
+	public function setParams(QueueModelInterface $params): QueueSenderInterface
 	{
 		$this->params = $params;
 
@@ -78,7 +78,7 @@ class KafkaQueueSender implements QueueSenderInterface
 	 * @param string $data
 	 * @return QueueSenderInterface
 	 */
-	public function setData(string $data): QueueSenderInterface
+	public function setDataString(string $data): QueueSenderInterface
 	{
 		$this->params->setData($data);
 

@@ -8,11 +8,10 @@
 
 namespace QueueManager;
 
-use QueueManager\Senders\RabbitQueueSender;
-use QueueManager\Strategy\ReceiverStrategyInterface;
+use QueueManager\ReceiverStrategy\ReceiverStrategyInterface;
 use Traits\SingletonTrait;
 use QueueManager\Senders\QueueSenderInterface;
-use QueueManager\Strategy\RabbitReceiverStrategy;
+use QueueManager\ReceiverStrategy\RabbitReceiverStrategy;
 
 class QueueManager implements QueueManagerInterface
 {
@@ -33,14 +32,13 @@ class QueueManager implements QueueManagerInterface
 	 */
 	private $sender;
 
-	/**
-	 * @return ReceiverStrategyInterface
-	 * @throws \Exception\FileException
-	 */
+    /**
+     * @return ReceiverStrategyInterface
+     */
 	public function getReceiver(): ReceiverStrategyInterface
 	{
 		if (!$this->receiver instanceof ReceiverStrategyInterface) {
-			$this->receiver = new RabbitReceiverStrategy();
+			throw new \RuntimeException('No install object with ReceiverStrategy');
 		}
 
 		return $this->receiver;
@@ -108,7 +106,9 @@ class QueueManager implements QueueManagerInterface
                 \cli_set_process_title($name . '-queue-fork-php');
                 echo 'Create Fork: '. $name . PHP_EOL;
 
-                $this->handlers[$name]->prepareObject()->loopObserver();
+                /** @var AbstractQueueHandler $handler */
+                $handler = $this->handlers[$name];
+                $handler->prepareObject()->executeTask();
             }
         }
 
@@ -125,20 +125,21 @@ class QueueManager implements QueueManagerInterface
 			throw new \LogicException('Handlers for queue was not setup or do not added!');
 		}
 
-		$this->handlers[$name]->prepareObject()->loopObserver();
+		/** @var AbstractQueueHandler $handler */
+		$handler = $this->handlers[$name];
+		$handler->prepareObject()->executeTask();
 		return true;
 	}
 
-	/**
-	 * @param QueueModel $queue
-	 * @return QueueSenderInterface
-	 * @throws \Exception\FileException
-	 */
-	public function sender(QueueModel $queue): QueueSenderInterface
+    /**
+     * @param QueueModelInterface $queue
+     * @return QueueSenderInterface
+     */
+	public function sender(QueueModelInterface $queue): QueueSenderInterface
 	{
 		if (!$this->sender instanceof QueueSenderInterface) {
-			$this->sender = new RabbitQueueSender();
-		}
+            throw new \RuntimeException('No install object with QueueSenderInterface');
+        }
 
 		return $this->sender
 			->setParams($queue)

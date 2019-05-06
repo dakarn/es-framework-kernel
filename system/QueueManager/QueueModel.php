@@ -55,9 +55,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $groupId
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setGroupId(string $groupId): QueueModel
+	public function setGroupId(string $groupId): QueueModelInterface
 	{
 		$this->groupId = $groupId;
 
@@ -66,9 +66,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $type
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setType(string $type): QueueModel
+	public function setType(string $type): QueueModelInterface
 	{
 		$this->type = $type;
 		return $this;
@@ -76,9 +76,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $data
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setData(string $data): QueueModel
+	public function setData(string $data): QueueModelInterface
 	{
 		$this->dataForSend = $data;
 		return $this;
@@ -86,9 +86,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param array $data
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setDataAsArray(array $data): QueueModel
+	public function setDataAsArray(array $data): QueueModelInterface
 	{
 		$this->dataForSend = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 		return $this;
@@ -96,9 +96,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $exchangeName
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setExchangeName(string $exchangeName): QueueModel
+	public function setExchangeName(string $exchangeName): QueueModelInterface
 	{
 		$this->exchangeName = $exchangeName;
 		return $this;
@@ -106,9 +106,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $flags
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setFlags(string $flags): QueueModel
+	public function setFlags(string $flags): QueueModelInterface
 	{
 		$this->flags = $flags;
 		return $this;
@@ -116,9 +116,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $name
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setTopicName(string $name): QueueModel
+	public function setTopicName(string $name): QueueModelInterface
 	{
 		$this->name = $name;
 		return $this;
@@ -126,9 +126,9 @@ class QueueModel implements QueueModelInterface
 
 	/**
 	 * @param string $routingKey
-	 * @return QueueModel
+	 * @return QueueModelInterface
 	 */
-	public function setRoutingKey(string $routingKey): QueueModel
+	public function setRoutingKey(string $routingKey): QueueModelInterface
 	{
 		$this->routingName = $routingKey;
 		return $this;

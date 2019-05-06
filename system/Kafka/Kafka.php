@@ -10,15 +10,18 @@ namespace Kafka;
 
 use Traits\SingletonTrait;
 
-class Kafka
+class Kafka implements KafkaInterface
 {
 	use SingletonTrait;
 
 	private $consumer;
 	private $producer;
-
 	private $configureConnect;
 
+    /**
+     * @param ConfigureConnectInterface $configureConnect
+     * @return Kafka
+     */
 	public function setConfigConnection(ConfigureConnectInterface $configureConnect): Kafka
 	{
 		$this->configureConnect = $configureConnect;
@@ -26,6 +29,9 @@ class Kafka
 		return $this;
 	}
 
+    /**
+     * @return KafkaProducer
+     */
 	public function getProducer(): KafkaProducer
 	{
 		if (!$this->producer instanceof KafkaProducer) {
@@ -35,6 +41,9 @@ class Kafka
 		return $this->producer;
 	}
 
+    /**
+     * @return KafkaConsumer
+     */
 	public function getConsumer(): KafkaConsumer
 	{
 		if (!$this->consumer instanceof KafkaConsumer) {

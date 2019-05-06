@@ -18,7 +18,7 @@ abstract class AbstractQueueHandler
 	protected $strategy;
 
 	/**
-	 * @var QueueModel
+	 * @var QueueModelInterface
 	 */
 	protected $queueParam;
 
@@ -27,18 +27,9 @@ abstract class AbstractQueueHandler
 	 */
 	public function prepareObject(): self
 	{
-		$this->prepare();
 		$this->before();
 
 		return $this;
-	}
-
-	/**
-	 * @return void
-	 */
-	public function loopObserver()
-	{
-		$this->run();
 	}
 
 	/**
@@ -47,14 +38,9 @@ abstract class AbstractQueueHandler
 	abstract public function before();
 
 	/**
-	 * @return mixed
-	 */
-	abstract public function prepare();
-
-	/**
 	 * @return bool
 	 */
-	abstract public function run(): bool;
+	abstract public function executeTask(): bool;
 
 	/**
 	 * @return mixed

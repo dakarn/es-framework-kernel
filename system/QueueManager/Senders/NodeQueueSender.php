@@ -8,7 +8,7 @@
 
 namespace QueueManager\Senders;
 
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 
 /**
  * Class NodeQueueSender
@@ -17,10 +17,10 @@ use QueueManager\QueueModel;
 class NodeQueueSender implements QueueSenderInterface
 {
 	/**
-	 * @param QueueModel $params
+	 * @param QueueModelInterface $params
 	 * @return QueueSenderInterface
 	 */
-	public function setParams(QueueModel $params): QueueSenderInterface
+	public function setParams(QueueModelInterface $params): QueueSenderInterface
 	{
 		return $this;
 	}
@@ -29,12 +29,21 @@ class NodeQueueSender implements QueueSenderInterface
 	 * @param string $data
 	 * @return QueueSenderInterface
 	 */
-	public function setData(string $data): QueueSenderInterface
+	public function setDataString(string $data): QueueSenderInterface
 	{
 		return $this;
 	}
 
-	/**
+    /**
+     * @param array $data
+     * @return QueueSenderInterface
+     */
+	public function setDataArray(array $data): QueueSenderInterface
+    {
+        return $this;
+    }
+
+    /**
 	 * @return QueueSenderInterface
 	 */
 	public function build(): QueueSenderInterface

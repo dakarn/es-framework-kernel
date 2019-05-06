@@ -1,78 +1,89 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 01.04.2018
- * Time: 23:52
- */
 
 namespace QueueManager;
 
 interface QueueModelInterface
 {
-	/**
-	 * @param string $name
-	 * @return QueueModel
-	 */
-	public function setTopicName(string $name): QueueModel;
+    /**
+     * @return string
+     */
+    public function getGroupId(): string;
 
-	/**
-	 * @param string $name
-	 * @return QueueModel
-	 */
-	public function setData(string $name): QueueModel;
+    /**
+     * @param string $groupId
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setGroupId(string $groupId): QueueModelInterface;
 
-	/**
-	 * @param string $routingKey
-	 * @return QueueModel
-	 */
-	public function setRoutingKey(string $routingKey): QueueModel;
+    /**
+     * @param string $type
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setType(string $type): QueueModelInterface;
 
-	/**
-	 * @param string $type
-	 * @return QueueModel
-	 */
-	public function setType(string $type): QueueModel;
+    /**
+     * @param string $data
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setData(string $data): QueueModelInterface;
 
-	/**
-	 * @param string $flags
-	 * @return QueueModel
-	 */
-	public function setFlags(string $flags): QueueModel;
+    /**
+     * @param array $data
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setDataAsArray(array $data): QueueModelInterface;
 
-	/**
-	 * @param string $exchangeName
-	 * @return QueueModel
-	 */
-	public function setExchangeName(string $exchangeName): QueueModel;
+    /**
+     * @param string $exchangeName
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setExchangeName(string $exchangeName): QueueModelInterface;
 
-	/**
-	 * @return string
-	 */
-	public function getTopicName(): string;
+    /**
+     * @param string $flags
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setFlags(string $flags): QueueModelInterface;
 
-	/**
-	 * @return string
-	 */
-	public function getRoutingKey(): string;
+    /**
+     * @param string $name
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setTopicName(string $name): QueueModelInterface;
 
-	/**
-	 * @return string
-	 */
-	public function getType(): string;
+    /**
+     * @param string $routingKey
+     * @return \QueueManager\QueueModelInterface
+     */
+    public function setRoutingKey(string $routingKey): QueueModelInterface;
 
-	/**
-	 * @return string
-	 */
-	public function getData(): string;
+    /**
+     * @return string
+     */
+    public function getType(): string;
 
-	/**
-	 * @return string
-	 */
-	public function getFlags(): string;
+    /**
+     * @return string
+     */
+    public function getData(): string;
 
-	/**
-	 * @return string
-	 */
-	public function getExchangeName(): string;
+    /**
+     * @return string
+     */
+    public function getExchangeName(): string;
+
+    /**
+     * @return string
+     */
+    public function getFlags(): string;
+
+    /**
+     * @return string
+     */
+    public function getRoutingKey(): string;
+
+    /**
+     * @return string
+     */
+    public function getTopicName(): string;
 }

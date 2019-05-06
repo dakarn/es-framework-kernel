@@ -6,17 +6,17 @@
  * Time: 19:00
  */
 
-namespace QueueManager\Strategy;
+namespace QueueManager\ReceiverStrategy;
 
 use Configs\Config;
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 use RedisQueue\Queue as QueueRedis;
 use RedisQueue\RedisQueue;
 
 class RedisReceiverStrategy implements ReceiverStrategyInterface
 {
 	/**
-	 * @var QueueModel
+	 * @var QueueModelInterface
 	 */
 	private $params;
 
@@ -40,10 +40,10 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 	}
 
 	/**
-	 * @param QueueModel $params
+	 * @param QueueModelInterface $params
 	 * @return ReceiverStrategyInterface
 	 */
-	public function setParams(QueueModel $params): ReceiverStrategyInterface
+	public function setParams(QueueModelInterface $params): ReceiverStrategyInterface
 	{
 		$this->params = $params;
 		return $this;
@@ -68,7 +68,7 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 	/**
 	 * @return array
 	 */
-	public function getCreationObject(): array
+	public function getCreatedObject(): array
 	{
 		return [
 			'redis' => $this->queueRedis,

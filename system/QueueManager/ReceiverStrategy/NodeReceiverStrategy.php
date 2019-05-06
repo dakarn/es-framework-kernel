@@ -6,13 +6,13 @@
  * Time: 0:55
  */
 
-namespace QueueManager\Strategy;
+namespace QueueManager\ReceiverStrategy;
 
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 
 class NodeReceiverStrategy implements ReceiverStrategyInterface
 {
-	public function setParams(QueueModel $params): ReceiverStrategyInterface
+	public function setParams(QueueModelInterface $params): ReceiverStrategyInterface
 	{
 		return $this;
 	}

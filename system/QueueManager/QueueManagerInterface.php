@@ -9,7 +9,7 @@
 namespace QueueManager;
 
 use QueueManager\Senders\QueueSenderInterface;
-use QueueManager\Strategy\ReceiverStrategyInterface;
+use QueueManager\ReceiverStrategy\ReceiverStrategyInterface;
 
 interface QueueManagerInterface
 {
@@ -43,8 +43,8 @@ interface QueueManagerInterface
     public function runHandler(string $name): bool;
 
     /**
-     * @param QueueModel $queue
+     * @param QueueModelInterface $queue
      * @return QueueSenderInterface
      */
-    public function sender(QueueModel $queue): QueueSenderInterface;
+    public function sender(QueueModelInterface $queue): QueueSenderInterface;
 }

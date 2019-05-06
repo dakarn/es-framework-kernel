@@ -6,9 +6,9 @@
  * Time: 19:34
  */
 
-namespace QueueManager\Strategy;
+namespace QueueManager\ReceiverStrategy;
 
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 use Kafka\ConfigConnection;
 use Configs\Config;
 use Kafka\Kafka;
@@ -23,7 +23,7 @@ class KafkaReceiverStrategy implements ReceiverStrategyInterface
 	{
 	}
 
-	public function setParams(QueueModel $params): ReceiverStrategyInterface
+	public function setParams(QueueModelInterface $params): ReceiverStrategyInterface
 	{
 		$this->params = $params;
 		
@@ -47,7 +47,7 @@ class KafkaReceiverStrategy implements ReceiverStrategyInterface
 			->getConsumerTopic();
 	}
 	
-	public function getCreationObject(): array
+	public function getCreatedObject(): array
 	{
 		return ['consumerTopic' => $this->queueInstance];
 	}

@@ -12,7 +12,7 @@ use Helper\Util;
 use Kafka\Groups;
 use Kafka\Topics;
 use QueueManager\QueueManager;
-use QueueManager\QueueModel;
+use QueueManager\QueueModelInterface;
 use QueueManager\Senders\KafkaQueueSender;
 
 class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInterface
@@ -35,7 +35,7 @@ class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInt
 			$payload['body'][] = $log;
 		}
 
-		$send = new QueueModel();
+		$send = new QueueModelInterface();
 		$send->setTopicName(Topics::LOGS)
 			 ->setGroupId(Groups::MY_CONSUMER_GROUP)
 			 ->setDataAsArray($payload);
