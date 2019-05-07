@@ -11,13 +11,7 @@ interface RdKafkaMessageDecoratorInterface
      * @param string $bodyEntity
      * @return RdKafkaMessageDecorator
      */
-    public function setBodyEntity(string $bodyEntity): \Kafka\RdKafkaMessageDecorator;
-
-    /**
-     * @param string $entityList
-     * @return RdKafkaMessageDecorator
-     */
-    public function setEntityList(string $entityList): \Kafka\RdKafkaMessageDecorator;
+    public function setBody(string $bodyEntity): RdKafkaMessageDecorator;
 
     /**
      * @return string
@@ -30,10 +24,10 @@ interface RdKafkaMessageDecoratorInterface
     public function getPayloadAsArray(): array;
 
     /**
-     * @return ClassToMappingInterface|Payload|AbstractList
+     * @return ClassToMappingInterface|PayloadInterface|AbstractList
      * @throws \Exception\ObjectException
      */
-    public function getPayloadEntity(): Payload;
+    public function getPayloadEntity(): PayloadInterface;
 
     /**
      * @return int|null

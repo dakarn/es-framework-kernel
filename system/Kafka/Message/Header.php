@@ -10,7 +10,7 @@ namespace Kafka\Message;
 
 use ObjectMapper\ClassToMappingInterface;
 
-class Header implements ClassToMappingInterface
+class Header implements ClassToMappingInterface, HeaderInterface
 {
 	private $hash;
 	private $time;

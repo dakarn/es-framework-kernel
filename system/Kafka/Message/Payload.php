@@ -11,7 +11,7 @@ namespace Kafka\Message;
 use Helper\AbstractList;
 use ObjectMapper\ClassToMappingInterface;
 
-class Payload implements ClassToMappingInterface
+class Payload implements ClassToMappingInterface, PayloadInterface
 {
 	private $header;
 	private $body;
