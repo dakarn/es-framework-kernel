@@ -31,7 +31,19 @@ class ElasticConnection implements ClassToMappingInterface
      */
     private $port = '';
 
-    /**
+	/**
+	 * @return array
+	 */
+    public function getProperties(): array
+    {
+    	return [
+    		'schema',
+		    'host',
+		    'port'
+	    ];
+    }
+
+	/**
      * @return string
      */
     public function getSchema(): string

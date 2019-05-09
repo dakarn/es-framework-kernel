@@ -10,5 +10,8 @@ namespace ObjectMapper;
 
 interface ClassToMappingInterface
 {
-
+	/**
+	 * @return array
+	 */
+	public function getProperties(): array;
 }

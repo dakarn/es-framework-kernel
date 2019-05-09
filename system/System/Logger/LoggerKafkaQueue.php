@@ -12,13 +12,12 @@ use Helper\Util;
 use Kafka\Groups;
 use Kafka\Topics;
 use QueueManager\QueueManager;
-use QueueManager\QueueModelInterface;
+use QueueManager\QueueModel;
 use QueueManager\Senders\KafkaQueueSender;
 
 class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	/**
-	 * @throws \Exception\FileException
 	 * @throws \Exception
 	 */
 	public function releaseLogs(): void
@@ -32,10 +31,10 @@ class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInt
 		];
 
 		foreach ($this->logs as $log) {
-			$payload['body'][] = $log;
+			$payload['bodyAsList'][] = $log;
 		}
 
-		$send = new QueueModelInterface();
+		$send = new QueueModel();
 		$send->setTopicName(Topics::LOGS)
 			 ->setGroupId(Groups::MY_CONSUMER_GROUP)
 			 ->setDataAsArray($payload);

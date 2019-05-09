@@ -38,6 +38,21 @@ class TokenModel implements ClassToMappingInterface
 	private $expire = '';
 
 	/**
+	 * @return array
+	 */
+	public function getProperties(): array
+	{
+		return [
+			'access',
+			'refresh',
+			'userId',
+			'created',
+			'created',
+			'expire',
+		];
+	}
+
+	/**
 	 * TokenModel constructor.
 	 * @param array $props
 	 */

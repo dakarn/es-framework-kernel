@@ -27,7 +27,7 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 	/**
 	 * @var AbstractQueueBody|AbstractList
 	 */
-	private $entity;
+	private $bodyEntity;
 
 	/**
 	 * RdKafkaMessage constructor.
@@ -44,7 +44,18 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
      */
 	public function setBody(string $body): self
 	{
-		$this->entity = $body;
+		$this->bodyEntity = $body;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $bodyList
+	 * @return RdKafkaMessageDecorator
+	 */
+	public function setBodyAsList(string $bodyList): self
+	{
+		$this->bodyEntity = $bodyList;
 
 		return $this;
 	}
@@ -52,7 +63,7 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 	/**
 	 * @return string
 	 */
-	public function getPayload(): string
+	public function getPayloadSource():? string
 	{
 		return $this->message->payload;
 	}
@@ -60,7 +71,7 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 	/**
 	 * @return array
 	 */
-	public function getPayloadAsArray(): array
+	public function getPayloadAsArray():? array
 	{
 		return json_decode($this->message->payload, true);
 	}
@@ -69,25 +80,24 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
      * @return Payload
      * @throws \Exception\ObjectException
      */
-	public function getPayloadEntity(): PayloadInterface
+	public function getPayloadEntity(): Payload
 	{
-	    if ($this->payloadEntity instanceof PayloadInterface) {
+	    if ($this->payloadEntity instanceof Payload) {
 	        return $this->payloadEntity;
         }
 
+		$entity              = new $this->bodyEntity();
         $this->payloadEntity = new Payload();
-        $entity              = new $this->entity();
 
 	    if ($entity instanceof AbstractList) {
-            $this->payloadEntity->setObjectList($entity);
+            $this->payloadEntity->setBodyAsList($entity);
         } else if($entity instanceof AbstractQueueBody) {
             $this->payloadEntity->setBody($entity);
         } else {
-	        throw new \InvalidArgumentException('No support this entity (' . $this->entity . ') for Payload');
+	        throw new \InvalidArgumentException('No support this entity (' . $this->bodyEntity . ') for Payload');
         }
 
-		ObjectMapper::create()->arrayToObject($this->getPayloadAsArray(), $this->payloadEntity);
-	    return $this->payloadEntity;
+		return ObjectMapper::create()->arrayToObject($this->getPayloadAsArray(), $this->payloadEntity);
 	}
 
 	/**
@@ -127,7 +137,7 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 	 */
 	public function hasError(): bool
 	{
-		return $this->message->err !== RD_KAFKA_RESP_ERR_NO_ERROR;
+		return $this->message->err === RD_KAFKA_RESP_ERR_NO_ERROR;
 	}
 
 	/**

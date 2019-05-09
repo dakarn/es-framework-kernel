@@ -11,13 +11,21 @@ namespace Kafka\Message;
 use Helper\AbstractList;
 use ObjectMapper\ClassToMappingInterface;
 
-class Payload implements ClassToMappingInterface, PayloadInterface
+class Payload implements ClassToMappingInterface
 {
 	private $header;
 	private $body;
-	private $objectList;
+	private $bodyAsList;
 
-    /**
+	/**
+	 * @return array
+	 */
+	public function getProperties(): array
+	{
+		return [];
+	}
+
+	/**
      * Payload constructor.
      */
 	public function __construct()
@@ -25,6 +33,10 @@ class Payload implements ClassToMappingInterface, PayloadInterface
 		$this->header = new Header();
 	}
 
+	/**
+	 * @param AbstractQueueBody $queueBody
+	 * @return Payload
+	 */
 	public function setBody(AbstractQueueBody $queueBody): Payload
     {
         $this->body = $queueBody;
@@ -43,7 +55,7 @@ class Payload implements ClassToMappingInterface, PayloadInterface
 	/**
 	 * @return mixed
 	 */
-	public function getBody():? AbstractQueueBody
+	public function getBody()
 	{
 		return $this->body;
 	}
@@ -51,18 +63,18 @@ class Payload implements ClassToMappingInterface, PayloadInterface
     /**
      * @return AbstractList|null
      */
-	public function getObjectList():? AbstractList
+	public function getBodyAsList():? AbstractList
     {
-        return $this->objectList;
+        return $this->bodyAsList;
     }
 
     /**
-     * @param AbstractList $objectList
+     * @param AbstractList $bodyAsList
      * @return AbstractList
      */
-    public function setObjectList(AbstractList $objectList): AbstractList
+    public function setBodyAsList(AbstractList $bodyAsList): AbstractList
     {
-        return $this->objectList = $objectList;
+        return $this->bodyAsList = $bodyAsList;
     }
 
 }

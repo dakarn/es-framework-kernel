@@ -16,18 +16,17 @@ interface RdKafkaMessageDecoratorInterface
     /**
      * @return string
      */
-    public function getPayload(): string;
+    public function getPayloadSource():? string;
 
     /**
      * @return array
      */
-    public function getPayloadAsArray(): array;
+    public function getPayloadAsArray():? array;
 
-    /**
-     * @return ClassToMappingInterface|PayloadInterface|AbstractList
-     * @throws \Exception\ObjectException
-     */
-    public function getPayloadEntity(): PayloadInterface;
+	/**
+	 * @return Payload
+	 */
+    public function getPayloadEntity(): Payload;
 
     /**
      * @return int|null

@@ -16,6 +16,15 @@ class Header implements ClassToMappingInterface, HeaderInterface
 	private $time;
 	private $topicName;
 
+	public function getProperties(): array
+	{
+		return [
+			'hash',
+			'time',
+			'topicName',
+		];
+	}
+
 	/**
 	 * @return mixed
 	 */

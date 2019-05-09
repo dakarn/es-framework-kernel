@@ -89,26 +89,20 @@ class ObjectMapper implements ObjectMapperInterface
 
 	/**
 	 * @param array $arraysItems
-	 * @param string $objectInput
+	 * @param  ClassToMappingInterface $objectInput
 	 * @param string $objectList
 	 * @return AbstractList
 	 * @throws ObjectException
 	 */
     public function arraysToObjectList(array $arraysItems, $objectInput, $objectList): AbstractList
     {
-	    if (\is_string($objectInput)) {
-		    $objectInput = new $objectInput();
-	    }
-
-	    $this->verifyInterface($objectInput);
-
 	    if (\is_string($objectList)) {
 	    	/** @var AbstractList $objectList */
 		    $objectList = new $objectList();
 	    }
 
         foreach ($arraysItems as $arrayItem) {
-            $objectList->add($this->arrayToObject($arrayItem, $objectInput));
+	        $objectList->add($this->arrayToObject($arrayItem, $objectInput));
         }
 
         return $objectList;
@@ -116,7 +110,7 @@ class ObjectMapper implements ObjectMapperInterface
 
 	/**
 	 * @param array $arrayData
-	 * @param $objectInput
+	 * @param $objectInput ClassToMappingInterface
 	 * @return mixed
 	 * @throws ObjectException
 	 */
@@ -133,7 +127,7 @@ class ObjectMapper implements ObjectMapperInterface
             $setMethodName = self::SETTER . \ucfirst($property);
             $getMethodName = self::GETTER . \ucfirst($property);
 
-            if ($objectInput->$getMethodName() instanceof ClassToMappingInterface) {
+	        if ($objectInput->$getMethodName() instanceof ClassToMappingInterface) {
                 if ($objectInput->$getMethodName() instanceof JsonPropertiesInterface) {
                     $this->arrayToObject(Util::jsonDecode($itemValue), $objectInput->$getMethodName());
                 } else {
@@ -142,7 +136,9 @@ class ObjectMapper implements ObjectMapperInterface
             } else if ($objectInput->$getMethodName() instanceof AbstractList) {
                 $this->arraysToObjectList($itemValue, $objectInput->$getMethodName()->getMappingClass(), $objectInput->$getMethodName());
             } else {
-                $objectInput->$setMethodName($itemValue);
+            	if (in_array($property, $objectInput->getProperties())) {
+		            $objectInput->$setMethodName($itemValue);
+	            }
             }
         }
 
