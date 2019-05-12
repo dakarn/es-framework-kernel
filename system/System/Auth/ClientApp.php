@@ -57,9 +57,22 @@ class ClientApp implements ClassToMappingInterface
 	 */
 	private $allowIps = [];
 
+	/**
+	 * @return array
+	 */
 	public function getProperties(): array
 	{
-		return [];
+		return [
+			'description',
+			'clientSecret',
+			'refreshTTL',
+			'accessTTL',
+			'clientID',
+			'type',
+			'site',
+			'created',
+			'allowsIps'
+		];
 	}
 
 	/**
