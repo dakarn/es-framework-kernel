@@ -26,14 +26,14 @@ class ElasticResultFactory
         $currentQuery = $elasticSearchNew->getCurrentQueryType();
 
         switch (true) {
+            case self::hasError($response):
+                return new ErrorResponse($response);
             case $currentQuery instanceof Search:
                 return new SearchResponse($response);
             case $currentQuery instanceof Select:
                 return new SelectResponse($response);
             case $currentQuery->isUseByQuery():
                 return new OperationByQueryResponse($response);
-            case self::hasError($response):
-                return new ErrorResponse($response);
             default:
                 return new ExecuteResponse($response);
         }
