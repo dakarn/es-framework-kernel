@@ -110,7 +110,7 @@ class ObjectMapper implements ObjectMapperInterface
 
 	/**
 	 * @param array $arrayData
-	 * @param $objectInput ClassToMappingInterface
+	 * @param $objectInput ClassToMappingInterface|string
 	 * @return mixed
 	 * @throws ObjectException
 	 */

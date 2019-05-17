@@ -13,6 +13,11 @@ use ElasticSearch\ElasticConnection;
 abstract class ElasticQueryParams
 {
     /**
+     * @var bool
+     */
+    private $isUseByQuery = false;
+
+    /**
      * @var HttpQuery
      */
     protected $httpQuery;
@@ -52,6 +57,30 @@ abstract class ElasticQueryParams
 	 */
     protected $customQuery = [];
 
+    /**
+     * ElasticQueryParams constructor.
+     */
+    public function __construct()
+    {
+        $this->httpQuery = new HttpQuery();
+    }
+
+    /**
+     * @param bool $isUseByQuery
+     */
+    public function setIsUseByQuery(bool $isUseByQuery): void
+    {
+        $this->isUseByQuery = $isUseByQuery;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUseByQuery(): bool
+    {
+        return $this->isUseByQuery;
+    }
+
 	/**
 	 * @return array
 	 */
@@ -74,14 +103,6 @@ abstract class ElasticQueryParams
 
 		return $this;
 	}
-
-    /**
-     * ElasticQueryParams constructor.
-     */
-    public function __construct()
-    {
-        $this->httpQuery = new HttpQuery();
-    }
 
     /**
 	 * @return string

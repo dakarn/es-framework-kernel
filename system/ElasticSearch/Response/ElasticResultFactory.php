@@ -11,175 +11,40 @@ namespace ElasticSearch\Response;
 use ElasticSearch\ElasticSearch;
 use ElasticSearch\QueryEndpoints\Search;
 use ElasticSearch\QueryEndpoints\Select;
+use Helper\Util;
 
 class ElasticResultFactory
 {
-	/**
-	 * @var mixed
-	 */
-	private $response;
-
     /**
      * @param string $response
      * @param ElasticSearch $elasticSearchNew
      * @return AbstractResponse
+     * @throws \Exception\ObjectException
      */
-	public static function factory(string $response, ElasticSearch $elasticSearchNew): AbstractResponse
+	public static function getResponseObject(string $response, ElasticSearch $elasticSearchNew): AbstractResponse
 	{
         $currentQuery = $elasticSearchNew->getCurrentQueryType();
-        $responseObj  = null;
 
-        if ($currentQuery instanceof Select || $currentQuery instanceof Search) {
-            $responseObj = new FetchResult($response);
-        } else {
-            $responseObj = new ExecuteResult($response);
+        switch (true) {
+            case $currentQuery instanceof Search:
+                return new SearchResponse($response);
+            case $currentQuery instanceof Select:
+                return new SelectResponse($response);
+            case $currentQuery->isUseByQuery():
+                return new OperationByQueryResponse($response);
+            case self::hasError($response):
+                return new ErrorResponse($response);
+            default:
+                return new ExecuteResponse($response);
         }
-
-        return $responseObj;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isFound(): bool
-	{
-		return isset($this->response['found']) && $this->response['found'] == true;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getResponse(): array
-	{
-		return $this->response;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getResult(): string
-	{
-		return $this->response['result'] ?? '';
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getRecords(): array
-	{
-		$data = [];
-
-		if (isset($this->response['hits'])) {
-			foreach ($this->response['hits']['hits'] as $valueHit) {
-				$data[$valueHit['_id']] = $valueHit['_source'];
-			}
-		}
-
-		return $data;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getRecord(): array
-	{
-		$data = [];
-
-		if (isset($this->response['_source'])) {
-			foreach ($this->response['_source'] as $indexSource => $valueSource) {
-				return [$indexSource=> $valueSource];
-			}
-		}
-
-		return $data;
-	}
-
-	/**
-	 * @param $objectList
-	 * @param $object
-	 */
-	public function getRecordsAsObject($objectList, $object)
-	{
-
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isSuccess(): bool
-	{
-		if (!isset($this->response['error'])) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isFailure(): bool
-	{
-		if (isset($this->response['error'])) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getSource(): array
-	{
-		if (isset($this->response['_source'])) {
-			return $this->response['_source'];
-		}
-
-		return [];
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getCountRecords(): int
-	{
-		if (isset($this->response['hits']['total'])) {
-			return $this->response['hits']['total'];
-		}
-
-		return 0;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getStatus(): string
-	{
-		return $this->response['status'] ?? '';
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getError(): array
-	{
-		return $this->response['error'] ?? [];
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getShards(): array
-	{
-		return $this->response['_shards'] ?? [];
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getVersion(): int
-	{
-		return $this->response['_version'] ?? 0;
-	}
+    /**
+     * @param string $response
+     * @return bool
+     */
+	private static function hasError(string $response): bool
+    {
+        return !empty(Util::jsonDecode($response)['error']);
+    }
 }

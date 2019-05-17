@@ -12,10 +12,8 @@ use ElasticSearch\ElasticConnection;
 use ElasticSearch\QueryOptions\ElasticQueryParams;
 use ElasticSearch\QueryOptions\HttpQuery;
 
-class Custom
+class Custom extends ElasticQueryParams
 {
-	use ElasticQueryParams;
-
 	/**
 	 * @param ElasticConnection $elasticConnect
 	 * @return HttpQuery

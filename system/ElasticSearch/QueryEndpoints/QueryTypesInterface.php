@@ -17,4 +17,5 @@ interface QueryTypesInterface
     public const INDEX  = Index::class;
     public const SEARCH = Search::class;
     public const BULK   = Bulk::class;
+    public const SQL    = Sql::class;
 }

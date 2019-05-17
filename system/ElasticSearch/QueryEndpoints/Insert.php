@@ -16,12 +16,12 @@ use Http\Request\Request;
 class Insert extends ElasticQueryParams
 {
     /**
-     * @param ElasticConnection $connect
+     * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    public function buildQuery(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $elasticConnect): HttpQuery
     {
-        $host = $this->makeHost($connect);
+        $host = $this->makeHost($elasticConnect);
 
         if (empty($this->id)) {
             $pathname = $this->index . '/' . $this->type . '/';

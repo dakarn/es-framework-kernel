@@ -32,12 +32,12 @@ class Index extends ElasticQueryParams
     private $command = '';
 
     /**
-     * @param ElasticConnection $connect
+     * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    public function buildQuery(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $elasticConnect): HttpQuery
     {
-        $host     = $this->makeHost($connect);
+        $host     = $this->makeHost($elasticConnect);
 	    $pathname = $this->index;
 
 

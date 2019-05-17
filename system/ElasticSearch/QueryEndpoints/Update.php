@@ -22,12 +22,12 @@ class Update extends ElasticQueryParams
 	private $queryUpdate = [];
 
     /**
-     * @param ElasticConnection $connect
+     * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    public function buildQuery(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $elasticConnect): HttpQuery
     {
-        $host = $this->makeHost($connect);
+        $host = $this->makeHost($elasticConnect);
 
 	    if (!empty($this->queryUpdate)) {
 		    list($pathname, $method) = $this->makeByQueryUpdate();
@@ -49,6 +49,7 @@ class Update extends ElasticQueryParams
     public function byQuery(array $queryUpdate): Update
     {
     	$this->queryUpdate = $queryUpdate;
+    	$this->setIsUseByQuery(true);
 
     	return $this;
     }

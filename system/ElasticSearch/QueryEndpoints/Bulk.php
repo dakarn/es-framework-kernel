@@ -21,13 +21,13 @@ class Bulk extends ElasticQueryParams
 	 */
 	private $bulkData = '';
 
-	/**
-	 * @param ElasticConnection $connect
-	 * @return HttpQuery
-	 */
-	public function buildQuery(ElasticConnection $connect): HttpQuery
+    /**
+     * @param ElasticConnection $elasticConnect
+     * @return HttpQuery
+     */
+	public function buildQuery(ElasticConnection $elasticConnect): HttpQuery
 	{
-		$host = $this->makeHost($connect);
+		$host = $this->makeHost($elasticConnect);
 
 		$this->httpQuery->setUrl($host . HttpCommandsInterface::BULK);
 		$this->httpQuery->setMethod(Request::POST);

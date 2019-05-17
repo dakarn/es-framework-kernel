@@ -16,12 +16,12 @@ use Http\Request\Request;
 class Select extends ElasticQueryParams
 {
     /**
-     * @param ElasticConnection $connect
+     * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    public function buildQuery(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $elasticConnect): HttpQuery
     {
-        $host     = $this->makeHost($connect);
+        $host     = $this->makeHost($elasticConnect);
         $pathname = $this->index . '/' . $this->type .'/' . $this->id;
 
 	    $this->httpQuery->setUrl($host . $pathname);

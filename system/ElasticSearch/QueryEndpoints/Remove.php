@@ -22,12 +22,12 @@ class Remove extends ElasticQueryParams
 	private $queryByRemove = [];
 
     /**
-     * @param ElasticConnection $connect
+     * @param ElasticConnection $elasticConnect
      * @return HttpQuery
      */
-    public function buildQuery(ElasticConnection $connect): HttpQuery
+    public function buildQuery(ElasticConnection $elasticConnect): HttpQuery
     {
-        $host = $this->makeHost($connect);
+        $host = $this->makeHost($elasticConnect);
 
         if (!empty($this->queryByRemove)) {
 	        $pathname = $this->index . '/' . HttpCommandsInterface::DELETE_QUERY;
@@ -51,8 +51,9 @@ class Remove extends ElasticQueryParams
 	public function byQuery(array $queryRemove): Remove
 	{
 		$this->queryByRemove = $queryRemove;
+        $this->setIsUseByQuery(true);
 
-		return $this;
+        return $this;
 	}
 
 }

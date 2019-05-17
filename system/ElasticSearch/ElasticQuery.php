@@ -8,7 +8,6 @@
 
 namespace ElasticSearch;
 
-use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
 use ElasticSearch\QueryOptions\ElasticQueryParams;
 use ElasticSearch\QueryOptions\HttpQuery;
 use ElasticSearch\Response\AbstractResponse;
@@ -16,7 +15,7 @@ use ElasticSearch\Response\ElasticResultFactory;
 use Exception\HttpException;
 use Traits\SingletonTrait;
 
-class ElasticQuery
+class ElasticQuery implements ElasticQueryInterface
 {
     use SingletonTrait;
 
@@ -53,7 +52,7 @@ class ElasticQuery
             throw new HttpException('Unable to connect with Elastic Search!');
         }
 
-        return ElasticResultFactory::factory($result, ElasticSearch::create());
+        return ElasticResultFactory::getResponseObject($result, ElasticSearch::create());
     }
 
     /**

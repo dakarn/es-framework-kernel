@@ -10,6 +10,7 @@ namespace ElasticSearch;
 
 use Configs\Config;
 use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
+use ElasticSearch\QueryEndpoints\Sql;
 use ElasticSearch\QueryOptions\ElasticQueryParams;
 use ElasticSearch\QueryEndpoints\Bulk;
 use ElasticSearch\QueryEndpoints\Index;
@@ -49,8 +50,7 @@ class ElasticSearch implements ElasticSearchInterface
 	public function getConfigConnection(): ElasticConnection
     {
         if (!$this->configConnection instanceof ElasticConnection) {
-            $config                 = Config::get('elasticsearch');
-            $this->configConnection = ObjectMapper::create()->arrayToObject($config, ElasticConnection::class);
+            $this->configConnection = ObjectMapper::create()->arrayToObject(Config::get('elasticsearch'), ElasticConnection::class);
         }
 
         return $this->configConnection;
@@ -68,6 +68,14 @@ class ElasticSearch implements ElasticSearchInterface
 	 * @return Index
 	 */
 	public function index(): Index
+    {
+        return $this->getQueryClass(QueryTypesInterface::INDEX);
+    }
+
+    /**
+     * @return Sql
+     */
+    public function sql(): Sql
     {
         return $this->getQueryClass(QueryTypesInterface::INDEX);
     }
