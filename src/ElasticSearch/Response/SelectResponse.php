@@ -165,10 +165,18 @@ final class SelectResponse extends AbstractResponse implements ClassToMappingInt
     /**
      * @return array
      */
-    public function getSource(): array
+    public function getSource():? array
     {
         return $this->source;
     }
+
+	/**
+	 * @param mixed $source
+	 */
+	public function setSource($source): void
+	{
+		$this->source = $source;
+	}
 
     /**
      * @return bool

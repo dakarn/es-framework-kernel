@@ -124,6 +124,15 @@ class ObjectMapper implements ObjectMapperInterface
 
         foreach ($arrayData as $property => $itemValue) {
 
+        	$underIndex = strpos($property, '_');
+
+        	if ($underIndex === 0) {
+        		$property = substr($property, 1);
+	        }
+	        if ($underIndex > 0) {
+        		$property = substr($property, 0, $underIndex) . ucfirst(substr($property, $underIndex + 1));
+	        }
+
             $setMethodName = self::SETTER . \ucfirst($property);
             $getMethodName = self::GETTER . \ucfirst($property);
 

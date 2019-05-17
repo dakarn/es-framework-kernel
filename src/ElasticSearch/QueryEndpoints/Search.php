@@ -27,7 +27,7 @@ class Search extends ElasticQueryParams
         $pathname = $this->index . self::SEARCH;
 
 	    $this->httpQuery->setUrl($host . $pathname);
-	    $this->httpQuery->setMethod(Request::GET);
+	    $this->httpQuery->setMethod(Request::POST);
 	    $this->httpQuery->setQueryArray($this->query);
 
         return $this->httpQuery;

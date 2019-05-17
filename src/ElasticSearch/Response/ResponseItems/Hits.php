@@ -6,16 +6,16 @@ use ObjectMapper\ClassToMappingInterface;
 
 class Hits implements ClassToMappingInterface
 {
-    private $maxScope;
+    private $maxScore;
     private $total;
-    private $hitsItemList;
+    private $hits;
 
     /**
      * Hits constructor.
      */
     public function __construct()
     {
-        $this->hitsItemList = new HitsItemList();
+        $this->hits = new HitsItemList();
     }
 
     /**
@@ -24,7 +24,7 @@ class Hits implements ClassToMappingInterface
     public function getProperties(): array
     {
        return [
-            'maxScope',
+            'maxScore',
             'total',
        ];
     }
@@ -32,17 +32,17 @@ class Hits implements ClassToMappingInterface
     /**
      * @return mixed
      */
-    public function getMaxScope()
+    public function getMaxScore()
     {
-        return $this->maxScope;
+        return $this->maxScore;
     }
 
     /**
-     * @param mixed $maxScope
+     * @param mixed $maxScore
      */
-    public function setMaxScope($maxScope): void
+    public function setMaxScore($maxScore): void
     {
-        $this->maxScope = $maxScope;
+        $this->maxScore = $maxScore;
     }
 
     /**
@@ -64,8 +64,8 @@ class Hits implements ClassToMappingInterface
     /**
      * @return mixed
      */
-    public function getHitsItemList()
+    public function getHits()
     {
-        return $this->hitsItemList;
+        return $this->hits;
     }
 }

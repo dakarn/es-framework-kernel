@@ -29,7 +29,7 @@ class ElasticResultFactory
             case self::hasError($response):
                 return new ErrorResponse($response);
             case $currentQuery instanceof Search:
-                return new SearchResponse($response);
+	            return new SearchResponse($response);
             case $currentQuery instanceof Select:
                 return new SelectResponse($response);
             case $currentQuery->isUseByQuery():
@@ -45,6 +45,8 @@ class ElasticResultFactory
      */
 	private static function hasError(string $response): bool
     {
-        return !empty(Util::jsonDecode($response)['error']);
+    	$response = Util::jsonDecode($response);
+
+        return !empty($response['error']) || !empty($response['errors']);
     }
 }

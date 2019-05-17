@@ -23,8 +23,10 @@ final class SearchResponse extends AbstractResponse
     {
         parent::__construct($response);
 
-        $this->hits   = ObjectMapper::create()->arrayToObject($this->response['hits'] ?? [], Hits::class);
-        $this->shards = ObjectMapper::create()->arrayToObject($this->response['_shards'] ?? [], Shards::class);
+	    $this->hits   = ObjectMapper::create()->arrayToObject($this->response['hits'], Hits::class);
+        $this->shards = ObjectMapper::create()->arrayToObject($this->response['_shards'], Shards::class);
+
+        $this->response = [];
     }
 
     /**

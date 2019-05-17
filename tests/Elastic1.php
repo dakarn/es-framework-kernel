@@ -22,9 +22,9 @@ class Elastic1
     {
         $es = ElasticSearch::create()
             ->select()
-            ->setIndex('twitter')
-            ->setType('_doc')
-            ->setId('1');
+            ->setIndex('logs')
+            ->setType('errorLog')
+            ->setId('Rq5onmoBB05uMRH5tr6i');
 
         print_r(ElasticQuery::create()->execute($es));
     }
@@ -84,11 +84,11 @@ class Elastic1
     {
         $es = ElasticSearch::create()
             ->search()
-            ->setIndex('twitter')
+            ->setIndex('logs')
             ->setQuery([
                 'query' => [
                     'term' => [
-                        'email' => 'Test'
+                        'level' => 'info'
                     ]
                 ]
             ]);
@@ -96,17 +96,26 @@ class Elastic1
         print_r(ElasticQuery::create()->execute($es));
     }
 
+	/**
+	 * @throws \Exception\FileException
+	 * @throws \Exception\HttpException
+	 * @throws \Exception\ObjectException
+	 */
     public static function testBulk()
     {
         $data = [];
 
-        for($i = 0; $i < 100000; $i++) {
-            $data[] = [
-                'index' => ['_index' => 'twitter', '_type' => 'user', '_id' => microtime(true) . $i]
-            ];
-            $data[] = [
-                'title' => '' . microtime(true) . ''
-            ];
+        for($i = 0; $i < 1; $i++) {
+	        $data[] = [
+		        'index' => [
+			        '_index' => 'logs',
+			        '_type'  => 'errorLog']
+	        ];
+	        $data[] = [
+		        'level'   => 'info',
+		        'time'    => date('d.m.y H:i:s'),
+		        'message' => 'test',
+	        ];
         }
 
         $es = ElasticSearch::create()
@@ -117,4 +126,4 @@ class Elastic1
     }
 }
 
-Elastic1::testBulk();
+Elastic1::testSearch();

@@ -10,7 +10,7 @@ class HitsItem implements ClassToMappingInterface
     private $type;
     private $id;
     private $sort;
-    private $scope;
+    private $score;
     private $source;
 
     /**
@@ -23,7 +23,7 @@ class HitsItem implements ClassToMappingInterface
             'type',
             'id',
             'sort',
-            'scope',
+            'score',
             'source'
         ];
     }
@@ -95,17 +95,17 @@ class HitsItem implements ClassToMappingInterface
     /**
      * @return mixed
      */
-    public function getScope()
+    public function getScore()
     {
-        return $this->scope;
+        return $this->score;
     }
 
     /**
-     * @param mixed $scope
+     * @param mixed $score
      */
-    public function setScope($scope): void
+    public function setScore($score): void
     {
-        $this->scope = $scope;
+        $this->score = $score;
     }
 
     /**

@@ -48,7 +48,7 @@ class ElasticQuery implements ElasticQueryInterface
 
         $result = $this->doRequest();
 
-        if (empty($result)) {
+	    if (empty($result)) {
             throw new HttpException('Unable to connect with Elastic Search!');
         }
 
