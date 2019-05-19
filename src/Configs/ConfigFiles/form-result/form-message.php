@@ -1,5 +1,5 @@
 <?php
-use System\Validators\Validators;
+use ES\Kernel\System\Validators\Validators;
 
 return [
 	Validators::AUTH => [
@@ -22,6 +22,14 @@ return [
 		'password'   => 'Не заполнен пароль.',
 		'query'      => 'Не корректный запрос.',
 		'user-exist' => 'Пользователь с такимии данными уже есть на сайте.'
+	],
+	Validators::ADD_WORD => [
+		'text'      => 'Поле со словом не заполнено',
+		'translate' => 'Перевод не заполнен'
+	],
+	Validators::EDIT_WORD => [
+		'translate' => 'Перевод не заполнен',
+		'type'      => 'Текст не может быть пустым'
 	],
 	Validators::COMMON => [
 		'error-query'     => 'Ошибка при выполнении опреации, попробуйте позже.',

@@ -1,12 +1,11 @@
 <?php
 
-namespace System\Router;
+namespace ES\Kernel\System\Router;
 
-use Helper\Util;
-use ObjectMapper\ObjectMapper;
-use System\ES;
-use System\Kernel\GETParam;
-use Configs\Config;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\System\ES;
+use ES\Kernel\System\Kernel\GETParam;
+use ES\Kernel\Configs\Config;
 
 class Routing implements RoutingInterface
 {
@@ -73,7 +72,7 @@ class Routing implements RoutingInterface
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function fillRouterList(): void
 	{
@@ -90,8 +89,8 @@ class Routing implements RoutingInterface
 
 	/**
 	 * @return RouterList
-	 * @throws \Exception\FileException
-	 * @throws \Exception\KernelException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\KernelException
 	 */
 	public static function getRouterList(): RouterList
 	{

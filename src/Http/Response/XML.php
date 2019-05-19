@@ -6,7 +6,7 @@
  * Time: 19:27
  */
 
-namespace Http\Response;
+namespace ES\Kernel\Http\Response;
 
 class XML implements FormatResponseInterface
 {

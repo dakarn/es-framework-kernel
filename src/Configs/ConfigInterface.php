@@ -6,7 +6,7 @@
  * Time: 19:15
  */
 
-namespace Configs;
+namespace ES\Kernel\Configs;
 
 interface ConfigInterface
 {

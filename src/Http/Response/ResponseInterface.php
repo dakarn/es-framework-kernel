@@ -6,7 +6,7 @@
  * Time: 22:59
  */
 
-namespace Http\Response;
+namespace ES\Kernel\Http\Response;
 
 interface ResponseInterface
 {

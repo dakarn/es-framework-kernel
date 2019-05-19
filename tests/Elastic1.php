@@ -8,15 +8,15 @@
 
 require_once '../vendor/autoload.php';
 
-use ElasticSearch\ElasticSearch;
-use ElasticSearch\ElasticQuery;
+use ES\Kernel\ElasticSearch\ElasticSearch;
+use ES\Kernel\ElasticSearch\ElasticQuery;
 
 class Elastic1
 {
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
-	 * @throws \Exception\ObjectException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\HttpException
+	 * @throws \ES\Kernel\Exception\ObjectException
 	 */
     public static function testSelect()
     {
@@ -97,9 +97,9 @@ class Elastic1
     }
 
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
-	 * @throws \Exception\ObjectException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\HttpException
+	 * @throws \ES\Kernel\Exception\ObjectException
 	 */
     public static function testBulk()
     {

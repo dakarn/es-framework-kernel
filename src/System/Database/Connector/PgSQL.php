@@ -6,10 +6,10 @@
  * Time: 0:35
  */
 
-namespace System\Database\Connector;
+namespace ES\Kernel\System\Database\Connector;
 
-use System\Database\DB;
-use System\Database\DbConfigLogic\DbConfig;
+use ES\Kernel\System\Database\DB;
+use ES\Kernel\System\Database\DbConfigLogic\DbConfig;
 
 class PgSQL implements DBConnectorInterface
 {

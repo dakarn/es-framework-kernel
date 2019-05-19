@@ -6,7 +6,7 @@
  * Time: 22:13
  */
 
-namespace ElasticSearch\Response;
+namespace ES\Kernel\ElasticSearch\Response;
 
 class AbstractResponse
 {

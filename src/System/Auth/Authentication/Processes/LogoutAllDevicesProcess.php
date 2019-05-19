@@ -6,19 +6,19 @@
  * Time: 21:16
  */
 
-namespace System\Auth\Authentication\Processes;
+namespace ES\Kernel\System\Auth\Authentication\Processes;
 
-use Helper\RepositoryHelper\StorageRepository;
-use Http\Request\ServerRequest;
-use Http\Session\SessionRedis;
-use System\Auth\JWTokenManager;
-use System\Auth\TokenRepository;
+use ES\Kernel\Helper\RepositoryHelper\StorageRepository;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\System\Auth\TokenRepository;
 
 class LogoutAllDevicesProcess extends FillingPayload implements AuthenticationProcessInterface
 {
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function execute(): bool

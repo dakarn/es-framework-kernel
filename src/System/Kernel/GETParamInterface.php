@@ -6,7 +6,7 @@
  * Time: 19:13
  */
 
-namespace System\Kernel;
+namespace ES\Kernel\System\Kernel;
 
 interface GETParamInterface
 {

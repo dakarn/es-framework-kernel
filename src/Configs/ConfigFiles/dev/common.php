@@ -15,7 +15,7 @@ return [
 		'500' => 'errors/500.html',
 	],
 	'maxAuthUserWithDevices' => 10,
-	'TTLAnonymousJWToken' => \System\Constants::ONE_YEAR * 100,
+	'TTLAnonymousJWToken' => ES\Kernel\System\Constants::ONE_YEAR * 100,
 	'redis' => [
 		[
 			'host' => '127.0.0.1',

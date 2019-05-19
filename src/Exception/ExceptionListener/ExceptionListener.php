@@ -6,9 +6,9 @@
  * Time: 20:41
  */
 
-namespace Exception\ExceptionListener;
+namespace ES\Kernel\Exception\ExceptionListener;
 
-use Configs\Config;
+use ES\Kernel\Configs\Config;
 
 class ExceptionListener
 {

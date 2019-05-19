@@ -6,7 +6,7 @@
  * Time: 11:18
  */
 
-namespace Http\Response;
+namespace ES\Kernel\Http\Response;
 
 class Serialize implements FormatResponseInterface
 {

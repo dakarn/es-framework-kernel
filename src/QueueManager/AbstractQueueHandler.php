@@ -6,9 +6,9 @@
  * Time: 1:03
  */
 
-namespace QueueManager;
+namespace ES\Kernel\QueueManager;
 
-use QueueManager\ReceiverStrategy\KafkaReceiverStrategy;
+use ES\Kernel\QueueManager\ReceiverStrategy\KafkaReceiverStrategy;
 
 abstract class AbstractQueueHandler
 {

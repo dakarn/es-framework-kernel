@@ -6,9 +6,9 @@
  * Time: 0:05
  */
 
-namespace Kafka\Message;
+namespace ES\Kernel\Kafka\Message;
 
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 class Header implements ClassToMappingInterface, HeaderInterface
 {

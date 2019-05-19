@@ -6,7 +6,7 @@
  * Time: 2:18
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class WidgetException extends \Exception
 {

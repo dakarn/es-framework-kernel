@@ -6,7 +6,7 @@
  * Time: 21:01
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
 abstract class AbstractList
 {

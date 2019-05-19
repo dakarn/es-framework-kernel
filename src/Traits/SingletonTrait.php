@@ -6,7 +6,7 @@
  * Time: 0:51
  */
 
-namespace Traits;
+namespace ES\Kernel\Traits;
 
 trait SingletonTrait
 {

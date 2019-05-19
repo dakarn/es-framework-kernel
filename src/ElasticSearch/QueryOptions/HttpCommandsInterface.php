@@ -6,7 +6,7 @@
  * Time: 17:42
  */
 
-namespace ElasticSearch\QueryOptions;
+namespace ES\Kernel\ElasticSearch\QueryOptions;
 
 interface HttpCommandsInterface
 {

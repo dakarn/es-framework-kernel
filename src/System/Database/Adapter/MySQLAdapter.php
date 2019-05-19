@@ -6,13 +6,13 @@
  * Time: 0:50
  */
 
-namespace System\Database\Adapter;
+namespace ES\Kernel\System\Database\Adapter;
 
-use Helper\AbstractList;
-use ObjectMapper\ClassToMappingInterface;
-use ObjectMapper\ObjectMapper;
-use System\Database\Connector\DBConnectorInterface;
-use System\Database\DB;
+use ES\Kernel\Helper\AbstractList;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ObjectMapper;
+use ES\Kernel\System\Database\Connector\DBConnectorInterface;
+use ES\Kernel\System\Database\DB;
 
 class MySQLAdapter implements AdapteeInterface
 {

@@ -6,15 +6,15 @@
  * Time: 18:34
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
-use Configs\Config;
+use ES\Kernel\Configs\Config;
 
 class FlashTextRender
 {
 	/**
 	 * @param array $items
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function render(array $items = [])
 	{
@@ -28,7 +28,7 @@ class FlashTextRender
 
 	/**
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	private static function getConfigFlash(): array
 	{

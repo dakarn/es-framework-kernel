@@ -6,13 +6,13 @@
  * Time: 19:00
  */
 
-namespace QueueManager\Senders;
+namespace ES\Kernel\QueueManager\Senders;
 
-use Configs\Config;
-use RedisQueue\RedisQueue;
-use QueueManager\QueueModelInterface;
-use RedisQueue\Queue as QueueMy;
-use RedisQueue\RedisQueueInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\RedisQueue\RedisQueue;
+use ES\Kernel\QueueManager\QueueModelInterface;
+use ES\Kernel\RedisQueue\Queue as QueueMy;
+use ES\Kernel\RedisQueue\RedisQueueInterface;
 
 class RedisQueueSender implements QueueSenderInterface
 {
@@ -33,7 +33,7 @@ class RedisQueueSender implements QueueSenderInterface
 
 	/**
 	 * RedisQueueSender constructor.
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function __construct()
 	{

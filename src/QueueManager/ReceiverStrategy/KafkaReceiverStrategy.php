@@ -6,12 +6,12 @@
  * Time: 19:34
  */
 
-namespace QueueManager\ReceiverStrategy;
+namespace ES\Kernel\QueueManager\ReceiverStrategy;
 
-use QueueManager\QueueModelInterface;
-use Kafka\ConfigConnection;
-use Configs\Config;
-use Kafka\Kafka;
+use ES\Kernel\QueueManager\QueueModelInterface;
+use ES\Kernel\Kafka\ConfigConnection;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\Kafka\Kafka;
 
 class KafkaReceiverStrategy implements ReceiverStrategyInterface
 {
@@ -32,7 +32,7 @@ class KafkaReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * @return mixed|void
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function build()
 	{

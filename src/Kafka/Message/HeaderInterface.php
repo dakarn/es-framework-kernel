@@ -1,6 +1,6 @@
 <?php
 
-namespace Kafka\Message;
+namespace ES\Kernel\Kafka\Message;
 
 interface HeaderInterface
 {

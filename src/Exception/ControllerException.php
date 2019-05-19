@@ -6,7 +6,7 @@
  * Time: 17:20
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 /**
  * Class ControllerException

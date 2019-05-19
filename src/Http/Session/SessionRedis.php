@@ -6,10 +6,10 @@
  * Time: 15:21
  */
 
-namespace Http\Session;
+namespace ES\Kernel\Http\Session;
 
-use Http\Session\Strategy\RedisStrategy;
-use Http\Session\Strategy\Session;
+use ES\Kernel\Http\Session\Strategy\RedisStrategy;
+use ES\Kernel\Http\Session\Strategy\Session;
 
 class SessionRedis
 {

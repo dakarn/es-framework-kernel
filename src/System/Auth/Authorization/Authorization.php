@@ -6,13 +6,13 @@
  * Time: 21:38
  */
 
-namespace System\Auth\Authorization;
+namespace ES\Kernel\System\Auth\Authorization;
 
-use System\Auth\Authentication\Authentication;
-use System\Auth\JWTokenManager;
-use Http\Request\ServerRequest;
-use Traits\SingletonTrait;
-use Http\Session\SessionRedis;
+use ES\Kernel\System\Auth\Authentication\Authentication;
+use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Traits\SingletonTrait;
+use ES\Kernel\Http\Session\SessionRedis;
 
 class Authorization implements AuthorizationInterface
 {
@@ -21,7 +21,7 @@ class Authorization implements AuthorizationInterface
 	private $isAccess = false;
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function verifyAccess(): AuthorizationInterface
 	{

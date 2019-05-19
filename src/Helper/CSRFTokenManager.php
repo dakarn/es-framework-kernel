@@ -6,12 +6,12 @@
  * Time: 23:17
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
-use Configs\Config;
-use System\Logger\LogLevel;
-use Traits\SingletonTrait;
-use Http\Cookie;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\System\Logger\LogLevel;
+use ES\Kernel\Traits\SingletonTrait;
+use ES\Kernel\Http\Cookie;
 
 class CSRFTokenManager
 {
@@ -38,7 +38,7 @@ class CSRFTokenManager
 	private $isUseToken = false;
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function start(): void
     {
@@ -73,7 +73,7 @@ class CSRFTokenManager
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function makeToken(): void
@@ -89,7 +89,7 @@ class CSRFTokenManager
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function refreshToken(): void

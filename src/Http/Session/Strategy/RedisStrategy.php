@@ -6,9 +6,9 @@
  * Time: 18:30
  */
 
-namespace Http\Session\Strategy;
+namespace ES\Kernel\Http\Session\Strategy;
 
-use Helper\Redis;
+use ES\Kernel\Helper\Redis;
 
 /**
  * Class RedisStrategy
@@ -19,7 +19,7 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param string $key
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function getAsArray($key): array
 	{
@@ -35,7 +35,7 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param array $keys
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function getSome(array $keys): array
 	{
@@ -58,7 +58,7 @@ class RedisStrategy implements SessionStrategy
 
 	/**
 	 * @return int
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function count(): int
 	{
@@ -67,7 +67,7 @@ class RedisStrategy implements SessionStrategy
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function clear(): bool
 	{
@@ -77,7 +77,7 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param string $key
 	 * @return bool|mixed|string
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function get($key)
 	{
@@ -87,7 +87,7 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param string $key
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function delete($key): bool
 	{
@@ -97,7 +97,7 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param array $keys
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function deleteKeys(array $keys): bool
 	{
@@ -111,7 +111,7 @@ class RedisStrategy implements SessionStrategy
 	/**
 	 * @param string $key
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function has($key): bool
 	{
@@ -123,7 +123,7 @@ class RedisStrategy implements SessionStrategy
 	 * @param $value
 	 * @param int $ttl
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function set($key, $value, int $ttl = 0): bool
 	{

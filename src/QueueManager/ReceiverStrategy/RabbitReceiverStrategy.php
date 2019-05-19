@@ -6,11 +6,11 @@
  * Time: 0:48
  */
 
-namespace QueueManager\ReceiverStrategy;
+namespace ES\Kernel\QueueManager\ReceiverStrategy;
 
 use AMQPConnection;
-use Configs\Config;
-use QueueManager\QueueModelInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\QueueManager\QueueModelInterface;
 
 class RabbitReceiverStrategy implements ReceiverStrategyInterface
 {
@@ -46,7 +46,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * RabbitReceiverStrategy constructor.
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function __construct()
 	{

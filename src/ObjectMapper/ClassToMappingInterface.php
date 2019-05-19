@@ -6,7 +6,7 @@
  * Time: 10:38
  */
 
-namespace ObjectMapper;
+namespace ES\Kernel\ObjectMapper;
 
 interface ClassToMappingInterface
 {

@@ -6,7 +6,7 @@
  * Time: 21:11
  */
 
-namespace System\Database\DbConfigLogic;
+namespace ES\Kernel\System\Database\DbConfigLogic;
 
 class WriterConf extends OneInstanceConf
 {

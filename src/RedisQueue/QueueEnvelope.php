@@ -6,7 +6,7 @@
  * Time: 15:27
  */
 
-namespace RedisQueue;
+namespace ES\Kernel\RedisQueue;
 
 class QueueEnvelope implements QueueEnvelopeInterface
 {

@@ -6,9 +6,9 @@
  * Time: 21:18
  */
 
-namespace Configs;
+namespace ES\Kernel\Configs;
 
-use Exception\FileException;
+use ES\Kernel\Exception\FileException;
 
 class Config implements ConfigInterface
 {

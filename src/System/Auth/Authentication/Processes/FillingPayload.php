@@ -6,10 +6,10 @@
  * Time: 21:54
  */
 
-namespace System\Auth\Authentication\Processes;
+namespace ES\Kernel\System\Auth\Authentication\Processes;
 
-use Models\User\UserInterface;
-use System\Auth\ClientAppRepository;
+use ES\Kernel\Models\User\UserInterface;
+use ES\Kernel\System\Auth\ClientAppRepository;
 
 class FillingPayload
 {

@@ -6,7 +6,7 @@
  * Time: 0:07
  */
 
-namespace System\Validators;
+namespace ES\Kernel\System\Validators;
 
 interface Validators
 {
@@ -15,6 +15,9 @@ interface Validators
 	public const COMMON    = 'common';
 	public const AUTH_APP  = 'AuthAppValidator';
 	public const REF_TOKEN = 'RefreshTokenValidator';
+
+	public const ADD_WORD  = 'AddWordValidator';
+	public const EDIT_WORD = 'EditWordValidator';
 
 	public const SUCCESS   = 'Success';
 }

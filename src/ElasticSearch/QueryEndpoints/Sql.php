@@ -1,13 +1,13 @@
 <?php
 
 
-namespace ElasticSearch\QueryEndpoints;
+namespace ES\Kernel\ElasticSearch\QueryEndpoints;
 
-use ElasticSearch\ElasticConnection;
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\QueryOptions\HttpQuery;
-use Helper\Mime;
-use Http\Request\Request;
+use ES\Kernel\ElasticSearch\ElasticConnection;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\QueryOptions\HttpQuery;
+use ES\Kernel\Helper\Mime;
+use ES\Kernel\Http\Request\Request;
 
 class Sql extends ElasticQueryParams
 {

@@ -6,12 +6,12 @@
  * Time: 0:49
  */
 
-namespace QueueManager;
+namespace ES\Kernel\QueueManager;
 
-use QueueManager\ReceiverStrategy\ReceiverStrategyInterface;
-use Traits\SingletonTrait;
-use QueueManager\Senders\QueueSenderInterface;
-use QueueManager\ReceiverStrategy\RabbitReceiverStrategy;
+use ES\Kernel\QueueManager\ReceiverStrategy\ReceiverStrategyInterface;
+use ES\Kernel\Traits\SingletonTrait;
+use ES\Kernel\QueueManager\Senders\QueueSenderInterface;
+use ES\Kernel\QueueManager\ReceiverStrategy\RabbitReceiverStrategy;
 
 class QueueManager implements QueueManagerInterface
 {

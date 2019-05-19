@@ -6,7 +6,7 @@
  * Time: 15:20
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
 abstract class AbstractFFMpegProperty implements FFMpegPropertyInterface
 {

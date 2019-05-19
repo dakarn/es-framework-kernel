@@ -6,11 +6,11 @@
  * Time: 22:29
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
-use Configs\Config;
-use System\Logger\Logger;
-use System\Logger\LoggerAware;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\System\Logger\Logger;
+use ES\Kernel\System\Logger\LoggerAware;
 
 class Util
 {
@@ -112,7 +112,7 @@ class Util
 	/**
 	 * @param string $key
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function getFormMessage(string $key): array
 	{

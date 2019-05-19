@@ -6,7 +6,7 @@
  * Time: 22:22
  */
 
-namespace Helper\RepositoryHelper;
+namespace ES\Kernel\Helper\RepositoryHelper;
 
 class AbstractRepository implements RepositoryInterface
 {

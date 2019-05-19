@@ -6,7 +6,7 @@
  * Time: 15:20
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
 class Logger extends AbstractLogger implements LoggerInterface
 {

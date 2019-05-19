@@ -6,7 +6,7 @@
  * Time: 14:11
  */
 
-namespace System\Database\DbConfigLogic;
+namespace ES\Kernel\System\Database\DbConfigLogic;
 
 class OneInstanceConf
 {

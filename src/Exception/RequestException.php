@@ -6,7 +6,7 @@
  * Time: 17:39
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class RequestException extends \Exception
 {

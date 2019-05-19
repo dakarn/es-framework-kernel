@@ -6,7 +6,7 @@
  * Time: 0:49
  */
 
-namespace QueueManager;
+namespace ES\Kernel\QueueManager;
 
 class QueueModel implements QueueModelInterface
 {

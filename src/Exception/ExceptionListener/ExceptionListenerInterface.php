@@ -6,7 +6,7 @@
  * Time: 19:33
  */
 
-namespace Exception\ExceptionListener;
+namespace ES\Kernel\Exception\ExceptionListener;
 
 interface ExceptionListenerInterface
 {

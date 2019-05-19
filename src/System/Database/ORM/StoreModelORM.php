@@ -6,7 +6,7 @@
  * Time: 0:15
  */
 
-namespace System\Database\ORM;
+namespace ES\Kernel\System\Database\ORM;
 
 
 class StoreModelORM

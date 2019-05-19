@@ -6,10 +6,10 @@
  * Time: 18:48
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
-use Configs\Config;
-use System\Logger\LogLevel;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\System\Logger\LogLevel;
 
 class Redis
 {
@@ -28,7 +28,7 @@ class Redis
 	/**
 	 * @param string $key
 	 * @return bool|string
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function get($key)
 	{
@@ -39,7 +39,7 @@ class Redis
 
 	/**
 	 * @return int
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function getAmountKeys(): int
 	{
@@ -50,7 +50,7 @@ class Redis
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function flushAll(): bool
 	{
@@ -62,7 +62,7 @@ class Redis
 	/**
 	 * @param string $key
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function has($key): bool
 	{
@@ -74,7 +74,7 @@ class Redis
 	/**
 	 * @param $key
 	 * @return int
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function incr($key): int
 	{
@@ -86,7 +86,7 @@ class Redis
 	/**
 	 * @param $key
 	 * @return int
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function decr($key): int
 	{
@@ -98,7 +98,7 @@ class Redis
 	/**
 	 * @param string $key
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function delete($key): bool
 	{
@@ -110,7 +110,7 @@ class Redis
 	/**
 	 * @param array $keys
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function deleteKeys(array $keys): bool
 	{
@@ -124,7 +124,7 @@ class Redis
 	 * @param $value
 	 * @param int $ttl
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function set($key, $value, int $ttl = 0): bool
 	{
@@ -144,7 +144,7 @@ class Redis
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function close()
 	{
@@ -156,7 +156,7 @@ class Redis
 
 	/**
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	private static function getConfig(): array
 	{
@@ -164,7 +164,7 @@ class Redis
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	private static function connect()
 	{

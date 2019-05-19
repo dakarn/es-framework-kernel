@@ -6,7 +6,7 @@
  * Time: 0:54
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
 class Filter
 {

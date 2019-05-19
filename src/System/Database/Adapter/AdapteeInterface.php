@@ -6,9 +6,9 @@
  * Time: 20:12
  */
 
-namespace System\Database\Adapter;
+namespace ES\Kernel\System\Database\Adapter;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 interface AdapteeInterface
 {

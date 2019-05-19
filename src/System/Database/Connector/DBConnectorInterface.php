@@ -6,7 +6,7 @@
  * Time: 18:06
  */
 
-namespace System\Database\Connector;
+namespace ES\Kernel\System\Database\Connector;
 
 
 interface DBConnectorInterface

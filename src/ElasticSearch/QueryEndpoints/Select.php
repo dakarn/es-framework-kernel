@@ -6,12 +6,12 @@
  * Time: 15:44
  */
 
-namespace ElasticSearch\QueryEndpoints;
+namespace ES\Kernel\ElasticSearch\QueryEndpoints;
 
-use ElasticSearch\ElasticConnection;
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\QueryOptions\HttpQuery;
-use Http\Request\Request;
+use ES\Kernel\ElasticSearch\ElasticConnection;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\QueryOptions\HttpQuery;
+use ES\Kernel\Http\Request\Request;
 
 class Select extends ElasticQueryParams
 {

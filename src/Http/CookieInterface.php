@@ -6,7 +6,7 @@
  * Time: 20:02
  */
 
-namespace Http;
+namespace ES\Kernel\Http;
 
 interface CookieInterface
 {

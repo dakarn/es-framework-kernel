@@ -6,7 +6,7 @@
  * Time: 17:32
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
 interface FFMpegPropertyInterface
 {

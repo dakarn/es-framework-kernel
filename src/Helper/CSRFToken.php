@@ -1,6 +1,6 @@
 <?php
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
 class CSRFToken
 {

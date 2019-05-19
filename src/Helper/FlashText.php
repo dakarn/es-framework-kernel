@@ -6,12 +6,12 @@
  * Time: 16:16
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
-use Http\Session\SessionRedis;
-use Http\Session\SessionSimple;
-use Http\Session\Strategy\RedisStrategy;
-use Http\Session\Strategy\SimpleSessionStrategy;
+use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\Http\Session\SessionSimple;
+use ES\Kernel\Http\Session\Strategy\RedisStrategy;
+use ES\Kernel\Http\Session\Strategy\SimpleSessionStrategy;
 
 class FlashText
 {

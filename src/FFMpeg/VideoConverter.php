@@ -6,11 +6,11 @@
  * Time: 14:09
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
-use FFMpeg\Format\AVIFormat;
-use FFMpeg\Format\FLVFormat;
-use FFMpeg\Format\WEBMFormat;
+use ES\Kernel\FFMpeg\Format\AVIFormat;
+use ES\Kernel\FFMpeg\Format\FLVFormat;
+use ES\Kernel\FFMpeg\Format\WEBMFormat;
 
 class VideoConverter extends AbstractFFMpegProperty implements FFMpegPropertyInterface
 {

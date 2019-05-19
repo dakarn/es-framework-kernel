@@ -6,25 +6,25 @@
  * Time: 9:26
  */
 
-namespace System\Controller;
+namespace ES\Kernel\System\Controller;
 
-use Exception\ControllerException;
-use Http\Request\ServerRequest;
-use Http\Response\Response;
-use System\EventListener\EventManager;
-use System\Kernel\GETParam;
-use System\EventListener\EventTypes;
-use System\Kernel\TypesApp\AbstractApplication;
-use System\Render;
-use System\Router\RouteData;
-use System\Router\Router;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\Response;
+use ES\Kernel\System\EventListener\EventManager;
+use ES\Kernel\System\Kernel\GETParam;
+use ES\Kernel\System\EventListener\EventTypes;
+use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\System\Render;
+use ES\Kernel\System\Router\RouteData;
+use ES\Kernel\System\Router\Router;
+use ES\Kernel\Exception\ControllerException;
 
 class LauncherController implements LauncherControllerInterface
 {
 	/**
 	 * @var string
 	 */
-	const APP = 'App\\';
+	const APP = 'ES\\App\\';
 
     const PREFIX_ACTION = 'Action';
 

@@ -6,14 +6,14 @@
  * Time: 0:59
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
-use Helper\Util;
-use Kafka\Groups;
-use Kafka\Topics;
-use QueueManager\QueueManager;
-use QueueManager\QueueModel;
-use QueueManager\Senders\KafkaQueueSender;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\Kafka\Groups;
+use ES\Kernel\Kafka\Topics;
+use ES\Kernel\QueueManager\QueueManager;
+use ES\Kernel\QueueManager\QueueModel;
+use ES\Kernel\QueueManager\Senders\KafkaQueueSender;
 
 class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInterface
 {
@@ -32,6 +32,10 @@ class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInt
 
 		foreach ($this->logs as $log) {
 			$payload['bodyAsList'][] = $log;
+		}
+
+		if (empty($payload)) {
+			return;
 		}
 
 		$send = new QueueModel();

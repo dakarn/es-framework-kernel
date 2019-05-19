@@ -6,9 +6,9 @@
  * Time: 20:54
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
-use Traits\SingletonTrait;
+use ES\Kernel\Traits\SingletonTrait;
 
 class RedisManager
 {

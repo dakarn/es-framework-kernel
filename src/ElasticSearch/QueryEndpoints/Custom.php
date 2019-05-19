@@ -6,11 +6,11 @@
  * Time: 18:53
  */
 
-namespace ElasticSearch\QueryEndpoints;
+namespace ES\Kernel\ElasticSearch\QueryEndpoints;
 
-use ElasticSearch\ElasticConnection;
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\QueryOptions\HttpQuery;
+use ES\Kernel\ElasticSearch\ElasticConnection;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\QueryOptions\HttpQuery;
 
 class Custom extends ElasticQueryParams
 {

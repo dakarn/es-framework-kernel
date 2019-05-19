@@ -1,27 +1,26 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: user
+ * use ES\Kernel\r: use ES\Kernel\r
  * Date: 10.03.2018
  * Time: 20:14
  */
 
-namespace ElasticSearch;
+namespace ES\Kernel\ElasticSearch;
 
-use Configs\Config;
-use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
-use ElasticSearch\QueryEndpoints\Sql;
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\QueryEndpoints\Bulk;
-use ElasticSearch\QueryEndpoints\Index;
-use ElasticSearch\QueryEndpoints\Insert;
-use ElasticSearch\QueryEndpoints\QueryTypesInterface;
-use ElasticSearch\QueryEndpoints\Remove;
-use ElasticSearch\QueryEndpoints\Search;
-use ElasticSearch\QueryEndpoints\Select;
-use ElasticSearch\QueryEndpoints\Update;
-use ObjectMapper\ObjectMapper;
-use Traits\SingletonTrait;
+use ES\Kernel\ElasticSearch\QueryEndpoints\QueryTypesInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Sql;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Bulk;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Index;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Insert;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Remove;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Search;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Select;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Update;
+use ES\Kernel\ObjectMapper\ObjectMapper;
+use ES\Kernel\Traits\SingletonTrait;
 
 class ElasticSearch implements ElasticSearchInterface
 {
@@ -42,11 +41,10 @@ class ElasticSearch implements ElasticSearchInterface
      */
 	private $configConnection;
 
-    /**
-     * @return ElasticConnection
-     * @throws \Exception\FileException
-     * @throws \Exception\ObjectException
-     */
+	/**
+	 * @return ElasticConnection
+	 * @throws \ES\Kernel\Exception\\ObjectException
+	 */
 	public function getConfigConnection(): ElasticConnection
     {
         if (!$this->configConnection instanceof ElasticConnection) {

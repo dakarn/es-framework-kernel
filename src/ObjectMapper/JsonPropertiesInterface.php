@@ -6,7 +6,7 @@
  * Time: 21:01
  */
 
-namespace ObjectMapper;
+namespace ES\Kernel\ObjectMapper;
 
 interface JsonPropertiesInterface
 {

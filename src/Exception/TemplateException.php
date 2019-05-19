@@ -6,7 +6,7 @@
  * Time: 17:53
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class TemplateException extends \Exception
 {

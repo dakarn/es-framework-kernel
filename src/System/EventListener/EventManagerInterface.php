@@ -6,7 +6,7 @@
  * Time: 19:10
  */
 
-namespace System\EventListener;
+namespace ES\Kernel\System\EventListener;
 
 interface EventManagerInterface
 {

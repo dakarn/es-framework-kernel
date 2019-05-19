@@ -6,7 +6,7 @@
  * Time: 1:04
  */
 
-namespace System\EventListener;
+namespace ES\Kernel\System\EventListener;
 
 class EventManager implements EventManagerInterface
 {

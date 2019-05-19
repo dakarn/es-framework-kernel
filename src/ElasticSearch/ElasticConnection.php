@@ -6,9 +6,9 @@
  * Time: 11:32
  */
 
-namespace ElasticSearch;
+namespace ES\Kernel\ElasticSearch;
 
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 /**
  * Class ElasticConnect

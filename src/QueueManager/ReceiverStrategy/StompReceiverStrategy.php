@@ -6,11 +6,11 @@
  * Time: 10:47
  */
 
-namespace QueueManager\ReceiverStrategy;
+namespace ES\Kernel\QueueManager\ReceiverStrategy;
 
 use AMQPConnection;
-use Configs\Config;
-use QueueManager\QueueModelInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\QueueManager\QueueModelInterface;
 
 class StompReceiverStrategy implements ReceiverStrategyInterface
 {
@@ -31,7 +31,7 @@ class StompReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * StompReceiverStrategy constructor.
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
     public function __construct()
     {

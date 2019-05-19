@@ -6,7 +6,7 @@
  * Time: 18:49
  */
 
-namespace System\Database\Adapter;
+namespace ES\Kernel\System\Database\Adapter;
 
 interface DBAdapterInterface
 {

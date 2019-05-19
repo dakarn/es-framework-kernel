@@ -1,13 +1,13 @@
 <?php
 
-namespace System\Database;
+namespace ES\Kernel\System\Database;
 
-use System\Database\Adapter\DBAdapter;
-use System\Database\Adapter\DBAdapterInterface;
-use System\Database\Adapter\MySQLAdapter;
-use System\Database\Adapter\PgSQLAdapter;
-use System\Database\Connector\MySQL;
-use System\Database\Connector\PgSQL;
+use ES\Kernel\System\Database\Adapter\DBAdapter;
+use ES\Kernel\System\Database\Adapter\DBAdapterInterface;
+use ES\Kernel\System\Database\Adapter\MySQLAdapter;
+use ES\Kernel\System\Database\Adapter\PgSQLAdapter;
+use ES\Kernel\System\Database\Connector\MySQL;
+use ES\Kernel\System\Database\Connector\PgSQL;
 
 class DB
 {

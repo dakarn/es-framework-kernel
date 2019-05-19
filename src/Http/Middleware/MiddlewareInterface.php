@@ -6,9 +6,9 @@
  * Time: 0:00
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Http\Request\ServerRequest;
+use ES\Kernel\Http\Request\ServerRequest;
 
 interface MiddlewareInterface
 {

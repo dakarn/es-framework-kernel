@@ -6,7 +6,7 @@
  * Time: 20:48
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
 class Uri implements UriInterface
 {

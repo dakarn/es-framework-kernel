@@ -6,10 +6,10 @@
  * Time: 22:37
  */
 
-namespace System\Auth\Authentication;
+namespace ES\Kernel\System\Auth\Authentication;
 
 use App\Models\AuthAppRepository;
-use Models\User\UserInterface;
+use ES\Kernel\Models\User\UserInterface;
 
 interface AuthenticationInterface
 {
@@ -21,7 +21,7 @@ interface AuthenticationInterface
 
 	/**
 	 * @return Authentication
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function processLogout(): AuthenticationInterface;
 

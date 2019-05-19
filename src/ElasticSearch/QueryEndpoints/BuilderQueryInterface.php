@@ -6,7 +6,7 @@
  * Time: 1:41
  */
 
-namespace ElasticSearch\QueryEndpoints;
+namespace ES\Kernel\ElasticSearch\QueryEndpoints;
 
 
 interface BuilderQueryInterface

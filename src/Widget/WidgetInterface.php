@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 
-namespace Widget;
+namespace ES\Kernel\Widget;
 
 interface WidgetInterface
 {

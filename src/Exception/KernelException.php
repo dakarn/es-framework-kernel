@@ -6,7 +6,7 @@
  * Time: 17:38
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class KernelException extends \Exception
 {

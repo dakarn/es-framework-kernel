@@ -6,7 +6,7 @@
  * Time: 15:30
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
 class LoggerFileStorage extends AbstractLoggerStorage implements LoggerStorageInterface
 {

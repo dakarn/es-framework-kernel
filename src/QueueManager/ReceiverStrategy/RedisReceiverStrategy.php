@@ -6,10 +6,10 @@
  * Time: 19:00
  */
 
-namespace QueueManager\ReceiverStrategy;
+namespace ES\Kernel\QueueManager\ReceiverStrategy;
 
-use Configs\Config;
-use QueueManager\QueueModelInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\QueueManager\QueueModelInterface;
 use RedisQueue\Queue as QueueRedis;
 use RedisQueue\RedisQueue;
 
@@ -32,7 +32,7 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 
 	/**
 	 * RedisReceiverStrategy constructor.
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function __construct()
 	{

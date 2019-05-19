@@ -1,6 +1,6 @@
 <?php
 
-namespace RedisQueue;
+namespace ES\Kernel\RedisQueue;
 
 interface ClientInterface
 {

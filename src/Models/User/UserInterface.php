@@ -6,15 +6,15 @@
  * Time: 1:19
  */
 
-namespace Models\User;
+namespace ES\Kernel\Models\User;
 
-use System\Validators\AbstractValidator;
+use ES\Kernel\System\Validators\AbstractValidator;
 
 interface UserInterface
 {
 	/**
 	 * @return User
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function current(): User;
 
@@ -95,7 +95,7 @@ interface UserInterface
 	/**
 	 * @param string $password
 	 * @return User
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function setPassword(string $password): User;
 
@@ -106,13 +106,13 @@ interface UserInterface
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function logout(): bool;
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function logoutAllDevice(): bool;
 
@@ -137,7 +137,7 @@ interface UserInterface
 	/**
 	 * @param AbstractValidator $form
 	 * @return UserInterface|null
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function loadByEmailOrLogin(AbstractValidator $form): ?UserInterface;
 
@@ -148,7 +148,7 @@ interface UserInterface
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function isAuth(): bool;
 
@@ -165,7 +165,7 @@ interface UserInterface
 
 	/**
 	 * @return User
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function createUser(): User;

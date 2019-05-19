@@ -1,6 +1,6 @@
 <?php
 
-namespace Kafka;
+namespace ES\Kernel\Kafka;
 
 interface KafkaInterface
 {

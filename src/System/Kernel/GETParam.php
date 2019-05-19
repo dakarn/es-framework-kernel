@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Kernel;
+namespace ES\Kernel\System\Kernel;
 
 class GETParam implements GETParamInterface
 {

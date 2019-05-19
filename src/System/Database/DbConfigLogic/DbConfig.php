@@ -1,8 +1,8 @@
 <?php
 
-namespace System\Database\DbConfigLogic;
+namespace ES\Kernel\System\Database\DbConfigLogic;
 
-use Traits\SingletonTrait;
+use ES\Kernel\Traits\SingletonTrait;
 
 class DbConfig
 {

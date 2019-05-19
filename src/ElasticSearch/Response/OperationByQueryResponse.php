@@ -1,8 +1,8 @@
 <?php
 
-namespace ElasticSearch\Response;
+namespace ES\Kernel\ElasticSearch\Response;
 
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 final class OperationByQueryResponse extends AbstractResponse implements ClassToMappingInterface
 {

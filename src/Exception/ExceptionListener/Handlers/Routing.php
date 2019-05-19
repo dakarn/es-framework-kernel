@@ -6,9 +6,9 @@
  * Time: 19:32
  */
 
-namespace Exception\ExceptionListener\Handlers;
+namespace ES\Kernel\Exception\ExceptionListener\Handlers;
 
-use Exception\ExceptionListener\ExceptionHandlerInterface;
+use ES\Kernel\Exception\ExceptionListener\ExceptionHandlerInterface;
 
 class Routing implements ExceptionHandlerInterface
 {

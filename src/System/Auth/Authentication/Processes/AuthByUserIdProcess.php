@@ -6,7 +6,7 @@
  * Time: 22:03
  */
 
-namespace System\Auth\Authentication\Processes;
+namespace ES\Kernel\System\Auth\Authentication\Processes;
 
 class AuthByUserIdProcess extends AuthenticationProcess implements AuthenticationProcessInterface
 {

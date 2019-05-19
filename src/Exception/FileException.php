@@ -6,7 +6,7 @@
  * Time: 17:26
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class FileException extends \Exception
 {

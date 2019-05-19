@@ -6,16 +6,16 @@
  * Time: 11:56
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
-use Http\Response\Response;
+use ES\Kernel\Http\Response\Response;
 
 interface HttpClientInterface
 {
-    /**
-     * @param RequestInterface $request
-     * @return HttpClient
-     */
+	/**
+	 * @param RequestInterface $request
+	 * @return HttpClient
+	 */
     public function sendRequest(RequestInterface $request): HttpClient;
 
     /**

@@ -6,7 +6,7 @@
  * Time: 2:02
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
 interface LoggerStorageInterface
 {

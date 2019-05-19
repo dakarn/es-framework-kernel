@@ -6,12 +6,12 @@
  * Time: 20:33
  */
 
-namespace System\Controller;
+namespace ES\Kernel\System\Controller;
 
-use Http\Request\ServerRequest;
-use System\EventListener\EventManager;
-use Http\Response\Response;
-use System\Router\RouteData;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\System\EventListener\EventManager;
+use ES\Kernel\Http\Response\Response;
+use ES\Kernel\System\Router\RouteData;
 
 interface ControllerInterface
 {

@@ -6,7 +6,7 @@
  * Time: 17:35
  */
 
-namespace Helper;
+namespace ES\Kernel\Helper;
 
 class Mime
 {

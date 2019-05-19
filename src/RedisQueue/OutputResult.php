@@ -6,7 +6,7 @@
  * Time: 15:51
  */
 
-namespace RedisQueue;
+namespace ES\Kernel\RedisQueue;
 
 class OutputResult implements OutputResultInterface
 {

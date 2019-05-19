@@ -6,9 +6,9 @@
  * Time: 15:41
  */
 
-namespace ElasticSearch\QueryOptions;
+namespace ES\Kernel\ElasticSearch\QueryOptions;
 
-use ElasticSearch\ElasticConnection;
+use ES\Kernel\ElasticSearch\ElasticConnection;
 
 abstract class ElasticQueryParams
 {

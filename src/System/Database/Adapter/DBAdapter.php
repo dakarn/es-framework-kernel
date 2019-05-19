@@ -6,9 +6,9 @@
  * Time: 15:23
  */
 
-namespace System\Database\Adapter;
+namespace ES\Kernel\System\Database\Adapter;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 class DBAdapter implements DBAdapterInterface
 {

@@ -6,11 +6,11 @@
  * Time: 17:20
  */
 
-namespace System\Auth;
+namespace ES\Kernel\System\Auth;
 
-use Helper\RepositoryHelper\AbstractRepository;
-use ObjectMapper\ObjectMapper;
-use System\Validators\AbstractValidator;
+use ES\Kernel\Helper\RepositoryHelper\AbstractRepository;
+use ES\Kernel\ObjectMapper\ObjectMapper;
+use ES\Kernel\System\Validators\AbstractValidator;
 
 class ClientAppRepository extends AbstractRepository
 {

@@ -6,16 +6,16 @@
  * Time: 1:21
  */
 
-namespace Models\User;
+namespace ES\Kernel\Models\User;
 
-use Configs\Config;
-use Helper\FlashText;
-use System\Auth\Authentication\Authentication;
-use System\Auth\Authorization\Authorization;
-use System\Auth\JWTokenManager;
-use Helper\Util;
-use System\Validators\AbstractValidator;
-use System\Validators\Validators;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\Helper\FlashText;
+use ES\Kernel\System\Auth\Authentication\Authentication;
+use ES\Kernel\System\Auth\Authorization\Authorization;
+use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\System\Validators\AbstractValidator;
+use ES\Kernel\System\Validators\Validators;
 
 class User implements UserInterface
 {
@@ -96,7 +96,7 @@ class User implements UserInterface
 
 	/**
 	 * @return User
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function current(): self
 	{
@@ -241,7 +241,7 @@ class User implements UserInterface
 	/**
 	 * @param string $password
 	 * @return User
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function setPassword(string $password): self
 	{
@@ -267,7 +267,7 @@ class User implements UserInterface
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function logout(): bool
 	{
@@ -285,7 +285,7 @@ class User implements UserInterface
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function logoutAllDevice(): bool
 	{
@@ -373,7 +373,7 @@ class User implements UserInterface
 	/**
 	 * @param AbstractValidator $form
 	 * @return UserInterface|null
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function loadByEmailOrLogin(AbstractValidator $form):? UserInterface
 	{
@@ -413,7 +413,7 @@ class User implements UserInterface
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function isAuth(): bool
 	{
@@ -456,7 +456,7 @@ class User implements UserInterface
 
 	/**
 	 * @return User
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function createUser(): User

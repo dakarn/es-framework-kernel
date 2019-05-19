@@ -6,7 +6,7 @@
  * Time: 19:32
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class MiddlewareException extends \Exception
 {

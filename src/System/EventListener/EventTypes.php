@@ -6,7 +6,7 @@
  * Time: 1:06
  */
 
-namespace System\EventListener;
+namespace ES\Kernel\System\EventListener;
 
 class EventTypes
 {

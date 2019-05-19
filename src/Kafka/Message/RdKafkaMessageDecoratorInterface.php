@@ -1,9 +1,9 @@
 <?php
 
-namespace Kafka\Message;
+namespace ES\Kernel\Kafka\Message;
 
-use Helper\AbstractList;
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\Helper\AbstractList;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 interface RdKafkaMessageDecoratorInterface
 {

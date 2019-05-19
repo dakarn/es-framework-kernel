@@ -6,7 +6,7 @@
  * Time: 17:29
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
 class AbstractLogger
 {

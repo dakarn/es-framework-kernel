@@ -6,7 +6,7 @@
  * Time: 17:45
  */
 
-namespace Kafka;
+namespace ES\Kernel\Kafka;
 
 use RdKafka\Conf;
 use RdKafka\Consumer;

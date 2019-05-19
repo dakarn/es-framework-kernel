@@ -6,7 +6,7 @@
  * Time: 20:35
  */
 
-namespace System\Router;
+namespace ES\Kernel\System\Router;
 
 class Router
 {

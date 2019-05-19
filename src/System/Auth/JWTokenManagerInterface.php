@@ -6,7 +6,7 @@
  * Time: 2:24
  */
 
-namespace System\Auth;
+namespace ES\Kernel\System\Auth;
 
 interface JWTokenManagerInterface
 {
@@ -58,13 +58,13 @@ interface JWTokenManagerInterface
 	 * @param string $token
 	 * @param string $secretKey
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function verifyToken(string $token, string $secretKey = ''): bool;
 
 	/**
 	 * @return JWTokenManager
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function createToken(): JWTokenManager;
 

@@ -6,7 +6,7 @@
  * Time: 20:10
  */
 
-namespace System\Router;
+namespace ES\Kernel\System\Router;
 
 interface RoutingInterface
 {

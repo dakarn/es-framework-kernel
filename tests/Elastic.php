@@ -8,16 +8,16 @@
 
 require_once '../vendor/autoload.php';
 
-use ElasticSearch\ElasticSearch;
-use ElasticSearch\ElasticQuery;
-use ElasticSearch\QueryEndpoints\Index;
-use ElasticSearch\QueryEndpoints\Bulk;
+use ES\Kernel\ElasticSearch\ElasticSearch;
+use ES\Kernel\ElasticSearch\ElasticQuery;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Index;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Bulk;
 
 class Elastic
 {
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\HttpException
 	 */
 	public static function testCreateIndex()
 	{
@@ -43,8 +43,8 @@ class Elastic
 	}
 
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\HttpException
 	 */
 	public static function testBulk()
 	{
@@ -62,8 +62,8 @@ class Elastic
 	}
 
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\HttpException
 	 */
 	public static function testSelect()
 	{

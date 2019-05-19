@@ -6,11 +6,11 @@
  * Time: 23:59
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Http\Request\Request;
-use Http\Request\ServerRequest;
-use Http\Response\Response;
+use ES\Kernel\Http\Request\Request;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\Response;
 
 interface RequestHandlerInterface
 {

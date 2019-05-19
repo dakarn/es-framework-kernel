@@ -6,10 +6,10 @@
  * Time: 20:39
  */
 
-namespace ElasticSearch\Response;
+namespace ES\Kernel\ElasticSearch\Response;
 
-use ObjectMapper\ClassToMappingInterface;
-use ObjectMapper\ObjectMapper;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ObjectMapper;
 
 final class SelectResponse extends AbstractResponse implements ClassToMappingInterface
 {
@@ -42,7 +42,7 @@ final class SelectResponse extends AbstractResponse implements ClassToMappingInt
     /**
      * SelectResult constructor.
      * @param string $response
-     * @throws \Exception\ObjectException
+     * @throws \ES\Kernel\Exception\ObjectException
      */
     public function __construct(string $response)
     {

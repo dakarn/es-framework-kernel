@@ -6,7 +6,7 @@
  * Time: 22:11
  */
 
-namespace System\Validators;
+namespace ES\Kernel\System\Validators;
 
 class ExtendedValidator
 {

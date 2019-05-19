@@ -6,9 +6,9 @@
  * Time: 0:55
  */
 
-namespace QueueManager\ReceiverStrategy;
+namespace ES\Kernel\QueueManager\ReceiverStrategy;
 
-use QueueManager\QueueModelInterface;
+use ES\Kernel\QueueManager\QueueModelInterface;
 
 class NodeReceiverStrategy implements ReceiverStrategyInterface
 {

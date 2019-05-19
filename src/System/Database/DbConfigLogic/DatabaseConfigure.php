@@ -6,7 +6,7 @@
  * Time: 20:14
  */
 
-namespace System\Database\DbConfigLogic;
+namespace ES\Kernel\System\Database\DbConfigLogic;
 
 class DatabaseConfigure
 {

@@ -6,16 +6,16 @@
  * Time: 14:53
  */
 
-namespace System\Kernel\TypesApp;
+namespace ES\Kernel\System\Kernel\TypesApp;
 
-use System\Database\DbConfigLogic\DbConfig;
-use System\EventListener\EventManager;
-use System\Database\DB;
-use Configs\Config;
-use System\Database\DbConfigLogic\DatabaseConfigure;
-use System\Logger\Logger;
-use System\Logger\LoggerAware;
-use System\ES;
+use ES\Kernel\System\Database\DbConfigLogic\DbConfig;
+use ES\Kernel\System\EventListener\EventManager;
+use ES\Kernel\System\Database\DB;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\System\Database\DbConfigLogic\DatabaseConfigure;
+use ES\Kernel\System\Logger\Logger;
+use ES\Kernel\System\Logger\LoggerAware;
+use ES\Kernel\System\ES;
 
 abstract class AbstractApplication implements ApplicationInterface
 {
@@ -59,7 +59,38 @@ abstract class AbstractApplication implements ApplicationInterface
 	public function __construct()
 	{
 		ES::set(ES::APP, $this);
+
 		$this->setupClass();
+		$this->setupErrorHandler();
+		$this->setupShutdownFunction();
+	}
+
+	/**
+	 * @return AbstractApplication
+	 */
+	public function setupErrorHandler(): self
+	{
+		//\set_exception_handler(function($e) {
+		//	$this->outputException($e);
+		//});
+
+		//\set_error_handler(function($errno, $errstr, $errfile, $errline) {
+		//	$this->outputError($errno, $errstr, $errfile, $errline);
+		//});
+
+		return $this;
+	}
+
+	/**
+	 * @return AbstractApplication
+	 */
+	public function setupShutdownFunction(): self
+	{
+		//\register_shutdown_function(function() {
+		//	ShutdownScript::run();
+		//});
+
+		return $this;
 	}
 
 	/**
@@ -206,7 +237,7 @@ abstract class AbstractApplication implements ApplicationInterface
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	protected function runInternal(): void
     {

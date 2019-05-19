@@ -6,7 +6,7 @@
  * Time: 17:40
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class RoutingException extends \Exception
 {

@@ -6,7 +6,7 @@
  * Time: 0:56
  */
 
-namespace Kafka;
+namespace ES\Kernel\Kafka;
 
 class Groups
 {

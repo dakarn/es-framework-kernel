@@ -6,14 +6,14 @@
  * Time: 15:11
  */
 
-namespace System\Kernel;
+namespace ES\Kernel\System\Kernel;
 
-use System\ES;
+use ES\Kernel\System\ES;
 
 class ShutdownScript
 {
 	/**
-	 * @throws \Exception\KernelException
+	 * @throws \ES\Kernel\Exception\KernelException
 	 */
 	public static function run()
 	{

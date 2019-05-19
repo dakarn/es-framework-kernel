@@ -1,10 +1,10 @@
 <?php
 
-namespace ElasticSearch\Response;
+namespace ES\Kernel\ElasticSearch\Response;
 
-use ElasticSearch\Response\ResponseItems\Hits;
-use ElasticSearch\Response\ResponseItems\Shards;
-use ObjectMapper\ObjectMapper;
+use ES\Kernel\ElasticSearch\Response\ResponseItems\Hits;
+use ES\Kernel\ElasticSearch\Response\ResponseItems\Shards;
+use ES\Kernel\ObjectMapper\ObjectMapper;
 
 final class SearchResponse extends AbstractResponse
 {
@@ -14,11 +14,11 @@ final class SearchResponse extends AbstractResponse
     private $hits;
     private $shards;
 
-    /**
-     * SearchResponse constructor.
-     * @param string $response
-     * @throws \Exception\ObjectException
-     */
+	/**
+	 * SearchResponse constructor.
+	 * @param string $response
+	 * @throws \ES\Kernel\Exception\\ObjectException
+	 */
     public function __construct(string $response)
     {
         parent::__construct($response);

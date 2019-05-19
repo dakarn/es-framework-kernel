@@ -6,7 +6,7 @@
  * Time: 0:59
  */
 
-namespace RedisQueue;
+namespace ES\Kernel\RedisQueue;
 
 class SuperVisor
 {

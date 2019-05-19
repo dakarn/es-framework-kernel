@@ -6,16 +6,15 @@
  * Time: 17:35
  */
 
-namespace ElasticSearch;
+namespace ES\Kernel\ElasticSearch;
 
-use ElasticSearch\QueryEndpoints\BuilderQueryInterface;
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\QueryEndpoints\Bulk;
-use ElasticSearch\QueryEndpoints\Index;
-use ElasticSearch\QueryEndpoints\Insert;
-use ElasticSearch\QueryEndpoints\Remove;
-use ElasticSearch\QueryEndpoints\Select;
-use ElasticSearch\QueryEndpoints\Update;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Bulk;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Index;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Insert;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Remove;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Select;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Update;
 
 interface ElasticSearchInterface
 {

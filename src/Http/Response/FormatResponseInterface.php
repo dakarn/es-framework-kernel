@@ -6,7 +6,7 @@
  * Time: 19:28
  */
 
-namespace Http\Response;
+namespace ES\Kernel\Http\Response;
 
 interface FormatResponseInterface
 {

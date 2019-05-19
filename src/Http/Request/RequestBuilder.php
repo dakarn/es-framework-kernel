@@ -6,7 +6,7 @@
  * Time: 20:28
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
 class RequestBuilder implements RequestBuilderInterface
 {

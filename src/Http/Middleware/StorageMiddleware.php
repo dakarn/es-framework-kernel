@@ -6,9 +6,9 @@
  * Time: 18:13
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Exception\MiddlewareException;
+use ES\Kernel\Exception\MiddlewareException;
 
 class StorageMiddleware
 {

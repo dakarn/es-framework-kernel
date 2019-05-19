@@ -6,7 +6,7 @@
  * Time: 15:47
  */
 
-namespace Widget;
+namespace ES\Kernel\Widget;
 
 abstract class AbstractWidget implements WidgetInterface
 {

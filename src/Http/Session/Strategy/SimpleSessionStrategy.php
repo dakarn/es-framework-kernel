@@ -6,7 +6,7 @@
  * Time: 18:31
  */
 
-namespace Http\Session\Strategy;
+namespace ES\Kernel\Http\Session\Strategy;
 
 /**
  * Class SimpleSessionStrategy

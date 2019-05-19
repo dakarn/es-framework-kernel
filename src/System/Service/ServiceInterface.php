@@ -6,7 +6,7 @@
  * Time: 17:21
  */
 
-namespace System\Service;
+namespace ES\Kernel\System\Service;
 
 interface ServiceInterface
 {

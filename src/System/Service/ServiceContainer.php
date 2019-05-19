@@ -6,10 +6,10 @@
  * Time: 20:49
  */
 
-namespace System\Service;
+namespace ES\Kernel\System\Service;
 
-use Exception\ServiceException;
-use Traits\SingletonTrait;
+use ES\Kernel\Exception\ServiceException;
+use ES\Kernel\Traits\SingletonTrait;
 
 class ServiceContainer implements ServiceContainerInterface
 {

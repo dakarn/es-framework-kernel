@@ -6,13 +6,13 @@
  * Time: 1:55
  */
 
-namespace Http\Response;
+namespace ES\Kernel\Http\Response;
 
-use Exception\RoutingException;
-use Http\Cookie;
-use System\Constants;
-use System\Render;
-use System\Router\Routing;
+use ES\Kernel\Exception\RoutingException;
+use ES\Kernel\Http\Cookie;
+use ES\Kernel\System\Constants;
+use ES\Kernel\System\Render;
+use ES\Kernel\System\Router\Routing;
 
 class Response implements ResponseInterface
 {
@@ -144,7 +144,7 @@ class Response implements ResponseInterface
 	/**
 	 * @param string $template
 	 * @return Response
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function withTemplate(string $template): Response
 	{
@@ -198,8 +198,8 @@ class Response implements ResponseInterface
 	 * @param string $routerName
 	 * @param array $arguments
 	 * @param int $status
-	 * @throws \Exception\FileException
-	 * @throws \Exception\KernelException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\KernelException
 	 */
 	public function redirectToRoute(string $routerName, array $arguments, int $status): void
 	{

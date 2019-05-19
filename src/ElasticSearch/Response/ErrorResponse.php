@@ -6,9 +6,9 @@
  * Time: 18:45
  */
 
-namespace ElasticSearch\Response;
+namespace ES\Kernel\ElasticSearch\Response;
 
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 class ErrorResponse extends AbstractResponse implements ClassToMappingInterface
 {

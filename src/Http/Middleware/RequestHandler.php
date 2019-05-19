@@ -6,10 +6,10 @@
  * Time: 23:57
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Http\Request\ServerRequest;
-use Http\Response\Response;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\Response;
 
 class RequestHandler implements RequestHandlerInterface
 {
@@ -39,7 +39,7 @@ class RequestHandler implements RequestHandlerInterface
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
 	 * @return Response
-	 * @throws \Exception\MiddlewareException
+	 * @throws \ES\Kernel\Exception\MiddlewareException
 	 */
 	public function handle(ServerRequest $request, RequestHandler $handler): Response
 	{

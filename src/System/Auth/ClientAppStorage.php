@@ -6,10 +6,10 @@
  * Time: 22:57
  */
 
-namespace System\Auth;
+namespace ES\Kernel\System\Auth;
 
-use System\Database\DB;
-use System\Validators\AbstractValidator;
+use ES\Kernel\System\Database\DB;
+use ES\Kernel\System\Validators\AbstractValidator;
 
 class ClientAppStorage
 {

@@ -6,12 +6,12 @@
  * Time: 23:28
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Exception\ControllerException;
-use Http\Request\ServerRequest;
-use Http\Response\Response;
-use System\Router\Routing;
+use ES\Kernel\Exception\ControllerException;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\Response;
+use ES\Kernel\System\Router\Routing;
 
 class MiddlewareAllowMethod implements MiddlewareInterface
 {

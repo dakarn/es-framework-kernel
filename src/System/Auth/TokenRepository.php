@@ -6,12 +6,12 @@
  * Time: 20:14
  */
 
-namespace System\Auth;
+namespace ES\Kernel\System\Auth;
 
-use Configs\Config;
-use Helper\RepositoryHelper\AbstractRepository;
-use ObjectMapper\ObjectMapper;
-use System\Validators\AbstractValidator;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\Helper\RepositoryHelper\AbstractRepository;
+use ES\Kernel\ObjectMapper\ObjectMapper;
+use ES\Kernel\System\Validators\AbstractValidator;
 
 class TokenRepository extends AbstractRepository
 {
@@ -84,7 +84,7 @@ class TokenRepository extends AbstractRepository
 	/**
 	 * @param int $userId
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function loadByUserId(int $userId): array

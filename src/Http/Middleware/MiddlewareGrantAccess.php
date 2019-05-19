@@ -6,14 +6,14 @@
  * Time: 15:37
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Http\Request\ServerRequest;
-use Http\Response\API;
-use Models\User\User;
-use System\Kernel\TypesApp\AbstractApplication;
-use System\ES;
-use System\Router\Routing;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\API;
+use ES\Kernel\Models\User\User;
+use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\System\ES;
+use ES\Kernel\System\Router\Routing;
 
 class MiddlewareGrantAccess
 {
@@ -21,7 +21,7 @@ class MiddlewareGrantAccess
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)

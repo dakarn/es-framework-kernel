@@ -6,10 +6,10 @@
  * Time: 13:58
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Helper\CSRFTokenManager;
-use Http\Request\ServerRequest;
+use ES\Kernel\Helper\CSRFTokenManager;
+use ES\Kernel\Http\Request\ServerRequest;
 
 class MiddlewarePreController
 {
@@ -17,7 +17,7 @@ class MiddlewarePreController
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)

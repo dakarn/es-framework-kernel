@@ -6,7 +6,7 @@
  * Time: 15:53
  */
 
-namespace Http\Session\Redis;
+namespace ES\Kernel\Http\Session\Redis;
 
 class RedisConnector
 {

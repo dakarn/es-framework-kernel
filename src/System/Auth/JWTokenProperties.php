@@ -6,9 +6,9 @@
  * Time: 20:06
  */
 
-namespace System\Auth;
+namespace ES\Kernel\System\Auth;
 
-use Http\Cookie;
+use ES\Kernel\Http\Cookie;
 
 class JWTokenProperties
 {

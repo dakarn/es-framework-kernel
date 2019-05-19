@@ -6,7 +6,7 @@
  * Time: 0:49
  */
 
-namespace Kafka\Message;
+namespace ES\Kernel\Kafka\Message;
 
 abstract class AbstractQueueBody
 {

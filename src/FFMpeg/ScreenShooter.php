@@ -6,7 +6,7 @@
  * Time: 14:25
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
 class ScreenShooter extends AbstractFFMpegProperty implements FFMpegPropertyInterface
 {

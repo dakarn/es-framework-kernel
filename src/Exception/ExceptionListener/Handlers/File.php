@@ -6,9 +6,9 @@
  * Time: 23:27
  */
 
-namespace Exception\ExceptionListener\Handlers;
+namespace ES\Kernel\Exception\ExceptionListener\Handlers;
 
-use Exception\ExceptionListener\ExceptionHandlerInterface;
+use ES\Kernel\Exception\ExceptionListener\ExceptionHandlerInterface;
 
 class File implements ExceptionHandlerInterface
 {

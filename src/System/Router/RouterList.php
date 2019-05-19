@@ -6,9 +6,9 @@
  * Time: 20:51
  */
 
-namespace System\Router;
+namespace ES\Kernel\System\Router;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 class RouterList extends AbstractList
 {

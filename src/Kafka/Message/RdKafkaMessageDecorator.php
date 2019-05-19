@@ -6,11 +6,11 @@
  * Time: 22:43
  */
 
-namespace Kafka\Message;
+namespace ES\Kernel\Kafka\Message;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 use RdKafka\Message;
-use ObjectMapper\ObjectMapper;
+use ES\Kernel\ObjectMapper\ObjectMapper;
 
 class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 {
@@ -78,7 +78,7 @@ class RdKafkaMessageDecorator implements RdKafkaMessageDecoratorInterface
 
     /**
      * @return Payload
-     * @throws \Exception\ObjectException
+     * @throws \ES\Kernel\Exception\ObjectException
      */
 	public function getPayloadEntity(): Payload
 	{

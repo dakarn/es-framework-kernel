@@ -1,8 +1,8 @@
 <?php
 
-namespace Kafka\Message;
+namespace ES\Kernel\Kafka\Message;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 interface PayloadInterface
 {

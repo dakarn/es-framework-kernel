@@ -6,12 +6,12 @@
  * Time: 20:38
  */
 
-namespace ElasticSearch\Response;
+namespace ES\Kernel\ElasticSearch\Response;
 
-use ElasticSearch\ElasticSearch;
-use ElasticSearch\QueryEndpoints\Search;
-use ElasticSearch\QueryEndpoints\Select;
-use Helper\Util;
+use ES\Kernel\ElasticSearch\ElasticSearch;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Search;
+use ES\Kernel\ElasticSearch\QueryEndpoints\Select;
+use ES\Kernel\Helper\Util;
 
 class ElasticResultFactory
 {
@@ -19,7 +19,7 @@ class ElasticResultFactory
      * @param string $response
      * @param ElasticSearch $elasticSearchNew
      * @return AbstractResponse
-     * @throws \Exception\ObjectException
+     * @throws \ES\Kernel\Exception\ObjectException
      */
 	public static function getResponseObject(string $response, ElasticSearch $elasticSearchNew): AbstractResponse
 	{
@@ -35,7 +35,7 @@ class ElasticResultFactory
             case $currentQuery->isUseByQuery():
                 return new OperationByQueryResponse($response);
             default:
-                return new ExecuteResponse($response);
+                return new DefaultResponse($response);
         }
 	}
 

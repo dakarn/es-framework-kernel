@@ -6,7 +6,7 @@
  * Time: 23:11
  */
 
-namespace RedisQueue;
+namespace ES\Kernel\RedisQueue;
 
 class Client implements ClientInterface
 {

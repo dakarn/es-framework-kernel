@@ -6,7 +6,7 @@
  * Time: 19:57
  */
 
-namespace System;
+namespace ES\Kernel\System;
 
 class ShortCut
 {

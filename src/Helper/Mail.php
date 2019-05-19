@@ -6,10 +6,10 @@
  * @author    khomenko
  * @created   20.12.13 15:58
  */
-namespace App;
+namespace ES\Kernel\App;
 
-use Helper\Util;
-use Helper\Mime;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\Helper\Mime;
 
 class Mail
 {

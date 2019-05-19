@@ -6,14 +6,14 @@
  * Time: 1:11
  */
 
-namespace QueueManager\Senders;
+namespace ES\Kernel\QueueManager\Senders;
 
-use QueueManager\QueueModelInterface;
+use ES\Kernel\QueueManager\QueueModelInterface;
 use RdKafka\Producer;
 use RdKafka\ProducerTopic;
-use Configs\Config;
-use Kafka\ConfigConnection;
-use Kafka\Kafka;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\Kafka\ConfigConnection;
+use ES\Kernel\Kafka\Kafka;
 
 class KafkaQueueSender implements QueueSenderInterface
 {
@@ -34,7 +34,7 @@ class KafkaQueueSender implements QueueSenderInterface
 
 	/**
 	 * @return QueueSenderInterface
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function build(): QueueSenderInterface
 	{

@@ -6,7 +6,7 @@
  * Time: 15:19
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
 class LogLevel
 {

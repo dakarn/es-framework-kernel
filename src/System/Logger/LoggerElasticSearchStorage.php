@@ -6,19 +6,19 @@
  * Time: 16:28
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
-use ElasticSearch\ElasticQuery;
-use ElasticSearch\ElasticSearch;
-use Traits\SingletonTrait;
+use ES\Kernel\ElasticSearch\ElasticQuery;
+use ES\Kernel\ElasticSearch\ElasticSearch;
+use ES\Kernel\Traits\SingletonTrait;
 
 class LoggerElasticSearchStorage extends AbstractLoggerStorage implements LoggerStorageInterface
 {
 	use SingletonTrait;
 
 	/**
-	 * @throws \Exception\FileException
-	 * @throws \Exception\HttpException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\HttpException
 	 */
 	public function releaseLogs(): void
 	{

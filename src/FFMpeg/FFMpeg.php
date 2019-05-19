@@ -6,9 +6,9 @@
  * Time: 14:08
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
-use Traits\SingletonTrait;
+use ES\Kernel\Traits\SingletonTrait;
 
 class FFMpeg
 {

@@ -6,7 +6,7 @@
  * Time: 20:49
  */
 
-namespace Kafka;
+namespace ES\Kernel\Kafka;
 
 interface ConfigureConnectInterface
 {

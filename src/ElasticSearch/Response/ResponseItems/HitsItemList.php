@@ -1,8 +1,8 @@
 <?php
 
-namespace ElasticSearch\Response\ResponseItems;
+namespace ES\Kernel\ElasticSearch\Response\ResponseItems;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 class HitsItemList extends AbstractList
 {

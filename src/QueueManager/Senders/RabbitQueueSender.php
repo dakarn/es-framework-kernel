@@ -6,10 +6,10 @@
  * Time: 16:38
  */
 
-namespace QueueManager\Senders;
+namespace ES\Kernel\QueueManager\Senders;
 
-use Configs\Config;
-use QueueManager\QueueModelInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\QueueManager\QueueModelInterface;
 
 class RabbitQueueSender implements QueueSenderInterface
 {
@@ -45,7 +45,7 @@ class RabbitQueueSender implements QueueSenderInterface
 
 	/**
 	 * RabbitQueueSender constructor.
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function __construct()
 	{

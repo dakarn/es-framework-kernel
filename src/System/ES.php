@@ -6,9 +6,9 @@
  * Time: 2:25
  */
 
-namespace System;
+namespace ES\Kernel\System;
 
-use Exception\KernelException;
+use ES\Kernel\Exception\KernelException;
 
 class ES implements ContainerInterface
 {

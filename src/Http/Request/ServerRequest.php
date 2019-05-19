@@ -6,15 +6,15 @@
  * Time: 13:12
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
-use Exception\MiddlewareException;
-use Http\Cookie;
-use Http\Session\SessionRedis;
-use Http\Middleware\StorageMiddleware;
-use Http\Response\Response;
-use Http\Middleware\RequestHandler;
-use Http\Session\Strategy\RedisStrategy;
+use ES\Kernel\Exception\MiddlewareException;
+use ES\Kernel\Http\Cookie;
+use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\Http\Middleware\StorageMiddleware;
+use ES\Kernel\Http\Response\Response;
+use ES\Kernel\Http\Middleware\RequestHandler;
+use ES\Kernel\Http\Session\Strategy\RedisStrategy;
 
 class ServerRequest
 {

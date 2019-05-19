@@ -6,10 +6,10 @@
  * Time: 14:07
  */
 
-namespace ObjectMapper;
+namespace ES\Kernel\ObjectMapper;
 
-use Exception\ObjectException;
-use Helper\AbstractList;
+use ES\Kernel\Exception\ObjectException;
+use ES\Kernel\Helper\AbstractList;
 
 interface ObjectMapperInterface
 {

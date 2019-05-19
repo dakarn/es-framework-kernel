@@ -6,7 +6,7 @@
  * Time: 18:13
  */
 
-namespace Providers;
+namespace ES\Kernel\Providers;
 
 class StorageProviders
 {

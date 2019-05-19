@@ -6,12 +6,12 @@
  * Time: 20:07
  */
 
-namespace ObjectMapper;
+namespace ES\Kernel\ObjectMapper;
 
-use Exception\ObjectException;
-use Helper\AbstractList;
-use Helper\Util;
-use Traits\SingletonTrait;
+use ES\Kernel\Exception\ObjectException;
+use ES\Kernel\Helper\AbstractList;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\Traits\SingletonTrait;
 
 class ObjectMapper implements ObjectMapperInterface
 {
@@ -76,7 +76,7 @@ class ObjectMapper implements ObjectMapperInterface
      * @param AbstractList $objectList
      * @return false|string
      */
-    public function objectListToJson(AbstractList $objectList)
+    public function objectListToJson(AbstractList $objectList): string
     {
         $array = [];
 
@@ -88,8 +88,23 @@ class ObjectMapper implements ObjectMapperInterface
     }
 
 	/**
+	 * @param AbstractList $objectList
+	 * @return array
+	 */
+	public function objectListToArrays(AbstractList $objectList): array
+    {
+        $array = [];
+
+        foreach ($objectList->getAll() as $objectItem) {
+            $array[] = $this->objectToArray($objectItem);
+        }
+
+        return $array;
+    }
+
+	/**
 	 * @param array $arraysItems
-	 * @param  ClassToMappingInterface $objectInput
+	 * @param  ClassToMappingInterface|string $objectInput
 	 * @param string $objectList
 	 * @return AbstractList
 	 * @throws ObjectException

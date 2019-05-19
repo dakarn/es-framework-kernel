@@ -6,7 +6,7 @@
  * Time: 15:16
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
 class MetaInfo
 {

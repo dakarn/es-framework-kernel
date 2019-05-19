@@ -6,9 +6,9 @@
  * Time: 14:17
  */
 
-namespace FFMpeg\Format;
+namespace ES\Kernel\FFMpeg\Format;
 
-use FFMpeg\FileFormatInterface;
+use ES\Kernel\FFMpeg\FileFormatInterface;
 
 class WEBMFormat implements FileFormatInterface
 {

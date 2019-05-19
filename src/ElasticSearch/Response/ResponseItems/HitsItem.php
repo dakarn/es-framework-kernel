@@ -1,8 +1,8 @@
 <?php
 
-namespace ElasticSearch\Response\ResponseItems;
+namespace ES\Kernel\ElasticSearch\Response\ResponseItems;
 
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 class HitsItem implements ClassToMappingInterface
 {

@@ -6,7 +6,7 @@
  * Time: 19:18
  */
 
-namespace System\Validators;
+namespace ES\Kernel\System\Validators;
 
 interface AbstractValidatorInterface
 {
@@ -77,7 +77,7 @@ interface AbstractValidatorInterface
 	/**
 	 * @param string $keyError
 	 * @return AbstractValidator
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function setExtraError(string $keyError): AbstractValidator;
 
@@ -91,7 +91,7 @@ interface AbstractValidatorInterface
 	 * @param string $keyError
 	 * @param string $itemError
 	 * @return AbstractValidator
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function setExtraErrorAPI(string $keyError, string $itemError = ''): AbstractValidator;
 

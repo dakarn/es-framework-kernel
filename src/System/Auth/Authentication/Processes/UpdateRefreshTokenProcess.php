@@ -6,17 +6,17 @@
  * Time: 21:17
  */
 
-namespace System\Auth\Authentication\Processes;
+namespace ES\Kernel\System\Auth\Authentication\Processes;
 
-use Helper\RepositoryHelper\StorageRepository;
-use Helper\Util;
-use Http\Session\SessionRedis;
-use Models\User\User;
-use System\Auth\ClientAppRepository;
-use System\Auth\JWTokenManager;
-use System\Auth\TokenRepository;
-use System\Validators\AbstractValidator;
-use System\Validators\Validators;
+use ES\Kernel\Helper\RepositoryHelper\StorageRepository;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\Models\User\User;
+use ES\Kernel\System\Auth\ClientAppRepository;
+use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\System\Auth\TokenRepository;
+use ES\Kernel\System\Validators\AbstractValidator;
+use ES\Kernel\System\Validators\Validators;
 
 class UpdateRefreshTokenProcess extends FillingPayload implements AuthenticationProcessInterface
 {
@@ -36,7 +36,7 @@ class UpdateRefreshTokenProcess extends FillingPayload implements Authentication
 
 	/**
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function execute(): bool

@@ -6,9 +6,9 @@
  * Time: 3:15
  */
 
-namespace System\Database\DbConfigLogic;
+namespace ES\Kernel\System\Database\DbConfigLogic;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 class ReaderConfList extends AbstractList
 {

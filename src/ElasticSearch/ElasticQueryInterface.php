@@ -1,19 +1,15 @@
 <?php
 
-namespace ElasticSearch;
+namespace ES\Kernel\ElasticSearch;
 
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\Response\AbstractResponse;
-use Exception\HttpException;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\Response\AbstractResponse;
 
 interface ElasticQueryInterface
 {
-    /**
-     * @param ElasticQueryParams $elasticQueryParams
-     * @return AbstractResponse
-     * @throws HttpException
-     * @throws \Exception\FileException
-     * @throws \Exception\ObjectException
-     */
+	/**
+	 * @param ElasticQueryParams $elasticQueryParams
+	 * @return AbstractResponse
+	 */
     public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse;
 }

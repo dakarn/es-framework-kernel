@@ -6,17 +6,17 @@
  * Time: 21:38
  */
 
-namespace System\Auth\Authentication;
+namespace ES\Kernel\System\Auth\Authentication;
 
-use System\Auth\Authentication\Processes\AuthByUserIdProcess;
-use System\Auth\Authentication\Processes\AuthenticationProcess;
-use System\Auth\Authentication\Processes\LogoutAllDevicesProcess;
-use System\Auth\Authentication\Processes\LogoutProcess;
-use System\Auth\Authentication\Processes\UpdateRefreshTokenProcess;
-use System\Auth\JWTokenManager;
-use Models\User\UserInterface;
-use System\Validators\AbstractValidator;
-use Traits\SingletonTrait;
+use ES\Kernel\System\Auth\Authentication\Processes\AuthByUserIdProcess;
+use ES\Kernel\System\Auth\Authentication\Processes\AuthenticationProcess;
+use ES\Kernel\System\Auth\Authentication\Processes\LogoutAllDevicesProcess;
+use ES\Kernel\System\Auth\Authentication\Processes\LogoutProcess;
+use ES\Kernel\System\Auth\Authentication\Processes\UpdateRefreshTokenProcess;
+use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\Models\User\UserInterface;
+use ES\Kernel\System\Validators\AbstractValidator;
+use ES\Kernel\Traits\SingletonTrait;
 
 class Authentication implements AuthenticationInterface
 {
@@ -55,7 +55,7 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @return Authentication
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function processLogout(): AuthenticationInterface
@@ -68,7 +68,7 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @return Authentication
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function processLogoutAllDevice(): AuthenticationInterface
@@ -82,7 +82,7 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param AbstractValidator $validator
 	 * @return null|Authentication
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function processUpdateRefreshToken(AbstractValidator $validator):? AuthenticationInterface
@@ -96,7 +96,7 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param UserInterface $user
 	 * @return Authentication
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	public function processAuthentication(UserInterface $user): AuthenticationInterface
@@ -114,7 +114,7 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param UserInterface $user
 	 * @return Authentication
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function processAuthByUserId(UserInterface $user): AuthenticationInterface
 	{

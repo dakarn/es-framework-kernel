@@ -6,7 +6,7 @@
  * Time: 1:54
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
 class Request implements RequestInterface
 {

@@ -6,7 +6,7 @@
  * Time: 14:35
  */
 
-namespace FFMpeg;
+namespace ES\Kernel\FFMpeg;
 
 interface FileFormatInterface
 {

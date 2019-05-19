@@ -6,9 +6,9 @@
  * Time: 19:59
  */
 
-namespace Models\User;
+namespace ES\Kernel\Models\User;
 
-use Helper\AbstractList;
+use ES\Kernel\Helper\AbstractList;
 
 class UserList extends AbstractList
 {

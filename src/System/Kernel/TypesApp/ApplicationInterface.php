@@ -6,10 +6,10 @@
  * Time: 20:22
  */
 
-namespace System\Kernel\TypesApp;
+namespace ES\Kernel\System\Kernel\TypesApp;
 
 use App\AppKernel;
-use System\EventListener\EventManager;
+use ES\Kernel\System\EventListener\EventManager;
 
 interface ApplicationInterface
 {

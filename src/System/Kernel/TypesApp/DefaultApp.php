@@ -6,7 +6,7 @@
  * Time: 1:21
  */
 
-namespace System\Kernel\TypesApp;
+namespace ES\Kernel\System\Kernel\TypesApp;
 
 class DefaultApp extends AbstractApplication
 {
@@ -21,7 +21,7 @@ class DefaultApp extends AbstractApplication
 	}
 
     /**
-     * @throws \Exception\FileException
+     * @throws \ES\Kernel\Exception\FileException
      */
 	public function run()
 	{

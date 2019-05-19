@@ -6,7 +6,7 @@
  * Time: 2:17
  */
 
-\define('PATH_SYSTEM', \dirname(\dirname(__DIR__)) . '/system/');
+\define('PATH_SYSTEM', \dirname(\dirname(__DIR__)) . '/src/');
 
 if (!\defined('PATH_APP')) {
 	\define('PATH_APP', '');

@@ -6,7 +6,7 @@
  * Time: 0:50
  */
 
-namespace Kafka;
+namespace ES\Kernel\Kafka;
 
 class Topics
 {

@@ -6,10 +6,10 @@
  * Time: 2:09
  */
 
-namespace Widget;
+namespace ES\Kernel\Widget;
 
-use Exception\WidgetException;
-use Configs\Config;
+use ES\Kernel\Exception\WidgetException;
+use ES\Kernel\Configs\Config;
 
 class WidgetFactory
 {
@@ -17,7 +17,7 @@ class WidgetFactory
 	 * @param string $widgetName
 	 * @return WidgetInterface
 	 * @throws WidgetException
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function run(string $widgetName): WidgetInterface
 	{

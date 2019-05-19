@@ -6,7 +6,7 @@
  * Time: 22:48
  */
 
-namespace System\Service;
+namespace ES\Kernel\System\Service;
 
 interface ServiceContainerInterface
 {

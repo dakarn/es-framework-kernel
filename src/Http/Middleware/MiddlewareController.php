@@ -6,24 +6,22 @@
  * Time: 22:33
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Http\Request\ServerRequest;
-use Http\Response\Text;
-use System\Controller\LauncherController;
-use System\ES;
-use System\Render;
-use System\Router\Routing;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\Text;
+use ES\Kernel\System\Controller\LauncherController;
+use ES\Kernel\System\ES;
+use ES\Kernel\System\Render;
+use ES\Kernel\System\Router\Routing;
 
 class MiddlewareController implements MiddlewareInterface
 {
 	/**
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
-	 * @return \Http\Response\Response|mixed
-	 * @throws \Exception\ControllerException
-	 * @throws \Exception\FileException
-	 * @throws \Exception\KernelException
+	 * @return \Kernel\Http\Response\Response|mixed
+	 * @throws \ES\Kernel\Exception\\KernelException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{

@@ -6,7 +6,7 @@
  * Time: 18:29
  */
 
-namespace Http\Session\Strategy;
+namespace ES\Kernel\Http\Session\Strategy;
 
 /**
  * Class Session
@@ -33,7 +33,7 @@ class Session
 	/**
 	 * @param string $key
 	 * @return string
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function get(string $key): string
 	{
@@ -43,7 +43,7 @@ class Session
 	/**
 	 * @param string $key
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function getAsArray(string $key): array
 	{
@@ -53,7 +53,7 @@ class Session
 	/**
 	 * @param string $key
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function has(string $key): bool
 	{
@@ -62,7 +62,7 @@ class Session
 
 	/**
 	 * @return int
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function count(): int
 	{
@@ -72,7 +72,7 @@ class Session
 	/**
 	 * @param array $keys
 	 * @return array
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function getSome(array $keys): array
 	{
@@ -80,7 +80,7 @@ class Session
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function clear(): void
 	{
@@ -98,7 +98,7 @@ class Session
 	/**
 	 * @param string $key
 	 * @return bool
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function delete(string $key): bool
 	{
@@ -109,7 +109,7 @@ class Session
 	 * @param string $key
 	 * @param $value
 	 * @return Session
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function set(string $key, $value): Session
 	{

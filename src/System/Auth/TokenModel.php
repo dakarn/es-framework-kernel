@@ -6,9 +6,9 @@
  * Time: 14:59
  */
 
-namespace System\Auth;
+namespace ES\Kernel\System\Auth;
 
-use ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
 class TokenModel implements ClassToMappingInterface
 {

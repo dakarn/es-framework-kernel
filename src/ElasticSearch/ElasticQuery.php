@@ -6,14 +6,14 @@
  * Time: 15:46
  */
 
-namespace ElasticSearch;
+namespace ES\Kernel\ElasticSearch;
 
-use ElasticSearch\QueryOptions\ElasticQueryParams;
-use ElasticSearch\QueryOptions\HttpQuery;
-use ElasticSearch\Response\AbstractResponse;
-use ElasticSearch\Response\ElasticResultFactory;
-use Exception\HttpException;
-use Traits\SingletonTrait;
+use ES\Kernel\ElasticSearch\QueryOptions\ElasticQueryParams;
+use ES\Kernel\ElasticSearch\QueryOptions\HttpQuery;
+use ES\Kernel\ElasticSearch\Response\AbstractResponse;
+use ES\Kernel\ElasticSearch\Response\ElasticResultFactory;
+use ES\Kernel\Exception\HttpException;
+use ES\Kernel\Traits\SingletonTrait;
 
 class ElasticQuery implements ElasticQueryInterface
 {
@@ -38,8 +38,7 @@ class ElasticQuery implements ElasticQueryInterface
 	 * @param ElasticQueryParams $elasticQueryParams
 	 * @return AbstractResponse
 	 * @throws HttpException
-	 * @throws \Exception\FileException
-	 * @throws \Exception\ObjectException
+	 * @throws \ES\Kernel\Exception\\ObjectException
 	 */
     public function execute(ElasticQueryParams $elasticQueryParams): AbstractResponse
     {

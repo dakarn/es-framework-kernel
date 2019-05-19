@@ -6,9 +6,9 @@
  * Time: 19:32
  */
 
-namespace Kafka;
+namespace ES\Kernel\Kafka;
 
-use Traits\SingletonTrait;
+use ES\Kernel\Traits\SingletonTrait;
 
 class Kafka implements KafkaInterface
 {

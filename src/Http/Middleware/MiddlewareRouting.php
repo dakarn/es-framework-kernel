@@ -6,18 +6,18 @@
  * Time: 19:27
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Exception\RoutingException;
-use Http\Request\ServerRequest;
-use Http\Response\API;
-use Http\Response\Text;
-use System\Kernel\TypesApp\AbstractApplication;
-use System\ES;
-use System\Render;
-use System\Router\Routing;
-use System\Kernel\GETParam;
-use Configs\Config;
+use ES\Kernel\Exception\RoutingException;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Response\API;
+use ES\Kernel\Http\Response\Text;
+use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\System\ES;
+use ES\Kernel\System\Render;
+use ES\Kernel\System\Router\Routing;
+use ES\Kernel\System\Kernel\GETParam;
+use ES\Kernel\Configs\Config;
 
 class MiddlewareRouting implements MiddlewareInterface
 {
@@ -25,9 +25,9 @@ class MiddlewareRouting implements MiddlewareInterface
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response|mixed
-	 * @throws \Exception\FileException
-	 * @throws \Exception\KernelException
-	 * @throws \Exception\MiddlewareException
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\KernelException
+	 * @throws \ES\Kernel\Exception\MiddlewareException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{

@@ -6,25 +6,26 @@
  * Time: 21:29
  */
 
-namespace Http\Middleware;
+namespace ES\Kernel\Http\Middleware;
 
-use Configs\Config;
-use Helper\Util;
-use Http\Cookie;
-use Http\Request\ServerRequest;
-use Http\Session\SessionRedis;
-use System\Auth\JWTokenManager;
-use System\Kernel\TypesApp\AbstractApplication;
-use System\ES;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\Http\Cookie;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\System\ES;
 
 class MiddlewareAnonymousToken
 {
 	/**
 	 * @param ServerRequest $request
 	 * @param RequestHandler $handler
-	 * @return \Http\Response\Response
-	 * @throws \Exception\FileException
-	 * @throws \Exception
+	 * @return \Kernel\Http\Response\Response
+	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws \ES\Kernel\Exception\KernelException
+	 * @throws \ES\Kernel\Exception\MiddlewareException
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
@@ -43,7 +44,7 @@ class MiddlewareAnonymousToken
 	}
 
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 * @throws \Exception
 	 */
 	private function createAnonymousJWToken()

@@ -6,10 +6,10 @@
  * Time: 20:34
  */
 
-namespace Models\User;
+namespace ES\Kernel\Models\User;
 
-use Helper\Util;
-use System\Database\DB;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\System\Database\DB;
 
 class UserStrategy
 {

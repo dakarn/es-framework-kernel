@@ -6,7 +6,7 @@
  * Time: 1:47
  */
 
-namespace System\Router;
+namespace ES\Kernel\System\Router;
 
 class RouteData
 {

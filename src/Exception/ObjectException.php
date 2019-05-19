@@ -6,7 +6,7 @@
  * Time: 17:24
  */
 
-namespace Exception;
+namespace ES\Kernel\Exception;
 
 class ObjectException extends \Exception
 {

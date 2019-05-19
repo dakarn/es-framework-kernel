@@ -6,9 +6,9 @@
  * Time: 14:28
  */
 
-namespace QueueManager\Senders;
+namespace ES\Kernel\QueueManager\Senders;
 
-use QueueManager\QueueModelInterface;
+use ES\Kernel\QueueManager\QueueModelInterface;
 
 interface QueueSenderInterface
 {

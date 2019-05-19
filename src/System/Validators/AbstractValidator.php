@@ -6,14 +6,14 @@
  * Time: 15:27
  */
 
-namespace System\Validators;
+namespace ES\Kernel\System\Validators;
 
-use Configs\Config;
-use Helper\Util;
-use Http\Cookie;
-use Helper\CSRFTokenManager;
-use Helper\FlashText;
-use Http\Request\ServerRequest;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\Http\Cookie;
+use ES\Kernel\Helper\CSRFTokenManager;
+use ES\Kernel\Helper\FlashText;
+use ES\Kernel\Http\Request\ServerRequest;
 
 abstract class AbstractValidator implements AbstractValidatorInterface
 {
@@ -209,7 +209,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	/**
 	 * @param string $keyError
 	 * @return AbstractValidator
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function setExtraError(string $keyError): AbstractValidator
 	{
@@ -237,7 +237,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 * @param string $keyError
 	 * @param string $itemError
 	 * @return AbstractValidator
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function setExtraErrorAPI(string $keyError, string $itemError = ''): AbstractValidator
 	{

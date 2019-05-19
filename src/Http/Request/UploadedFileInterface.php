@@ -6,7 +6,7 @@
  * Time: 14:38
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
 interface UploadedFileInterface
 {

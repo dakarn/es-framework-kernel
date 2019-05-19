@@ -6,10 +6,10 @@
  * Time: 16:03
  */
 
-namespace Http;
+namespace ES\Kernel\Http;
 
-use System\Constants;
-use Traits\SingletonTrait;
+use ES\Kernel\System\Constants;
+use ES\Kernel\Traits\SingletonTrait;
 
 class Cookie implements CookieInterface
 {

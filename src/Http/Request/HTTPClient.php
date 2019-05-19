@@ -6,10 +6,10 @@
  * Time: 21:27
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
-use Http\Response\Response;
-use Http\Response\Text;
+use ES\Kernel\Http\Response\Response;
+use ES\Kernel\Http\Response\Text;
 
 final class HttpClient implements HttpClientInterface
 {

@@ -1,11 +1,11 @@
 <?php
 
-use Http\Request\ServerRequest;
-use Http\Cookie;
-use Http\Session\SessionRedis;
-use System\ES;
-use System\Kernel\TypesApp\AbstractApplication;
-use Models\User\User;
+use ES\Kernel\Http\Request\ServerRequest;
+use ES\Kernel\Http\Cookie;
+use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\System\ES;
+use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\Models\User\User;
 
 /** @var AbstractApplication $app */
 $app =  ES::get(ES::APP);

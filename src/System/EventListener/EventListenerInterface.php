@@ -6,7 +6,7 @@
  * Time: 1:28
  */
 
-namespace System\EventListener;
+namespace ES\Kernel\System\EventListener;
 
 interface EventListenerInterface
 {

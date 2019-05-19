@@ -5,10 +5,10 @@
  * Date: 28.05.2018
  * Time: 10:39
  */
-namespace QueueManager\Senders;
+namespace ES\Kernel\QueueManager\Senders;
 
-use Configs\Config;
-use QueueManager\QueueModelInterface;
+use ES\Kernel\Configs\Config;
+use ES\Kernel\QueueManager\QueueModelInterface;
 
 class StompQueueSender implements QueueSenderInterface
 {
@@ -29,7 +29,7 @@ class StompQueueSender implements QueueSenderInterface
 
 	/**
 	 * StompQueueSender constructor.
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
     public function __construct()
     {

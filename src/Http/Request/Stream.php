@@ -6,7 +6,7 @@
  * Time: 20:49
  */
 
-namespace Http\Request;
+namespace ES\Kernel\Http\Request;
 
 class Stream implements StreamInterface
 {

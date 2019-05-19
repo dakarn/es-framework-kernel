@@ -6,7 +6,7 @@
  * Time: 21:18
  */
 
-namespace System\Auth\Authentication\Processes;
+namespace ES\Kernel\System\Auth\Authentication\Processes;
 
 interface AuthenticationProcessInterface
 {

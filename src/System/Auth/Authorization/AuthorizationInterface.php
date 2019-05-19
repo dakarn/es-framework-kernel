@@ -6,12 +6,12 @@
  * Time: 20:25
  */
 
-namespace System\Auth\Authorization;
+namespace ES\Kernel\System\Auth\Authorization;
 
 interface AuthorizationInterface
 {
 	/**
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function verifyAccess(): AuthorizationInterface;
 

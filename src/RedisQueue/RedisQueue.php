@@ -6,10 +6,10 @@
  * Time: 15:09
  */
 
-namespace RedisQueue;
+namespace ES\Kernel\RedisQueue;
 
-use Helper\Util;
-use System\Logger\LogLevel;
+use ES\Kernel\Helper\Util;
+use ES\Kernel\System\Logger\LogLevel;
 
 class RedisQueue implements RedisQueueInterface
 {

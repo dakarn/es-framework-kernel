@@ -6,7 +6,7 @@
  * Time: 15:21
  */
 
-namespace System\Logger;
+namespace ES\Kernel\System\Logger;
 
 interface LoggerAwareInterface
 {

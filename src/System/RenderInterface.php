@@ -6,7 +6,7 @@
  * Time: 2:19
  */
 
-namespace System;
+namespace ES\Kernel\System;
 
 interface RenderInterface
 {
@@ -14,13 +14,13 @@ interface RenderInterface
 	 * Render constructor.
 	 * @param $template
 	 * @param array $params
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function __construct($template, array $params = []);
 
 	/**
 	 * @return string
-	 * @throws \Exception\FileException
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public function render(): string;
 }

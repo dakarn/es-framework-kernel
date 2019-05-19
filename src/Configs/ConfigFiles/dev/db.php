@@ -5,7 +5,7 @@ return [
 		'oneInstance' => [
 			'host'     => '127.0.0.1',
 			'user'     => 'root',
-			'database' => 'es-framework',
+			'database' => 'teacher',
 			'password' => '234679',
 			'charset'  => 'utf8'
 		]

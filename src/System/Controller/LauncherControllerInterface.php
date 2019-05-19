@@ -6,7 +6,7 @@
  * Time: 23:10
  */
 
-namespace System\Controller;
+namespace ES\Kernel\System\Controller;
 
 interface LauncherControllerInterface
 {

@@ -6,7 +6,7 @@
  * Time: 1:34
  */
 
-namespace System\Database\ORM;
+namespace ES\Kernel\System\Database\ORM;
 
 class ORM
 {

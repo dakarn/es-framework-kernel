@@ -5,31 +5,28 @@
   "type": "kernel",
   "autoload": {
     "psr-4": {
-      "ElasticSearch\\": "system/ElasticSearch",
-      "Exception\\": "system/Exception",
-      "Helper\\": "system/Helper",
-      "Http\\": "system/Http",
-      "Authentication\\": "system/Authentication",
-      "Authorization\\": "system/Authorization",
-      "Providers\\": "system/Providers",
-      "ObjectMapper\\": "system/ObjectMapper",
-      "QueueManager\\": "system/QueueManager",
-      "UserManager\\": "system/UserManager",
-      "RedisQueue\\": "system/RedisQueue",
-      "FFMpeg\\": "system/FFMpeg",
-      "System\\": "system/System",
-      "Traits\\": "system/Traits",
-      "Widget\\": "system/Widget",
-      "Configs\\": "system/Configs",
-      "Models\\": "system/Models",
-      "Kafka\\": "system/Kafka"
+      "ES\\Kernel\\ElasticSearch\\": "src/ElasticSearch",
+      "ES\\Kernel\\Exception\\": "src/Exception",
+      "ES\\Kernel\\Helper\\": "src/Helper",
+      "ES\\Kernel\\Http\\": "src/Http",
+      "ES\\Kernel\\Authentication\\": "src/Authentication",
+      "ES\\Kernel\\Authorization\\": "src/Authorization",
+      "ES\\Kernel\\Providers\\": "src/Providers",
+      "ES\\Kernel\\ObjectMapper\\": "src/ObjectMapper",
+      "ES\\Kernel\\QueueManager\\": "src/QueueManager",
+      "ES\\Kernel\\UserManager\\": "src/UserManager",
+      "ES\\Kernel\\RedisQueue\\": "src/RedisQueue",
+      "ES\\Kernel\\FFMpeg\\": "src/FFMpeg",
+      "ES\\Kernel\\System\\": "src/System",
+      "ES\\Kernel\\Traits\\": "src/Traits",
+      "ES\\Kernel\\Widget\\": "src/Widget",
+      "ES\\Kernel\\Configs\\": "src/Configs",
+      "ES\\Kernel\\Models\\": "src/Models",
+      "ES\\Kernel\\Kafka\\": "src/Kafka"
     },
     "files": [
-      "system/System/DefineSetup.php"
+      "src/System/DefineSetup.php"
     ]
-  },
-  "require-dev": {
-    "phpunit/phpunit": "*"
   },
   "autoload-dev": {
     "psr-4": {

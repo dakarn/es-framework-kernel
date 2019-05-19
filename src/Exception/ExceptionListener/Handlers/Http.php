@@ -6,9 +6,9 @@
  * Time: 20:39
  */
 
-namespace Exception\ExceptionListener\Handlers;
+namespace ES\Kernel\Exception\ExceptionListener\Handlers;
 
-use Exception\ExceptionListener\ExceptionHandlerInterface;
+use ES\Kernel\Exception\ExceptionListener\ExceptionHandlerInterface;
 
 class Http implements ExceptionHandlerInterface
 {
