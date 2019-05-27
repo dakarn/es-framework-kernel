@@ -15,6 +15,7 @@ class Header implements ClassToMappingInterface, HeaderInterface
 	private $hash;
 	private $time;
 	private $topicName;
+	private $attempts;
 
 	public function getProperties(): array
 	{
@@ -22,8 +23,25 @@ class Header implements ClassToMappingInterface, HeaderInterface
 			'hash',
 			'time',
 			'topicName',
+            'attempts'
 		];
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getAttempts()
+    {
+        return $this->attempts;
+    }
+
+    /**
+     * @param mixed $attempts
+     */
+    public function setAttempts($attempts): void
+    {
+        $this->attempts = $attempts;
+    }
 
 	/**
 	 * @return mixed

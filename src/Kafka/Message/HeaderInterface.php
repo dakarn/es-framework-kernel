@@ -4,6 +4,18 @@ namespace ES\Kernel\Kafka\Message;
 
 interface HeaderInterface
 {
+    public function getProperties(): array;
+
+    /**
+     * @return mixed
+     */
+    public function getAttempts();
+
+    /**
+     * @param mixed $attempts
+     */
+    public function setAttempts($attempts): void;
+
     /**
      * @return mixed
      */

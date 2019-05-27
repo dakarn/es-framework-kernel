@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: v.konovalov
- * Date: 24.04.2018
- * Time: 14:45
- */
 
 namespace ES\Kernel\QueueManager;
 
-use ES\Kernel\QueueManager\Senders\QueueSenderInterface;
 use ES\Kernel\QueueManager\ReceiverStrategy\ReceiverStrategyInterface;
+use ES\Kernel\QueueManager\Senders\QueueSenderInterface;
 
 interface QueueManagerInterface
 {
@@ -19,17 +13,29 @@ interface QueueManagerInterface
     public function getReceiver(): ReceiverStrategyInterface;
 
     /**
+     * @param string $sender
+     * @return QueueManager
+     */
+    public function setSender(string $sender): QueueManagerInterface;
+
+    /**
+     * @param ReceiverStrategyInterface $receiverStrategy
+     * @return QueueManager
+     */
+    public function setReceiver(ReceiverStrategyInterface $receiverStrategy): QueueManagerInterface;
+
+    /**
      * @param string $name
      * @param AbstractQueueHandler $queueHandler
      * @return QueueManager
      */
-    public function setQueueHandler(string $name, AbstractQueueHandler $queueHandler): QueueManager;
+    public function setQueueHandler(string $name, AbstractQueueHandler $queueHandler): QueueManagerInterface;
 
     /**
      * @param array $queueHandlers
      * @return QueueManager
      */
-    public function setQueueHandlers(array $queueHandlers): QueueManager;
+    public function setQueueHandlers(array $queueHandlers): QueueManagerInterface;
 
     /**
      * @return bool

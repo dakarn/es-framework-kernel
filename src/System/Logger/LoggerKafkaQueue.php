@@ -26,7 +26,8 @@ class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInt
 			'header' => [
 				'topicName' => Topics::LOGS,
 				'time'      => time(),
-				'hash'      => md5(time() . Topics::LOGS . Util::generateRandom(20))
+				'hash'      => md5(microtime(true) . Topics::LOGS . Util::generateRandom(20)),
+                'attempts'  => 1,
 			],
 		];
 
@@ -44,7 +45,7 @@ class LoggerKafkaQueue extends AbstractLoggerStorage implements LoggerStorageInt
 			 ->setDataAsArray($payload);
 
 		QueueManager::create()
-			->setSender(new KafkaQueueSender())
+			->setSender(KafkaQueueSender::class)
 			->sender($send)
 			->send();
 	}

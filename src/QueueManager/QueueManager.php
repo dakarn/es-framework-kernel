@@ -45,10 +45,10 @@ class QueueManager implements QueueManagerInterface
 	}
 
 	/**
-	 * @param QueueSenderInterface $sender
+	 * @param string $sender
 	 * @return QueueManager
 	 */
-	public function setSender(QueueSenderInterface $sender): QueueManager
+	public function setSender(string $sender): QueueManagerInterface
 	{
 		$this->sender = new $sender();
 		return $this;
@@ -58,7 +58,7 @@ class QueueManager implements QueueManagerInterface
 	 * @param ReceiverStrategyInterface $receiverStrategy
 	 * @return QueueManager
 	 */
-	public function setReceiver(ReceiverStrategyInterface $receiverStrategy): QueueManager
+	public function setReceiver(ReceiverStrategyInterface $receiverStrategy): QueueManagerInterface
 	{
 		$this->receiver = $receiverStrategy;
 		return $this;
@@ -69,7 +69,7 @@ class QueueManager implements QueueManagerInterface
 	 * @param AbstractQueueHandler $queueHandler
 	 * @return QueueManager
 	 */
-	public function setQueueHandler(string $name, AbstractQueueHandler $queueHandler): QueueManager
+	public function setQueueHandler(string $name, AbstractQueueHandler $queueHandler): QueueManagerInterface
 	{
 		$this->handlers[$name] = $queueHandler;
 		return $this;
@@ -79,7 +79,7 @@ class QueueManager implements QueueManagerInterface
 	 * @param array $queueHandlers
 	 * @return QueueManager
 	 */
-	public function setQueueHandlers(array $queueHandlers): QueueManager
+	public function setQueueHandlers(array $queueHandlers): QueueManagerInterface
 	{
 		foreach ($queueHandlers as $name => $queueClass) {
 			$this->handlers[$name] = $queueClass;
