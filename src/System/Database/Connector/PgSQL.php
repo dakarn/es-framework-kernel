@@ -17,9 +17,12 @@ class PgSQL implements DBConnectorInterface
 
 	private $readers;
 
-	public function __construct()
+	private $database;
+
+	public function __construct(string $database)
 	{
-		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
+		$this->database = $database;
+		$conf = DbConfig::create()->getConfigure(DB::PGSQL)[$this->database];
 
 		$this->writer = $conf['write'];
 

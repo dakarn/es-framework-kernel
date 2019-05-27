@@ -246,10 +246,10 @@ abstract class AbstractApplication implements ApplicationInterface
 	    $dbConfig = Config::get('db');
 
         DbConfig::create()
-            ->setConfigure(DB::MYSQL, new DatabaseConfigure($dbConfig['mysql']))
-            ->setConfigure(DB::MSSQL, new DatabaseConfigure($dbConfig['mssql']))
-            ->setConfigure(DB::PGSQL, new DatabaseConfigure($dbConfig['pgsql']))
-            ->setConfigure(DB::ORACLE, new DatabaseConfigure($dbConfig['oracle']));
+            ->setConfigure(DB::MYSQL, new DatabaseConfigure($dbConfig[DB::MYSQL]));
+            //->setConfigure(DB::MSSQL, new DatabaseConfigure($dbConfig[DB::MSSQL]))
+            //->setConfigure(DB::PGSQL, new DatabaseConfigure($dbConfig[DB::PGSQL]))
+            //->setConfigure(DB::ORACLE, new DatabaseConfigure($dbConfig[DB::ORACLE]));
     }
 
     abstract public function terminate();

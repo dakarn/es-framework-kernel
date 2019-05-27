@@ -46,11 +46,18 @@ class MySQL implements DBConnectorInterface
 	private $tryReconnectReader = 0;
 
 	/**
+	 * @var string
+	 */
+	private $database;
+
+	/**
 	 * MySQL constructor.
+	 * @param string $database
 	 * @throws \Exception
 	 */
-	public function __construct()
+	public function __construct(string $database)
 	{
+		$this->database = $database; print_r($database);
 		$this->initWriter();
 	}
 
@@ -101,7 +108,7 @@ class MySQL implements DBConnectorInterface
 	{
 		try {
 			if (empty($num)) {
-				$num = \random_int(0, $this->amountReaders - 1);
+				$num = \rand(0, $this->amountReaders - 1);
 			}
 
 			$this->reader = $this->connect($this->readersConfigList->get($num));
@@ -120,7 +127,7 @@ class MySQL implements DBConnectorInterface
 	 */
 	private function initWriter()
 	{
-		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
+		$conf = DbConfig::create()->getConfigure(DB::MYSQL)[$this->database];
 
 		if (!empty($conf['oneInstance'])) {
 			$this->initDefault($conf['oneInstance']);
@@ -150,7 +157,7 @@ class MySQL implements DBConnectorInterface
 			$conf->getHost(),
 			$conf->getUser(),
 			$conf->getPassword(),
-			$conf->getDatabase()
+			$this->database
 		);
 
 		$mysqli->set_charset($conf->getCharset());

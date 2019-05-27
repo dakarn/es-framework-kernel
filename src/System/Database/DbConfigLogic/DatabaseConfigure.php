@@ -42,8 +42,7 @@ class DatabaseConfigure
 			return;
 		}
 
-		$this->writer  = new WriterConf($config['write']);
-
+		$this->writer      = new WriterConf($config['write']);
 		$this->readersList = new ReaderConfList();
 
 		foreach ($config['read'] as $index => $item) {

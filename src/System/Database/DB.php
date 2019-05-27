@@ -11,17 +11,13 @@ use ES\Kernel\System\Database\Connector\PgSQL;
 
 class DB
 {
-	const MYSQL = 'MySQL';
-
-	const PGSQL = 'PgSQL';
-
+	const MYSQL  = 'MySQL';
+	const PGSQL  = 'PgSQL';
 	const ORACLE = 'Oracle';
+	const MSSQL  = 'MSSQL';
 
-	const MSSQL = 'MSSQL';
-
-	const READ = 'read';
-
-	const WRITE = 'write';
+	const READ   = 'read';
+	const WRITE  = 'write';
 
 	/**
 	 * @var DBAdapterInterface[]
@@ -43,28 +39,30 @@ class DB
 	}
 
 	/**
+	 * @param string $database
 	 * @return DBAdapterInterface
 	 * @throws \Exception
 	 */
-	public static function MySQLAdapter(): DBAdapterInterface
+	public static function MySQLAdapter(string $database): DBAdapterInterface
 	{
-		if (!isset(self::$adapters[self::MYSQL])) {
-			self::$adapters[self::MYSQL] = new DBAdapter(new MySQLAdapter(new MySQL()));
+		if (!isset(self::$adapters[self::MYSQL . $database])) {
+			self::$adapters[self::MYSQL. $database] = new DBAdapter(new MySQLAdapter(new MySQL($database)));
 		}
 
-	    return self::$adapters[self::MYSQL];
+	    return self::$adapters[self::MYSQL . $database];
 	}
 
 	/**
+	 * @param string $database
 	 * @return DBAdapterInterface
 	 * @throws \Exception
 	 */
-	public static function PgSQLAdapter(): DBAdapterInterface
+	public static function PgSQLAdapter(string $database): DBAdapterInterface
 	{
-		if (!isset(self::$adapters[self::PGSQL])) {
-			self::$adapters[self::PGSQL] = new DBAdapter(new PgSQLAdapter(new PgSQL()));
+		if (!isset(self::$adapters[self::PGSQL. $database])) {
+			self::$adapters[self::PGSQL . $database] = new DBAdapter(new PgSQLAdapter(new PgSQL($database)));
 		}
 
-		return self::$adapters[self::MYSQL];
+		return self::$adapters[self::PGSQL . $database];
 	}
 }
