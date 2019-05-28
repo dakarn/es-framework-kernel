@@ -16,15 +16,15 @@ use ES\Kernel\System\Database\DB;
 
 class MySQLAdapter implements AdapteeInterface
 {
-	/**
-	 * @var \mysqli
-	 */
-	private $reader;
+    /**
+     * @var \mysqli
+     */
+    private $reader;
 
-	/**
-	 * @var \mysqli
-	 */
-	private $writer;
+    /**
+     * @var \mysqli
+     */
+    private $writer;
 
 	/**
 	 * @var int
@@ -51,6 +51,22 @@ class MySQLAdapter implements AdapteeInterface
 		$this->writer = $connector->getWriter();
 		$this->reader = $connector->getReader();
 	}
+
+    /**
+     * @return \mysqli
+     */
+	public function getWriterConnector(): \mysqli
+    {
+        return $this->writer;
+    }
+
+    /**
+     * @return \mysqli
+     */
+    public function getReaderConnector(): \mysqli
+    {
+        return $this->reader;
+    }
 
 	/**
 	 * @param string $types
@@ -176,12 +192,13 @@ class MySQLAdapter implements AdapteeInterface
 		return $ret;
 	}
 
-	/**
-	 * @param string $sql
-	 * @param string $abstractList
-	 * @param string $object
-	 * @return AbstractList|null
-	 */
+    /**
+     * @param string $sql
+     * @param string $abstractList
+     * @param string $object
+     * @return AbstractList|null
+     * @throws \ES\Kernel\Exception\ObjectException
+     */
 	public function fetchToObjectList(string $sql, string $abstractList, string $object):? AbstractList
 	{
 		return ObjectMapper::create()->arraysToObjectList($this->fetch($sql), $object, $abstractList);
@@ -190,7 +207,8 @@ class MySQLAdapter implements AdapteeInterface
     /**
      * @param string $sql
      * @param string $object
-     * @return mixed|\ObjectMapper\ClassToMappingInterface
+     * @return ClassToMappingInterface
+     * @throws \ES\Kernel\Exception\ObjectException
      */
 	public function fetchRowToObject(string $sql, string $object): ClassToMappingInterface
 	{

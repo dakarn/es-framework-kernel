@@ -19,6 +19,16 @@ interface AdapteeInterface
 	 */
 	public function prepare(string $prepareSql, string $sqlType): AdapteeInterface;
 
+    /**
+     * @return mixed
+     */
+    public function getWriterConnector();
+
+    /**
+     * @return mixed
+     */
+    public function getReaderConnector();
+
 	/**
 	 * @return bool
 	 */

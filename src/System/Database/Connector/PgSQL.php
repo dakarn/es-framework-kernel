@@ -11,31 +11,29 @@ namespace ES\Kernel\System\Database\Connector;
 use ES\Kernel\System\Database\DB;
 use ES\Kernel\System\Database\DbConfigLogic\DbConfig;
 
-class PgSQL implements DBConnectorInterface
+class PgSQL extends AbstractDBConnector implements DBConnectorInterface
 {
-	private $writer;
-
+    /**
+     * @var array
+     */
 	private $readers;
 
-	private $database;
-
+    /**
+     * PgSQL constructor.
+     * @param string $database
+     */
 	public function __construct(string $database)
 	{
 		$this->database = $database;
 		$conf = DbConfig::create()->getConfigure(DB::PGSQL)[$this->database];
 
-		$this->writer = $conf['write'];
+		$this->setWriter($conf['write']);
 
 		\pg_connect('host= port= dbname= user= password= options=\'--client_encoding=UTF8\'');
 
 		foreach ($conf['read'] as $index => $reader) {
 			$this->readers[$index] = \pg_connect('host= port= dbname= user= password= options=\'--client_encoding=UTF8\'');
 		}
-	}
-
-	public function getWriter()
-	{
-		return $this->writer;
 	}
 
 	/**

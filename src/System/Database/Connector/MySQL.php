@@ -13,61 +13,15 @@ use ES\Kernel\System\Database\DbConfigLogic\DbConfig;
 use ES\Kernel\System\Database\DbConfigLogic\OneInstanceConf;
 use ES\Kernel\System\Database\DbConfigLogic\ReaderConfList;
 
-class MySQL implements DBConnectorInterface
+class MySQL extends AbstractDBConnector implements DBConnectorInterface
 {
-	/**
-	 * @var \mysqli
-	 */
-	private $writer;
-
-	/**
-	 * @var \mysqli
-	 */
-	private $reader;
-
-	/**
-	 * @var \mysqli
-	 */
-	private $defaultInstance;
-
-	/**
-	 * @var ReaderConfList
-	 */
-	private $readersConfigList;
-
-	/**
-	 * @var int
-	 */
-	private $amountReaders = 0;
-
-	/**
-	 * @var int
-	 */
-	private $tryReconnectReader = 0;
-
-	/**
-	 * @var string
-	 */
-	private $database;
-
-	/**
-	 * MySQL constructor.
-	 * @param string $database
-	 * @throws \Exception
-	 */
-	public function __construct(string $database)
-	{
-		$this->database = $database; print_r($database);
-		$this->initWriter();
-	}
-
-	/**
-	 * @return \mysqli
-	 */
-	public function getWriter(): \mysqli
-	{
-		return $this->defaultInstance ?? $this->writer;
-	}
+    /**
+     * @return \mysqli
+     */
+    public function getWriter(): \mysqli
+    {
+        return $this->getOneInstance() ?? $this->getWriter();
+    }
 
 	/**
 	 * @param int $num
@@ -76,25 +30,25 @@ class MySQL implements DBConnectorInterface
 	 */
 	public function getReader(int $num = 0): \mysqli
 	{
-		if ($this->defaultInstance !== null) {
-			return $this->defaultInstance;
+		if ($this->getOneInstance() !== null) {
+			return $this->getOneInstance();
 		}
 
-		if (!$this->reader instanceof \mysqli) {
+		if (!$this->getReader() instanceof \mysqli) {
 			$this->initReader($num);
 		}
 
-		return $this->reader;
+		return $this->getReader();
 	}
 
 	/**
 	 * @param OneInstanceConf $conf
 	 * @throws \Exception
 	 */
-	private function initDefault(OneInstanceConf $conf)
+	private function initOneInstance(OneInstanceConf $conf)
 	{
 		try {
-			$this->defaultInstance = $this->connect($conf);
+			$this->setOneInstance($this->connect($conf));
 		} catch (\mysqli_sql_exception $e) {
 			throw $e;
 		}
@@ -104,14 +58,14 @@ class MySQL implements DBConnectorInterface
 	 * @param int $num
 	 * @throws \Exception
 	 */
-	private function initReader(int $num)
+	protected function initReader(int $num)
 	{
 		try {
 			if (empty($num)) {
 				$num = \rand(0, $this->amountReaders - 1);
 			}
 
-			$this->reader = $this->connect($this->readersConfigList->get($num));
+			$this->setReader($this->connect($this->readersConfigList->get($num)));
 		} catch (\mysqli_sql_exception $e) {
 			if ($this->tryReconnectReader === $this->amountReaders - 1) {
 				throw $e;
@@ -125,12 +79,12 @@ class MySQL implements DBConnectorInterface
 	/**
 	 * @throws \Exception
 	 */
-	private function initWriter()
+	protected function initWriter()
 	{
 		$conf = DbConfig::create()->getConfigure(DB::MYSQL)[$this->database];
 
 		if (!empty($conf['oneInstance'])) {
-			$this->initDefault($conf['oneInstance']);
+			$this->initOneInstance($conf['oneInstance']);
 			return;
 		}
 
@@ -139,7 +93,7 @@ class MySQL implements DBConnectorInterface
 		$this->amountReaders = $this->readersConfigList->count();
 
 		try {
-			$this->writer = $this->connect($conf['write']);
+			$this->setWriter($this->connect($conf['write']));
 		} catch (\mysqli_sql_exception $e) {
 			throw $e;
 		}

@@ -236,20 +236,12 @@ abstract class AbstractApplication implements ApplicationInterface
 		LoggerAware::setlogger(Logger::class)->log($level, $message);
 	}
 
-	/**
-	 * @throws \ES\Kernel\Exception\FileException
-	 */
+    /**
+     *
+     */
 	protected function runInternal(): void
     {
         Config::setEnvForConfig($this->env);
-
-	    $dbConfig = Config::get('db');
-
-        DbConfig::create()
-            ->setConfigure(DB::MYSQL, new DatabaseConfigure($dbConfig[DB::MYSQL]));
-            //->setConfigure(DB::MSSQL, new DatabaseConfigure($dbConfig[DB::MSSQL]))
-            //->setConfigure(DB::PGSQL, new DatabaseConfigure($dbConfig[DB::PGSQL]))
-            //->setConfigure(DB::ORACLE, new DatabaseConfigure($dbConfig[DB::ORACLE]));
     }
 
     abstract public function terminate();

@@ -41,6 +41,22 @@ class PgSQLAdapter implements AdapteeInterface
 		$this->reader = $connector->getReader();
 	}
 
+    /**
+     * @return mixed
+     */
+    public function getWriterConnector()
+    {
+        return $this->writer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReaderConnector()
+    {
+        return $this->reader;
+    }
+
 	/**
 	 * @return bool
 	 */
@@ -95,12 +111,13 @@ class PgSQLAdapter implements AdapteeInterface
 
 	}
 
-	/**
-	 * @param string $sql
-	 * @param string $abstractList
-	 * @param string $object
-	 * @return AbstractList
-	 */
+    /**
+     * @param string $sql
+     * @param string $abstractList
+     * @param string $object
+     * @return AbstractList
+     * @throws \ES\Kernel\Exception\ObjectException
+     */
 	public function fetchToObjectList(string $sql,  string $abstractList, string $object): AbstractList
 	{
         return ObjectMapper::create()->arraysToObjectList( $this->fetch($sql), $object, $abstractList);
@@ -109,9 +126,10 @@ class PgSQLAdapter implements AdapteeInterface
     /**
      * @param string $sql
      * @param string $object
-     * @return mixed|\ObjectMapper\ClassToMappingInterface
+     * @return ClassToMappingInterface
+     * @throws \ES\Kernel\Exception\ObjectException
      */
-	public function fetchRowToObject(string $sql,  string $object): ClassToMappingInterface
+    public function fetchRowToObject(string $sql, string $object): ClassToMappingInterface
 	{
         return ObjectMapper::create()->arrayToObject( $this->fetchRow($sql), $object);
 	}
