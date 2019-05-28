@@ -1,6 +1,6 @@
 <?php
 
-use ES\Kernel\System\Database\Schema\MySQL\TeacherDatabase;
+use ES\Kernel\System\Database\Schema\MySQL\{TeacherDatabase, ESFrameworkDatabase};
 use ES\Kernel\System\Database\DB;
 
 return [
@@ -12,60 +12,32 @@ return [
 				'password' => '234679',
 				'charset'  => 'utf8'
 			]
-		]
+		],
+		ESFrameworkDatabase::ES_FRAMEWORK => [
+			'oneInstance' => [
+				'host'     => '127.0.0.1',
+				'user'     => 'root',
+				'password' => '234679',
+				'charset'  => 'utf8'
+			]
+		],
 	],
 	DB::PGSQL => [
-		'read' => [
-			[
+		TeacherDatabase::TEACHER => [
+			'read' => [
+				[
+					'host'     => '127.0.0.1',
+					'user'     => 'root',
+					'password' => '234679',
+					'charset'  => 'utf8'
+				]
+			],
+			'write' => [
 				'host'     => '127.0.0.1',
 				'user'     => 'root',
-				'database' => 'teacher',
 				'password' => '234679',
 				'charset'  => 'utf8'
 			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
-		]
-	],
-	DB::ORACLE => [
-		'read' => [
-			[
-				'host'     => '127.0.0.1',
-				'user'     => 'root',
-				'database' => 'teacher',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
-		]
-	],
-	DB::MSSQL => [
-		'read' => [
-			[
-				'host'     => '127.0.0.1',
-				'user'     => 'root',
-				'database' => 'teacher',
-				'password' => '234679',
-				'charset'  => 'utf8'
-			]
-		],
-		'write' => [
-			'host'     => '127.0.0.1',
-			'user'     => 'root',
-			'database' => 'teacher',
-			'password' => '234679',
-			'charset'  => 'utf8'
 		]
 	],
 ];

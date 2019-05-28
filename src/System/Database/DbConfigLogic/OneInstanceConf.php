@@ -52,7 +52,6 @@ class OneInstanceConf
 	public function __construct(array $config)
 	{
 		$this->host     = $config['host'];
-		$this->database = $config['database'];
 		$this->user     = $config['user'];
 		$this->password = $config['password'];
 		$this->charset  = $config['charset'];

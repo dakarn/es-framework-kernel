@@ -15,13 +15,13 @@ use ES\Kernel\System\Database\DbConfigLogic\ReaderConfList;
 
 class MySQL extends AbstractDBConnector implements DBConnectorInterface
 {
-    /**
-     * @return \mysqli
-     */
-    public function getWriter(): \mysqli
-    {
-        return $this->getOneInstance() ?? $this->getWriter();
-    }
+	/**
+	 * @return \mysqli
+	 */
+	public function getWriter(): \mysqli
+	{
+		return $this->getOneInstance() ?? $this->getWriter();
+	}
 
 	/**
 	 * @param int $num
@@ -81,7 +81,7 @@ class MySQL extends AbstractDBConnector implements DBConnectorInterface
 	 */
 	protected function initWriter()
 	{
-		$conf = DbConfig::create()->getConfigure(DB::MYSQL)[$this->database];
+		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
 
 		if (!empty($conf['oneInstance'])) {
 			$this->initOneInstance($conf['oneInstance']);

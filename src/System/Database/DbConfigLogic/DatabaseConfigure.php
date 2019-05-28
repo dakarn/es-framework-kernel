@@ -23,7 +23,7 @@ class DatabaseConfigure
 	/**
 	 * @var OneInstanceConf
 	 */
-	private $defaultInstance;
+	private $oneInstance;
 
 	/**
 	 * @var bool
@@ -37,7 +37,7 @@ class DatabaseConfigure
 	public function __construct(array $config)
 	{
 		if (!empty($config['oneInstance'])) {
-			$this->defaultInstance = new OneInstanceConf($config['oneInstance']);
+			$this->oneInstance = new OneInstanceConf($config['oneInstance']);
 			$this->isOneInstance   = true;
 			return;
 		}
@@ -69,9 +69,9 @@ class DatabaseConfigure
 	/**
 	 * @return OneInstanceConf
 	 */
-	public function getDefaultInstance(): OneInstanceConf
+	public function getOneInstance(): OneInstanceConf
 	{
-		return $this->defaultInstance;
+		return $this->oneInstance;
 	}
 
 	/**

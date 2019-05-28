@@ -32,22 +32,6 @@ class DB
 	 */
 	private static $adapters = [];
 
-    /**
-     * DB constructor.
-     * @throws \ES\Kernel\Exception\FileException
-     */
-	private function __construct()
-	{
-        self::$dbConfig = Config::get('db');
-	}
-
-    /**
-     * @return void
-     */
-	private function __clone()
-	{
-	}
-
 	/**
 	 * @param string $database
 	 * @return DBAdapterInterface
@@ -56,7 +40,7 @@ class DB
 	public static function MySQLAdapter(string $database): DBAdapterInterface
 	{
 		if (!self::alreadyHasAdapter(self::MYSQL . $database)) {
-            DbConfig::create()->setConfigure(DB::MYSQL, new DatabaseConfigure(self::$dbConfig[self::MYSQL][$database]));
+			self::initDbConfig(self::MYSQL, $database);
 			self::$adapters[self::MYSQL. $database] = new DBAdapter(new MySQLAdapter(new MySQL($database)));
 		}
 
@@ -71,11 +55,22 @@ class DB
 	public static function PgSQLAdapter(string $database): DBAdapterInterface
 	{
         if (!self::alreadyHasAdapter(self::PGSQL . $database)) {
-            DbConfig::create()->setConfigure(DB::PGSQL, new DatabaseConfigure(self::$dbConfig[self::PGSQL][$database]));
+        	self::initDbConfig(self::PGSQL, $database);
 			self::$adapters[self::PGSQL . $database] = new DBAdapter(new PgSQLAdapter(new PgSQL($database)));
 		}
 
 		return self::$adapters[self::PGSQL . $database];
+	}
+
+	/**
+	 * @param string $dbType
+	 * @param string $database
+	 * @throws \ES\Kernel\Exception\FileException
+	 */
+	private static function initDbConfig(string $dbType, string $database)
+	{
+		self::$dbConfig = Config::get('db');
+		DbConfig::create()->setConfigure($dbType, new DatabaseConfigure(self::$dbConfig[$dbType][$database]));
 	}
 
     /**
@@ -84,6 +79,6 @@ class DB
      */
 	private static function alreadyHasAdapter(string $key): bool
     {
-        return !isset(self::$adapters[$key]);
+        return isset(self::$adapters[$key]);
     }
 }

@@ -7,17 +7,6 @@ use ES\Kernel\System\Database\DbConfigLogic\ReaderConfList;
 abstract class AbstractDBConnector
 {
     /**
-     * MySQL constructor.
-     * @param string $database
-     * @throws \Exception
-     */
-    public function __construct(string $database)
-    {
-        $this->database = $database;
-        $this->initWriter();
-    }
-
-    /**
      * @var ReaderConfList
      */
     protected $readersConfigList;
@@ -51,6 +40,17 @@ abstract class AbstractDBConnector
      * @var mixed
      */
     private $oneInstance;
+
+	/**
+	 * MySQL constructor.
+	 * @param string $database
+	 * @throws \Exception
+	 */
+	public function __construct(string $database)
+	{
+		$this->database = $database;
+		$this->initWriter();
+	}
 
     /**
      * @return mixed
