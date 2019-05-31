@@ -1,11 +1,11 @@
 <?php
 
-use ES\Kernel\System\Database\Schema\MySQL\{TeacherDatabase, ESFrameworkDatabase};
+use ES\Kernel\System\Database\Schema\MySQL\{TeacherTables, ESFrameworkTables};
 use ES\Kernel\System\Database\DB;
 
 return [
 	DB::MYSQL => [
-		TeacherDatabase::TEACHER => [
+		TeacherTables::TEACHER => [
 			'oneInstance' => [
 				'host'     => '127.0.0.1',
 				'user'     => 'root',
@@ -13,7 +13,7 @@ return [
 				'charset'  => 'utf8'
 			]
 		],
-		ESFrameworkDatabase::ES_FRAMEWORK => [
+		ESFrameworkTables::ES_FRAMEWORK => [
 			'oneInstance' => [
 				'host'     => '127.0.0.1',
 				'user'     => 'root',
@@ -23,7 +23,7 @@ return [
 		],
 	],
 	DB::PGSQL => [
-		TeacherDatabase::TEACHER => [
+		TeacherTables::TEACHER => [
 			'read' => [
 				[
 					'host'     => '127.0.0.1',

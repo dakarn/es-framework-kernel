@@ -2,64 +2,37 @@
 
 namespace ES\Kernel\System\Database;
 
+use ES\Kernel\Helper\StorageObjects;
+use ES\Kernel\System\Database\Schema\MySQL\MySQLDatabases;
+use ES\Kernel\System\Database\Schema\PgSQL\PostgresDatabases;
 use ES\Kernel\Configs\Config;
-use ES\Kernel\System\Database\Adapter\DBAdapter;
-use ES\Kernel\System\Database\Adapter\DBAdapterInterface;
-use ES\Kernel\System\Database\Adapter\MySQLAdapter;
-use ES\Kernel\System\Database\Adapter\PgSQLAdapter;
-use ES\Kernel\System\Database\Connector\MySQL;
-use ES\Kernel\System\Database\Connector\PgSQL;
-use ES\Kernel\System\Database\DbConfigLogic\DatabaseConfigure;
 use ES\Kernel\System\Database\DbConfigLogic\DbConfig;
+use ES\Kernel\System\Database\DbConfigLogic\DatabaseConfigure;
 
 class DB
 {
-	const MYSQL  = 'MySQL';
-	const PGSQL  = 'PgSQL';
+	const MYSQL = 'MySQL';
+	const PGSQL = 'PgSQL';
 	const ORACLE = 'Oracle';
-	const MSSQL  = 'MSSQL';
+	const MSSQL = 'MSSQL';
 
-	const READ   = 'read';
-	const WRITE  = 'write';
-
-    /**
-     * @var array|mixed|string
-     */
-	private static $dbConfig = [];
+	const READ = 'read';
+	const WRITE = 'write';
 
 	/**
-	 * @var DBAdapterInterface[]
+	 * @return MySQLDatabases
 	 */
-	private static $adapters = [];
-
-	/**
-	 * @param string $database
-	 * @return DBAdapterInterface
-	 * @throws \Exception
-	 */
-	public static function MySQLAdapter(string $database): DBAdapterInterface
+	public static function getMySQL(): MySQLDatabases
 	{
-		if (!self::alreadyHasAdapter(self::MYSQL . $database)) {
-			self::initDbConfig(self::MYSQL, $database);
-			self::$adapters[self::MYSQL. $database] = new DBAdapter(new MySQLAdapter(new MySQL($database)));
-		}
-
-	    return self::$adapters[self::MYSQL . $database];
+		return StorageObjects::getMySQLDatabases();
 	}
 
 	/**
-	 * @param string $database
-	 * @return DBAdapterInterface
-	 * @throws \Exception
+	 * @return PostgresDatabases
 	 */
-	public static function PgSQLAdapter(string $database): DBAdapterInterface
+	public static function getPgSQL(): PostgresDatabases
 	{
-        if (!self::alreadyHasAdapter(self::PGSQL . $database)) {
-        	self::initDbConfig(self::PGSQL, $database);
-			self::$adapters[self::PGSQL . $database] = new DBAdapter(new PgSQLAdapter(new PgSQL($database)));
-		}
-
-		return self::$adapters[self::PGSQL . $database];
+		return StorageObjects::getPostgresDatabases();
 	}
 
 	/**
@@ -67,18 +40,9 @@ class DB
 	 * @param string $database
 	 * @throws \ES\Kernel\Exception\FileException
 	 */
-	private static function initDbConfig(string $dbType, string $database)
+	public static function initDbConfig(string $dbType, string $database)
 	{
-		self::$dbConfig = Config::get('db');
-		DbConfig::create()->setConfigure($dbType, new DatabaseConfigure(self::$dbConfig[$dbType][$database]));
+		$dbConfig = Config::get('db');
+		DbConfig::create()->setConfigure($dbType, new DatabaseConfigure($dbConfig[$dbType][$database]));
 	}
-
-    /**
-     * @param string $key
-     * @return bool
-     */
-	private static function alreadyHasAdapter(string $key): bool
-    {
-        return isset(self::$adapters[$key]);
-    }
 }

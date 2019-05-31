@@ -8,9 +8,8 @@
 
 namespace ES\Kernel\System\Database\Schema\MySQL;
 
-class TeacherDatabase
+class TeacherTables
 {
-	public const TEACHER = 'teacher';
-
+	public const TEACHER         = 'teacher';
 	public const ENGLISH_TEACHER = 'english_teacher';
 }

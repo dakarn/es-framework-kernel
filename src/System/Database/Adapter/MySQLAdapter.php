@@ -212,7 +212,7 @@ class MySQLAdapter implements AdapteeInterface
      */
 	public function fetchRowToObject(string $sql, string $object): ClassToMappingInterface
 	{
-		return ObjectMapper::create()->arrayToObject( $this->fetchRow($sql), $object);
+		return ObjectMapper::create()->arrayToObject($this->fetchRow($sql), $object);
 	}
 
 	/**

@@ -8,10 +8,8 @@
 
 namespace ES\Kernel\System\Database\Schema\MySQL;
 
-class ESFrameworkDatabase
+class ESFrameworkTables
 {
-	public const ES_FRAMEWORK = 'es-framework';
-
 	public const USER               = 'user';
 	public const ACCESS_TOKEN       = 'access_token';
 	public const ACCESS_APPLICATION = 'access_application';
