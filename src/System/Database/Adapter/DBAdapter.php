@@ -9,6 +9,7 @@
 namespace ES\Kernel\System\Database\Adapter;
 
 use ES\Kernel\Helper\AbstractList;
+use ES\Kernel\ObjectMapper\ObjectMapper;
 
 class DBAdapter implements DBAdapterInterface
 {
@@ -69,19 +70,22 @@ class DBAdapter implements DBAdapterInterface
 	 * @param string $abstractList
 	 * @param string $object
 	 * @return AbstractList
+	 * @throws \ES\Kernel\Exception\ObjectException
 	 */
-	public function fetchToObjectList(string $sql, string $abstractList, string $object): AbstractList
+	public function fetchToObjectList(string $sql, string $abstractList, string $object = null): AbstractList
 	{
-		return $this->adaptee->fetchToObjectList($sql, $abstractList, $object);
+		return ObjectMapper::create()->arraysToObjectList($this->adaptee->fetch($sql), $abstractList, $object);
 	}
 
 	/**
 	 * @param string $sql
 	 * @param string $object
+	 * @return mixed
+	 * @throws \ES\Kernel\Exception\ObjectException
 	 */
 	public function fetchRowToObject(string $sql, string $object)
 	{
-		return $this->adaptee->fetchRowToObject($sql, $object);
+		return ObjectMapper::create()->arrayToObject($this->adaptee->fetchRow($sql), $object);
 	}
 
 	/**

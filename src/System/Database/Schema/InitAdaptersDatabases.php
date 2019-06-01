@@ -30,7 +30,7 @@ abstract class InitAdaptersDatabases
 	protected function initAdapter(string $adapter, string $dbType, string $database)
 	{
 		if (!self::isSetAdapter($dbType . $database)) {
-			DB::initDbConfig($dbType, $database);
+			DB::initDbConfig(\basename($dbType), $database);
 			$this->adapters[$dbType. $database] = new DBAdapter(new $adapter(new $dbType($database)));
 		}
 

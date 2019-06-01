@@ -109,11 +109,15 @@ class ObjectMapper implements ObjectMapperInterface
 	 * @return AbstractList
 	 * @throws ObjectException
 	 */
-    public function arraysToObjectList(array $arraysItems, $objectInput, $objectList): AbstractList
+    public function arraysToObjectList(array $arraysItems, $objectList, $objectInput = null): AbstractList
     {
 	    if (\is_string($objectList)) {
 	    	/** @var AbstractList $objectList */
 		    $objectList = new $objectList();
+	    }
+
+	    if (empty($objectInput)) {
+	    	$objectInput = $objectList->getMappingClass();
 	    }
 
         foreach ($arraysItems as $arrayItem) {
@@ -158,7 +162,7 @@ class ObjectMapper implements ObjectMapperInterface
                     $this->arrayToObject($itemValue, $objectInput->$getMethodName());
                 }
             } else if ($objectInput->$getMethodName() instanceof AbstractList) {
-                $this->arraysToObjectList($itemValue, $objectInput->$getMethodName()->getMappingClass(), $objectInput->$getMethodName());
+                $this->arraysToObjectList($itemValue, $objectInput->$getMethodName(), $objectInput->$getMethodName()->getMappingClass());
             } else {
             	if (in_array($property, $objectInput->getProperties())) {
 		            $objectInput->$setMethodName($itemValue);

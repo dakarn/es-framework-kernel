@@ -18,7 +18,17 @@ class PgSQL extends AbstractDBConnector implements DBConnectorInterface
      */
 	private $readers;
 
-    /**
+	public function initReader(int $num)
+	{
+		// TODO: Implement initReader() method.
+	}
+
+	public function initWriter()
+	{
+		// TODO: Implement initWriter() method.
+	}
+
+	/**
      * PgSQL constructor.
      * @param string $database
      */

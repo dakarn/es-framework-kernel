@@ -8,7 +8,6 @@
 
 namespace ES\Kernel\System\Database\Connector;
 
-
 interface DBConnectorInterface
 {
 	/**

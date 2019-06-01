@@ -63,20 +63,6 @@ interface AdapteeInterface
 
 	/**
 	 * @param string $sql
-	 * @param string $abstractList
-	 * @param string $object
-	 * @return AbstractList|null
-	 */
-	public function fetchToObjectList(string $sql, string $abstractList, string $object):? AbstractList;
-
-	/**
-	 * @param string $sql
-	 * @param string $object
-	 */
-	public function fetchRowToObject(string $sql, string $object);
-
-	/**
-	 * @param string $sql
 	 * @return mixed
 	 */
 	public function insert(string $sql): bool;

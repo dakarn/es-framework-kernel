@@ -37,7 +37,7 @@ interface ObjectMapperInterface
      * @param string $objectList
      * @return AbstractList
      */
-    public function arraysToObjectList(array $arraysItems, $objectInput, $objectList): AbstractList;
+    public function arraysToObjectList(array $arraysItems, $objectList, $objectInput = null): AbstractList;
 
 	/**
 	 * @param array $arrayData

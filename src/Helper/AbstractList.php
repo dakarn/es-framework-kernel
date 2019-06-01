@@ -84,6 +84,11 @@ abstract class AbstractList
 	}
 
 	/**
+	 * @return string
+	 */
+	abstract public function getMappingClass(): string;
+
+	/**
 	 * @return array
 	 */
 	public function getAll(): array

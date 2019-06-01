@@ -8,29 +8,30 @@
 
 namespace ES\Kernel\System\Database\Schema\MySQL;
 
+use ES\Kernel\System\Database\Adapter\DBAdapter;
 use ES\Kernel\System\Database\Adapter\MySQLAdapter;
-use ES\Kernel\System\Database\DB;
 use ES\Kernel\System\Database\Schema\InitAdaptersDatabases;
+use ES\Kernel\System\Database\Connector\MySQL;
 
 class MySQLDatabases extends InitAdaptersDatabases
 {
-	private const TEACHER      = 'teacher';
-	private const ES_FRAMEWORK = 'es-framework';
+	public const TEACHER      = 'teacher';
+	public const ES_FRAMEWORK = 'es-framework';
 
 	/**
 	 * @throws \Exception
 	 */
-	public function getTeacher(): MySQLAdapter
+	public function getTeacher(): DBAdapter
 	{
-		return $this->initAdapter(MySQLAdapter::class, DB::MYSQL, self::TEACHER);
+		return $this->initAdapter(MySQLAdapter::class, MySQL::class, self::TEACHER);
 	}
 
 	/**
-	 * @return MySQLAdapter
+	 * @return DBAdapter
 	 * @throws \ES\Kernel\Exception\FileException
 	 */
-	public function getESFramework(): MySQLAdapter
+	public function getESFramework(): DBAdapter
 	{
-		return $this->initAdapter(MySQLAdapter::class, DB::MYSQL, self::ES_FRAMEWORK);
+		return $this->initAdapter(MySQLAdapter::class, MySQL::class, self::ES_FRAMEWORK);
 	}
 }

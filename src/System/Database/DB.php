@@ -11,13 +11,13 @@ use ES\Kernel\System\Database\DbConfigLogic\DatabaseConfigure;
 
 class DB
 {
-	const MYSQL = 'MySQL';
-	const PGSQL = 'PgSQL';
+	const MYSQL  = 'MySQL';
+	const PGSQL  = 'PgSQL';
 	const ORACLE = 'Oracle';
-	const MSSQL = 'MSSQL';
+	const MSSQL  = 'MSSQL';
 
-	const READ = 'read';
-	const WRITE = 'write';
+	const READ   = 'read';
+	const WRITE  = 'write';
 
 	/**
 	 * @return MySQLDatabases

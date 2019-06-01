@@ -192,29 +192,6 @@ class MySQLAdapter implements AdapteeInterface
 		return $ret;
 	}
 
-    /**
-     * @param string $sql
-     * @param string $abstractList
-     * @param string $object
-     * @return AbstractList|null
-     * @throws \ES\Kernel\Exception\ObjectException
-     */
-	public function fetchToObjectList(string $sql, string $abstractList, string $object):? AbstractList
-	{
-		return ObjectMapper::create()->arraysToObjectList($this->fetch($sql), $object, $abstractList);
-	}
-
-    /**
-     * @param string $sql
-     * @param string $object
-     * @return ClassToMappingInterface
-     * @throws \ES\Kernel\Exception\ObjectException
-     */
-	public function fetchRowToObject(string $sql, string $object): ClassToMappingInterface
-	{
-		return ObjectMapper::create()->arrayToObject($this->fetchRow($sql), $object);
-	}
-
 	/**
 	 * @return int
 	 */
