@@ -8,17 +8,17 @@
 
 namespace ES\Kernel\Auth\Authentication\Processes;
 
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\RepositoryHelper\StorageRepository;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Session\SessionRedis;
 use ES\Kernel\Auth\JWTokenManager;
-use ES\Kernel\Auth\TokenRepository;
 
 class LogoutProcess extends FillingPayload implements AuthenticationProcessInterface
 {
 	/**
 	 * @return bool
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function execute(): bool
@@ -33,11 +33,10 @@ class LogoutProcess extends FillingPayload implements AuthenticationProcessInter
 		$signToken     = $JWTokenManager->getPartToken(JWTokenManager::SIGN_TOKEN);
 		$isDeleteRedis = SessionRedis::create()->delete($signToken);
 
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository = StorageRepository::getRepository(TokenRepository::class);
+		$tokenRepository = StorageRepository::getTokenRepository();
 		$isDeleteDB      = $tokenRepository->deleteByAccessToken($signToken);
 
-		if (!empty($isDeleteRedis && $isDeleteDB)) {
+		if ($isDeleteRedis && $isDeleteDB) {
 			return true;
 		}
 

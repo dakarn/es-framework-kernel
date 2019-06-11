@@ -8,12 +8,40 @@
 
 namespace ES\Kernel\Helper\RepositoryHelper;
 
+use ES\Kernel\Auth\ClientAppRepository;
+use ES\Kernel\Auth\TokenRepository;
+use ES\Kernel\UserManager\UserRepository;
+
 class StorageRepository
 {
 	/**
-	 * @var RepositoryInterface[]
+	 * @var RepositoryInterface
 	 */
 	private static $repositories = [];
+
+    /**
+     * @return UserRepository|RepositoryInterface
+     */
+	public static function getUserRepository(): UserRepository
+    {
+        return self::getRepository(UserRepository::class);
+    }
+
+    /**
+     * @return TokenRepository|RepositoryInterface
+     */
+    public static function getTokenRepository(): TokenRepository
+    {
+        return self::getRepository(TokenRepository::class);
+    }
+
+    /**
+     * @return ClientAppRepository|RepositoryInterface
+     */
+    public static function getClientAppRepository(): ClientAppRepository
+    {
+        return self::getRepository(ClientAppRepository::class);
+    }
 
 	/**
 	 * @param string $repository

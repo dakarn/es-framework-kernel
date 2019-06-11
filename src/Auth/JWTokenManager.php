@@ -9,6 +9,7 @@
 namespace ES\Kernel\Auth;
 
 use ES\Kernel\Configs\Config;
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\Util;
 use ES\Kernel\Http\Cookie;
 use ES\Kernel\Traits\SingletonTrait;
@@ -139,7 +140,7 @@ class JWTokenManager implements JWTokenManagerInterface
 	 * @param string $token
 	 * @param string $secretKey
 	 * @return bool
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function verifyToken(string $token = '', string $secretKey = ''): bool
 	{
@@ -175,7 +176,7 @@ class JWTokenManager implements JWTokenManagerInterface
 
 	/**
 	 * @return JWTokenManager
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function createToken(): JWTokenManager
 	{

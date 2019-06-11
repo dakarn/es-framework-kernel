@@ -3,6 +3,7 @@
 namespace ES\Kernel\System;
 
 use ES\Kernel\Configs\Config;
+use ES\Kernel\Exception\FileException;
 
 class Render implements RenderInterface
 {
@@ -25,7 +26,7 @@ class Render implements RenderInterface
 	 * Render constructor.
 	 * @param $template
 	 * @param array $params
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function __construct($template, array $params = [])
 	{
@@ -39,7 +40,7 @@ class Render implements RenderInterface
 
 	/**
 	 * @return string
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function render(): string
     {

@@ -8,6 +8,7 @@
 
 namespace ES\Kernel\Auth\Authentication\Processes;
 
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\RepositoryHelper\StorageRepository;
 use ES\Kernel\Helper\Util;
 use ES\Kernel\Http\Session\SessionRedis;
@@ -36,17 +37,15 @@ class UpdateRefreshTokenProcess extends FillingPayload implements Authentication
 
 	/**
 	 * @return bool
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function execute(): bool
 	{
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository   = StorageRepository::getRepository(TokenRepository::class);
+		$tokenRepository   = StorageRepository::getTokenRepository();
 		$tokenModel        = $tokenRepository->loadByRefreshToken($this->validator);
 
-		/** @var ClientAppRepository $clientAppRepository */
-		$clientAppRepository = StorageRepository::getRepository(ClientAppRepository::class);
+		$clientAppRepository = StorageRepository::getClientAppRepository();
 
 		if (!$tokenRepository->isLoaded()) {
 			$this->validator->setExtraErrorAPI('unknown-refresh', Validators::COMMON);

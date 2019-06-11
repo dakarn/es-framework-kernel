@@ -8,10 +8,13 @@
 
 namespace ES\Kernel\Auth\Authorization;
 
+use ES\Kernel\Exception\FileException;
+use ES\Kernel\UserManager\User;
+
 interface AuthorizationInterface
 {
 	/**
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function verifyAccess(): AuthorizationInterface;
 
@@ -20,12 +23,12 @@ interface AuthorizationInterface
 	 */
 	public function isAccess(): bool;
 
-	/**
-	 * @param int $checkRole
-	 * @param int $userRole
-	 * @return bool
-	 */
-	public function isGranted(int $checkRole, int $userRole): bool;
+    /**
+     * @param int $checkRole
+     * @param User $user
+     * @return bool
+     */
+	public function isGranted(int $checkRole, User $user): bool;
 
 	/**
 	 * @return Authorization

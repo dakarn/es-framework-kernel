@@ -12,6 +12,7 @@ use ES\Kernel\Auth\JWTokenManager;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Traits\SingletonTrait;
 use ES\Kernel\Http\Session\SessionRedis;
+use ES\Kernel\UserManager\User;
 
 class Authorization implements AuthorizationInterface
 {
@@ -65,9 +66,9 @@ class Authorization implements AuthorizationInterface
 	 * @param int $userRole
 	 * @return bool
 	 */
-	public function isGranted(int $checkRole, int $userRole): bool
+	public function isGranted(int $checkRole, User $user): bool
 	{
-		return $userRole & $checkRole;
+		return $user->getRole() & $checkRole;
 	}
 
 	/**

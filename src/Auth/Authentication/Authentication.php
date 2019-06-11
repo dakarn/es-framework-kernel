@@ -14,6 +14,7 @@ use ES\Kernel\Auth\Authentication\Processes\LogoutAllDevicesProcess;
 use ES\Kernel\Auth\Authentication\Processes\LogoutProcess;
 use ES\Kernel\Auth\Authentication\Processes\UpdateRefreshTokenProcess;
 use ES\Kernel\Auth\JWTokenManager;
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Models\User\UserInterface;
 use ES\Kernel\Validators\AbstractValidator;
 use ES\Kernel\Traits\SingletonTrait;
@@ -55,7 +56,7 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @return Authentication
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function processLogout(): AuthenticationInterface
@@ -68,7 +69,7 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @return Authentication
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function processLogoutAllDevice(): AuthenticationInterface
@@ -82,10 +83,10 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param AbstractValidator $validator
 	 * @return null|Authentication
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
-	public function processUpdateRefreshToken(AbstractValidator $validator):? AuthenticationInterface
+	public function processUpdateRefreshToken(AbstractValidator $validator): ?AuthenticationInterface
 	{
 		$logoutProcess  = new UpdateRefreshTokenProcess($validator);
 		$this->isUpdate = $logoutProcess->execute();
@@ -96,7 +97,7 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param UserInterface $user
 	 * @return Authentication
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function processAuthentication(UserInterface $user): AuthenticationInterface
@@ -114,7 +115,7 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param UserInterface $user
 	 * @return Authentication
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function processAuthByUserId(UserInterface $user): AuthenticationInterface
 	{

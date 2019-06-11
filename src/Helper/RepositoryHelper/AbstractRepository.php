@@ -8,7 +8,7 @@
 
 namespace ES\Kernel\Helper\RepositoryHelper;
 
-class AbstractRepository implements RepositoryInterface
+abstract class AbstractRepository implements RepositoryInterface
 {
 	/**
 	 * @var mixed
@@ -61,4 +61,19 @@ class AbstractRepository implements RepositoryInterface
 	{
 		return $this->isSaved;
 	}
+
+    /**
+     * @return mixed
+     */
+    protected function getStorage()
+    {
+        if (!$this->storage === null) {
+            $storageClass = $this->getStorageClassName();
+            $this->storage = new $storageClass();
+        }
+
+        return $this->storage;
+    }
+
+	abstract protected function getStorageClassName(): string;
 }

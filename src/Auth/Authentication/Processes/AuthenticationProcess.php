@@ -8,13 +8,12 @@
 
 namespace ES\Kernel\Auth\Authentication\Processes;
 
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\RepositoryHelper\StorageRepository;
 use ES\Kernel\Helper\Util;
 use ES\Kernel\Http\Session\SessionRedis;
 use ES\Kernel\Models\User\UserInterface;
-use ES\Kernel\Auth\ClientAppRepository;
 use ES\Kernel\Auth\JWTokenManager;
-use ES\Kernel\Auth\TokenRepository;
 
 class AuthenticationProcess extends FillingPayload implements AuthenticationProcessInterface
 {
@@ -34,15 +33,13 @@ class AuthenticationProcess extends FillingPayload implements AuthenticationProc
 
 	/**
 	 * @return bool
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function execute(): bool
 	{
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository   = StorageRepository::getRepository(TokenRepository::class);
-		/** @var ClientAppRepository $clientAppRepository */
-		$clientAppRepository = StorageRepository::getRepository(ClientAppRepository::class);
+		$tokenRepository     = StorageRepository::getTokenRepository();
+		$clientAppRepository = StorageRepository::getClientAppRepository();
 
 		$JWTokenManager = JWTokenManager::create();
 

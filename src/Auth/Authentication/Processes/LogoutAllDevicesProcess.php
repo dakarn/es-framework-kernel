@@ -8,17 +8,17 @@
 
 namespace ES\Kernel\Auth\Authentication\Processes;
 
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\RepositoryHelper\StorageRepository;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Session\SessionRedis;
 use ES\Kernel\Auth\JWTokenManager;
-use ES\Kernel\Auth\TokenRepository;
 
 class LogoutAllDevicesProcess extends FillingPayload implements AuthenticationProcessInterface
 {
 	/**
 	 * @return bool
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function execute(): bool
@@ -32,8 +32,7 @@ class LogoutAllDevicesProcess extends FillingPayload implements AuthenticationPr
 
 		$userId = $JWTokenManager->decode()->getUserId();
 
-		/** @var TokenRepository $tokenRepository */
-		$tokenRepository = StorageRepository::getRepository(TokenRepository::class);
+		$tokenRepository = StorageRepository::getTokenRepository();
 		$tokens          = $tokenRepository->loadByUserId($userId);
 
 		$isDeleteRedis = SessionRedis::create()->deleteKeys(\array_column($tokens, 'access'));
