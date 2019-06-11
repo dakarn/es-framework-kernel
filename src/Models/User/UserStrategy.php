@@ -9,7 +9,7 @@
 namespace ES\Kernel\Models\User;
 
 use ES\Kernel\Helper\Util;
-use ES\Kernel\System\Database\DB;
+use ES\Kernel\Database\DB;
 
 class UserStrategy
 {
@@ -45,7 +45,7 @@ class UserStrategy
 	 */
 	public function createUser(array $props): bool
 	{
-		$this->isWrite = DB::MySQLAdapter()->insert('
+		$this->isWrite = DB::getMySQL()->getESFramework()->insert('
 			INSERT INTO `user`
 			(
 				password, 
@@ -90,7 +90,7 @@ class UserStrategy
 	 */
 	public function loadByEmail(string $email): array
 	{
-		$this->isLoadedUser = DB::MySQLAdapter()->fetchRow('
+		$this->isLoadedUser = DB::getMySQL()->getESFramework()->fetchRow('
 			SELECT 
 				userId,
 				email,
@@ -114,7 +114,7 @@ class UserStrategy
 	 */
 	public function loadByLogin(string $login): array
 	{
-		$this->isLoadedUser = DB::MySQLAdapter()->fetchRow('
+		$this->isLoadedUser = DB::getMySQL()->getESFramework()->fetchRow('
 			SELECT 
 				userId,
 				email,
@@ -138,7 +138,7 @@ class UserStrategy
 	 */
 	public function loadByUserId(int $userId): array
 	{
-		$this->isLoadedUser = DB::MySQLAdapter()->fetchRow('
+		$this->isLoadedUser = DB::getMySQL()->getESFramework()->fetchRow('
 			SELECT 
 				userId,
 				email,

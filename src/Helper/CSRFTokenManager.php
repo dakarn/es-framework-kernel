@@ -9,7 +9,7 @@
 namespace ES\Kernel\Helper;
 
 use ES\Kernel\Configs\Config;
-use ES\Kernel\System\Logger\LogLevel;
+use ES\Kernel\Logger\LogLevel;
 use ES\Kernel\Traits\SingletonTrait;
 use ES\Kernel\Http\Cookie;
 

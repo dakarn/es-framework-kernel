@@ -13,13 +13,13 @@ use ES\Kernel\Http\Request\ServerRequest;
 
 class MiddlewarePreController
 {
-	/**
-	 * @param ServerRequest $request
-	 * @param RequestHandler $handler
-	 * @return \Http\Response\Response
-	 * @throws \ES\Kernel\Exception\FileException
-	 * @throws \Exception
-	 */
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return \ES\Kernel\Http\Response\Response
+     * @throws \ES\Kernel\Exception\FileException
+     * @throws \ES\Kernel\Exception\MiddlewareException
+     */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
 		CSRFTokenManager::create()->makeToken();

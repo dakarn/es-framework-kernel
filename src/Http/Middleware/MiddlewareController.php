@@ -10,19 +10,22 @@ namespace ES\Kernel\Http\Middleware;
 
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Response\Text;
-use ES\Kernel\System\Controller\LauncherController;
+use ES\Kernel\Controller\LauncherController;
 use ES\Kernel\System\ES;
 use ES\Kernel\System\Render;
-use ES\Kernel\System\Router\Routing;
+use ES\Kernel\Router\Routing;
 
 class MiddlewareController implements MiddlewareInterface
 {
-	/**
-	 * @param ServerRequest $request
-	 * @param RequestHandler $handler
-	 * @return \Kernel\Http\Response\Response|mixed
-	 * @throws \ES\Kernel\Exception\\KernelException
-	 */
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return \ES\Kernel\Http\Response\Response
+     * @throws \ES\Kernel\Exception\ControllerException
+     * @throws \ES\Kernel\Exception\FileException
+     * @throws \ES\Kernel\Exception\KernelException
+     * @throws \ES\Kernel\Exception\MiddlewareException
+     */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
         $launcher = new LauncherController(

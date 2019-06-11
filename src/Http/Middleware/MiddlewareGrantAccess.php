@@ -11,19 +11,20 @@ namespace ES\Kernel\Http\Middleware;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Response\API;
 use ES\Kernel\Models\User\User;
-use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\Kernel\TypesApp\AbstractApplication;
 use ES\Kernel\System\ES;
-use ES\Kernel\System\Router\Routing;
+use ES\Kernel\Router\Routing;
 
 class MiddlewareGrantAccess
 {
-	/**
-	 * @param ServerRequest $request
-	 * @param RequestHandler $handler
-	 * @return \Http\Response\Response
-	 * @throws \ES\Kernel\Exception\FileException
-	 * @throws \Exception
-	 */
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return \ES\Kernel\Http\Response\Response
+     * @throws \ES\Kernel\Exception\FileException
+     * @throws \ES\Kernel\Exception\KernelException
+     * @throws \ES\Kernel\Exception\MiddlewareException
+     */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
 		$router = Routing::getFoundRouter();

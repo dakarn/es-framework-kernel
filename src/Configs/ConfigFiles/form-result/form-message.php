@@ -1,5 +1,5 @@
 <?php
-use ES\Kernel\System\Validators\Validators;
+use ES\Kernel\Validators\Validators;
 
 return [
 	Validators::AUTH => [

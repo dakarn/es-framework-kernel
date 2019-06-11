@@ -8,11 +8,10 @@
 
 namespace ES\Kernel\Http\Response;
 
-use ES\Kernel\Exception\RoutingException;
 use ES\Kernel\Http\Cookie;
 use ES\Kernel\System\Constants;
 use ES\Kernel\System\Render;
-use ES\Kernel\System\Router\Routing;
+use ES\Kernel\Router\Routing;
 
 class Response implements ResponseInterface
 {

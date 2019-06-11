@@ -8,8 +8,8 @@
 
 namespace ES\Kernel\Helper;
 
-use ES\Kernel\System\Database\Schema\MySQL\MySQLDatabases;
-use ES\Kernel\System\Database\Schema\PgSQL\PostgresDatabases;
+use ES\Kernel\Database\Schema\MySQL\MySQLDatabases;
+use ES\Kernel\Database\Schema\PgSQL\PostgresDatabases;
 
 class StorageObjects
 {

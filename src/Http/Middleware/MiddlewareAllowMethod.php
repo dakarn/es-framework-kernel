@@ -11,7 +11,7 @@ namespace ES\Kernel\Http\Middleware;
 use ES\Kernel\Exception\ControllerException;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Response\Response;
-use ES\Kernel\System\Router\Routing;
+use ES\Kernel\Router\Routing;
 
 class MiddlewareAllowMethod implements MiddlewareInterface
 {
@@ -20,6 +20,7 @@ class MiddlewareAllowMethod implements MiddlewareInterface
      * @param RequestHandler $handler
      * @return Response
      * @throws ControllerException
+     * @throws \ES\Kernel\Exception\MiddlewareException
      */
 	public function process(ServerRequest $request, RequestHandler $handler): Response
 	{

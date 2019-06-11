@@ -10,12 +10,12 @@ namespace ES\Kernel\Models\User;
 
 use ES\Kernel\Configs\Config;
 use ES\Kernel\Helper\FlashText;
-use ES\Kernel\System\Auth\Authentication\Authentication;
-use ES\Kernel\System\Auth\Authorization\Authorization;
-use ES\Kernel\System\Auth\JWTokenManager;
+use ES\Kernel\Auth\Authentication\Authentication;
+use ES\Kernel\Auth\Authorization\Authorization;
+use ES\Kernel\Auth\JWTokenManager;
 use ES\Kernel\Helper\Util;
-use ES\Kernel\System\Validators\AbstractValidator;
-use ES\Kernel\System\Validators\Validators;
+use ES\Kernel\Validators\AbstractValidator;
+use ES\Kernel\Validators\Validators;
 
 class User implements UserInterface
 {

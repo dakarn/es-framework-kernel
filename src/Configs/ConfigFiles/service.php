@@ -2,7 +2,7 @@
 
 return [
 	'writer' => [
-		'class' => App\Service\Writer::class,
+		'class' => ES\App\Service\Writer::class,
 		'arguments' => [
 			'type' => 5
 		]

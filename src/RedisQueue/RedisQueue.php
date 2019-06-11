@@ -8,9 +8,6 @@
 
 namespace ES\Kernel\RedisQueue;
 
-use ES\Kernel\Helper\Util;
-use ES\Kernel\System\Logger\LogLevel;
-
 class RedisQueue implements RedisQueueInterface
 {
     /**

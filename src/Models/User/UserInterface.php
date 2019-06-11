@@ -8,7 +8,7 @@
 
 namespace ES\Kernel\Models\User;
 
-use ES\Kernel\System\Validators\AbstractValidator;
+use ES\Kernel\Validators\AbstractValidator;
 
 interface UserInterface
 {

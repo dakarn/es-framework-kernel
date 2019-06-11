@@ -1,8 +1,8 @@
 <?php
 
-use ES\Kernel\System\Database\Schema\MySQL\{TeacherTables, ESFrameworkTables};
-use ES\Kernel\System\Database\DB;
-use ES\Kernel\System\Database\Schema\MySQL\MySQLDatabases;
+use ES\Kernel\Database\Schema\MySQL\{TeacherTables, ESFrameworkTables};
+use ES\Kernel\Database\DB;
+use ES\Kernel\Database\Schema\MySQL\MySQLDatabases;
 
 return [
 	DB::MYSQL => [

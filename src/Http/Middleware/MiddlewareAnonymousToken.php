@@ -13,20 +13,20 @@ use ES\Kernel\Helper\Util;
 use ES\Kernel\Http\Cookie;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Session\SessionRedis;
-use ES\Kernel\System\Auth\JWTokenManager;
-use ES\Kernel\System\Kernel\TypesApp\AbstractApplication;
+use ES\Kernel\Auth\JWTokenManager;
+use ES\Kernel\Kernel\TypesApp\AbstractApplication;
 use ES\Kernel\System\ES;
 
 class MiddlewareAnonymousToken
 {
-	/**
-	 * @param ServerRequest $request
-	 * @param RequestHandler $handler
-	 * @return \Kernel\Http\Response\Response
-	 * @throws \ES\Kernel\Exception\FileException
-	 * @throws \ES\Kernel\Exception\KernelException
-	 * @throws \ES\Kernel\Exception\MiddlewareException
-	 */
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return \ES\Kernel\Http\Response\Response
+     * @throws \ES\Kernel\Exception\FileException
+     * @throws \ES\Kernel\Exception\KernelException
+     * @throws \ES\Kernel\Exception\MiddlewareException
+     */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
 		$cookie     = Cookie::create()->get(Cookie::JWT);

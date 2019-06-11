@@ -9,8 +9,8 @@
 namespace ES\Kernel\Helper;
 
 use ES\Kernel\Configs\Config;
-use ES\Kernel\System\Logger\Logger;
-use ES\Kernel\System\Logger\LoggerAware;
+use ES\Kernel\Logger\Logger;
+use ES\Kernel\Logger\LoggerAware;
 
 class Util
 {
