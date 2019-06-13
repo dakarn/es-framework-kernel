@@ -1,11 +1,15 @@
 <?php
 
-$script = $_SERVER['argv'][1] ?? null;
+$scriptCLass = $_SERVER['argv'][1] ?? null;
 
-if (empty($script)) {
-    die('Arguments do not contains element with php class.');
+if (empty($scriptClass)) {
+    die('Arguments not contains element with php class.');
 }
 
-$runnerScript = new \ES\Kernel\Console\RunnerScript($script);
-$runnerScript->run();
-$runnerScript->outputResponse();
+try {
+    $runnerScript = new \ES\Kernel\Console\RunnerScript($scriptCLass);
+    $runnerScript->run();
+    $runnerScript->outputResponse();
+} catch (\Throwable $e) {
+    echo $e->getMessage() . \PHP_EOL . \PHP_EOL . $e->getTraceAsString();
+}
