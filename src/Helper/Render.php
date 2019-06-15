@@ -1,6 +1,6 @@
 <?php
 
-namespace ES\Kernel\System;
+namespace ES\Kernel\Helper;
 
 use ES\Kernel\Configs\Config;
 use ES\Kernel\Exception\FileException;

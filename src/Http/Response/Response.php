@@ -9,8 +9,8 @@
 namespace ES\Kernel\Http\Response;
 
 use ES\Kernel\Http\Cookie;
-use ES\Kernel\System\Constants;
-use ES\Kernel\System\Render;
+use ES\Kernel\Helper\Constants;
+use ES\Kernel\Helper\Render;
 use ES\Kernel\Router\Routing;
 
 class Response implements ResponseInterface

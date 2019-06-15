@@ -6,7 +6,7 @@
  * Time: 2:19
  */
 
-namespace ES\Kernel\System;
+namespace ES\Kernel\Helper;
 
 interface RenderInterface
 {

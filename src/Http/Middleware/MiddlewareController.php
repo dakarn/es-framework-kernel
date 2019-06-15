@@ -11,8 +11,8 @@ namespace ES\Kernel\Http\Middleware;
 use ES\Kernel\Http\Request\ServerRequest;
 use ES\Kernel\Http\Response\Text;
 use ES\Kernel\Controller\LauncherController;
-use ES\Kernel\System\ES;
-use ES\Kernel\System\Render;
+use ES\Kernel\Helper\ES;
+use ES\Kernel\Helper\Render;
 use ES\Kernel\Router\Routing;
 
 class MiddlewareController implements MiddlewareInterface

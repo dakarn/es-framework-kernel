@@ -6,7 +6,7 @@
  * Time: 21:36
  */
 
-namespace ES\Kernel\System;
+namespace ES\Kernel\Helper;
 
 class Constants
 {

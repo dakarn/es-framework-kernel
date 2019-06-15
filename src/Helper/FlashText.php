@@ -8,9 +8,7 @@
 
 namespace ES\Kernel\Helper;
 
-use ES\Kernel\Http\Session\SessionRedis;
 use ES\Kernel\Http\Session\SessionSimple;
-use ES\Kernel\Http\Session\Strategy\RedisStrategy;
 use ES\Kernel\Http\Session\Strategy\SimpleSessionStrategy;
 
 class FlashText
@@ -107,6 +105,7 @@ class FlashText
 
 	/**
 	 * @return void
+	 * @throws \ES\Kernel\Exception\FileException
 	 */
 	public static function render()
 	{

@@ -6,7 +6,7 @@
  * Time: 19:57
  */
 
-namespace ES\Kernel\System;
+namespace ES\Kernel\Helper;
 
 class ShortCut
 {

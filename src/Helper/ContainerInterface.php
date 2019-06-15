@@ -6,7 +6,7 @@
  * Time: 13:46
  */
 
-namespace ES\Kernel\System;
+namespace ES\Kernel\Helper;
 
 interface ContainerInterface
 {

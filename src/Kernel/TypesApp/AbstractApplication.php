@@ -12,7 +12,7 @@ use ES\Kernel\EventListener\EventManager;
 use ES\Kernel\Configs\Config;
 use ES\Kernel\Logger\Logger;
 use ES\Kernel\Logger\LoggerAware;
-use ES\Kernel\System\ES;
+use ES\Kernel\Helper\ES;
 
 abstract class AbstractApplication implements ApplicationInterface
 {

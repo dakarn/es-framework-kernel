@@ -17,7 +17,7 @@ use ES\Kernel\Http\Response\FormatResponseInterface;
 use ES\Kernel\Http\Response\Response;
 use ES\Kernel\Http\Session\SessionRedis;
 use ES\Kernel\Http\Session\Strategy\RedisStrategy;
-use ES\Kernel\System\ES;
+use ES\Kernel\Helper\ES;
 use ES\Kernel\Configs\Config;
 use ES\Kernel\EventListener\EventManager;
 use ES\Kernel\Logger\Logger;
@@ -25,7 +25,7 @@ use ES\Kernel\Logger\LoggerAware;
 use ES\Kernel\Router\Routing;
 use ES\Kernel\Service\ServiceContainer;
 use ES\Kernel\Service\ServiceInterface;
-use ES\Kernel\System\Render;
+use ES\Kernel\Helper\Render;
 use ES\Kernel\Router\RouteData;
 use ES\Kernel\Validators\AbstractValidator;
 

@@ -5,27 +5,10 @@
   "type": "kernel",
   "autoload": {
     "psr-4": {
-      "ES\\Kernel\\ElasticSearch\\": "src/ElasticSearch",
-      "ES\\Kernel\\Exception\\": "src/Exception",
-      "ES\\Kernel\\Helper\\": "src/Helper",
-      "ES\\Kernel\\Http\\": "src/Http",
-      "ES\\Kernel\\Authentication\\": "src/Authentication",
-      "ES\\Kernel\\Authorization\\": "src/Authorization",
-      "ES\\Kernel\\Providers\\": "src/Providers",
-      "ES\\Kernel\\ObjectMapper\\": "src/ObjectMapper",
-      "ES\\Kernel\\QueueManager\\": "src/QueueManager",
-      "ES\\Kernel\\UserManager\\": "src/UserManager",
-      "ES\\Kernel\\RedisQueue\\": "src/RedisQueue",
-      "ES\\Kernel\\FFMpeg\\": "src/FFMpeg",
-      "ES\\Kernel\\System\\": "src/System",
-      "ES\\Kernel\\Traits\\": "src/Traits",
-      "ES\\Kernel\\Widget\\": "src/Widget",
-      "ES\\Kernel\\Configs\\": "src/Configs",
-      "ES\\Kernel\\Models\\": "src/Models",
-      "ES\\Kernel\\Kafka\\": "src/Kafka"
+      "ES\\Kernel\\": "src"
     },
     "files": [
-      "src/System/DefineSetup.php"
+      "src/Helper/DefineSetup.php"
     ]
   },
   "autoload-dev": {

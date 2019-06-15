@@ -8,7 +8,7 @@
 
 namespace ES\Kernel\Http;
 
-use ES\Kernel\System\Constants;
+use ES\Kernel\Helper\Constants;
 use ES\Kernel\Traits\SingletonTrait;
 
 class Cookie implements CookieInterface

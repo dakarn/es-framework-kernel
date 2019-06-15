@@ -14,7 +14,7 @@ use ES\Kernel\EventListener\EventManager;
 use ES\Kernel\Kernel\GETParam;
 use ES\Kernel\EventListener\EventTypes;
 use ES\Kernel\Kernel\TypesApp\AbstractApplication;
-use ES\Kernel\System\Render;
+use ES\Kernel\Helper\Render;
 use ES\Kernel\Router\RouteData;
 use ES\Kernel\Router\Router;
 use ES\Kernel\Exception\ControllerException;

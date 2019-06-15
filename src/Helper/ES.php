@@ -6,7 +6,7 @@
  * Time: 2:25
  */
 
-namespace ES\Kernel\System;
+namespace ES\Kernel\Helper;
 
 use ES\Kernel\Exception\KernelException;
 

@@ -1,12 +1,6 @@
 <?php
-/**
- * @version   1.0
- * @package   projmet
- * @filename  Mail.php
- * @author    khomenko
- * @created   20.12.13 15:58
- */
-namespace ES\Kernel\App;
+
+namespace ES\Kernel\Helper;
 
 use ES\Kernel\Helper\Util;
 use ES\Kernel\Helper\Mime;
