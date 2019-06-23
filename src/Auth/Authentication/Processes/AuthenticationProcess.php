@@ -14,6 +14,7 @@ use ES\Kernel\Helper\Util;
 use ES\Kernel\Http\Session\SessionRedis;
 use ES\Kernel\Models\User\UserInterface;
 use ES\Kernel\Auth\JWTokenManager;
+use ES\Kernel\Validators\AbstractValidator;
 
 class AuthenticationProcess extends FillingPayload implements AuthenticationProcessInterface
 {
@@ -23,12 +24,19 @@ class AuthenticationProcess extends FillingPayload implements AuthenticationProc
 	private $user;
 
 	/**
-	 * AuthenticationProcess constructor.
-	 * @param UserInterface $user
+	 * @var AbstractValidator
 	 */
-	public function __construct(UserInterface $user)
+	private $validator;
+
+	/**
+	 * AuthenticationProcess constructor
+	 * @param UserInterface $user
+	 * @param AbstractValidator $validator
+	 */
+	public function __construct(UserInterface $user, AbstractValidator $validator)
 	{
-		$this->user = $user;
+		$this->user      = $user;
+		$this->validator = $validator;
 	}
 
 	/**
@@ -40,6 +48,7 @@ class AuthenticationProcess extends FillingPayload implements AuthenticationProc
 	{
 		$tokenRepository     = StorageRepository::getTokenRepository();
 		$clientAppRepository = StorageRepository::getClientAppRepository();
+		$clientAppRepository->loadClientApp($this->validator);
 
 		$JWTokenManager = JWTokenManager::create();
 

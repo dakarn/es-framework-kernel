@@ -8,12 +8,24 @@
 
 namespace ES\Kernel\Auth;
 
+use ES\Kernel\Helper\StorageHelper\AbstractStorage;
 use ES\Kernel\Helper\Util;
 use ES\Kernel\Database\DB;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 use ES\Kernel\Validators\AbstractValidator;
 
-class TokenStorage
+class TokenStorage extends AbstractStorage
 {
+	/**
+	 * @param ClassToMappingInterface|string $classToMapping
+	 * @return TokenStorage
+	 */
+	public function packToObject($classToMapping): TokenStorage
+	{
+		parent::packToObject($classToMapping);
+		return $this;
+	}
+
 	/**
 	 * @param JWTokenManager $JWToken
 	 * @param string $refreshToken
@@ -106,9 +118,9 @@ class TokenStorage
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function loadByRefreshToken(AbstractValidator $validator): array
+	public function loadByRefreshToken(AbstractValidator $validator): ClassToMappingInterface
 	{
-		 return DB::getMySQL()->getESFramework()->fetchRow('
+		 return DB::getMySQL()->getESFramework()->fetchRowToObject('
 			SELECT 
 				*
 			FROM 
@@ -116,7 +128,7 @@ class TokenStorage
 			WHERE 
 				refresh = \'' . $validator->getValueField('refreshToken') . '\'
 			LIMIT 1
-		') ?? [];
+		', $this->classToMapping);
 	}
 
 	/**
@@ -125,9 +137,9 @@ class TokenStorage
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function loadByUserId(int $userId, int $maxAuthUserWithDevices): array
+	public function loadByUserId(int $userId, int $maxAuthUserWithDevices): ClassToMappingInterface
 	{
-		 return DB::getMySQL()->getESFramework()->fetch('
+		 return DB::getMySQL()->getESFramework()->fetchRowToObject('
 			SELECT 
 				*
 			FROM 
@@ -135,6 +147,6 @@ class TokenStorage
 			WHERE 
 				userId = \'' . $userId . '\'
 			LIMIT ' . $maxAuthUserWithDevices . '
-		') ?? [];
+		', $this->classToMapping);
 	}
 }

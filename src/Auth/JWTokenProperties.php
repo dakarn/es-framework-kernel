@@ -9,8 +9,9 @@
 namespace ES\Kernel\Auth;
 
 use ES\Kernel\Http\Cookie;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 
-class JWTokenProperties
+class JWTokenProperties implements ClassToMappingInterface
 {
 	/**
 	 * @var array
@@ -85,6 +86,23 @@ class JWTokenProperties
 	 */
 	private $uniqueId = '';
 
+	public function getProperties(): array
+	{
+		return [
+			'role',
+			'userId',
+			'login',
+			'email',
+			'exp',
+			'created',
+			'iat',
+			'iss',
+			'sub',
+			'userIp',
+			'uniqueId',
+		];
+	}
+
 	/**
 	 * JWTokenProperties constructor.
 	 * @param array $props
@@ -94,16 +112,16 @@ class JWTokenProperties
 		$this->header['alg'] = $props['alg'] ?? '';
 		$this->header['typ'] = $props['typ'] ?? '';
 
-		$this->role    = $props['role'];
-		$this->userId  = $props['userId'];
-		$this->login   = $props['login'];
-		$this->email   = $props['email'];
-		$this->exp     = $props['exp'];
-		$this->created = $props['created'];
-		$this->iat     = $props['iat'];
-		$this->iss     = $props['iss'] ?? '';
-		$this->sub     = $props['sub'] ?? '';
-		$this->userIp  = $props['ip'] ?? '';
+		$this->role      = $props['role'];
+		$this->userId    = $props['userId'];
+		$this->login     = $props['login'];
+		$this->email     = $props['email'];
+		$this->exp       = $props['exp'];
+		$this->created   = $props['created'];
+		$this->iat       = $props['iat'];
+		$this->iss       = $props['iss'] ?? '';
+		$this->sub       = $props['sub'] ?? '';
+		$this->userIp    = $props['ip'] ?? '';
 		$this->uniqueId  = $props['uniqueId'] ?? '';
 	}
 

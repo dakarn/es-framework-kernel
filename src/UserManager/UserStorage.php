@@ -2,9 +2,17 @@
 
 namespace ES\Kernel\UserManager;
 
-class UserStorage
+use ES\Kernel\Helper\StorageHelper\AbstractStorage;
+
+class UserStorage extends AbstractStorage
 {
-    public function createUser()
+	public function packToObject($classToMapping)
+	{
+		parent::packToObject($classToMapping);
+		return $this;
+	}
+
+	public function createUser()
     {
 
     }

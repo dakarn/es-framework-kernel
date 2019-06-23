@@ -63,7 +63,7 @@ class Authorization implements AuthorizationInterface
 
 	/**
 	 * @param int $checkRole
-	 * @param int $userRole
+	 * @param User $user
 	 * @return bool
 	 */
 	public function isGranted(int $checkRole, User $user): bool

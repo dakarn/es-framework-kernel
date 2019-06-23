@@ -9,6 +9,7 @@
 namespace ES\Kernel\Auth\Authentication;
 
 use ES\Kernel\Models\User\UserInterface;
+use ES\Kernel\Validators\AbstractValidator;
 
 interface AuthenticationInterface
 {
@@ -26,9 +27,10 @@ interface AuthenticationInterface
 
 	/**
 	 * @param UserInterface $user
-	 * @return Authentication
+	 * @param AbstractValidator $validator
+	 * @return AuthenticationInterface
 	 */
-	public function processAuthentication(UserInterface $user): AuthenticationInterface;
+	public function processAuthentication(UserInterface $user, AbstractValidator $validator): AuthenticationInterface;
 
 	/**
 	 * @param UserInterface $user

@@ -33,14 +33,14 @@ interface DBAdapterInterface
 	 * @param string $object
 	 * @return mixed
 	 */
-	public function fetchToObjectList(string $sql, string $abstractList, string $object);
+	public function fetchToObjectList(string $sql, $abstractList, $object = null);
 
 	/**
 	 * @param string $sql
 	 * @param string $object
 	 * @return mixed
 	 */
-	public function fetchRowToObject(string $sql, string $object);
+	public function fetchRowToObject(string $sql, $object);
 
 	/**
 	 * @return mixed

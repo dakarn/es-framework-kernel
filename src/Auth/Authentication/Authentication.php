@@ -8,7 +8,6 @@
 
 namespace ES\Kernel\Auth\Authentication;
 
-use ES\Kernel\Auth\Authentication\Processes\AuthByUserIdProcess;
 use ES\Kernel\Auth\Authentication\Processes\AuthenticationProcess;
 use ES\Kernel\Auth\Authentication\Processes\LogoutAllDevicesProcess;
 use ES\Kernel\Auth\Authentication\Processes\LogoutProcess;
@@ -96,13 +95,13 @@ class Authentication implements AuthenticationInterface
 
 	/**
 	 * @param UserInterface $user
+	 * @param AbstractValidator $validator
 	 * @return Authentication
 	 * @throws FileException
-	 * @throws \Exception
 	 */
-	public function processAuthentication(UserInterface $user): AuthenticationInterface
+	public function processAuthentication(UserInterface $user, AbstractValidator $validator): AuthenticationInterface
 	{
-		$logoutProcess  = new AuthenticationProcess($user);
+		$logoutProcess  = new AuthenticationProcess($user, $validator);
 		$this->isAuth   = $logoutProcess->execute();
 
 		if ($this->isAuth) {
@@ -115,13 +114,9 @@ class Authentication implements AuthenticationInterface
 	/**
 	 * @param UserInterface $user
 	 * @return Authentication
-	 * @throws FileException
 	 */
 	public function processAuthByUserId(UserInterface $user): AuthenticationInterface
 	{
-		$logoutProcess  = new AuthByUserIdProcess($user);
-		$this->isAuth   = $logoutProcess->execute();
-
 		return $this;
 	}
 

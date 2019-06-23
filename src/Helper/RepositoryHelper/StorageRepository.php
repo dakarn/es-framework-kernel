@@ -47,7 +47,7 @@ class StorageRepository
 	 * @param string $repository
 	 * @return RepositoryInterface
 	 */
-	public static function getRepository(string $repository): RepositoryInterface
+	private static function getRepository(string $repository): RepositoryInterface
 	{
 		if (!isset(self::$repositories[$repository])) {
 			self::$repositories[$repository] = new $repository();

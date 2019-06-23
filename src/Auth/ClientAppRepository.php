@@ -19,19 +19,19 @@ class ClientAppRepository extends AbstractRepository
 	 * @return ClientApp
 	 * @throws \Exception
 	 */
-	public function loadClientApp(AbstractValidator $validator):? ClientApp
+	public function loadClientApp(AbstractValidator $validator): ?ClientApp
 	{
-		$result = $this->getStorage()->loadClientApp($validator);
+		$result = $this->getStorage()->packToObject(ClientApp::class)->loadClientApp($validator);
 
 		if (!empty($result)) {
-			if ($result['site'] !== $validator->getValueField('site')) {
+			if ($result->getSite() !== $validator->getValueField('site')) {
 				return null;
 			}
 
 			$this->isLoaded = true;
 		}
 
-		$this->resultOperation = ObjectMapper::create()->arrayToObject($result, ClientApp::class);
+		$this->resultOperation = $result;
 
 		return $this->resultOperation;
 	}

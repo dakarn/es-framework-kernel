@@ -72,7 +72,7 @@ class DBAdapter implements DBAdapterInterface
 	 * @return AbstractList
 	 * @throws \ES\Kernel\Exception\ObjectException
 	 */
-	public function fetchToObjectList(string $sql, string $abstractList, string $object = null): AbstractList
+	public function fetchToObjectList(string $sql, $abstractList, $object = null): AbstractList
 	{
 		return ObjectMapper::create()->arraysToObjectList($this->adaptee->fetch($sql), $abstractList, $object);
 	}
@@ -83,7 +83,7 @@ class DBAdapter implements DBAdapterInterface
 	 * @return mixed
 	 * @throws \ES\Kernel\Exception\ObjectException
 	 */
-	public function fetchRowToObject(string $sql, string $object)
+	public function fetchRowToObject(string $sql, $object)
 	{
 		return ObjectMapper::create()->arrayToObject($this->adaptee->fetchRow($sql), $object);
 	}
