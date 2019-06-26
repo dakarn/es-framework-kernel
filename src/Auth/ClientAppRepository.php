@@ -21,7 +21,7 @@ class ClientAppRepository extends AbstractRepository
 	 */
 	public function loadClientApp(AbstractValidator $validator): ?ClientApp
 	{
-		$result = $this->getStorage()->packToObject(ClientApp::class)->loadClientApp($validator);
+		$result = $this->getStorage()->loadClientApp($validator);
 
 		if (!empty($result)) {
 			if ($result->getSite() !== $validator->getValueField('site')) {

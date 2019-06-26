@@ -8,27 +8,28 @@
 
 namespace ES\Kernel\Auth;
 
-use ES\Kernel\Database\DB;
-use ES\Kernel\Helper\StorageHelper\AbstractStorage;
+use ES\Kernel\Exception\ObjectException;
+use ES\Kernel\Helper\StorageHelper\EsFrameworkMySQLStorage;
 use ES\Kernel\Validators\AbstractValidator;
 
-class ClientAppStorage extends AbstractStorage
+class ClientAppStorage extends EsFrameworkMySQLStorage
 {
-	public function packToObject($classToMapping)
-	{
-		parent::packToObject($classToMapping);
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    protected function getObjectName(): string
+    {
+        return ClientApp::class;
+    }
 
 	/**
 	 * @param AbstractValidator $validator
 	 * @return ClientApp
-	 * @throws \ES\Kernel\Exception\FileException
-	 * @throws \ES\Kernel\Exception\ObjectException
+     * @throws ObjectException
 	 */
 	public function loadClientApp(AbstractValidator $validator): ClientApp
 	{
-		return DB::getMySQL()->getESFramework()->fetchRowToObject('
+		return $this->fetchRowToObject('
 			SELECT * 
 			FROM 
 				`access_application`
@@ -37,6 +38,6 @@ class ClientAppStorage extends AbstractStorage
 				AND 
 				`clientSecret` = \'' . $validator->getValueField('clientSecret') . '\'
 			LIMIT 1
-		', $this->classToMapping);
+		');
 	}
 }

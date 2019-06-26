@@ -80,6 +80,16 @@ class PgSQLAdapter implements AdapteeInterface
 
 	}
 
+    /**
+     * @param $text
+     * @param bool $isReader
+     * @return mixed|string
+     */
+    public function escapeString($text, bool $isReader)
+    {
+        return $isReader ? pg_escape_string($this->reader, $text) : pg_escape_string($this->writer, $text);
+    }
+
 	/**
 	 * @param string $sql
 	 * @return array

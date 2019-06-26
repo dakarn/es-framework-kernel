@@ -242,6 +242,16 @@ class MySQLAdapter implements AdapteeInterface
 		return $this->writer->close() && $this->reader->close();
 	}
 
+    /**
+     * @param $text
+     * @param bool $isReader
+     * @return string
+     */
+	public function escapeString($text, bool $isReader)
+    {
+        return $isReader ? $this->reader->escape_string($text) : $this->writer->escape_string($text);
+    }
+
 	/**
 	 * @return mixed|void
 	 */

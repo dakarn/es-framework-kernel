@@ -65,6 +65,13 @@ interface AdapteeInterface
 	 */
 	public function insert(string $sql): bool;
 
+    /**
+     * @param $text
+     * @param bool $isReader
+     * @return mixed
+     */
+    public function escapeString($text, bool $isReader);
+
 	/**
 	 * @param string $sql
 	 * @return bool

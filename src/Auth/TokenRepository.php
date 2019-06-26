@@ -9,6 +9,7 @@
 namespace ES\Kernel\Auth;
 
 use ES\Kernel\Configs\Config;
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\RepositoryHelper\AbstractRepository;
 use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 use ES\Kernel\ObjectMapper\ObjectMapper;
@@ -73,7 +74,7 @@ class TokenRepository extends AbstractRepository
 	 */
 	public function loadByRefreshToken(AbstractValidator $validator): TokenModel
 	{
-		$result = $this->getStorage()->packToObject(TokenModel::class)->loadByRefreshToken($validator);
+		$result = $this->getStorage()->loadByRefreshToken($validator);
 
 		if (!empty($result)) {
 			$this->isLoaded = true;
@@ -85,14 +86,14 @@ class TokenRepository extends AbstractRepository
 	/**
 	 * @param int $userId
 	 * @return ClassToMappingInterface|null
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 * @throws \Exception
 	 */
 	public function loadByUserId(int $userId): ?ClassToMappingInterface
 	{
 		$maxAuthUserWithDevices = Config::get('common', 'maxAuthUserWithDevices');
 
-		$result = $this->getStorage()->packToObject(TokenModel::class)->loadByUserId($userId, $maxAuthUserWithDevices);
+		$result = $this->getStorage()->loadByUserId($userId, $maxAuthUserWithDevices);
 
 		if (!empty($result)) {
 			$this->isLoaded = true;

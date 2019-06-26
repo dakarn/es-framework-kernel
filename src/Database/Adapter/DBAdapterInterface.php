@@ -42,6 +42,13 @@ interface DBAdapterInterface
 	 */
 	public function fetchRowToObject(string $sql, $object);
 
+    /**
+     * @param $text
+     * @param bool $isReader
+     * @return mixed
+     */
+    public function escapeString($text, bool $isReader);
+
 	/**
 	 * @return mixed
 	 */

@@ -8,23 +8,20 @@
 
 namespace ES\Kernel\Auth;
 
-use ES\Kernel\Helper\StorageHelper\AbstractStorage;
+use ES\Kernel\Helper\StorageHelper\EsFrameworkMySQLStorage;
 use ES\Kernel\Helper\Util;
-use ES\Kernel\Database\DB;
 use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 use ES\Kernel\Validators\AbstractValidator;
 
-class TokenStorage extends AbstractStorage
+class TokenStorage extends EsFrameworkMySQLStorage
 {
-	/**
-	 * @param ClassToMappingInterface|string $classToMapping
-	 * @return TokenStorage
-	 */
-	public function packToObject($classToMapping): TokenStorage
-	{
-		parent::packToObject($classToMapping);
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    protected function getObjectName(): string
+    {
+        return ClientApp::class;
+    }
 
 	/**
 	 * @param JWTokenManager $JWToken
@@ -35,13 +32,13 @@ class TokenStorage extends AbstractStorage
 	 */
 	public function updateRefreshToken(JWTokenManager $JWToken, string $refreshToken, TokenModel $tokenModel): bool
 	{
-		$result = DB::getMySQL()->getESFramework()->update('
+		$result = $this->getConnection()->update('
 			UPDATE 
 				`access_tokens` 
 			SET
 				`refresh` = \'' . $refreshToken . '\',
-				`access` = \'' . $JWToken->getPartToken(JWTokenManager::SIGN_TOKEN) . '\',
-				`expire` = \'' . $JWToken->getProperties()->getExpAsDT() . '\',
+				`access`  = \'' . $JWToken->getPartToken(JWTokenManager::SIGN_TOKEN) . '\',
+				`expire`  = \'' . $JWToken->getProperties()->getExpAsDT() . '\',
 				`created` = \'' . Util::toDbTime() . '\'
 			WHERE 
 				`refresh` = \'' . $tokenModel->getRefresh() . '\'
@@ -57,7 +54,7 @@ class TokenStorage extends AbstractStorage
 	 */
 	public function deleteByAccessToken(string $token): bool
 	{
-		return DB::getMySQL()->getESFramework()->delete('
+		return $this->getConnection()->delete('
 			DELETE
 			FROM 
 				access_tokens
@@ -73,7 +70,7 @@ class TokenStorage extends AbstractStorage
 	 */
 	public function deleteTokensByUserId(int $userId): bool
 	{
-        DB::getMySQL()->getESFramework()->delete('
+        $this->getConnection()->delete('
 			DELETE
 			FROM 
 				access_tokens
@@ -93,7 +90,7 @@ class TokenStorage extends AbstractStorage
 	 */
 	public function addAccessToken(string $refreshToken, string $token, JWTokenProperties $JWTokenProperties): bool
 	{
-        DB::getMySQL()->getESFramework()->insert('
+        $this->getConnection()->insert('
 			INSERT INTO `access_tokens`
 			(
 				`access`, 
@@ -120,7 +117,7 @@ class TokenStorage extends AbstractStorage
 	 */
 	public function loadByRefreshToken(AbstractValidator $validator): ClassToMappingInterface
 	{
-		 return DB::getMySQL()->getESFramework()->fetchRowToObject('
+		 return $this->fetchRowToObject('
 			SELECT 
 				*
 			FROM 
@@ -128,7 +125,7 @@ class TokenStorage extends AbstractStorage
 			WHERE 
 				refresh = \'' . $validator->getValueField('refreshToken') . '\'
 			LIMIT 1
-		', $this->classToMapping);
+		');
 	}
 
 	/**
@@ -139,7 +136,7 @@ class TokenStorage extends AbstractStorage
 	 */
 	public function loadByUserId(int $userId, int $maxAuthUserWithDevices): ClassToMappingInterface
 	{
-		 return DB::getMySQL()->getESFramework()->fetchRowToObject('
+		 return $this->fetchRowToObject('
 			SELECT 
 				*
 			FROM 
@@ -147,6 +144,6 @@ class TokenStorage extends AbstractStorage
 			WHERE 
 				userId = \'' . $userId . '\'
 			LIMIT ' . $maxAuthUserWithDevices . '
-		', $this->classToMapping);
+		');
 	}
 }

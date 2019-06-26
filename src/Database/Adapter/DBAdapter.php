@@ -8,6 +8,7 @@
 
 namespace ES\Kernel\Database\Adapter;
 
+use ES\Kernel\Exception\ObjectException;
 use ES\Kernel\Helper\AbstractList;
 use ES\Kernel\ObjectMapper\ObjectMapper;
 
@@ -70,18 +71,22 @@ class DBAdapter implements DBAdapterInterface
 	 * @param string $abstractList
 	 * @param string $object
 	 * @return AbstractList
-	 * @throws \ES\Kernel\Exception\ObjectException
+	 * @throws ObjectException
 	 */
 	public function fetchToObjectList(string $sql, $abstractList, $object = null): AbstractList
 	{
 		return ObjectMapper::create()->arraysToObjectList($this->adaptee->fetch($sql), $abstractList, $object);
 	}
 
+    public function escapeString($text, bool $isReader)
+    {
+        return $this->adaptee->escapeString($text, $isReader);
+    }
 	/**
 	 * @param string $sql
 	 * @param string $object
 	 * @return mixed
-	 * @throws \ES\Kernel\Exception\ObjectException
+	 * @throws ObjectException
 	 */
 	public function fetchRowToObject(string $sql, $object)
 	{

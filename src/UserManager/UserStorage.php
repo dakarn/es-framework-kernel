@@ -2,15 +2,14 @@
 
 namespace ES\Kernel\UserManager;
 
-use ES\Kernel\Helper\StorageHelper\AbstractStorage;
+use ES\Kernel\Helper\StorageHelper\EsFrameworkMySQLStorage;
 
-class UserStorage extends AbstractStorage
+class UserStorage extends EsFrameworkMySQLStorage
 {
-	public function packToObject($classToMapping)
-	{
-		parent::packToObject($classToMapping);
-		return $this;
-	}
+    protected function getObjectName()
+    {
+        return User::class;
+    }
 
 	public function createUser()
     {

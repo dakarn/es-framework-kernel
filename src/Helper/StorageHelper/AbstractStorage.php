@@ -8,26 +8,47 @@
 
 namespace ES\Kernel\Helper\StorageHelper;
 
-use ES\Kernel\ObjectMapper\ClassToMappingInterface;
+use ES\Kernel\Database\Adapter\DBAdapter;
+use ES\Kernel\Exception\ObjectException;
+use RuntimeException;
 
 abstract class AbstractStorage
 {
-	protected $classToMapping;
+    /**
+     * @param string $sql
+     * @return mixed
+     * @throws ObjectException
+     */
+	protected function fetchRowToObject(string $sql)
+    {
+        return $this->getConnection()->fetchRowToObject($sql, $this->getObjectName());
+    }
 
-	/**
-	 * @param $classToMapping ClassToMappingInterface|string
-	 * @return $this
-	 */
-	public function packToObject($classToMapping)
-	{
-		if (\is_string($classToMapping)) {
-			$this->classToMapping = new $classToMapping();
-		}
+    /**
+     * @param string $sql
+     * @return string
+     * @throws ObjectException
+     */
+    protected function fetchRowToObjectList(string $sql): string
+    {
+        return $this->getConnection()->fetchToObjectList($sql, $this->getObjectName());
+    }
 
-		if (!$classToMapping instanceof ClassToMappingInterface) {
-			throw new \RuntimeException('Object must be implements interface ClassToMappingInterface');
-		}
+    /**
+     * @return mixed
+     */
+	protected function getObjectName()
+    {
+        throw new RuntimeException('The method no use');
+    }
 
-		return $this;
-	}
+    /**
+     * @return mixed
+     */
+	protected function getObjectListName()
+    {
+        throw new RuntimeException('The method no use');
+    }
+
+    abstract protected function getConnection(): DBAdapter;
 }
