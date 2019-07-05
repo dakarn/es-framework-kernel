@@ -10,26 +10,28 @@ namespace ES\Kernel\Helper\StorageHelper;
 
 use ES\Kernel\Database\Adapter\DBAdapter;
 use ES\Kernel\Exception\ObjectException;
+use ES\Kernel\Helper\AbstractList;
+use ES\Kernel\ObjectMapper\ClassToMappingInterface;
 use RuntimeException;
 
 abstract class AbstractStorage
 {
     /**
      * @param string $sql
-     * @return mixed
+     * @return ClassToMappingInterface
      * @throws ObjectException
      */
-	protected function fetchRowToObject(string $sql)
+	protected function fetchRowToObject(string $sql): ClassToMappingInterface
     {
         return $this->getConnection()->fetchRowToObject($sql, $this->getObjectName());
     }
 
     /**
      * @param string $sql
-     * @return string
+     * @return AbstractList
      * @throws ObjectException
      */
-    protected function fetchRowToObjectList(string $sql): string
+    protected function fetchToObjectList(string $sql): AbstractList
     {
         return $this->getConnection()->fetchToObjectList($sql, $this->getObjectName());
     }

@@ -8,6 +8,7 @@
 
 namespace ES\Kernel\Helper;
 
+use ES\Kernel\Database\ORM\QueryBuilder;
 use ES\Kernel\Database\Schema\MySQL\MySQLDatabases;
 use ES\Kernel\Database\Schema\PgSQL\PostgresDatabases;
 
@@ -33,6 +34,14 @@ class StorageObjects
 	{
 		return self::get(PostgresDatabases::class);
 	}
+
+    /**
+     * @return QueryBuilder
+     */
+    public static function getQueryBuilder(): QueryBuilder
+    {
+        return self::get(QueryBuilder::class);
+    }
 
 	/**
 	 * @param string $objectName
