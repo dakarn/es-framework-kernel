@@ -13,13 +13,15 @@ class QueryBuilder
     /**
      * @var string
      */
-    private $sql = '';
+    private $sql = [];
 
     /**
      * @return QueryBuilder
      */
     public function select(): QueryBuilder
     {
+        $this->sql[] = 'SELECT';
+
         return $this;
     }
 
@@ -27,8 +29,10 @@ class QueryBuilder
      * @param array $columns
      * @return QueryBuilder
      */
-    public function columns(array $columns): QueryBuilder
+    public function columns(array $columns = ['*']): QueryBuilder
     {
+        $this->sql[] = \implode($columns, ', ');
+
         return $this;
     }
 
@@ -37,6 +41,8 @@ class QueryBuilder
      */
     public function distinct(): QueryBuilder
     {
+        $this->sql[] = 'DISTINCT';
+
         return $this;
     }
 
@@ -113,11 +119,12 @@ class QueryBuilder
     }
 
     /**
-     * @param string $tables
+     * @param array $tables
      * @return QueryBuilder
      */
-    public function from(string $tables): QueryBuilder
+    public function from(array $tables): QueryBuilder
     {
+        $this->sql[] = 'FROM ' . \implode($tables, ', ');
         return $this;
     }
 
@@ -168,6 +175,8 @@ class QueryBuilder
      */
     public function on(string $column1, string $column2): QueryBuilder
     {
+        $this->sql[] = $column1 . ' = ' . $column2;
+
         return $this;
     }
 

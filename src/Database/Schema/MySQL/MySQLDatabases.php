@@ -12,6 +12,7 @@ use ES\Kernel\Database\Adapter\DBAdapter;
 use ES\Kernel\Database\Adapter\MySQLAdapter;
 use ES\Kernel\Database\Schema\InitAdaptersDatabases;
 use ES\Kernel\Database\Connector\MySQL;
+use ES\Kernel\Exception\FileException;
 
 class MySQLDatabases extends InitAdaptersDatabases
 {
@@ -28,7 +29,7 @@ class MySQLDatabases extends InitAdaptersDatabases
 
 	/**
 	 * @return DBAdapter
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public function getESFramework(): DBAdapter
 	{

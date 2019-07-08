@@ -2,6 +2,9 @@
 
 namespace ES\Kernel\Database;
 
+use ES\Kernel\Database\QueryBuilder\QueryBuilderMySQL;
+use ES\Kernel\Database\QueryBuilder\QueryBuilderPgSQL;
+use ES\Kernel\Exception\FileException;
 use ES\Kernel\Helper\StorageObjects;
 use ES\Kernel\Database\Schema\MySQL\MySQLDatabases;
 use ES\Kernel\Database\Schema\PgSQL\PostgresDatabases;
@@ -35,10 +38,26 @@ class DB
 		return StorageObjects::getPostgresDatabases();
 	}
 
+    /**
+     * @return QueryBuilderMySQL
+     */
+	public static function getQueryBuilderMySQL(): QueryBuilderMySQL
+    {
+        return StorageObjects::getQueryBuilderMySQL();
+    }
+
+    /**
+     * @return QueryBuilderPgSQL
+     */
+    public static function getQueryBuilderPgSQL(): QueryBuilderPgSQL
+    {
+        return StorageObjects::getQueryBuilderPgSQL();
+    }
+
 	/**
 	 * @param string $dbType
 	 * @param string $database
-	 * @throws \ES\Kernel\Exception\FileException
+	 * @throws FileException
 	 */
 	public static function initDbConfig(string $dbType, string $database)
 	{

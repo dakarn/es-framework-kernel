@@ -8,7 +8,9 @@
 
 namespace ES\Kernel\Helper;
 
-use ES\Kernel\Database\ORM\QueryBuilder;
+use ES\Kernel\Database\QueryBuilder\QueryBuilder;
+use ES\Kernel\Database\QueryBuilder\QueryBuilderMySQL;
+use ES\Kernel\Database\QueryBuilder\QueryBuilderPgSQL;
 use ES\Kernel\Database\Schema\MySQL\MySQLDatabases;
 use ES\Kernel\Database\Schema\PgSQL\PostgresDatabases;
 
@@ -36,11 +38,19 @@ class StorageObjects
 	}
 
     /**
-     * @return QueryBuilder
+     * @return QueryBuilderPgSQL
      */
-    public static function getQueryBuilder(): QueryBuilder
+    public static function getQueryBuilderPgSQL(): QueryBuilderPgSQL
     {
-        return self::get(QueryBuilder::class);
+        return self::get(QueryBuilderPgSQL::class);
+    }
+
+    /**
+     * @return QueryBuilderMySQL
+     */
+    public static function getQueryBuilderMySQL(): QueryBuilderMySQL
+    {
+        return self::get(QueryBuilderMySQL::class);
     }
 
 	/**
