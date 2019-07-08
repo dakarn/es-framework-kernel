@@ -59,6 +59,15 @@ class QueryBuilder
     }
 
     /**
+     * @param array $confition
+     * @return QueryBuilder
+     */
+    public function having(array $confition): QueryBuilder
+    {
+        return $this;
+    }
+
+    /**
      * @param string $column
      * @return QueryBuilder
      */
@@ -165,7 +174,7 @@ class QueryBuilder
     /**
      * @return QueryBuilder
      */
-    public function where(): QueryBuilder
+    public function where(array $condition): QueryBuilder
     {
         return $this;
     }
