@@ -18,12 +18,12 @@ class PgSQL extends AbstractDBConnector implements DBConnectorInterface
      */
 	private $readers;
 
-	public function initReader(int $num)
+	public function initSlave(int $num)
 	{
 
 	}
 
-	public function initWriter()
+	public function initMaster()
 	{
 
 	}
@@ -37,7 +37,7 @@ class PgSQL extends AbstractDBConnector implements DBConnectorInterface
 		$this->database = $database;
 		$conf = DbConfig::create()->getConfigure(DB::PGSQL)[$this->database];
 
-		$this->setWriter($conf['write']);
+		$this->setMaster($conf['write']);
 
 		\pg_connect('host= port= dbname= user= password= options=\'--client_encoding=UTF8\'');
 
@@ -51,7 +51,7 @@ class PgSQL extends AbstractDBConnector implements DBConnectorInterface
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function getReader(int $num = 0)
+	public function getSlave(int $num = 0)
 	{
 		if (empty($num)) {
 			$num = \random_int(0, \count($this->readers) - 1);

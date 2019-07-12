@@ -29,12 +29,12 @@ abstract class AbstractDBConnector
     /**
      * @var mixed
      */
-    private $writer;
+    private $master;
 
     /**
      * @var mixed
      */
-    private $reader;
+    private $slave;
 
     /**
      * @var mixed
@@ -49,7 +49,7 @@ abstract class AbstractDBConnector
 	public function __construct(string $database)
 	{
 		$this->database = $database;
-		$this->initWriter();
+		$this->initMaster();
 	}
 
     /**
@@ -74,26 +74,26 @@ abstract class AbstractDBConnector
     /**
      * @return mixed
      */
-    public function getWriter()
+    public function getMaster()
     {
-        return $this->writer;
+        return $this->master;
     }
 
     /**
      * @return mixed
      */
-    public function getReader()
+    public function getSlave()
     {
-        return $this->reader;
+        return $this->slave;
     }
 
     /**
      * @param mixed $writer
      * @return AbstractDBConnector
      */
-    public function setWriter($writer): self
+    public function setMaster($writer): self
     {
-        $this->writer = $writer;
+        $this->master = $writer;
 
         return $this;
     }
@@ -102,13 +102,13 @@ abstract class AbstractDBConnector
      * @param mixed $reader
      * @return AbstractDBConnector
      */
-    public function setReader($reader): self
+    public function setSlave($reader): self
     {
-        $this->reader = $reader;
+        $this->slave = $reader;
 
         return $this;
     }
 
-    abstract protected function initWriter();
-    abstract protected function initReader(int $num);
+    abstract protected function initMaster();
+    abstract protected function initSlave(int $num);
 }

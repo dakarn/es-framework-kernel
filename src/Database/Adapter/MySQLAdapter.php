@@ -16,12 +16,12 @@ class MySQLAdapter implements AdapteeInterface
     /**
      * @var \mysqli
      */
-    private $reader;
+    private $slave;
 
     /**
      * @var \mysqli
      */
-    private $writer;
+    private $master;
 
 	/**
 	 * @var int
@@ -45,8 +45,8 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function __construct(DBConnectorInterface $connector)
 	{
-		$this->writer = $connector->getWriter();
-		$this->reader = $connector->getReader();
+		$this->master = $connector->getMaster();
+		$this->slave  = $connector->getSlave();
 	}
 
     /**
@@ -54,7 +54,7 @@ class MySQLAdapter implements AdapteeInterface
      */
 	public function getWriterConnector(): \mysqli
     {
-        return $this->writer;
+        return $this->master;
     }
 
     /**
@@ -62,7 +62,7 @@ class MySQLAdapter implements AdapteeInterface
      */
     public function getReaderConnector(): \mysqli
     {
-        return $this->reader;
+        return $this->slave;
     }
 
 	/**
@@ -93,10 +93,10 @@ class MySQLAdapter implements AdapteeInterface
 	{
 		switch (true) {
 			case $sqlType === DB::READ:
-				$this->prepareStmt = $this->reader->prepare($prepareSql);
+				$this->prepareStmt = $this->slave->prepare($prepareSql);
 				break;
 			case $sqlType === DB::WRITE:
-				$this->prepareStmt = $this->writer->prepare($prepareSql);
+				$this->prepareStmt = $this->master->prepare($prepareSql);
 				break;
 		}
 
@@ -120,7 +120,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function getError()
 	{
-		return $this->reader->error ?? $this->writer->error;
+		return $this->slave->error ?? $this->master->error;
 	}
 
 	/**
@@ -129,10 +129,10 @@ class MySQLAdapter implements AdapteeInterface
 	public function hasError(): bool
 	{
 		switch (true) {
-			case $this->reader->error !== null:
+			case $this->slave->error !== null:
 				return true;
 				break;
-			case $this->writer->error !== null:
+			case $this->master->error !== null:
 				return true;
 				break;
 		}
@@ -146,7 +146,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetchRow(string $sql): array
 	{
-		$query = $this->result = $this->reader->query($sql);
+		$query = $this->result = $this->slave->query($sql);
 
 		return $query->fetch_assoc() ?? [];
 	}
@@ -157,7 +157,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function fetch(string $sql): array
 	{
-		$query = $this->result = $this->reader->query($sql);
+		$query = $this->result = $this->slave->query($sql);
 		$data  = [];
 
 		while ($row = $query->fetch_assoc()) {
@@ -202,7 +202,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function getLastInsertId()
 	{
-		return $this->writer->insert_id;
+		return $this->master->insert_id;
 	}
 
 	/**
@@ -211,7 +211,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function insert(string $sql): bool
 	{
-		return $this->writer->query($sql);
+		return $this->master->query($sql);
 	}
 
 	/**
@@ -220,9 +220,9 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function update(string $sql): bool
 	{
-		$this->writer->query($sql);
+		$this->master->query($sql);
 
-		return $this->writer->affected_rows;
+		return $this->master->affected_rows;
 	}
 
 	/**
@@ -231,7 +231,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function delete(string $sql): bool
 	{
-		return $this->writer->query($sql);
+		return $this->master->query($sql);
 	}
 
 	/**
@@ -239,7 +239,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function close(): bool
 	{
-		return $this->writer->close() && $this->reader->close();
+		return $this->master->close() && $this->slave->close();
 	}
 
     /**
@@ -249,7 +249,7 @@ class MySQLAdapter implements AdapteeInterface
      */
 	public function escapeString($text, bool $isReader)
     {
-        return $isReader ? $this->reader->escape_string($text) : $this->writer->escape_string($text);
+        return $isReader ? $this->slave->escape_string($text) : $this->master->escape_string($text);
     }
 
 	/**
@@ -257,7 +257,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function startTransaction()
 	{
-		$this->writer->begin_transaction();
+		$this->master->begin_transaction();
 	}
 
 	/**
@@ -265,7 +265,7 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function commitTransaction()
 	{
-		$this->writer->commit();
+		$this->master->commit();
 	}
 
 	/**
@@ -273,6 +273,6 @@ class MySQLAdapter implements AdapteeInterface
 	 */
 	public function rollbackTransaction()
 	{
-		$this->writer->rollback();
+		$this->master->rollback();
 	}
 }

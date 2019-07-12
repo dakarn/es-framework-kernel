@@ -13,12 +13,12 @@ interface DBConnectorInterface
 	/**
 	 * @return mixed
 	 */
-	public function getWriter();
+	public function getMaster();
 
 	/**
 	 * @param int $num
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function getReader(int $num = 0);
+	public function getSlave(int $num = 0);
 }

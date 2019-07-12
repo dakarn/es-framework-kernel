@@ -18,9 +18,9 @@ class MySQL extends AbstractDBConnector implements DBConnectorInterface
 	/**
 	 * @return \mysqli
 	 */
-	public function getWriter(): \mysqli
+	public function getMaster(): \mysqli
 	{
-		return $this->getOneInstance() ?? $this->getWriter();
+		return $this->getOneInstance() ?? $this->getMaster();
 	}
 
 	/**
@@ -28,17 +28,17 @@ class MySQL extends AbstractDBConnector implements DBConnectorInterface
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function getReader(int $num = 0): \mysqli
+	public function getSlave(int $num = 0): \mysqli
 	{
 		if ($this->getOneInstance() !== null) {
 			return $this->getOneInstance();
 		}
 
-		if (!$this->getReader() instanceof \mysqli) {
-			$this->initReader($num);
+		if (!$this->getSlave() instanceof \mysqli) {
+			$this->initSlave($num);
 		}
 
-		return $this->getReader();
+		return $this->getSlave();
 	}
 
 	/**
@@ -58,28 +58,28 @@ class MySQL extends AbstractDBConnector implements DBConnectorInterface
 	 * @param int $num
 	 * @throws \Exception
 	 */
-	protected function initReader(int $num)
+	protected function initSlave(int $num)
 	{
 		try {
 			if (empty($num)) {
 				$num = \rand(0, $this->amountReaders - 1);
 			}
 
-			$this->setReader($this->connect($this->readersConfigList->get($num)));
+			$this->setSlave($this->connect($this->readersConfigList->get($num)));
 		} catch (\mysqli_sql_exception $e) {
 			if ($this->tryReconnectReader === $this->amountReaders - 1) {
 				throw $e;
 			}
 
 			$this->tryReconnectReader++;
-			$this->initReader($this->tryReconnectReader);
+			$this->initSlave($this->tryReconnectReader);
 		}
 	}
 
 	/**
 	 * @throws \Exception
 	 */
-	protected function initWriter()
+	protected function initMaster()
 	{
 		$conf = DbConfig::create()->getConfigure(DB::MYSQL);
 
@@ -93,7 +93,7 @@ class MySQL extends AbstractDBConnector implements DBConnectorInterface
 		$this->amountReaders = $this->readersConfigList->count();
 
 		try {
-			$this->setWriter($this->connect($conf['write']));
+			$this->setMaster($this->connect($conf['write']));
 		} catch (\mysqli_sql_exception $e) {
 			throw $e;
 		}

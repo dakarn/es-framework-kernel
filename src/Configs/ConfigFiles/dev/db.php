@@ -6,7 +6,7 @@ use ES\Kernel\Database\Schema\MySQL\MySQLDatabases;
 return [
 	DB::MYSQL => [
 		MySQLDatabases::TEACHER => [
-			'writeAndRead' => [
+			'masterAndSlave' => [
 			    [
                     'host'     => '127.0.0.1',
                     'user'     => 'root',
@@ -38,7 +38,7 @@ return [
 	],
 	DB::PGSQL => [
 		MySQLDatabases::TEACHER => [
-			'read' => [
+			'slave' => [
 				[
 					'host'     => '127.0.0.1',
 					'user'     => 'root',
@@ -46,7 +46,7 @@ return [
 					'charset'  => 'utf8'
 				]
 			],
-			'write' => [
+			'master' => [
 				'host'     => '127.0.0.1',
 				'user'     => 'root',
 				'password' => '234679',

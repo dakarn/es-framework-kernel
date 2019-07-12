@@ -15,12 +15,12 @@ class PgSQLAdapter implements AdapteeInterface
 	/**
 	 * @var resource
 	 */
-	private $reader;
+	private $slave;
 
 	/**
 	 * @var resource
 	 */
-	private $writer;
+	private $master;
 
 	/**
 	 * @var int
@@ -34,8 +34,8 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function __construct(DBConnectorInterface $connector)
 	{
-		$this->writer = $connector->getWriter();
-		$this->reader = $connector->getReader();
+		$this->master = $connector->getMaster();
+		$this->slave  = $connector->getSlave();
 	}
 
     /**
@@ -43,7 +43,7 @@ class PgSQLAdapter implements AdapteeInterface
      */
     public function getWriterConnector()
     {
-        return $this->writer;
+        return $this->master;
     }
 
     /**
@@ -51,7 +51,7 @@ class PgSQLAdapter implements AdapteeInterface
      */
     public function getReaderConnector()
     {
-        return $this->reader;
+        return $this->slave;
     }
 
 	/**
@@ -87,7 +87,7 @@ class PgSQLAdapter implements AdapteeInterface
      */
     public function escapeString($text, bool $isReader)
     {
-        return $isReader ? pg_escape_string($this->reader, $text) : pg_escape_string($this->writer, $text);
+        return $isReader ? pg_escape_string($this->slave, $text) : pg_escape_string($this->master, $text);
     }
 
 	/**
@@ -96,7 +96,7 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function fetch(string $sql): array
 	{
-		$query = \pg_query($this->reader, $sql);
+		$query = \pg_query($this->slave, $sql);
 		$data  = [];
 
 		while ($row = \pg_fetch_assoc($query)) {
@@ -112,7 +112,7 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function fetchRow(string $sql): array
 	{
-		$query = \pg_query($this->reader, $sql);
+		$query = \pg_query($this->slave, $sql);
 
 		return \pg_fetch_assoc($query);
 
@@ -200,7 +200,7 @@ class PgSQLAdapter implements AdapteeInterface
 	 */
 	public function close(): bool
 	{
-		return \pg_close($this->reader) && \pg_close($this->writer);
+		return \pg_close($this->slave) && \pg_close($this->master);
 	}
 
 	/**
